@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="z7x-lm-5OT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="z7x-lm-5OT">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -22,15 +22,13 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6pg-NV-lel">
                                         <rect key="frame" x="200" y="0.0" width="200" height="100"/>
-                                        <animations/>
-                                        <state key="normal" title="DO IT"/>
+                                        <state key="normal" title="Earn on exchange"/>
                                         <connections>
                                             <segue destination="7Xz-cD-7Wr" kind="show" id="zwk-Jg-s2Q"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gyo-Ym-FEb">
                                         <rect key="frame" x="400" y="0.0" width="200" height="100"/>
-                                        <animations/>
                                         <state key="normal" title="Banks"/>
                                         <connections>
                                             <segue destination="pQq-8h-h1B" kind="show" action="showDetailViewController:sender:" id="9gZ-tC-QS2"/>
@@ -38,14 +36,12 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MKq-EU-DJ8">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
-                                        <animations/>
                                         <state key="normal" title="Convert"/>
                                         <connections>
                                             <segue destination="78R-dC-XLR" kind="show" id="hHe-F8-Wrt"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="gyo-Ym-FEb" firstAttribute="top" secondItem="PX3-vI-br1" secondAttribute="top" id="7hZ-6N-Ota"/>
@@ -64,7 +60,6 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="PX3-vI-br1" secondAttribute="trailing" id="HWx-YT-tf0"/>
@@ -89,7 +84,6 @@
                     <view key="view" contentMode="scaleToFill" id="Zcv-gI-ovT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
@@ -105,7 +99,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bGy-nW-LhG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -127,7 +120,6 @@
                     <view key="view" contentMode="scaleToFill" id="gym-ac-P5X">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
@@ -146,7 +138,6 @@
                     <view key="view" contentMode="scaleToFill" id="AzN-Cy-n4F">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
