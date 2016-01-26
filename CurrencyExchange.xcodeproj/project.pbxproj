@@ -12,6 +12,7 @@
 		6A193CF21C57C9E900093B36 /* ShareGoalsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CF11C57C9E900093B36 /* ShareGoalsViewController.m */; };
 		6A193CF51C57CF0500093B36 /* WebSharingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CF41C57CF0500093B36 /* WebSharingViewController.m */; };
 		6A193CF81C57DB3000093B36 /* BanksTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CF71C57DB3000093B36 /* BanksTableViewController.m */; };
+		6A19D05F1C58035900529993 /* EarnMoneyGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A19D05E1C58035900529993 /* EarnMoneyGraphView.m */; };
 		97ED58621C5796BC004724A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ED58611C5796BC004724A3 /* main.m */; };
 		97ED58651C5796BC004724A3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ED58641C5796BC004724A3 /* AppDelegate.m */; };
 		97ED58681C5796BC004724A3 /* MainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ED58671C5796BC004724A3 /* MainScreenViewController.m */; };
@@ -32,6 +33,8 @@
 		6A193CF41C57CF0500093B36 /* WebSharingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebSharingViewController.m; sourceTree = "<group>"; };
 		6A193CF61C57DB3000093B36 /* BanksTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BanksTableViewController.h; sourceTree = "<group>"; };
 		6A193CF71C57DB3000093B36 /* BanksTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BanksTableViewController.m; sourceTree = "<group>"; };
+		6A19D05D1C58035900529993 /* EarnMoneyGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarnMoneyGraphView.h; sourceTree = "<group>"; };
+		6A19D05E1C58035900529993 /* EarnMoneyGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarnMoneyGraphView.m; sourceTree = "<group>"; };
 		97ED585D1C5796BC004724A3 /* CurrencyExchange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyExchange.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97ED58611C5796BC004724A3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		97ED58631C5796BC004724A3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -95,6 +98,8 @@
 				6A193CF41C57CF0500093B36 /* WebSharingViewController.m */,
 				6A193CF61C57DB3000093B36 /* BanksTableViewController.h */,
 				6A193CF71C57DB3000093B36 /* BanksTableViewController.m */,
+				6A19D05D1C58035900529993 /* EarnMoneyGraphView.h */,
+				6A19D05E1C58035900529993 /* EarnMoneyGraphView.m */,
 			);
 			path = CurrencyExchange;
 			sourceTree = "<group>";
@@ -183,6 +188,7 @@
 				6A193CF81C57DB3000093B36 /* BanksTableViewController.m in Sources */,
 				97ED58651C5796BC004724A3 /* AppDelegate.m in Sources */,
 				6A193CEC1C57BD3800093B36 /* EarnMoneyViewController.m in Sources */,
+				6A19D05F1C58035900529993 /* EarnMoneyGraphView.m in Sources */,
 				97ED58621C5796BC004724A3 /* main.m in Sources */,
 				6A193CF51C57CF0500093B36 /* WebSharingViewController.m in Sources */,
 				97ED586E1C5796BC004724A3 /* CurrencyExchange.xcdatamodeld in Sources */,
