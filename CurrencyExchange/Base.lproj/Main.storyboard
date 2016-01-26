@@ -31,7 +31,7 @@
                                         <rect key="frame" x="400" y="0.0" width="200" height="100"/>
                                         <state key="normal" title="Banks"/>
                                         <connections>
-                                            <segue destination="pQq-8h-h1B" kind="show" action="showDetailViewController:sender:" id="9gZ-tC-QS2"/>
+                                            <segue destination="cRu-7F-ecQ" kind="show" id="GA5-pr-e5w"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MKq-EU-DJ8">
@@ -109,24 +109,6 @@
             </objects>
             <point key="canvasLocation" x="516" y="468"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="wYT-IX-D1z">
-            <objects>
-                <viewController id="pQq-8h-h1B" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="I5S-F5-OiZ"/>
-                        <viewControllerLayoutGuide type="bottom" id="d4V-rh-UtK"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="gym-ac-P5X">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="30r-ne-gPf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1800" y="1246"/>
-        </scene>
         <!--Earn Money View Controller-->
         <scene sceneID="uBN-qn-NdU">
             <objects>
@@ -175,6 +157,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AUY-9y-cXU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1078" y="1246"/>
+        </scene>
+        <!--Banks Table View Controller-->
+        <scene sceneID="PFQ-71-N8b">
+            <objects>
+                <tableViewController id="cRu-7F-ecQ" customClass="BanksTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="qgK-MM-SEL">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="93x-dM-mgS">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="93x-dM-mgS" id="tzI-d1-Z60">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="cRu-7F-ecQ" id="CF3-LE-pwQ"/>
+                            <outlet property="delegate" destination="cRu-7F-ecQ" id="xgB-yh-dmw"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OkR-EE-CT1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1753" y="1246"/>
         </scene>
         <!--Add Control Point To Earn Money View Controller-->
         <scene sceneID="Hrl-JT-ltY">
@@ -269,7 +279,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qCy-qs-te8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1359" y="2798"/>
+            <point key="canvasLocation" x="879" y="2818"/>
         </scene>
         <!--Share Goals View Controller-->
         <scene sceneID="R22-ts-oeu">
