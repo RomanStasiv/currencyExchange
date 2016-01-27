@@ -64,7 +64,7 @@
                                     <constraint firstItem="gyo-Ym-FEb" firstAttribute="leading" secondItem="6pg-NV-lel" secondAttribute="trailing" id="gjj-Mo-l43"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V3c-fi-Ykb">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V3c-fi-Ykb" customClass="CurencyCourseGraph">
                                 <rect key="frame" x="20" y="64" width="560" height="436"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -83,6 +83,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="B2i-vm-Gh3"/>
+                    <connections>
+                        <outlet property="graph" destination="V3c-fi-Ykb" id="mCi-tZ-9TV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
