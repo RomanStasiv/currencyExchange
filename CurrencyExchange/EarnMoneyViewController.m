@@ -22,8 +22,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //[self.grapgView setNeedsDisplay];
-    // Do any additional setup after loading the view.
+    self.graphView.USDStrokeColor = [UIColor blueColor];
+    self.graphView.EURStrokeColor = [UIColor greenColor];
+    [self setNeedsOfIndicator:self.USDColorIndicator WithColor:self.graphView.USDStrokeColor];
+    [self setNeedsOfIndicator:self.EURColorIndicator WithColor:self.graphView.EURStrokeColor];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,7 +44,7 @@
 
 }
 
-- (void)setNeedsOfIndicator:(UIImageView *)colorIndicator WithRed:(CGFloat)red WithGreen:(CGFloat)green WithBlue:(CGFloat)blue WithAlpha:(CGFloat)alpha
+- (void)setNeedsOfIndicator:(UIImageView *)colorIndicator WithColor:(UIColor *)color
 {
     CGFloat diametr = MIN(colorIndicator.frame.size.height, colorIndicator.frame.size.width);
     
@@ -50,7 +52,7 @@
     CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
     CGContextSetLineWidth(UIGraphicsGetCurrentContext(),diametr);
     
-    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, alpha);
+    CGContextSetStrokeColorWithColor(UIGraphicsGetCurrentContext(), [color CGColor]);
     CGContextMoveToPoint(UIGraphicsGetCurrentContext(), diametr/2, diametr/2);
     CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), diametr/2, diametr/2);
     CGContextStrokePath(UIGraphicsGetCurrentContext());

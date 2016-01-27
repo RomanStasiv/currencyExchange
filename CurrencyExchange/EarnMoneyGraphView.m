@@ -53,8 +53,7 @@ static NSString* EUR[] = {
 //__________________________hard coding 25 - len of USD
 - (void)configureVariable
 {
-    self.USDStrokeColor = [UIColor blueColor];
-    self.EURStrokeColor = [UIColor greenColor];
+    
     
     self.EURArray = [[NSMutableArray alloc] init];
     self.USDArray = [[NSMutableArray alloc] init];
