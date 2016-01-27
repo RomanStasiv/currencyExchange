@@ -9,6 +9,7 @@
 #import "MainScreenViewController.h"
 
 @interface MainScreenViewController ()
+@property (weak, nonatomic) IBOutlet UIView *graph;
 
 @end
 
@@ -19,7 +20,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-
+    
 }
 
 - (void)didReceiveMemoryWarning
