@@ -21,6 +21,9 @@
 @property (nonatomic, strong) NSArray *pointsOfUSDCurve;
 @property (nonatomic, strong) NSArray *pointsOfEURCurve;
 
+@property (nonatomic, assign) CGRect insetFrame;
+@property (nonatomic, assign) CGFloat inset;
+
 @end
 
 
@@ -44,6 +47,9 @@ static NSString* EUR[] = {
 
 - (void)drawRect:(CGRect)rect
 {
+    self.inset = 50;
+    self.insetFrame = CGRectMake(self.bounds.origin.x + self.inset, self.bounds.origin.y, self.bounds.size.width - self.inset, self.bounds.size.height - self.inset);
+    NSLog(@"frame:%@ insetFrame:%@",NSStringFromCGRect(self.frame), NSStringFromCGRect(self.insetFrame));
     [self configureVariable];
     [self drawGrid];
     [self drawGraphFromArray:self.USDArray WithColor:self.USDStrokeColor];
@@ -64,7 +70,7 @@ static NSString* EUR[] = {
     }
     
     self.segmentWidthCount = [self.USDArray count];
-    self.segmentWidth = self.frame.size.width / self.segmentWidthCount;
+    self.segmentWidth = self.insetFrame.size.width / self.segmentWidthCount;
     
     int usdMax = [[self.USDArray valueForKeyPath:@"@max.intValue"] intValue];
     int eurMax = [[self.EURArray valueForKeyPath:@"@max.intValue"] intValue];
@@ -75,7 +81,7 @@ static NSString* EUR[] = {
     self.minYvalue = MIN(usdMin, eurMin);
     
     self.segmentHeightCount = self.maxYvalue - self.minYvalue;
-    self.segmentHeight = self.frame.size.height / self.segmentHeightCount;
+    self.segmentHeight = self.insetFrame.size.height / self.segmentHeightCount;
     
     
 }
@@ -88,11 +94,11 @@ static NSString* EUR[] = {
 
 - (void)drawVerticalLines
 {
-    CGFloat xPoint = 0;
+    CGFloat xPoint = self.inset;
     for (int i = 0; i < self.segmentWidthCount; i++)
     {
-        CGPoint a = CGPointMake(xPoint, CGPointZero.y);
-        CGPoint b = CGPointMake(xPoint, self.frame.size.height);
+        CGPoint a = CGPointMake(xPoint, self.insetFrame.origin.y);
+        CGPoint b = CGPointMake(xPoint, self.insetFrame.size.height);
         [self drawLineFromPointA:a toPointB:b];
         xPoint += self.segmentWidth;
     }
@@ -103,7 +109,7 @@ static NSString* EUR[] = {
     CGFloat yPoint = 0;
     for (int i = 0; i < self.segmentHeightCount; i++)
     {
-        CGPoint a = CGPointMake(self.frame.origin.x, yPoint);
+        CGPoint a = CGPointMake(self.insetFrame.origin.x, yPoint);
         CGPoint b = CGPointMake(self.frame.size.width, yPoint);
         [self drawLineFromPointA:a toPointB:b];
         yPoint += self.segmentHeight;
@@ -141,10 +147,10 @@ static NSString* EUR[] = {
     
     
     NSMutableArray *arrayOfPoints = [NSMutableArray array];
-    CGFloat xPoint = 0;
+    CGFloat xPoint = self.inset;
     for (int i = 0; i < self.segmentWidthCount; i++)
     {
-        CGPoint point = CGPointMake(xPoint, self.frame.size.height - [[calibratedCurrency objectAtIndex:i] floatValue] + (self.minYvalue * self.segmentHeight));
+        CGPoint point = CGPointMake(xPoint, self.insetFrame.size.height - [[calibratedCurrency objectAtIndex:i] floatValue] + (self.minYvalue * self.segmentHeight));
         [arrayOfPoints addObject:[NSValue valueWithCGPoint:point]];
         xPoint += self.segmentWidth;
     }
