@@ -7,8 +7,12 @@
 //
 
 #import "EarnMoneyViewController.h"
+#import "EarnMoneyGraphView.h"
 
 @interface EarnMoneyViewController ()
+
+@property (weak, nonatomic) IBOutlet EarnMoneyGraphView *grapgView;
+
 
 @end
 
@@ -16,6 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //[self.grapgView setNeedsDisplay];
     // Do any additional setup after loading the view.
 }
 

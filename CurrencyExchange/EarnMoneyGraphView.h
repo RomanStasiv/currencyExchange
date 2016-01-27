@@ -10,7 +10,7 @@
 
 @interface EarnMoneyGraphView : UIView
 
-@property (nonatomic, strong) NSArray *USDArray;
-@property (nonatomic, strong) NSArray *EURArray;
+@property (nonatomic, strong) NSMutableArray *USDArray;
+@property (nonatomic, strong) NSMutableArray *EURArray;
 
 @end

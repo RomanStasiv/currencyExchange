@@ -73,10 +73,10 @@
             </objects>
             <point key="canvasLocation" x="1328" y="468"/>
         </scene>
-        <!--View Controller-->
+        <!--Convert Money View Controller-->
         <scene sceneID="53b-ln-UuS">
             <objects>
-                <viewController id="78R-dC-XLR" sceneMemberID="viewController">
+                <viewController id="78R-dC-XLR" customClass="ConvertMoneyViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fpC-vm-WXb"/>
                         <viewControllerLayoutGuide type="bottom" id="sRe-Cf-hwV"/>
@@ -144,7 +144,7 @@
                                     <segue destination="Djq-LH-aUk" kind="show" id="YB1-JO-5zw"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WMB-FN-6aU">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WMB-FN-6aU" customClass="EarnMoneyGraphView">
                                 <rect key="frame" x="0.0" y="64" width="540" height="536"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </view>
@@ -161,6 +161,9 @@
                             <constraint firstItem="4wj-H2-jX4" firstAttribute="top" secondItem="hKo-sl-Ysi" secondAttribute="bottom" constant="10" id="t6K-V8-pUS"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="grapgView" destination="WMB-FN-6aU" id="Tfd-Ye-STf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AUY-9y-cXU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
