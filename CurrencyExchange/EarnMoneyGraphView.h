@@ -16,4 +16,7 @@
 @property (nonatomic, strong) UIColor *USDStrokeColor;
 @property (nonatomic, strong) UIColor *EURStrokeColor;
 
+- (CGPoint)getLastPointOfCurrency:(NSString *)currency;
+- (void)drawControlPointLineOnPoint:(CGPoint)point;
+
 @end

@@ -52,8 +52,9 @@ static NSString* EUR[] = {
     NSLog(@"frame:%@ insetFrame:%@",NSStringFromCGRect(self.frame), NSStringFromCGRect(self.insetFrame));
     [self configureVariable];
     [self drawGrid];
-    [self drawGraphFromArray:self.USDArray WithColor:self.USDStrokeColor];
-    [self drawGraphFromArray:self.EURArray WithColor:self.EURStrokeColor];
+    [self drawGraphForCurrency:@"dolars"];
+    [self drawGraphForCurrency:@"euros"];
+    [self drawAxis];
 }
 
 //__________________________hard coding 25 - len of USD
@@ -83,9 +84,13 @@ static NSString* EUR[] = {
     self.segmentHeightCount = self.maxYvalue - self.minYvalue;
     self.segmentHeight = self.insetFrame.size.height / self.segmentHeightCount;
     
-    
+    self.pointsOfUSDCurve = [[NSMutableArray alloc] init];
+    self.pointsOfEURCurve = [[NSMutableArray alloc] init];
+    self.pointsOfUSDCurve = [self makeArrayOfPointsFromArrayOfCurrency:self.USDArray];
+    self.pointsOfEURCurve = [self makeArrayOfPointsFromArrayOfCurrency:self.EURArray];
 }
 
+#pragma mark - Grid
 - (void)drawGrid
 {
     [self drawVerticalLines];
@@ -98,29 +103,29 @@ static NSString* EUR[] = {
     for (int i = 0; i < self.segmentWidthCount; i++)
     {
         CGPoint a = CGPointMake(xPoint, self.insetFrame.origin.y);
-        CGPoint b = CGPointMake(xPoint, self.insetFrame.size.height);
-        [self drawLineFromPointA:a toPointB:b];
+        CGPoint b = CGPointMake(xPoint, self.insetFrame.size.height + 20);
+        [self drawLineFromPointA:a toPointB:b WithWidth:((self.segmentHeight + self.segmentWidth) / 2) * 0.01 andColor:[UIColor blackColor]];
         xPoint += self.segmentWidth;
     }
 }
 
 - (void)drawHorizontalLines
 {
-    CGFloat yPoint = 0;
+    CGFloat yPoint = self.segmentHeight;
     for (int i = 0; i < self.segmentHeightCount; i++)
     {
-        CGPoint a = CGPointMake(self.insetFrame.origin.x, yPoint);
+        CGPoint a = CGPointMake(self.insetFrame.origin.x - 20, yPoint);
         CGPoint b = CGPointMake(self.frame.size.width, yPoint);
-        [self drawLineFromPointA:a toPointB:b];
+        [self drawLineFromPointA:a toPointB:b WithWidth:((self.segmentHeight + self.segmentWidth) / 2) * 0.01 andColor:[UIColor blackColor]];
         yPoint += self.segmentHeight;
     }
 }
 
-- (void)drawLineFromPointA:(CGPoint)a toPointB:(CGPoint)b
+- (void)drawLineFromPointA:(CGPoint)a toPointB:(CGPoint)b WithWidth:(CGFloat)width andColor:(UIColor *)color
 {
     UIBezierPath *path = [UIBezierPath bezierPath];
-    [[UIColor blackColor] setStroke];
-    path.lineWidth = ((self.segmentHeight + self.segmentWidth) / 2) * 0.01;
+    [color setStroke];
+    path.lineWidth = width;
     path.lineCapStyle = kCGLineCapRound;
     
     [path moveToPoint:a];
@@ -129,12 +134,18 @@ static NSString* EUR[] = {
     [path stroke];
 }
 
-- (void)drawGraphFromArray:(NSArray *)array WithColor:(UIColor *)strokeColor
+#pragma mark - Graph
+- (void)drawGraphForCurrency:(NSString *)currency
 {
     CGFloat width = ((self.segmentWidth + self.segmentHeight) / 2) * 0.1;
-    [self drawSmoothLineFromArrayOfPoints:[self makeArrayOfPointsFromArrayOfCurrency:array]
-                               whithColor:strokeColor
+    if ([currency isEqualToString: @"dolars"])
+        [self drawSmoothLineFromArrayOfPoints:self.pointsOfUSDCurve
+                               whithColor:self.USDStrokeColor
                                  andWidth:width];
+    else if ([currency isEqualToString:@"euros"])
+        [self drawSmoothLineFromArrayOfPoints:self.pointsOfEURCurve
+                                   whithColor:self.EURStrokeColor
+                                     andWidth:width];
 }
 
 - (NSArray *)makeArrayOfPointsFromArrayOfCurrency:(NSArray *)currency
@@ -200,7 +211,105 @@ static NSString* EUR[] = {
     return CGPointMake((a.x + b.x)/2, (a.y + b.y)/2);
 }
 
+#pragma mark - Axis
+- (void)drawAxis
+{
+    //vertical axis
+    CGPoint startPoint = CGPointMake(40, self.bounds.size.height);
+    CGPoint stopPoint = CGPointMake(40, self.bounds.origin.y + 3);
+    [self drawYAxisFromPointA:startPoint ToPointB:stopPoint WithWidth:3 AndColor:[UIColor redColor]];
+    
+    //horizontal axis
+    startPoint = CGPointMake(self.bounds.origin.x, self.bounds.size.height - 40);
+    stopPoint = CGPointMake(self.bounds.size.width - 3, self.bounds.size.height - 40);
+    [self drawXAxisFromPointA:startPoint ToPointB:stopPoint WithWidth:3 AndColor:[UIColor redColor]];
+}
 
+- (void)drawXAxisFromPointA:(CGPoint)a ToPointB:(CGPoint)b WithWidth:(CGFloat)width AndColor:(UIColor *)color
+{
+    [self drawLineFromPointA:a toPointB:b WithWidth:width andColor:color];
+    
+    //drawing triangle at the end of axis
+    CGFloat length[] = {1,1,1,1,3,1};
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextSetLineDash(ctx, 3, length, 6);
+    CGContextSetLineWidth(ctx, width);
+    CGContextSetLineCap(ctx, kCGLineCapRound);
+    CGContextSetLineJoin(ctx, kCGLineJoinRound);
+    CGContextSetStrokeColorWithColor(ctx, [color CGColor]);
+    //CGContextSetFillColorWithColor(ctx, [color CGColor]);
+    
+    CGFloat sideLength = width;
+    CGPoint FirstPoint = CGPointMake(b.x - sideLength, b.y - sideLength);
+    CGPoint SecondPoint = CGPointMake(b.x - sideLength, b.y + sideLength);
+    CGPoint ThirdPoint = CGPointMake(b.x, b.y);
+    
+    CGContextMoveToPoint(ctx, FirstPoint.x, FirstPoint.y);
+    CGContextAddLineToPoint(ctx, SecondPoint.x, SecondPoint.y);
+    CGContextAddLineToPoint(ctx, ThirdPoint.x, ThirdPoint.y);
+    CGContextClosePath(ctx);
+    
+    CGContextStrokePath(ctx);
+    CGContextFillPath(ctx);
+    //UIGraphicsEndImageContext();
+}
 
+- (void)drawYAxisFromPointA:(CGPoint)a ToPointB:(CGPoint)b WithWidth:(CGFloat)width AndColor:(UIColor *)color
+{
+    [self drawLineFromPointA:a toPointB:b WithWidth:width andColor:color];
+    
+    //drawing triangle at the end of axis
+    CGFloat length[] = {1,1,1,1,3,1};
+
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextSetLineDash(ctx, 3, length, 6);
+    CGContextSetLineWidth(ctx, width);
+    CGContextSetLineCap(ctx, kCGLineCapRound);
+    CGContextSetLineJoin(ctx, kCGLineJoinRound);
+    CGContextSetStrokeColorWithColor(ctx, [color CGColor]);
+    CGContextSetFillColorWithColor(ctx, [color CGColor]);
+    
+    CGFloat sideLength = width;
+    CGPoint FirstPoint = CGPointMake(b.x - sideLength, b.y + sideLength);
+    CGPoint SecondPoint = CGPointMake(b.x + sideLength, b.y + sideLength);
+    CGPoint ThirdPoint = CGPointMake(b.x, b.y);
+    
+    CGContextMoveToPoint(ctx, FirstPoint.x, FirstPoint.y);
+    CGContextAddLineToPoint(ctx, SecondPoint.x, SecondPoint.y);
+    CGContextAddLineToPoint(ctx, ThirdPoint.x, ThirdPoint.y);
+    CGContextClosePath(ctx);
+    
+    CGContextStrokePath(ctx);
+    CGContextFillPath(ctx);
+    UIGraphicsEndImageContext();
+}
+
+- (void)drawdivisionsOnXaxis
+{
+    
+}
+
+#pragma mark - Control point methods
+- (CGPoint)getLastPointOfCurrency:(NSString *)currency;
+{
+    CGPoint lastPoint;
+    if ([currency isEqualToString: @"dolars"])
+    {
+        lastPoint = [[self.pointsOfUSDCurve lastObject] CGPointValue];
+    }
+    else if ([currency isEqualToString:@"euros"])
+    {
+        lastPoint = [[self.pointsOfEURCurve lastObject] CGPointValue];
+    }
+    return lastPoint;
+}
+
+- (void)drawControlPointLineOnPoint:(CGPoint)point
+{
+    CGPoint StartPoint = CGPointMake(point.x, self.insetFrame.origin.y);
+    CGPoint StopPoint = CGPointMake(point.x, self.insetFrame.size.height);
+    [self drawLineFromPointA:StartPoint toPointB:StopPoint WithWidth:5 andColor:[UIColor purpleColor]];
+}
 
 @end

@@ -8,13 +8,15 @@
 
 #import "EarnMoneyViewController.h"
 #import "EarnMoneyGraphView.h"
+#import "AddControlPointToEarnMoneyViewController.h"
+#import "ControllPoint.h"
 
 @interface EarnMoneyViewController ()
 
 @property (weak, nonatomic) IBOutlet EarnMoneyGraphView *graphView;
 @property (weak, nonatomic) IBOutlet UIImageView *USDColorIndicator;
 @property (weak, nonatomic) IBOutlet UIImageView *EURColorIndicator;
-
+@property (strong, nonatomic) NSMutableArray *arrayOfControlPoints;
 
 @end
 
@@ -26,22 +28,6 @@
     self.graphView.EURStrokeColor = [UIColor greenColor];
     [self setNeedsOfIndicator:self.USDColorIndicator WithColor:self.graphView.USDStrokeColor];
     [self setNeedsOfIndicator:self.EURColorIndicator WithColor:self.graphView.EURStrokeColor];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-- (IBAction)addControlpointButtonClick:(id)sender
-{
-   /* self.imagePickerController = [[UIImagePickerController alloc]init];
-    self.imagePickerController.delegate  = self;
-    self.imagePickerController.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
-    self.imagePickerController.modalPresentationStyle = UIModalPresentationPopover;
-    self.imagePickerController.popoverPresentationController.sourceView = self.sourceViewButtonForImagePicker;
-    self.imagePickerController.popoverPresentationController.sourceRect = self.sourceViewButtonForImagePicker.bounds;
-    [self presentViewController:self.imagePickerController animated:YES completion:nil];*/
-
 }
 
 - (void)setNeedsOfIndicator:(UIImageView *)colorIndicator WithColor:(UIColor *)color
@@ -60,15 +46,30 @@
     UIGraphicsEndImageContext();
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - create control point
+- (void)addControlPointWithAmountOfMoney:(CGFloat)money andCurrency:(NSString *)currency
+{
+    if (!self.arrayOfControlPoints)
+        self.arrayOfControlPoints = [NSMutableArray array];
+    
+    ControllPoint *point = [[ControllPoint alloc] init];
+    point.currency = currency;
+    point.value = [NSNumber numberWithFloat:money];
+    point.date = @"today";
+    point.pointOnGraph = [NSValue valueWithCGPoint:[self.graphView getLastPointOfCurrency:point.currency]];
+    
+    [self.graphView drawControlPointLineOnPoint:[point.pointOnGraph CGPointValue]];
+#warning not fully implement
 }
-*/
+
+#pragma mark - navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString: @"addControlPoint"])
+    {
+        ((AddControlPointToEarnMoneyViewController *)segue.destinationViewController).owner = self;
+    }
+}
+
 
 @end

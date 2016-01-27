@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EarnMoneyViewController.h"
 
 @interface AddControlPointToEarnMoneyViewController : UIViewController
+
+@property (nonatomic, strong) EarnMoneyViewController *owner;
 
 @end

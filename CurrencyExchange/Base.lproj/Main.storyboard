@@ -152,8 +152,7 @@
                                 </constraints>
                                 <state key="normal" image="add_icon"/>
                                 <connections>
-                                    <action selector="addControlpointButtonClick:" destination="7Xz-cD-7Wr" eventType="touchUpInside" id="C5v-nN-JyT"/>
-                                    <segue destination="Djq-LH-aUk" kind="show" id="YB1-JO-5zw"/>
+                                    <segue destination="Djq-LH-aUk" kind="show" identifier="addControlPoint" id="YB1-JO-5zw"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WMB-FN-6aU" customClass="EarnMoneyGraphView">
@@ -287,11 +286,17 @@
                                     <segment title="" image="euro_sign"/>
                                 </segments>
                                 <color key="tintColor" red="0.25098040699958801" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="currencyDidChanged:" destination="Djq-LH-aUk" eventType="valueChanged" id="2wI-Zf-NAr"/>
+                                </connections>
                             </segmentedControl>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r9k-0I-0n3">
                                 <rect key="frame" x="0.0" y="347" width="600" height="107"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="amountOfMoneyDidChanged:" destination="Djq-LH-aUk" eventType="valueChanged" id="Zrj-Zf-Ksw"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rgy-bh-HLh">
                                 <rect key="frame" x="0.0" y="484" width="600" height="106"/>
@@ -331,7 +336,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mvo-OI-5Wd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1501" y="2039"/>
+            <point key="canvasLocation" x="1465" y="2039"/>
         </scene>
         <!--Web Sharing View Controller-->
         <scene sceneID="3iU-6V-OQd">
@@ -461,7 +466,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OOe-3s-xlb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="879" y="2039"/>
+            <point key="canvasLocation" x="827" y="2039"/>
         </scene>
     </scenes>
     <resources>
