@@ -11,7 +11,7 @@
 
 @interface EarnMoneyViewController ()
 
-@property (weak, nonatomic) IBOutlet EarnMoneyGraphView *grapgView;
+@property (weak, nonatomic) IBOutlet EarnMoneyGraphView *graphView;
 
 
 @end

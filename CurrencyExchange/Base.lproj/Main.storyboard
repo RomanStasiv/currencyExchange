@@ -162,7 +162,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="grapgView" destination="WMB-FN-6aU" id="Tfd-Ye-STf"/>
+                        <outlet property="graphView" destination="WMB-FN-6aU" id="rzJ-TO-7S3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AUY-9y-cXU" userLabel="First Responder" sceneMemberID="firstResponder"/>

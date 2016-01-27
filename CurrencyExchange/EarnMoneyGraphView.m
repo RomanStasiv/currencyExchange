@@ -42,6 +42,7 @@ static NSString* EUR[] = {
 - (void)drawRect:(CGRect)rect
 {
     [self configureVariable];
+    [self drawGrid];
     [self drawGraphWithArray:self.USDArray];
     [self drawGraphWithArray:self.EURArray];
 }
@@ -59,15 +60,40 @@ static NSString* EUR[] = {
     self.segmentWidthCount = [self.USDArray count];
     self.segmentWidth = self.frame.size.width / self.segmentWidthCount;
     
-    self.segmentHeightCount = 40;
+    int usdMax = [[self.USDArray valueForKeyPath:@"@max.intValue"] intValue];
+    int eurMax = [[self.EURArray valueForKeyPath:@"@max.intValue"] intValue];
+    int max = MAX(eurMax, usdMax)+1;
+    self.segmentHeightCount = max;
     self.segmentHeight = self.frame.size.height / self.segmentHeightCount;
 }
 
 - (void)drawGrid
 {
+    [self drawVerticalLines];
+    [self drawHorizontalLines];
+}
+
+- (void)drawVerticalLines
+{
+    CGFloat xPoint = 0;
     for (int i = 0; i < self.segmentWidthCount; i++)
     {
-        
+        CGPoint a = CGPointMake(xPoint, CGPointZero.y);
+        CGPoint b = CGPointMake(xPoint, self.frame.size.height);
+        [self drawLineFromPointA:a toPointB:b];
+        xPoint += self.segmentWidth;
+    }
+}
+
+- (void)drawHorizontalLines
+{
+    CGFloat yPoint = 0;
+    for (int i = 0; i < self.segmentHeightCount; i++)
+    {
+        CGPoint a = CGPointMake(self.frame.origin.x, yPoint);
+        CGPoint b = CGPointMake(self.frame.size.width, yPoint);
+        [self drawLineFromPointA:a toPointB:b];
+        yPoint += self.segmentHeight;
     }
 }
 
@@ -86,7 +112,7 @@ static NSString* EUR[] = {
 
 - (void)drawGraphWithArray:(NSArray *)array
 {
-    CGFloat width = ((self.segmentWidth + self.segmentHeight) / 2) * 0.2;
+    CGFloat width = ((self.segmentWidth + self.segmentHeight) / 2) * 0.1;
     [self drawSmoothLineFromArrayOfPoints:[self makeArrayOfPointsFromArrayOfCurrency:array]
                                whithColor:[UIColor redColor]
                                  andWidth:width];
@@ -111,7 +137,6 @@ static NSString* EUR[] = {
     }
     return arrayOfPoints;
 }
-
 
 - (void)drawSmoothLineFromArrayOfPoints:(NSArray *)points whithColor:(UIColor *)color andWidth:(CGFloat)width
 {
