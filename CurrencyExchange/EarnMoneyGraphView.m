@@ -63,11 +63,33 @@ static NSString* EUR[] = {
     self.segmentHeight = self.frame.size.height / self.segmentHeightCount;
 }
 
+- (void)drawGrid
+{
+    for (int i = 0; i < self.segmentWidthCount; i++)
+    {
+        
+    }
+}
+
+- (void)drawLineFromPointA:(CGPoint)a toPointB:(CGPoint)b
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [[UIColor blackColor] setStroke];
+    path.lineWidth = 0.5;
+    path.lineCapStyle = kCGLineCapRound;
+    
+    [path moveToPoint:a];
+    [path addLineToPoint:b];
+    
+    [path stroke];
+}
+
 - (void)drawGraphWithArray:(NSArray *)array
 {
+    CGFloat width = ((self.segmentWidth + self.segmentHeight) / 2) * 0.2;
     [self drawSmoothLineFromArrayOfPoints:[self makeArrayOfPointsFromArrayOfCurrency:array]
                                whithColor:[UIColor redColor]
-                                 andWidth:5];
+                                 andWidth:width];
 }
 
 - (NSArray *)makeArrayOfPointsFromArrayOfCurrency:(NSArray *)currency

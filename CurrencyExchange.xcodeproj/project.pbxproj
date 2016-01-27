@@ -13,10 +13,10 @@
 		6A193CF51C57CF0500093B36 /* WebSharingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CF41C57CF0500093B36 /* WebSharingViewController.m */; };
 		6A193CF81C57DB3000093B36 /* BanksTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CF71C57DB3000093B36 /* BanksTableViewController.m */; };
 		6A19D05F1C58035900529993 /* EarnMoneyGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A19D05E1C58035900529993 /* EarnMoneyGraphView.m */; };
+		6A2941A01C58CD7E00C5D207 /* MainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29419F1C58CD7E00C5D207 /* MainScreenViewController.m */; };
 		6A2989121C58AFDA006328A5 /* ConvertMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2989111C58AFDA006328A5 /* ConvertMoneyViewController.m */; };
 		97ED58621C5796BC004724A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ED58611C5796BC004724A3 /* main.m */; };
 		97ED58651C5796BC004724A3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ED58641C5796BC004724A3 /* AppDelegate.m */; };
-		97ED58681C5796BC004724A3 /* MainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ED58671C5796BC004724A3 /* MainScreenViewController.m */; };
 		97ED586B1C5796BC004724A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97ED58691C5796BC004724A3 /* Main.storyboard */; };
 		97ED586E1C5796BC004724A3 /* CurrencyExchange.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 97ED586C1C5796BC004724A3 /* CurrencyExchange.xcdatamodeld */; };
 		97ED58701C5796BC004724A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97ED586F1C5796BC004724A3 /* Assets.xcassets */; };
@@ -36,14 +36,14 @@
 		6A193CF71C57DB3000093B36 /* BanksTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BanksTableViewController.m; sourceTree = "<group>"; };
 		6A19D05D1C58035900529993 /* EarnMoneyGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarnMoneyGraphView.h; sourceTree = "<group>"; };
 		6A19D05E1C58035900529993 /* EarnMoneyGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarnMoneyGraphView.m; sourceTree = "<group>"; };
+		6A29419E1C58CD7E00C5D207 /* MainScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenViewController.h; sourceTree = "<group>"; };
+		6A29419F1C58CD7E00C5D207 /* MainScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScreenViewController.m; sourceTree = "<group>"; };
 		6A2989101C58AFDA006328A5 /* ConvertMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvertMoneyViewController.h; sourceTree = "<group>"; };
 		6A2989111C58AFDA006328A5 /* ConvertMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvertMoneyViewController.m; sourceTree = "<group>"; };
 		97ED585D1C5796BC004724A3 /* CurrencyExchange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyExchange.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97ED58611C5796BC004724A3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		97ED58631C5796BC004724A3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		97ED58641C5796BC004724A3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		97ED58661C5796BC004724A3 /* MainScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainScreenViewController.h; sourceTree = "<group>"; };
-		97ED58671C5796BC004724A3 /* MainScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainScreenViewController.m; sourceTree = "<group>"; };
 		97ED586A1C5796BC004724A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		97ED586D1C5796BC004724A3 /* CurrencyExchange.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CurrencyExchange.xcdatamodel; sourceTree = "<group>"; };
 		97ED586F1C5796BC004724A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,8 +65,8 @@
 		6A29890C1C58AEFA006328A5 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				97ED58661C5796BC004724A3 /* MainScreenViewController.h */,
-				97ED58671C5796BC004724A3 /* MainScreenViewController.m */,
+				6A29419E1C58CD7E00C5D207 /* MainScreenViewController.h */,
+				6A29419F1C58CD7E00C5D207 /* MainScreenViewController.m */,
 				6A29890F1C58AF44006328A5 /* show banks */,
 				6A29890E1C58AF3D006328A5 /* earn */,
 				6A29890D1C58AF32006328A5 /* convert */,
@@ -219,7 +219,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97ED58681C5796BC004724A3 /* MainScreenViewController.m in Sources */,
 				6A193CEF1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.m in Sources */,
 				6A193CF21C57C9E900093B36 /* ShareGoalsViewController.m in Sources */,
 				6A193CF81C57DB3000093B36 /* BanksTableViewController.m in Sources */,
@@ -228,6 +227,7 @@
 				6A2989121C58AFDA006328A5 /* ConvertMoneyViewController.m in Sources */,
 				6A19D05F1C58035900529993 /* EarnMoneyGraphView.m in Sources */,
 				97ED58621C5796BC004724A3 /* main.m in Sources */,
+				6A2941A01C58CD7E00C5D207 /* MainScreenViewController.m in Sources */,
 				6A193CF51C57CF0500093B36 /* WebSharingViewController.m in Sources */,
 				97ED586E1C5796BC004724A3 /* CurrencyExchange.xcdatamodeld in Sources */,
 			);
