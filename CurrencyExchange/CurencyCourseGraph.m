@@ -34,6 +34,7 @@
 {
     [self fillCourseArrays];
     [self drawLineWithColor:[UIColor redColor] fromArray:self.EURCourse];
+    [self drawLineWithColor:[UIColor purpleColor] fromArray:self.USDCourse];
 }
 
 
@@ -48,13 +49,8 @@
     [tempUSD addObject:[tempEUR firstObject]];
     [tempUSD addObject:[tempEUR lastObject]];
     [tempUSD sortUsingSelector:@selector(compare:)];
-    double min = [[tempUSD firstObject] doubleValue];
-    double max = [[tempUSD lastObject] doubleValue];
-    
-    for (int i = 1; i < [self.EURCourse count]; i ++)
-    {
-        self.EURCourse[i] = (([self.EURCourse[i] doubleValue] - min) / (max - min)) * self.frame.size.height;
-    }
+    self.minCurencyElement = [tempUSD firstObject];
+    self.maxCurencyElement = [tempUSD lastObject];
 }
 
 -(void) fixArrayPoints
@@ -65,17 +61,31 @@
 -(void) drawLineWithColor:(UIColor *)lineColor fromArray:(NSArray *) course
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    double timeIntervalSpace = self.frame.size.width / [course count];
+    double timeIntervalSpace = self.frame.size.width / ([course count] + 1);
     
     CGContextSetStrokeColorWithColor(context, [lineColor CGColor]);
-    CGContextMoveToPoint(context, 0*timeIntervalSpace, [[course firstObject] floatValue]);
+    
+    double min = [self.minCurencyElement doubleValue];
+    double max = [self.maxCurencyElement doubleValue];
+    CGContextMoveToPoint(context, 1*timeIntervalSpace, self.bounds.size.height - (([[course firstObject] doubleValue] - min) / (max - min) * self.bounds.size.height) );
     
     for (int i = 1; i < [course count]; i ++)
     {
-        CGContextAddLineToPoint(context, i*timeIntervalSpace, [[course objectAtIndex:i] floatValue] );
+        CGContextAddLineToPoint(context, (i+1)*timeIntervalSpace, self.bounds.size.height - (([[course objectAtIndex:i] doubleValue] - min) / (max - min) * self.bounds.size.height) );
     }
     
     CGContextStrokePath(context);
+}
+
+-(void) drawGrid
+{
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    double timeIntervalSpace = self.frame.size.width / ([self.USDCourse count] + 1);
+    
+    for()
+    {
+        
+    }
 }
 
 
