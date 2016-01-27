@@ -13,4 +13,7 @@
 @property (nonatomic, strong) NSMutableArray *USDArray;
 @property (nonatomic, strong) NSMutableArray *EURArray;
 
+@property (nonatomic, strong) UIColor *USDStrokeColor;
+@property (nonatomic, strong) UIColor *EURStrokeColor;
+
 @end

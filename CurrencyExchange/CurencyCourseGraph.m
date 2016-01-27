@@ -53,7 +53,7 @@
     
     for (int i = 1; i < [self.EURCourse count]; i ++)
     {
-        self.EURCourse[i] = (([self.EURCourse[i] doubleValue] - min) / (max - min)) * self.frame.size.height;
+        //self.EURCourse[i] = (([self.EURCourse[i] doubleValue] - min) / (max - min)) * self.frame.size.height;
     }
 }
 

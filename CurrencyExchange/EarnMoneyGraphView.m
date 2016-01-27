@@ -46,13 +46,16 @@ static NSString* EUR[] = {
 {
     [self configureVariable];
     [self drawGrid];
-    [self drawGraphFromArray:self.USDArray WithColor:[UIColor blueColor]];
-    [self drawGraphFromArray:self.EURArray WithColor:[UIColor greenColor]];
+    [self drawGraphFromArray:self.USDArray WithColor:self.USDStrokeColor];
+    [self drawGraphFromArray:self.EURArray WithColor:self.EURStrokeColor];
 }
 
 //__________________________hard coding 25 - len of USD
 - (void)configureVariable
 {
+    self.USDStrokeColor = [UIColor blueColor];
+    self.EURStrokeColor = [UIColor greenColor];
+    
     self.EURArray = [[NSMutableArray alloc] init];
     self.USDArray = [[NSMutableArray alloc] init];
     for (int i = 0; i < 25; i++)

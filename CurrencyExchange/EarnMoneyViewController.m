@@ -12,6 +12,8 @@
 @interface EarnMoneyViewController ()
 
 @property (weak, nonatomic) IBOutlet EarnMoneyGraphView *graphView;
+@property (weak, nonatomic) IBOutlet UIImageView *USDColorIndicator;
+@property (weak, nonatomic) IBOutlet UIImageView *EURColorIndicator;
 
 
 @end
@@ -39,6 +41,23 @@
     [self presentViewController:self.imagePickerController animated:YES completion:nil];*/
 
 }
+
+- (void)setNeedsOfIndicator:(UIImageView *)colorIndicator WithRed:(CGFloat)red WithGreen:(CGFloat)green WithBlue:(CGFloat)blue WithAlpha:(CGFloat)alpha
+{
+    CGFloat diametr = MIN(colorIndicator.frame.size.height, colorIndicator.frame.size.width);
+    
+    UIGraphicsBeginImageContext(colorIndicator.frame.size);
+    CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+    CGContextSetLineWidth(UIGraphicsGetCurrentContext(),diametr);
+    
+    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, alpha);
+    CGContextMoveToPoint(UIGraphicsGetCurrentContext(), diametr/2, diametr/2);
+    CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), diametr/2, diametr/2);
+    CGContextStrokePath(UIGraphicsGetCurrentContext());
+    colorIndicator.image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+}
+
 
 /*
 #pragma mark - Navigation
