@@ -15,6 +15,9 @@
 @property (nonatomic, assign) CGFloat segmentHeight;
 @property (nonatomic, assign) NSUInteger segmentHeightCount;
 
+@property (nonatomic, assign) NSUInteger maxYvalue;
+@property (nonatomic, assign) NSUInteger minYvalue;
+
 @property (nonatomic, strong) NSArray *pointsOfUSDCurve;
 @property (nonatomic, strong) NSArray *pointsOfEURCurve;
 
@@ -43,10 +46,11 @@ static NSString* EUR[] = {
 {
     [self configureVariable];
     [self drawGrid];
-    [self drawGraphWithArray:self.USDArray];
-    [self drawGraphWithArray:self.EURArray];
+    [self drawGraphFromArray:self.USDArray WithColor:[UIColor blueColor]];
+    [self drawGraphFromArray:self.EURArray WithColor:[UIColor greenColor]];
 }
 
+//__________________________hard coding 25 - len of USD
 - (void)configureVariable
 {
     self.EURArray = [[NSMutableArray alloc] init];
@@ -62,9 +66,16 @@ static NSString* EUR[] = {
     
     int usdMax = [[self.USDArray valueForKeyPath:@"@max.intValue"] intValue];
     int eurMax = [[self.EURArray valueForKeyPath:@"@max.intValue"] intValue];
-    int max = MAX(eurMax, usdMax)+1;
-    self.segmentHeightCount = max;
+    self.maxYvalue = MAX(eurMax, usdMax);
+    
+    int usdMin = [[self.USDArray valueForKeyPath:@"@min.intValue"] intValue];
+    int eurMin = [[self.EURArray valueForKeyPath:@"@min.intValue"] intValue];
+    self.minYvalue = MIN(usdMin, eurMin);
+    
+    self.segmentHeightCount = self.maxYvalue - self.minYvalue;
     self.segmentHeight = self.frame.size.height / self.segmentHeightCount;
+    
+    
 }
 
 - (void)drawGrid
@@ -101,7 +112,7 @@ static NSString* EUR[] = {
 {
     UIBezierPath *path = [UIBezierPath bezierPath];
     [[UIColor blackColor] setStroke];
-    path.lineWidth = 0.5;
+    path.lineWidth = ((self.segmentHeight + self.segmentWidth) / 2) * 0.01;
     path.lineCapStyle = kCGLineCapRound;
     
     [path moveToPoint:a];
@@ -110,11 +121,11 @@ static NSString* EUR[] = {
     [path stroke];
 }
 
-- (void)drawGraphWithArray:(NSArray *)array
+- (void)drawGraphFromArray:(NSArray *)array WithColor:(UIColor *)strokeColor
 {
     CGFloat width = ((self.segmentWidth + self.segmentHeight) / 2) * 0.1;
     [self drawSmoothLineFromArrayOfPoints:[self makeArrayOfPointsFromArrayOfCurrency:array]
-                               whithColor:[UIColor redColor]
+                               whithColor:strokeColor
                                  andWidth:width];
 }
 
@@ -131,7 +142,7 @@ static NSString* EUR[] = {
     CGFloat xPoint = 0;
     for (int i = 0; i < self.segmentWidthCount; i++)
     {
-        CGPoint point = CGPointMake(xPoint, self.frame.size.height - [[calibratedCurrency objectAtIndex:i] floatValue]);
+        CGPoint point = CGPointMake(xPoint, self.frame.size.height - [[calibratedCurrency objectAtIndex:i] floatValue] + (self.minYvalue * self.segmentHeight));
         [arrayOfPoints addObject:[NSValue valueWithCGPoint:point]];
         xPoint += self.segmentWidth;
     }
