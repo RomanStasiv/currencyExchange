@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AvarageCurrency.h"
 
 @interface GraphDrawer : UIView
+
+@property (nonatomic, strong) NSMutableArray *avarageCurrencyObjectsArray;
+
 
 @property (nonatomic, strong) NSMutableArray *USDArray;
 @property (nonatomic, strong) NSMutableArray *EURArray;

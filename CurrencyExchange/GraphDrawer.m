@@ -9,19 +9,29 @@
 #import "GraphDrawer.h"
 
 
-static NSString* USD[] = {
+static NSString* USDbid[] = {
     @"25", @"25.5", @"26", @"24", @"25",
     @"22", @"20", @"19", @"18", @"17",
     @"20", @"22", @"25", @"27", @"30",
-    @"31", @"32", @"35", @"33", @"36",
-    @"40", @"35", @"30", @"25", @"24",
+
 };
-static NSString* EUR[] = {
+static NSString* EURbid[] = {
     @"26", @"28.5", @"29", @"28", @"27",
     @"25", @"27", @"30", @"33", @"33",
     @"33", @"31", @"31", @"32", @"30",
-    @"31", @"32", @"35", @"33", @"36",
-    @"40", @"35", @"30", @"25", @"24",
+
+};
+static NSString* USDask[] = {
+    @"26", @"27", @"28", @"25", @"26",
+    @"23", @"21", @"20", @"19", @"18",
+    @"17", @"23", @"26", @"28", @"31",
+
+};
+static NSString* EURask[] = {
+    @"26", @"28.5", @"29", @"28", @"27",
+    @"25", @"27", @"30", @"33", @"33",
+    @"33", @"31", @"31", @"32", @"30",
+
 };
 
 
@@ -48,8 +58,8 @@ static NSString* EUR[] = {
     self.USDArray = [[NSMutableArray alloc] init];
     for (int i = 0; i < 25; i++)
     {
-        [self.EURArray addObject:[NSNumber numberWithFloat:[EUR[i] floatValue]]];
-        [self.USDArray addObject:[NSNumber numberWithFloat:[USD[i] floatValue]]];
+        [self.EURArray addObject:[NSNumber numberWithFloat:[EURbid[i] floatValue]]];
+        [self.USDArray addObject:[NSNumber numberWithFloat:[USDbid[i] floatValue]]];
     }
     
     self.segmentWidthCount = [self.USDArray count];
