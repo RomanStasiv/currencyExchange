@@ -31,5 +31,9 @@
 @property (nonatomic, assign) CGFloat inset;
 
 - (void)drawLineFromPointA:(CGPoint)a toPointB:(CGPoint)b WithWidth:(CGFloat)width andColor:(UIColor *)color;
+- (void)configureVariable;
+- (void)drawGrid;
+- (void)drawGraphForCurrency:(NSString *)currency;
+- (void)drawAxis;
 
 @end

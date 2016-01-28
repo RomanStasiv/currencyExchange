@@ -58,7 +58,15 @@
     point.date = @"today";
     point.pointOnGraph = [NSValue valueWithCGPoint:[self.graphView getLastPointOfCurrency:point.currency]];
     
-    [self.graphView drawControlPointLineOnPoint:[point.pointOnGraph CGPointValue]];
+    //adding point to array in EarnMoneyVC
+    if (!self.graphView.controlPointsArray)
+        self.graphView.controlPointsArray = [NSArray array];
+    NSMutableArray *mutableControlPointsArray = [self.graphView.controlPointsArray mutableCopy];
+    [mutableControlPointsArray addObject:point];
+    self.graphView.controlPointsArray = mutableControlPointsArray;
+    self.graphView.NeedDrawingControlPoints = YES;
+    [self.graphView setNeedsDisplay];
+    
 #warning not fully implement
 }
 
