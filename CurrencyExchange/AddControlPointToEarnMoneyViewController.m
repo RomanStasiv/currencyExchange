@@ -12,6 +12,7 @@
 
 @property (nonatomic, assign) CGFloat amountOfMoney;
 @property (nonatomic, strong) NSString *currency;
+@property (weak, nonatomic) IBOutlet UITextField *moneyTextField;
 
 @end
 
@@ -41,20 +42,10 @@
 
 - (IBAction)amountOfMoneyDidChanged:(UITextField *)sender
 {
-    if (sender.text)
-    {
-        if ([self TextIsNumeric:sender.text])
-        {
-            self.amountOfMoney = [sender.text floatValue];
-        }
-        else
-        {
-            sender.text = [self deleteLastCharInString:sender.text];
-        }
-    }
+    
 }
 
-- (NSString *)deleteLastCharInString:(NSString *)string
+/*- (NSString *)deleteLastCharInString:(NSString *)string
 {
     NSString *result = nil;
     
@@ -64,7 +55,7 @@
     }
     
     return result;
-}
+}*/
 
 - (BOOL) TextIsNumeric:(NSString *)text
 {
@@ -77,9 +68,20 @@
 
 - (IBAction)saveButtonBeenPressed:(id)sender
 {
-    [self.owner addControlPointWithAmountOfMoney:self.amountOfMoney
-                                     andCurrency:self.currency];
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.moneyTextField.text)
+    {
+        if ([self TextIsNumeric:self.moneyTextField.text])
+        {
+            self.amountOfMoney = [self.moneyTextField.text floatValue];
+            [self.owner addControlPointWithAmountOfMoney:self.amountOfMoney
+                                             andCurrency:self.currency];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        else
+        {
+            self.moneyTextField.text = nil;
+        }
+    }
 }
 
 /*

@@ -1,30 +1,12 @@
 //
-//  EarnMoneyGraphView.m
+//  GraphDrawer.m
 //  CurrencyExchange
 //
-//  Created by alex4eetah on 1/26/16.
+//  Created by alex4eetah on 1/28/16.
 //  Copyright © 2016 Roman Stasiv. All rights reserved.
 //
 
-#import "EarnMoneyGraphView.h"
-/*
-@interface EarnMoneyGraphView()
-
-@property (nonatomic, assign) CGFloat segmentWidth;
-@property (nonatomic, assign) NSUInteger segmentWidthCount;
-@property (nonatomic, assign) CGFloat segmentHeight;
-@property (nonatomic, assign) NSUInteger segmentHeightCount;
-
-@property (nonatomic, assign) NSUInteger maxYvalue;
-@property (nonatomic, assign) NSUInteger minYvalue;
-
-@property (nonatomic, strong) NSArray *pointsOfUSDCurve;
-@property (nonatomic, strong) NSArray *pointsOfEURCurve;
-
-@property (nonatomic, assign) CGRect insetFrame;
-@property (nonatomic, assign) CGFloat inset;
-
-@end
+#import "GraphDrawer.h"
 
 
 static NSString* USD[] = {
@@ -43,7 +25,7 @@ static NSString* EUR[] = {
 };
 
 
-@implementation EarnMoneyGraphView
+@implementation GraphDrawer
 
 - (void)drawRect:(CGRect)rect
 {
@@ -140,8 +122,8 @@ static NSString* EUR[] = {
     CGFloat width = ((self.segmentWidth + self.segmentHeight) / 2) * 0.1;
     if ([currency isEqualToString: @"dolars"])
         [self drawSmoothLineFromArrayOfPoints:self.pointsOfUSDCurve
-                               whithColor:self.USDStrokeColor
-                                 andWidth:width];
+                                   whithColor:self.USDStrokeColor
+                                     andWidth:width];
     else if ([currency isEqualToString:@"euros"])
         [self drawSmoothLineFromArrayOfPoints:self.pointsOfEURCurve
                                    whithColor:self.EURStrokeColor
@@ -261,7 +243,7 @@ static NSString* EUR[] = {
     
     //drawing triangle at the end of axis
     CGFloat length[] = {1,1,1,1,3,1};
-
+    
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextSetLineDash(ctx, 3, length, 6);
     CGContextSetLineWidth(ctx, width);
@@ -287,31 +269,7 @@ static NSString* EUR[] = {
 
 - (void)drawdivisionsOnXaxis
 {
-    
-}
-*/
-
-@implementation EarnMoneyGraphView
-#pragma mark - Control point methods
-- (CGPoint)getLastPointOfCurrency:(NSString *)currency;
-{
-    CGPoint lastPoint;
-    if ([currency isEqualToString: @"dolars"])
-    {
-        lastPoint = [[self.pointsOfUSDCurve lastObject] CGPointValue];
-    }
-    else if ([currency isEqualToString:@"euros"])
-    {
-        lastPoint = [[self.pointsOfEURCurve lastObject] CGPointValue];
-    }
-    return lastPoint;
-}
-
-- (void)drawControlPointLineOnPoint:(CGPoint)point
-{
-    CGPoint StartPoint = CGPointMake(point.x, self.insetFrame.origin.y);
-    CGPoint StopPoint = CGPointMake(point.x, self.insetFrame.size.height);
-    [self drawLineFromPointA:StartPoint toPointB:StopPoint WithWidth:5 andColor:[UIColor purpleColor]];
+#warning NOT COMLETE REALIZATION
 }
 
 @end

@@ -294,9 +294,6 @@
                                 <rect key="frame" x="0.0" y="347" width="600" height="107"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="amountOfMoneyDidChanged:" destination="Djq-LH-aUk" eventType="valueChanged" id="Zrj-Zf-Ksw"/>
-                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rgy-bh-HLh">
                                 <rect key="frame" x="0.0" y="484" width="600" height="106"/>
@@ -333,6 +330,9 @@
                             <constraint firstAttribute="trailing" secondItem="WdR-c5-ucj" secondAttribute="trailing" id="ri6-VU-NrT"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="moneyTextField" destination="r9k-0I-0n3" id="VTJ-XC-5eU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mvo-OI-5Wd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

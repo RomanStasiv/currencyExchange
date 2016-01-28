@@ -16,6 +16,7 @@
 		6A1DBB9E1C5957E700859520 /* ControllPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DBB9D1C5957E700859520 /* ControllPoint.m */; };
 		6A2941A01C58CD7E00C5D207 /* MainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29419F1C58CD7E00C5D207 /* MainScreenViewController.m */; };
 		6A2989121C58AFDA006328A5 /* ConvertMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2989111C58AFDA006328A5 /* ConvertMoneyViewController.m */; };
+		6A29C59C1C5A3BB60032B74D /* GraphDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29C59B1C5A3BB60032B74D /* GraphDrawer.m */; };
 		979339E31C58D9A000A674D1 /* CurencyCourseGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 979339E21C58D9A000A674D1 /* CurencyCourseGraph.m */; };
 		97ED58621C5796BC004724A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ED58611C5796BC004724A3 /* main.m */; };
 		97ED58651C5796BC004724A3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ED58641C5796BC004724A3 /* AppDelegate.m */; };
@@ -44,6 +45,8 @@
 		6A29419F1C58CD7E00C5D207 /* MainScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScreenViewController.m; sourceTree = "<group>"; };
 		6A2989101C58AFDA006328A5 /* ConvertMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvertMoneyViewController.h; sourceTree = "<group>"; };
 		6A2989111C58AFDA006328A5 /* ConvertMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvertMoneyViewController.m; sourceTree = "<group>"; };
+		6A29C59A1C5A3BB50032B74D /* GraphDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphDrawer.h; sourceTree = "<group>"; };
+		6A29C59B1C5A3BB60032B74D /* GraphDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphDrawer.m; sourceTree = "<group>"; };
 		979339E11C58D9A000A674D1 /* CurencyCourseGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurencyCourseGraph.h; sourceTree = "<group>"; };
 		979339E21C58D9A000A674D1 /* CurencyCourseGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurencyCourseGraph.m; sourceTree = "<group>"; };
 		97ED585D1C5796BC004724A3 /* CurrencyExchange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyExchange.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +78,8 @@
 				6A29419F1C58CD7E00C5D207 /* MainScreenViewController.m */,
 				979339E11C58D9A000A674D1 /* CurencyCourseGraph.h */,
 				979339E21C58D9A000A674D1 /* CurencyCourseGraph.m */,
+				6A29C59A1C5A3BB50032B74D /* GraphDrawer.h */,
+				6A29C59B1C5A3BB60032B74D /* GraphDrawer.m */,
 				6A29890F1C58AF44006328A5 /* show banks */,
 				6A29890E1C58AF3D006328A5 /* earn */,
 				6A29890D1C58AF32006328A5 /* convert */,
@@ -238,6 +243,7 @@
 				6A2989121C58AFDA006328A5 /* ConvertMoneyViewController.m in Sources */,
 				6A19D05F1C58035900529993 /* EarnMoneyGraphView.m in Sources */,
 				979339E31C58D9A000A674D1 /* CurencyCourseGraph.m in Sources */,
+				6A29C59C1C5A3BB60032B74D /* GraphDrawer.m in Sources */,
 				97ED58621C5796BC004724A3 /* main.m in Sources */,
 				6A2941A01C58CD7E00C5D207 /* MainScreenViewController.m in Sources */,
 				6A193CF51C57CF0500093B36 /* WebSharingViewController.m in Sources */,
