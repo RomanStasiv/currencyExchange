@@ -11,9 +11,9 @@
 
 @interface EarnMoneyGraphView : GraphDrawer
 
-@property (nonatomic, assign) BOOL NeedDrawingControlPoints;
 @property (nonatomic, strong) NSArray *controlPointsArray;
 
-- (CGPoint)getLastPointOfCurrency:(NSString *)currency;
+//- (CGPoint)getLastPointOfCurrency:(NSString *)currency;
+- (void)drawAllControlpoints;
 
 @end

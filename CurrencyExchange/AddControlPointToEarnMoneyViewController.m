@@ -32,7 +32,7 @@
             break;
             
         case 1:
-            self.currency = @"euros";
+            self.currency = @"euro";
             break;
             
         default:

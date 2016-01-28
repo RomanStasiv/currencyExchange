@@ -24,10 +24,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.graphView.USDStrokeColor = [UIColor blueColor];
+    /*self.graphView.USDStrokeColor = [UIColor blueColor];
     self.graphView.EURStrokeColor = [UIColor greenColor];
     [self setNeedsOfIndicator:self.USDColorIndicator WithColor:self.graphView.USDStrokeColor];
-    [self setNeedsOfIndicator:self.EURColorIndicator WithColor:self.graphView.EURStrokeColor];
+    [self setNeedsOfIndicator:self.EURColorIndicator WithColor:self.graphView.EURStrokeColor];*/
 }
 
 - (void)setNeedsOfIndicator:(UIImageView *)colorIndicator WithColor:(UIColor *)color
@@ -55,8 +55,10 @@
     ControllPoint *point = [[ControllPoint alloc] init];
     point.currency = currency;
     point.value = [NSNumber numberWithFloat:money];
-    point.date = @"today";
-    point.pointOnGraph = [NSValue valueWithCGPoint:[self.graphView getLastPointOfCurrency:point.currency]];
+    NSTimeInterval secondsPerDay = 24 * 60 * 60; // Интервал в 1 день равный 86 400 секунд
+    NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:secondsPerDay * 4];
+    point.date = [[NSDate alloc] init];
+    point.date = date;
     
     //adding point to array in EarnMoneyVC
     if (!self.graphView.controlPointsArray)
@@ -64,8 +66,7 @@
     NSMutableArray *mutableControlPointsArray = [self.graphView.controlPointsArray mutableCopy];
     [mutableControlPointsArray addObject:point];
     self.graphView.controlPointsArray = mutableControlPointsArray;
-    self.graphView.NeedDrawingControlPoints = YES;
-    [self.graphView setNeedsDisplay];
+    [self.graphView drawAllControlpoints];
     
 #warning not fully implement
 }

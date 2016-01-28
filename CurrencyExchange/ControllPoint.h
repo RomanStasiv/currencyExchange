@@ -10,8 +10,7 @@
 
 @interface ControllPoint : NSObject // nsmanagedobje/.........
 
-@property (nonatomic, strong) NSValue *pointOnGraph;
-@property (nonatomic, strong) NSString *date;
+@property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSNumber *value;
 @property (nonatomic, strong) NSString *currency;
 

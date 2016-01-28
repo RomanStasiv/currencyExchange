@@ -12,31 +12,388 @@
 static NSString* USDbid[] = {
     @"25", @"25.5", @"26", @"24", @"25",
     @"22", @"20", @"19", @"18", @"17",
-    @"20", @"22", @"25", @"27", @"30",
-
-};
-static NSString* EURbid[] = {
-    @"26", @"28.5", @"29", @"28", @"27",
-    @"25", @"27", @"30", @"33", @"33",
-    @"33", @"31", @"31", @"32", @"30",
-
+    @"20", @"22", @"25", @"27", @"30"
 };
 static NSString* USDask[] = {
     @"26", @"27", @"28", @"25", @"26",
     @"23", @"21", @"20", @"19", @"18",
-    @"17", @"23", @"26", @"28", @"31",
+    @"22", @"23", @"26", @"28", @"31"
+};
+static NSString* EURbid[] = {
+    @"26", @"28.5", @"29", @"28", @"27",
+    @"25", @"27", @"30", @"33", @"33",
+    @"33", @"31", @"31", @"32", @"30"
 
 };
 static NSString* EURask[] = {
-    @"26", @"28.5", @"29", @"28", @"27",
-    @"25", @"27", @"30", @"33", @"33",
-    @"33", @"31", @"31", @"32", @"30",
-
+    @"27", @"29", @"30", @"30", @"29",
+    @"27", @"27", @"33", @"35", @"35",
+    @"35", @"33", @"33", @"34", @"32"
 };
 
 
+@interface GraphDrawer()
+
+
+
+@end
+
 @implementation GraphDrawer
 
+- (void)drawRect:(CGRect)rect
+{
+    self.inset = 50;
+    self.insetFrame = CGRectMake(self.bounds.origin.x + self.inset, self.bounds.origin.y, self.bounds.size.width - self.inset, self.bounds.size.height - self.inset);
+    [self configureVariable];
+    [self drawGrid];
+    [self drawGraphForCurrency:@"dolarsBid"];
+    [self drawGraphForCurrency:@"dolarsAsk"];
+    [self drawGraphForCurrency:@"euroBid"];
+    [self drawGraphForCurrency:@"euroAsk"];
+    [self drawAxis];
+    [self drawDivisionsOnAxis];
+}
+
+#pragma mark - preparation
+- (NSMutableArray *)avarageCurrencyObjectsArray
+{
+    if (!_avarageCurrencyObjectsArray)
+    {
+        _avarageCurrencyObjectsArray = [[NSMutableArray alloc] init];
+        for (int i = 0; i < 15; i++)
+        {
+            NSTimeInterval secondsPerDay = 24 * 60 * 60; // Интервал в 1 день равный 86 400 секунд
+            NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:secondsPerDay * i];
+            
+            AvarageCurrency *object = [[AvarageCurrency alloc] init];
+            object.USDbid = [NSNumber numberWithFloat:[USDbid[i] floatValue]];
+            object.USDask = [NSNumber numberWithFloat:[USDask[i] floatValue]];
+            object.EURbid = [NSNumber numberWithFloat:[EURbid[i] floatValue]];
+            object.EURask = [NSNumber numberWithFloat:[EURask[i] floatValue]];
+            object.date = date;
+            
+            [_avarageCurrencyObjectsArray addObject:object];
+        }
+    }
+    return _avarageCurrencyObjectsArray;
+}
+
+- (void)configureVariable
+{
+    //Dynamic Drid
+    // ____________________________________________________________________________
+    self.segmentWidthCount = [self.avarageCurrencyObjectsArray count];
+    self.segmentWidth = self.insetFrame.size.width / self.segmentWidthCount;
+    
+    NSMutableArray * USDbidValues = [[NSMutableArray alloc] init];
+    NSMutableArray * USDaskValues = [[NSMutableArray alloc] init];
+    NSMutableArray * EURbidValues = [[NSMutableArray alloc] init];
+    NSMutableArray * EURaskValues = [[NSMutableArray alloc] init];
+    for (AvarageCurrency *object in self.avarageCurrencyObjectsArray)
+    {
+        [USDbidValues addObject:object.USDbid];
+        [USDaskValues addObject:object.USDask];
+        [EURbidValues addObject:object.EURbid];
+        [EURaskValues addObject:object.EURask];
+    }
+    
+    int usdAksMax = [[USDaskValues valueForKeyPath:@"@max.intValue"] intValue];
+    int eurAskMax = [[EURaskValues valueForKeyPath:@"@max.intValue"] intValue];
+    self.maxYvalue = MAX(usdAksMax, eurAskMax);
+    
+    int usdBitMin = [[USDbidValues valueForKeyPath:@"@min.intValue"] intValue];
+    int eurBitMin = [[EURbidValues valueForKeyPath:@"@min.intValue"] intValue];
+    self.minYvalue = MIN(usdBitMin, eurBitMin);
+    
+    self.segmentHeightCount = self.maxYvalue - self.minYvalue +1;
+    self.segmentHeight = (self.insetFrame.size.height - self.inset) / self.segmentHeightCount;
+    
+    
+    
+    //Points though which graph draws
+    // ____________________________________________________________________________
+    self.pointsOfUSDBidCurve = [[NSMutableArray alloc] init];
+    self.pointsOfEURBidCurve = [[NSMutableArray alloc] init];
+    self.pointsOfUSDAskCurve = [[NSMutableArray alloc] init];
+    self.pointsOfEURAskCurve = [[NSMutableArray alloc] init];
+    
+    self.pointsOfUSDBidCurve = [self makeArrayOfPointsFromArrayOfCurrency:USDbidValues];
+    self.pointsOfEURBidCurve = [self makeArrayOfPointsFromArrayOfCurrency:EURbidValues];
+    self.pointsOfUSDAskCurve = [self makeArrayOfPointsFromArrayOfCurrency:USDaskValues];
+    self.pointsOfEURAskCurve = [self makeArrayOfPointsFromArrayOfCurrency:EURaskValues];
+    
+    self.USDBidStrokeColor = [UIColor blackColor];
+    self.USDAskStrokeColor = [UIColor grayColor];
+    self.EURBidStrokeColor = [UIColor blueColor];
+    self.EURAskStrokeColor = [UIColor greenColor];
+}
+
+- (NSArray *)makeArrayOfPointsFromArrayOfCurrency:(NSArray *)currency
+{
+    NSMutableArray *calibratedCurrency = [NSMutableArray array];
+    for (int i = 0; i < currency.count; i++)
+    {
+        [calibratedCurrency addObject:[NSNumber numberWithFloat:[[currency objectAtIndex:i] floatValue] * self.segmentHeight]];
+    }
+    
+    
+    NSMutableArray *arrayOfPoints = [NSMutableArray array];
+    CGFloat xPoint = self.inset;
+    for (int i = 0; i < self.segmentWidthCount; i++)
+    {
+        CGPoint point = CGPointMake(xPoint, self.insetFrame.size.height - [[calibratedCurrency objectAtIndex:i] floatValue] + (self.minYvalue * self.segmentHeight));
+        [arrayOfPoints addObject:[NSValue valueWithCGPoint:point]];
+        xPoint += self.segmentWidth;
+    }
+    return arrayOfPoints;
+}
+
+#pragma mark - Grid
+- (void)drawGrid
+{
+    [self drawVerticalLines];
+    [self drawHorizontalLines];
+}
+
+- (void)drawVerticalLines
+{
+    CGFloat xPoint = self.inset;
+    for (int i = 0; i < self.segmentWidthCount; i++)
+    {
+        CGPoint a = CGPointMake(xPoint, self.insetFrame.origin.y + self.inset);
+        CGPoint b = CGPointMake(xPoint, self.insetFrame.size.height + 20);
+        [self drawLineFromPointA:a toPointB:b WithWidth:((self.segmentHeight + self.segmentWidth) / 2) * 0.01 andColor:[UIColor blackColor]];
+        xPoint += self.segmentWidth;
+    }
+}
+
+- (void)drawHorizontalLines
+{
+    CGFloat yPoint = self.segmentHeight + self.inset;
+    for (int i = 0; i < self.segmentHeightCount; i++)
+    {
+        CGPoint a = CGPointMake(self.insetFrame.origin.x - 20, yPoint);
+        CGPoint b = CGPointMake(self.frame.size.width, yPoint);
+        [self drawLineFromPointA:a toPointB:b WithWidth:((self.segmentHeight + self.segmentWidth) / 2) * 0.01 andColor:[UIColor blackColor]];
+        yPoint += self.segmentHeight;
+    }
+}
+
+- (void)drawLineFromPointA:(CGPoint)a toPointB:(CGPoint)b WithWidth:(CGFloat)width andColor:(UIColor *)color
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [color setStroke];
+    path.lineWidth = width;
+    path.lineCapStyle = kCGLineCapRound;
+    
+    [path moveToPoint:a];
+    [path addLineToPoint:b];
+    
+    [path stroke];
+}
+
+#pragma mark - Graph
+- (void)drawGraphForCurrency:(NSString *)currency
+{
+    CGFloat width = ((self.segmentWidth + self.segmentHeight) / 2) * 0.1;
+    if ([currency isEqualToString: @"dolarsBid"])
+    {
+        [self drawSmoothLineFromArrayOfPoints:self.pointsOfUSDBidCurve
+                                   whithColor:self.USDBidStrokeColor
+                                     andWidth:width];
+    }
+    else if ([currency isEqualToString: @"dolarsAsk"])
+    {
+        [self drawSmoothLineFromArrayOfPoints:self.pointsOfUSDAskCurve
+                                   whithColor:self.USDAskStrokeColor
+                                     andWidth:width];
+    }
+    else if ([currency isEqualToString: @"euroBid"])
+    {
+        [self drawSmoothLineFromArrayOfPoints:self.pointsOfEURBidCurve
+                                   whithColor:self.EURBidStrokeColor
+                                     andWidth:width];
+    }
+    else if ([currency isEqualToString: @"euroAsk"])
+    {
+        [self drawSmoothLineFromArrayOfPoints:self.pointsOfEURAskCurve
+                                   whithColor:self.EURAskStrokeColor
+                                     andWidth:width];
+    }
+}
+
+- (void)drawSmoothLineFromArrayOfPoints:(NSArray *)points whithColor:(UIColor *)color andWidth:(CGFloat)width
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [color setStroke];
+    path.lineWidth = width;
+    
+    
+    path.lineCapStyle = kCGLineCapRound;
+    path.lineJoinStyle = kCGLineJoinRound;
+    
+    NSValue *value = [points firstObject];
+    CGPoint firstPoint = [value CGPointValue];
+    [path moveToPoint:firstPoint];
+    
+    if (points.count > 2)
+    {
+        [path addLineToPoint:[self getMidPointBetweenPointA:firstPoint
+                                                       andB:[[points objectAtIndex:1] CGPointValue]]];
+        for (int i = 1; i < points.count-1; i++)
+        {
+            CGPoint midpoint = [self getMidPointBetweenPointA:[[points objectAtIndex:i] CGPointValue]
+                                                         andB:[[points objectAtIndex:i+1] CGPointValue]];
+            [path addQuadCurveToPoint:midpoint
+                         controlPoint:[[points objectAtIndex:i] CGPointValue]];
+        }
+        [path addLineToPoint:[[points lastObject] CGPointValue]];
+    }
+    else if (points.count == 2)
+    {
+        [path addLineToPoint:[self getMidPointBetweenPointA:firstPoint andB:[[points objectAtIndex:1] CGPointValue]]];
+    }
+    else
+    {
+        [path addLineToPoint:firstPoint];
+    }
+    [path stroke];
+}
+
+- (CGPoint) getMidPointBetweenPointA:(CGPoint)a andB:(CGPoint)b
+{
+    return CGPointMake((a.x + b.x)/2, (a.y + b.y)/2);
+}
+
+#pragma mark - Axis
+- (void)drawAxis
+{
+    //vertical axis
+    CGPoint startPoint = CGPointMake(40, self.bounds.size.height);
+    CGPoint stopPoint = CGPointMake(40, self.bounds.origin.y + 3);
+    [self drawYAxisFromPointA:startPoint ToPointB:stopPoint WithWidth:3 AndColor:[UIColor redColor]];
+    
+    //horizontal axis
+    startPoint = CGPointMake(self.bounds.origin.x, self.bounds.size.height - 40);
+    stopPoint = CGPointMake(self.bounds.size.width - 3, self.bounds.size.height - 40);
+    [self drawXAxisFromPointA:startPoint ToPointB:stopPoint WithWidth:3 AndColor:[UIColor redColor]];
+}
+
+- (void)drawXAxisFromPointA:(CGPoint)a ToPointB:(CGPoint)b WithWidth:(CGFloat)width AndColor:(UIColor *)color
+{
+    [self drawLineFromPointA:a toPointB:b WithWidth:width andColor:color];
+    
+    //drawing triangle at the end of axis
+    CGFloat length[] = {1,1,1,1,3,1};
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextSetLineDash(ctx, 3, length, 6);
+    CGContextSetLineWidth(ctx, width);
+    CGContextSetLineCap(ctx, kCGLineCapRound);
+    CGContextSetLineJoin(ctx, kCGLineJoinRound);
+    CGContextSetStrokeColorWithColor(ctx, [color CGColor]);
+    //CGContextSetFillColorWithColor(ctx, [color CGColor]);
+    
+    CGFloat sideLength = width;
+    CGPoint FirstPoint = CGPointMake(b.x - sideLength, b.y - sideLength);
+    CGPoint SecondPoint = CGPointMake(b.x - sideLength, b.y + sideLength);
+    CGPoint ThirdPoint = CGPointMake(b.x, b.y);
+    
+    CGContextMoveToPoint(ctx, FirstPoint.x, FirstPoint.y);
+    CGContextAddLineToPoint(ctx, SecondPoint.x, SecondPoint.y);
+    CGContextAddLineToPoint(ctx, ThirdPoint.x, ThirdPoint.y);
+    CGContextClosePath(ctx);
+    
+    CGContextStrokePath(ctx);
+    CGContextFillPath(ctx);
+    //UIGraphicsEndImageContext();
+}
+
+- (void)drawYAxisFromPointA:(CGPoint)a ToPointB:(CGPoint)b WithWidth:(CGFloat)width AndColor:(UIColor *)color
+{
+    [self drawLineFromPointA:a toPointB:b WithWidth:width andColor:color];
+    
+    //drawing triangle at the end of axis
+    CGFloat length[] = {1,1,1,1,3,1};
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextSetLineDash(ctx, 3, length, 6);
+    CGContextSetLineWidth(ctx, width);
+    CGContextSetLineCap(ctx, kCGLineCapRound);
+    CGContextSetLineJoin(ctx, kCGLineJoinRound);
+    CGContextSetStrokeColorWithColor(ctx, [color CGColor]);
+    CGContextSetFillColorWithColor(ctx, [color CGColor]);
+    
+    CGFloat sideLength = width;
+    CGPoint FirstPoint = CGPointMake(b.x - sideLength, b.y + sideLength);
+    CGPoint SecondPoint = CGPointMake(b.x + sideLength, b.y + sideLength);
+    CGPoint ThirdPoint = CGPointMake(b.x, b.y);
+    
+    CGContextMoveToPoint(ctx, FirstPoint.x, FirstPoint.y);
+    CGContextAddLineToPoint(ctx, SecondPoint.x, SecondPoint.y);
+    CGContextAddLineToPoint(ctx, ThirdPoint.x, ThirdPoint.y);
+    CGContextClosePath(ctx);
+    
+    CGContextStrokePath(ctx);
+    CGContextFillPath(ctx);
+    UIGraphicsEndImageContext();
+}
+
+- (void)drawDivisionsOnAxis
+{
+    [self drawDivisionsOnYAxe];
+    [self drawDivisionsOnXAxe];
+}
+
+- (void)drawDivisionsOnYAxe
+{
+    CGFloat value = self.minYvalue;
+    CGFloat distance = (self.maxYvalue - self.minYvalue) / (self.segmentHeightCount - 1);
+    for (int i = 0; i < self.segmentHeightCount; i++)
+    {
+        CGRect frame = CGRectMake(0, (self.insetFrame.size.height - self.segmentHeight *2/3) - self.segmentHeight * i, 30, self.segmentHeight);
+        UILabel *valueLabel = [[UILabel alloc] initWithFrame:frame];
+        valueLabel.adjustsFontSizeToFitWidth = YES;
+        valueLabel.text = [NSString stringWithFormat:@"%.02f",value];
+        [self addSubview:valueLabel];
+        value += distance;
+    }
+}
+
+- (void)drawDivisionsOnXAxe
+{
+    NSMutableArray *month = [NSMutableArray array];
+    NSMutableArray *days = [NSMutableArray array];
+    
+    NSDateFormatter *monhtFormater = [[NSDateFormatter alloc] init];
+    [monhtFormater setDateFormat:@"MM"];
+    NSDateFormatter *dayFormater = [[NSDateFormatter alloc] init];
+    [monhtFormater setDateFormat:@"d"];
+    
+    for (AvarageCurrency *object in self.avarageCurrencyObjectsArray)
+    {
+        [month addObject:[monhtFormater stringFromDate:object.date]];
+        [days addObject:[dayFormater stringFromDate:object.date]];
+    }
+    for (int i = 0; i < self.segmentWidthCount; i++)
+    {
+        CGRect monthFrame = CGRectMake(self.inset + (self.segmentWidth * i),self.frame.size.height - 30,self.segmentWidth,self.segmentHeight);
+        UILabel *monthLabel = [[UILabel alloc] initWithFrame:monthFrame];
+        monthLabel.adjustsFontSizeToFitWidth = YES;
+        monthLabel.text = [month objectAtIndex:i];
+        
+        CGRect dayFrame = CGRectMake(self.inset + (self.segmentWidth * i),self.frame.size.height - 30 + self.segmentHeight,self.segmentWidth,self.segmentHeight);
+        UILabel *dayLabel = [[UILabel alloc] initWithFrame:dayFrame];
+        dayLabel.adjustsFontSizeToFitWidth = YES;
+        dayLabel.text = [days objectAtIndex:i];
+        
+        [self addSubview:monthLabel];
+        [self addSubview:dayLabel];
+    }
+}
+
+
+/*
 - (void)drawRect:(CGRect)rect
 {
     self.inset = 50;
@@ -281,5 +638,136 @@ static NSString* EURask[] = {
 {
 #warning NOT COMLETE REALIZATION
 }
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ - (NSArray *)makeArrayOfPointsFromArrayOfAvarageCurrencyObjects:(NSArray *)avarageCurrencyArray ForCurrency:(NSString *)currency
+ {
+ NSInteger mode;
+ if ([currency isEqualToString: @"dolarsBid"])
+ mode = 0;
+ else if ([currency isEqualToString: @"dolarsAsk"])
+ mode = 1;
+ else if ([currency isEqualToString: @"euroBid"])
+ mode = 2;
+ else if ([currency isEqualToString: @"euroAsk"])
+ mode = 3;
+ 
+ 
+ NSMutableArray *arrayOfPoints = [NSMutableArray array];
+ 
+ switch (mode)
+ {
+ case 0:
+ {
+ NSMutableArray *calibratedYvalue = [NSMutableArray array];
+ NSMutableArray * USDbidValues = [[NSMutableArray alloc] init];
+ for (AvarageCurrency *object in self.avarageCurrencyObjectsArray)
+ {
+ [USDbidValues addObject:object.USDbid];
+ }
+ for (int i = 0; i < USDbidValues.count; i++)
+ {
+ [calibratedYvalue addObject:[NSNumber numberWithFloat:[[USDbidValues objectAtIndex:i] floatValue] * self.segmentHeight]];
+ }
+ }
+ break;
+ 
+ case 1:
+ {
+ NSMutableArray *calibratedYvalue = [NSMutableArray array];
+ NSMutableArray * USDaskValues = [[NSMutableArray alloc] init];
+ for (AvarageCurrency *object in self.avarageCurrencyObjectsArray)
+ {
+ [USDaskValues addObject:object.USDask];
+ }
+ for (int i = 0; i < USDaskValues.count; i++)
+ {
+ [calibratedYvalue addObject:[NSNumber numberWithFloat:[[USDaskValues objectAtIndex:i] floatValue] * self.segmentHeight]];
+ }
+ }
+ break;
+ 
+ case 2:
+ {
+ NSMutableArray *calibratedYvalue = [NSMutableArray array];
+ NSMutableArray * EURbidValues = [[NSMutableArray alloc] init];
+ for (AvarageCurrency *object in self.avarageCurrencyObjectsArray)
+ {
+ [EURbidValues addObject:object.EURbid];
+ }
+ for (int i = 0; i < EURbidValues.count; i++)
+ {
+ [calibratedYvalue addObject:[NSNumber numberWithFloat:[[EURbidValues objectAtIndex:i] floatValue] * self.segmentHeight]];
+ }
+ }
+ break;
+ 
+ case 3:
+ {
+ NSMutableArray *calibratedYvalue = [NSMutableArray array];
+ NSMutableArray * EURaskValues = [[NSMutableArray alloc] init];
+ for (AvarageCurrency *object in self.avarageCurrencyObjectsArray)
+ {
+ [EURaskValues addObject:object.EURask];
+ }
+ for (int i = 0; i < EURaskValues.count; i++)
+ {
+ [calibratedYvalue addObject:[NSNumber numberWithFloat:[[EURaskValues objectAtIndex:i] floatValue] * self.segmentHeight]];
+ }
+ }
+ break;
+ 
+ default:
+ break;
+ }
+ 
+ 
+ CGFloat xPoint = self.inset;
+ for (int i = 0; i < self.segmentWidthCount; i++)
+ {
+ CGPoint point = CGPointMake(xPoint, self.insetFrame.size.height - [[calibratedCurrency objectAtIndex:i] floatValue] + (self.minYvalue * self.segmentHeight));
+ [arrayOfPoints addObject:[NSValue valueWithCGPoint:point]];
+ xPoint += self.segmentWidth;
+ }
+ return arrayOfPoints;
+ }
+ 
+ - (NSArray *)makeArrayOfPointsFromArrayOfYvalues:(NSArray *)values AndArrayOfXDates:(NSArray *)dates
+ {
+ NSMutableArray *calibratedYvalue = [NSMutableArray array];
+ 
+ for (int i = 0; i < values.count; i++)
+ {
+ [calibratedYvalue addObject:[NSNumber numberWithFloat:[[values objectAtIndex:i] floatValue] * self.segmentHeight]];
+ }
+ 
+ CGFloat xPoint = self.inset;
+ for (int i = 0; i < self.segmentWidthCount; i++)
+ {
+ CGPoint point = CGPointMake(xPoint, self.insetFrame.size.height - [[calibratedCurrency objectAtIndex:i] floatValue] + (self.minYvalue * self.segmentHeight));
+ [arrayOfPoints addObject:[NSValue valueWithCGPoint:point]];
+ xPoint += self.segmentWidth;
+ }
+ }
+ */
 
 @end
