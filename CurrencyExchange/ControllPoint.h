@@ -13,5 +13,7 @@
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSNumber *value;
 @property (nonatomic, strong) NSString *currency;
+#warning not implemented exChangeCource
+@property (nonatomic, strong) NSNumber *exChangeCource;
 
 @end
