@@ -33,6 +33,8 @@
 - (void)drawRect:(CGRect)rect
 {
     [self fillCourseArrays];
+    [self drawGrid];
+    
     [self drawLineWithColor:[UIColor redColor] fromArray:self.EURCourse];
     [self drawLineWithColor:[UIColor purpleColor] fromArray:self.USDCourse];
 }
@@ -42,15 +44,18 @@
 {
     self.EURCourse = [NSArray arrayWithObjects: @21.2, @21.4, @22.1, @22.2, @22.0, @21.9,  nil];
     
-    self.USDCourse = [NSArray arrayWithObjects: @19.2, @19.4, @20.1, @20.2, @20.0, @19.9,  nil];
+    self.USDCourse = [NSArray arrayWithObjects: @21.2, @21.4, @22.1, @22.2, @22.0, @21.9,  nil];
     
     NSMutableArray *tempEUR = [[self.EURCourse sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
     NSMutableArray *tempUSD = [[self.USDCourse sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
     [tempUSD addObject:[tempEUR firstObject]];
     [tempUSD addObject:[tempEUR lastObject]];
     [tempUSD sortUsingSelector:@selector(compare:)];
-    self.minCurencyElement = [tempUSD firstObject];
-    self.maxCurencyElement = [tempUSD lastObject];
+    double min = [[tempUSD firstObject] doubleValue];
+    double max = [[tempUSD lastObject] doubleValue];
+    
+    self.minCurencyElement = [NSNumber numberWithDouble:min - ((max - min) / 20)];
+    self.maxCurencyElement = [NSNumber numberWithDouble:max + ((max - min) / 20)];
 }
 
 -(void) fixArrayPoints
@@ -81,11 +86,22 @@
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
     double timeIntervalSpace = self.frame.size.width / ([self.USDCourse count] + 1);
+    CGContextMoveToPoint(context, 1*timeIntervalSpace, 0 );
+    CGContextSetStrokeColorWithColor(context, [[UIColor grayColor] CGColor]);
     
-    for()
+    for (int i = 1; i <= [self.USDCourse count]; i++)
     {
-        
+        CGContextMoveToPoint(context, i*timeIntervalSpace, 0 );
+        CGContextAddLineToPoint(context, i*timeIntervalSpace, self.bounds.size.height);
     }
+    
+    for (int i = 1; i < (self.bounds.size.height / timeIntervalSpace); i++)
+    {
+        CGContextMoveToPoint(context, 0, i*timeIntervalSpace );
+        CGContextAddLineToPoint(context, self.bounds.size.height, i*timeIntervalSpace );
+
+    }
+    CGContextStrokePath(context);
 }
 
 

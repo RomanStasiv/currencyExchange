@@ -20,7 +20,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.graph.backgroundColor = [UIColor grayColor];
+    self.graph.backgroundColor = [UIColor blackColor];
 }
 
 - (void)didReceiveMemoryWarning
