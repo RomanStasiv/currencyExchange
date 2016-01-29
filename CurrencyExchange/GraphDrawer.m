@@ -327,7 +327,9 @@
     NSDateFormatter *monhtFormater = [[NSDateFormatter alloc] init];
     [monhtFormater setDateFormat:@"MM"];
     NSDateFormatter *dayFormater = [[NSDateFormatter alloc] init];
-    [monhtFormater setDateFormat:@"d"];
+    [dayFormater setDateFormat:@"d"];
+    
+    
     
     for (AvarageCurrency *object in self.avarageCurrencyObjectsArray)
     {

@@ -186,9 +186,9 @@
 				97ED58631C5796BC004724A3 /* AppDelegate.h */,
 				97ED58641C5796BC004724A3 /* AppDelegate.m */,
 				97ED586F1C5796BC004724A3 /* Assets.xcassets */,
-				97ED58601C5796BC004724A3 /* Supporting Files */,
 				6A1A15501C5A7365003A3044 /* AvarageCurrency.h */,
 				6A1A15511C5A7365003A3044 /* AvarageCurrency.m */,
+				97ED58601C5796BC004724A3 /* Supporting Files */,
 			);
 			path = CurrencyExchange;
 			sourceTree = "<group>";
@@ -266,6 +266,11 @@
 				TargetAttributes = {
 					97ED585C1C5796BC004724A3 = {
 						CreatedOnToolsVersion = 7.1.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};

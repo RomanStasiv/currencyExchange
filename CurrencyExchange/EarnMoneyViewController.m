@@ -95,7 +95,7 @@ static NSString* EURask[] = {
 }
 
 #pragma mark - create control point
-- (void)addControlPointWithAmountOfMoney:(CGFloat)money andCurrency:(NSString *)currency
+- (void)addControlPointWithAmountOfMoney:(CGFloat)money Currency:(NSString *)currency ForDate:(NSDate *)date
 {
     if (!self.arrayOfControlPoints)
         self.arrayOfControlPoints = [NSMutableArray array];
@@ -103,10 +103,20 @@ static NSString* EURask[] = {
     ControllPoint *point = [[ControllPoint alloc] init];
     point.currency = currency;
     point.value = [NSNumber numberWithFloat:money];
-    NSTimeInterval secondsPerDay = 24 * 60 * 60; // Интервал в 1 день равный 86 400 секунд
+   /* NSTimeInterval secondsPerDay = 24 * 60 * 60; // Интервал в 1 день равный 86 400 секунд
     NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:secondsPerDay * 4];
-    point.date = [[NSDate alloc] init];
+    point.date = [[NSDate alloc] init];*/
     point.date = date;
+    AvarageCurrency *thisCurrency = [[AvarageCurrency alloc] init];
+    for (AvarageCurrency *currency in self.avarageCurrencyObjectsArray)
+    {
+        if ([currency.date compare:date] == NSOrderedSame)
+            thisCurrency = currency;
+    }
+    if ([currency isEqualToString:@"dolars"])
+        point.exChangeCource = thisCurrency.USDask;
+    else if ([currency isEqualToString:@"euro"])
+        point.exChangeCource = thisCurrency.EURask;
     
     //adding point to array in EarnMoneyVC
     if (!self.graphView.controlPointsArray)
