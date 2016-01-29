@@ -13,7 +13,6 @@
 
 @property (nonatomic, strong) NSArray *controlPointsArray;
 
-//- (CGPoint)getLastPointOfCurrency:(NSString *)currency;
 - (void)drawAllControlpoints;
 
 @end
