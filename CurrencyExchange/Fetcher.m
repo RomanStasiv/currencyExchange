@@ -55,23 +55,31 @@
     return qtyOfBanks;
 }
 
-- (AverageCurrency*) averageCurrencyRate
+- (NSMutableArray*) averageCurrencyRate
 {
     AppDelegate * delegate = [AppDelegate singleton];
     self.context = delegate.managedObjectContext;
     
+    if(!self.averageRates)
+        self.averageRates = [[NSMutableArray alloc] init];
+    
     self.averageCurrency = [[AverageCurrency alloc]init];
     
-    NSUInteger qtyOfBanks = [self allBanksQuantity];    NSArray* arrayFromCoreData = [self sortedCurrency];
+    NSUInteger qtyOfBanks = [self allBanksQuantity];
+    NSArray* arrayFromCoreData = [self sortedCurrency];
     
     double sumUSDAsk;
     double sumUSDBid;
     double sumEuroAsk;
     double sumEuroBid;
     CurrencyData* tmp;
+    double resultUSDAsk;
+    double resultUSDBid;
+    double resultEuroAsk;
+    double resultEuroBid;
     
-    
-    
+    for(int i=0; i<[arrayFromCoreData count]/qtyOfBanks; i++)
+    {
     for(int i = 0; i< qtyOfBanks; i++)
     {
         sumUSDAsk  += [[[arrayFromCoreData objectAtIndex:i ] usdCurrencyAsk ] doubleValue];
@@ -81,15 +89,11 @@
        
     }
     
-    NSLog(@"%f", sumUSDAsk );
-    NSLog(@"%f", sumUSDBid );
-    NSLog(@"%f", sumEuroAsk );
-    NSLog(@"%f", sumEuroBid );
-    
-    double resultUSDAsk  = sumUSDAsk/qtyOfBanks;
-    double resultUSDBid  = sumUSDBid/qtyOfBanks;
-    double resultEuroAsk = sumEuroAsk/qtyOfBanks;
-    double resultEuroBid = sumEuroBid/qtyOfBanks;
+    tmp.date = [[arrayFromCoreData objectAtIndex:0] date];
+    resultUSDAsk  = sumUSDAsk/qtyOfBanks;
+    resultUSDBid  = sumUSDBid/qtyOfBanks;
+    resultEuroAsk = sumEuroAsk/qtyOfBanks;
+    resultEuroBid = sumEuroBid/qtyOfBanks;
     
     NSLog(@"%f", resultUSDAsk );
     NSLog(@"%f", resultUSDBid );
@@ -102,8 +106,9 @@
     self.averageCurrency.EuroAsk = [NSNumber numberWithFloat: resultEuroAsk];
     self.averageCurrency.EuroBid = [NSNumber numberWithFloat: resultEuroBid];
     
-    
-    return self.averageCurrency;
+        [self.averageRates addObject:self.averageCurrency];
+    }
+    return self.averageRates;
     
 }
 

@@ -9,6 +9,7 @@
 #import "MainScreenViewController.h"
 #import "JSONParseCoreDataSave.h"
 #import "TestCoreData.h"
+#import "Fetcher.h"
 
 @interface MainScreenViewController ()
 @property (weak, nonatomic) IBOutlet UIView *graph;
@@ -22,10 +23,11 @@
     [super viewDidLoad];
     JSONParseCoreDataSave* workObject = [[JSONParseCoreDataSave alloc] init];
     TestCoreData* testObject = [[TestCoreData alloc] init];
+    Fetcher*tmp = [[Fetcher alloc]init];
     
-    
+    //[workObject deleteAllObjectsFromCoreData];
     //[testObject insertFakeDataToCoreData];
-    
+    [tmp averageCurrencyRate];
     self.graph.backgroundColor = [UIColor blackColor];
 }
 
