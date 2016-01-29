@@ -338,12 +338,18 @@
     }
     for (int i = 0; i < self.segmentWidthCount; i++)
     {
-        CGRect monthFrame = CGRectMake(self.inset + (self.segmentWidth * i),self.frame.size.height - 30,self.segmentWidth,self.segmentHeight);
+        CGRect monthFrame = CGRectMake(self.inset + (self.segmentWidth * i) - (self.segmentWidth / 2) + (self.segmentWidth / 10),
+                                       self.frame.size.height - 30,
+                                       self.segmentWidth - (self.segmentWidth / 10),
+                                       self.segmentWidth);
         UILabel *monthLabel = [[UILabel alloc] initWithFrame:monthFrame];
         monthLabel.adjustsFontSizeToFitWidth = YES;
         monthLabel.text = [month objectAtIndex:i];
         
-        CGRect dayFrame = CGRectMake(self.inset + (self.segmentWidth * i),self.frame.size.height - 30 + self.segmentHeight,self.segmentWidth,self.segmentHeight);
+        CGRect dayFrame = CGRectMake(self.inset + (self.segmentWidth * i) - (self.segmentWidth / 2) + (self.segmentWidth / 10),
+                                     self.frame.size.height - 30 + self.segmentWidth,
+                                     self.segmentWidth - (self.segmentWidth / 10),
+                                     self.segmentWidth);
         UILabel *dayLabel = [[UILabel alloc] initWithFrame:dayFrame];
         dayLabel.adjustsFontSizeToFitWidth = YES;
         dayLabel.text = [days objectAtIndex:i];

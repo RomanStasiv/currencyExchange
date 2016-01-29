@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15C50" minimumToolsVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="14F27" minimumToolsVersion="Automatic">
     <entity name="BankData" representedClassName="BankData" parentEntity="ObjectData" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
@@ -15,6 +15,12 @@
         <attribute name="region" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="bank" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BankData" inverseName="branch" inverseEntity="BankData" syncable="YES"/>
     </entity>
+    <entity name="CDControlPoint" representedClassName="CDControlPoint" syncable="YES">
+        <attribute name="currency" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="exChangeCource" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+    </entity>
     <entity name="CurrencyData" representedClassName="CurrencyData" parentEntity="ObjectData" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="eurCurrencyAsk" optional="YES" attributeType="String" syncable="YES"/>
@@ -25,9 +31,10 @@
     </entity>
     <entity name="ObjectData" representedClassName="ObjectData" isAbstract="YES" syncable="YES"/>
     <elements>
-        <element name="BranchData" positionX="-1571" positionY="121" width="128" height="118"/>
         <element name="BankData" positionX="-1911" positionY="144" width="128" height="133"/>
+        <element name="BranchData" positionX="-1571" positionY="121" width="128" height="118"/>
         <element name="CurrencyData" positionX="-1352" positionY="144" width="128" height="133"/>
-        <element name="ObjectData" positionX="-1568" positionY="-9" width="128" height="43"/>
+        <element name="ObjectData" positionX="-1568" positionY="-9" width="128" height="45"/>
+        <element name="CDControlPoint" positionX="-990" positionY="-18" width="128" height="103"/>
     </elements>
 </model>
