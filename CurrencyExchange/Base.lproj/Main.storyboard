@@ -25,7 +25,7 @@
                                         <rect key="frame" x="200" y="0.0" width="200" height="100"/>
                                         <state key="normal" title="Earn on exchange"/>
                                         <connections>
-                                            <segue destination="7Xz-cD-7Wr" kind="show" id="zwk-Jg-s2Q"/>
+                                            <segue destination="7Xz-cD-7Wr" kind="show" identifier="earnVC" id="zwk-Jg-s2Q"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gyo-Ym-FEb">
@@ -84,6 +84,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1335" y="468"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="tr8-65-Mkk">
+            <objects>
+                <viewController id="13x-4o-EWr" customClass="MapViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="M8W-3j-Qtm"/>
+                        <viewControllerLayoutGuide type="bottom" id="F5v-KP-ffw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4IE-XU-iSv">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="3Fx-Iz-S2Y">
+                                <rect key="frame" x="20" y="28" width="560" height="552"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="3Fx-Iz-S2Y" firstAttribute="leading" secondItem="4IE-XU-iSv" secondAttribute="leadingMargin" id="5R1-1F-uge"/>
+                            <constraint firstItem="3Fx-Iz-S2Y" firstAttribute="trailing" secondItem="4IE-XU-iSv" secondAttribute="trailingMargin" id="9hu-dh-yCH"/>
+                            <constraint firstItem="3Fx-Iz-S2Y" firstAttribute="top" secondItem="M8W-3j-Qtm" secondAttribute="bottom" id="dwi-ma-wu1"/>
+                            <constraint firstItem="F5v-KP-ffw" firstAttribute="top" secondItem="3Fx-Iz-S2Y" secondAttribute="bottom" id="s7X-Gi-919"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="3Fx-Iz-S2Y" id="jeD-Wb-Dxf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TnO-kD-s8P" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1982" y="468"/>
         </scene>
         <!--Convert Money View Controller-->
         <scene sceneID="53b-ln-UuS">
@@ -279,8 +311,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r9k-0I-0n3">
+                                <rect key="frame" x="0.0" y="386" width="600" height="87"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rgy-bh-HLh">
+                                <rect key="frame" x="0.0" y="503" width="600" height="87"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveButtonBeenPressed:" destination="Djq-LH-aUk" eventType="touchUpInside" id="BsF-to-TeC"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3M-fj-5r9">
+                                <rect key="frame" x="0.0" y="74" width="600" height="87"/>
+                                <string key="text">Here it is menu, gives tou opportunity to follow your savings. To do so, you need to schose currency, amount of money and press save button</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fwm-qE-6xL">
+                                <rect key="frame" x="0.0" y="288" width="600" height="88"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Djq-LH-aUk" id="d79-cV-hta"/>
+                                    <outlet property="delegate" destination="Djq-LH-aUk" id="Y1G-jg-HP4"/>
+                                </connections>
+                            </pickerView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WdR-c5-ucj">
-                                <rect key="frame" x="0.0" y="211" width="600" height="107"/>
+                                <rect key="frame" x="0.0" y="191" width="600" height="88"/>
                                 <segments>
                                     <segment title="" image="dollar_sign"/>
                                     <segment title="" image="euro_sign"/>
@@ -290,25 +348,6 @@
                                     <action selector="currencyDidChanged:" destination="Djq-LH-aUk" eventType="valueChanged" id="2wI-Zf-NAr"/>
                                 </connections>
                             </segmentedControl>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r9k-0I-0n3">
-                                <rect key="frame" x="0.0" y="347" width="600" height="107"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rgy-bh-HLh">
-                                <rect key="frame" x="0.0" y="484" width="600" height="106"/>
-                                <state key="normal" title="Save"/>
-                                <connections>
-                                    <action selector="saveButtonBeenPressed:" destination="Djq-LH-aUk" eventType="touchUpInside" id="BsF-to-TeC"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3M-fj-5r9">
-                                <rect key="frame" x="0.0" y="74" width="600" height="107"/>
-                                <string key="text">Here it is menu, gives tou opportunity to follow your savings. To do so, you need to schose currency, amount of money and press save button</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -320,17 +359,22 @@
                             <constraint firstItem="r9k-0I-0n3" firstAttribute="height" secondItem="WdR-c5-ucj" secondAttribute="height" id="7ei-Ff-YN4"/>
                             <constraint firstItem="r9k-0I-0n3" firstAttribute="leading" secondItem="Tko-tL-doU" secondAttribute="leading" id="8z3-8z-pSQ"/>
                             <constraint firstItem="Rgy-bh-HLh" firstAttribute="top" secondItem="r9k-0I-0n3" secondAttribute="bottom" constant="30" id="AKa-zw-Ecn"/>
-                            <constraint firstItem="r9k-0I-0n3" firstAttribute="top" secondItem="WdR-c5-ucj" secondAttribute="bottom" constant="30" id="GPK-Bu-Jdj"/>
+                            <constraint firstItem="Fwm-qE-6xL" firstAttribute="height" secondItem="r9k-0I-0n3" secondAttribute="height" id="BXk-3t-uYp"/>
                             <constraint firstItem="Rgy-bh-HLh" firstAttribute="height" secondItem="WdR-c5-ucj" secondAttribute="height" id="MjJ-jK-IN4"/>
                             <constraint firstAttribute="trailing" secondItem="Rgy-bh-HLh" secondAttribute="trailing" id="T5u-7U-W1h"/>
+                            <constraint firstAttribute="trailing" secondItem="Fwm-qE-6xL" secondAttribute="trailing" id="WJG-Mb-gc5"/>
                             <constraint firstAttribute="trailing" secondItem="r9k-0I-0n3" secondAttribute="trailing" id="Xlj-F7-BI4"/>
+                            <constraint firstItem="Fwm-qE-6xL" firstAttribute="top" secondItem="WdR-c5-ucj" secondAttribute="bottom" constant="10" id="bIp-MP-8rZ"/>
                             <constraint firstItem="W3M-fj-5r9" firstAttribute="height" secondItem="WdR-c5-ucj" secondAttribute="height" id="eqJ-MY-5Ax"/>
                             <constraint firstItem="WdR-c5-ucj" firstAttribute="top" secondItem="W3M-fj-5r9" secondAttribute="bottom" constant="30" id="hRj-Fj-9us"/>
                             <constraint firstItem="beM-7M-CPK" firstAttribute="top" secondItem="Rgy-bh-HLh" secondAttribute="bottom" constant="10" id="jys-5z-cQV"/>
+                            <constraint firstItem="Fwm-qE-6xL" firstAttribute="leading" secondItem="Tko-tL-doU" secondAttribute="leading" id="mWa-su-efb"/>
+                            <constraint firstItem="r9k-0I-0n3" firstAttribute="top" secondItem="Fwm-qE-6xL" secondAttribute="bottom" constant="10" id="mpr-a1-r0i"/>
                             <constraint firstAttribute="trailing" secondItem="WdR-c5-ucj" secondAttribute="trailing" id="ri6-VU-NrT"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="dateExchangePicker" destination="Fwm-qE-6xL" id="O9V-G9-9Rl"/>
                         <outlet property="moneyTextField" destination="r9k-0I-0n3" id="VTJ-XC-5eU"/>
                     </connections>
                 </viewController>

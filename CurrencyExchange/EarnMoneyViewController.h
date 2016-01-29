@@ -10,6 +10,6 @@
 
 @interface EarnMoneyViewController : UIViewController
 
-- (void)addControlPointWithAmountOfMoney:(CGFloat)money andCurrency:(NSString *)currency;
+- (void)addControlPointWithAmountOfMoney:(CGFloat)money Currency:(NSString *)currency ForDate:(NSDate *)date;
 
 @end

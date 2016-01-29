@@ -9,67 +9,102 @@
 #import "GraphDrawer.h"
 
 
-static NSString* USD[] = {
-    @"25", @"25.5", @"26", @"24", @"25",
-    @"22", @"20", @"19", @"18", @"17",
-    @"20", @"22", @"25", @"27", @"30",
-    @"31", @"32", @"35", @"33", @"36",
-    @"40", @"35", @"30", @"25", @"24",
-};
-static NSString* EUR[] = {
-    @"26", @"28.5", @"29", @"28", @"27",
-    @"25", @"27", @"30", @"33", @"33",
-    @"33", @"31", @"31", @"32", @"30",
-    @"31", @"32", @"35", @"33", @"36",
-    @"40", @"35", @"30", @"25", @"24",
-};
 
+
+
+@interface GraphDrawer()
+
+
+
+@end
 
 @implementation GraphDrawer
 
 - (void)drawRect:(CGRect)rect
 {
-    self.inset = 50;
-    self.insetFrame = CGRectMake(self.bounds.origin.x + self.inset, self.bounds.origin.y, self.bounds.size.width - self.inset, self.bounds.size.height - self.inset);
-    NSLog(@"frame:%@ insetFrame:%@",NSStringFromCGRect(self.frame), NSStringFromCGRect(self.insetFrame));
     [self configureVariable];
     [self drawGrid];
-    [self drawGraphForCurrency:@"dolars"];
-    [self drawGraphForCurrency:@"euros"];
+    [self drawGraphForCurrency:@"dolarsBid"];
+    [self drawGraphForCurrency:@"dolarsAsk"];
+    [self drawGraphForCurrency:@"euroBid"];
+    [self drawGraphForCurrency:@"euroAsk"];
     [self drawAxis];
+    [self drawDivisionsOnAxis];
 }
 
-//__________________________hard coding 25 - len of USD
+#pragma mark - preparation
+
+
 - (void)configureVariable
 {
-    
-    
-    self.EURArray = [[NSMutableArray alloc] init];
-    self.USDArray = [[NSMutableArray alloc] init];
-    for (int i = 0; i < 25; i++)
-    {
-        [self.EURArray addObject:[NSNumber numberWithFloat:[EUR[i] floatValue]]];
-        [self.USDArray addObject:[NSNumber numberWithFloat:[USD[i] floatValue]]];
-    }
-    
-    self.segmentWidthCount = [self.USDArray count];
+    self.inset = 50;
+    self.insetFrame = CGRectMake(self.bounds.origin.x + self.inset, self.bounds.origin.y, self.bounds.size.width - self.inset, self.bounds.size.height - self.inset);
+    //Dynamic Drid
+    // ____________________________________________________________________________
+    self.segmentWidthCount = [self.avarageCurrencyObjectsArray count];
     self.segmentWidth = self.insetFrame.size.width / self.segmentWidthCount;
     
-    int usdMax = [[self.USDArray valueForKeyPath:@"@max.intValue"] intValue];
-    int eurMax = [[self.EURArray valueForKeyPath:@"@max.intValue"] intValue];
-    self.maxYvalue = MAX(eurMax, usdMax);
+    NSMutableArray * USDbidValues = [[NSMutableArray alloc] init];
+    NSMutableArray * USDaskValues = [[NSMutableArray alloc] init];
+    NSMutableArray * EURbidValues = [[NSMutableArray alloc] init];
+    NSMutableArray * EURaskValues = [[NSMutableArray alloc] init];
+    for (AvarageCurrency *object in self.avarageCurrencyObjectsArray)
+    {
+        [USDbidValues addObject:object.USDbid];
+        [USDaskValues addObject:object.USDask];
+        [EURbidValues addObject:object.EURbid];
+        [EURaskValues addObject:object.EURask];
+    }
     
-    int usdMin = [[self.USDArray valueForKeyPath:@"@min.intValue"] intValue];
-    int eurMin = [[self.EURArray valueForKeyPath:@"@min.intValue"] intValue];
-    self.minYvalue = MIN(usdMin, eurMin);
+    int usdAksMax = [[USDaskValues valueForKeyPath:@"@max.intValue"] intValue];
+    int eurAskMax = [[EURaskValues valueForKeyPath:@"@max.intValue"] intValue];
+    self.maxYvalue = MAX(usdAksMax, eurAskMax);
     
-    self.segmentHeightCount = self.maxYvalue - self.minYvalue;
-    self.segmentHeight = self.insetFrame.size.height / self.segmentHeightCount;
+    int usdBitMin = [[USDbidValues valueForKeyPath:@"@min.intValue"] intValue];
+    int eurBitMin = [[EURbidValues valueForKeyPath:@"@min.intValue"] intValue];
+    self.minYvalue = MIN(usdBitMin, eurBitMin);
     
-    self.pointsOfUSDCurve = [[NSMutableArray alloc] init];
-    self.pointsOfEURCurve = [[NSMutableArray alloc] init];
-    self.pointsOfUSDCurve = [self makeArrayOfPointsFromArrayOfCurrency:self.USDArray];
-    self.pointsOfEURCurve = [self makeArrayOfPointsFromArrayOfCurrency:self.EURArray];
+    self.segmentHeightCount = self.maxYvalue - self.minYvalue +1;
+    self.segmentHeight = (self.insetFrame.size.height - self.inset) / self.segmentHeightCount;
+    
+    
+    
+    //Points though which graph draws
+    // ____________________________________________________________________________
+    self.pointsOfUSDBidCurve = [[NSMutableArray alloc] init];
+    self.pointsOfEURBidCurve = [[NSMutableArray alloc] init];
+    self.pointsOfUSDAskCurve = [[NSMutableArray alloc] init];
+    self.pointsOfEURAskCurve = [[NSMutableArray alloc] init];
+    
+    self.pointsOfUSDBidCurve = [self makeArrayOfPointsFromArrayOfCurrency:USDbidValues];
+    self.pointsOfEURBidCurve = [self makeArrayOfPointsFromArrayOfCurrency:EURbidValues];
+    self.pointsOfUSDAskCurve = [self makeArrayOfPointsFromArrayOfCurrency:USDaskValues];
+    self.pointsOfEURAskCurve = [self makeArrayOfPointsFromArrayOfCurrency:EURaskValues];
+    
+    self.USDBidStrokeColor = [UIColor blackColor];
+    self.USDAskStrokeColor = [UIColor grayColor];
+    self.EURBidStrokeColor = [UIColor blueColor];
+    self.EURAskStrokeColor = [UIColor greenColor];
+}
+
+- (NSArray *)makeArrayOfPointsFromArrayOfCurrency:(NSArray *)currency
+{
+    NSMutableArray *calibratedCurrency = [NSMutableArray array];
+    for (int i = 0; i < currency.count; i++)
+    {
+        [calibratedCurrency addObject:[NSNumber numberWithFloat:[[currency objectAtIndex:i] floatValue] * self.segmentHeight]];
+    }
+    
+    
+    NSMutableArray *arrayOfPoints = [NSMutableArray array];
+    CGFloat xPoint = self.inset;
+    for (int i = 0; i < self.segmentWidthCount; i++)
+    {
+        CGPoint point = CGPointMake(xPoint, self.insetFrame.size.height - [[calibratedCurrency objectAtIndex:i] floatValue] + (self.minYvalue * self.segmentHeight));
+        [arrayOfPoints addObject:[NSValue valueWithCGPoint:point]];
+        xPoint += self.segmentWidth;
+    }
+    return arrayOfPoints;
 }
 
 #pragma mark - Grid
@@ -84,7 +119,7 @@ static NSString* EUR[] = {
     CGFloat xPoint = self.inset;
     for (int i = 0; i < self.segmentWidthCount; i++)
     {
-        CGPoint a = CGPointMake(xPoint, self.insetFrame.origin.y);
+        CGPoint a = CGPointMake(xPoint, self.insetFrame.origin.y + self.inset);
         CGPoint b = CGPointMake(xPoint, self.insetFrame.size.height + 20);
         [self drawLineFromPointA:a toPointB:b WithWidth:((self.segmentHeight + self.segmentWidth) / 2) * 0.01 andColor:[UIColor blackColor]];
         xPoint += self.segmentWidth;
@@ -93,7 +128,7 @@ static NSString* EUR[] = {
 
 - (void)drawHorizontalLines
 {
-    CGFloat yPoint = self.segmentHeight;
+    CGFloat yPoint = self.segmentHeight + self.inset;
     for (int i = 0; i < self.segmentHeightCount; i++)
     {
         CGPoint a = CGPointMake(self.insetFrame.origin.x - 20, yPoint);
@@ -120,34 +155,30 @@ static NSString* EUR[] = {
 - (void)drawGraphForCurrency:(NSString *)currency
 {
     CGFloat width = ((self.segmentWidth + self.segmentHeight) / 2) * 0.1;
-    if ([currency isEqualToString: @"dolars"])
-        [self drawSmoothLineFromArrayOfPoints:self.pointsOfUSDCurve
-                                   whithColor:self.USDStrokeColor
-                                     andWidth:width];
-    else if ([currency isEqualToString:@"euros"])
-        [self drawSmoothLineFromArrayOfPoints:self.pointsOfEURCurve
-                                   whithColor:self.EURStrokeColor
-                                     andWidth:width];
-}
-
-- (NSArray *)makeArrayOfPointsFromArrayOfCurrency:(NSArray *)currency
-{
-    NSMutableArray *calibratedCurrency = [NSMutableArray array];
-    for (int i = 0; i < currency.count; i++)
+    if ([currency isEqualToString: @"dolarsBid"])
     {
-        [calibratedCurrency addObject:[NSNumber numberWithFloat:[[currency objectAtIndex:i] floatValue] * self.segmentHeight]];
+        [self drawSmoothLineFromArrayOfPoints:self.pointsOfUSDBidCurve
+                                   whithColor:self.USDBidStrokeColor
+                                     andWidth:width];
     }
-    
-    
-    NSMutableArray *arrayOfPoints = [NSMutableArray array];
-    CGFloat xPoint = self.inset;
-    for (int i = 0; i < self.segmentWidthCount; i++)
+    else if ([currency isEqualToString: @"dolarsAsk"])
     {
-        CGPoint point = CGPointMake(xPoint, self.insetFrame.size.height - [[calibratedCurrency objectAtIndex:i] floatValue] + (self.minYvalue * self.segmentHeight));
-        [arrayOfPoints addObject:[NSValue valueWithCGPoint:point]];
-        xPoint += self.segmentWidth;
+        [self drawSmoothLineFromArrayOfPoints:self.pointsOfUSDAskCurve
+                                   whithColor:self.USDAskStrokeColor
+                                     andWidth:width];
     }
-    return arrayOfPoints;
+    else if ([currency isEqualToString: @"euroBid"])
+    {
+        [self drawSmoothLineFromArrayOfPoints:self.pointsOfEURBidCurve
+                                   whithColor:self.EURBidStrokeColor
+                                     andWidth:width];
+    }
+    else if ([currency isEqualToString: @"euroAsk"])
+    {
+        [self drawSmoothLineFromArrayOfPoints:self.pointsOfEURAskCurve
+                                   whithColor:self.EURAskStrokeColor
+                                     andWidth:width];
+    }
 }
 
 - (void)drawSmoothLineFromArrayOfPoints:(NSArray *)points whithColor:(UIColor *)color andWidth:(CGFloat)width
@@ -267,9 +298,65 @@ static NSString* EUR[] = {
     UIGraphicsEndImageContext();
 }
 
-- (void)drawdivisionsOnXaxis
+- (void)drawDivisionsOnAxis
 {
-#warning NOT COMLETE REALIZATION
+    [self drawDivisionsOnYAxe];
+    [self drawDivisionsOnXAxe];
+}
+
+- (void)drawDivisionsOnYAxe
+{
+    CGFloat value = self.minYvalue;
+    CGFloat distance = (self.maxYvalue - self.minYvalue) / (self.segmentHeightCount - 1);
+    for (int i = 0; i < self.segmentHeightCount; i++)
+    {
+        CGRect frame = CGRectMake(0, (self.insetFrame.size.height - self.segmentHeight *2/3) - self.segmentHeight * i, 30, self.segmentHeight);
+        UILabel *valueLabel = [[UILabel alloc] initWithFrame:frame];
+        valueLabel.adjustsFontSizeToFitWidth = YES;
+        valueLabel.text = [NSString stringWithFormat:@"%.02f",value];
+        [self addSubview:valueLabel];
+        value += distance;
+    }
+}
+
+- (void)drawDivisionsOnXAxe
+{
+    NSMutableArray *month = [NSMutableArray array];
+    NSMutableArray *days = [NSMutableArray array];
+    
+    NSDateFormatter *monhtFormater = [[NSDateFormatter alloc] init];
+    [monhtFormater setDateFormat:@"MM"];
+    NSDateFormatter *dayFormater = [[NSDateFormatter alloc] init];
+    [dayFormater setDateFormat:@"d"];
+    
+    
+    
+    for (AvarageCurrency *object in self.avarageCurrencyObjectsArray)
+    {
+        [month addObject:[monhtFormater stringFromDate:object.date]];
+        [days addObject:[dayFormater stringFromDate:object.date]];
+    }
+    for (int i = 0; i < self.segmentWidthCount; i++)
+    {
+        CGRect monthFrame = CGRectMake(self.inset + (self.segmentWidth * i) - (self.segmentWidth / 2) + (self.segmentWidth / 10),
+                                       self.frame.size.height - 30,
+                                       self.segmentWidth - (self.segmentWidth / 10),
+                                       self.segmentWidth);
+        UILabel *monthLabel = [[UILabel alloc] initWithFrame:monthFrame];
+        monthLabel.adjustsFontSizeToFitWidth = YES;
+        monthLabel.text = [month objectAtIndex:i];
+        
+        CGRect dayFrame = CGRectMake(self.inset + (self.segmentWidth * i) - (self.segmentWidth / 2) + (self.segmentWidth / 10),
+                                     self.frame.size.height - 30 + self.segmentWidth,
+                                     self.segmentWidth - (self.segmentWidth / 10),
+                                     self.segmentWidth);
+        UILabel *dayLabel = [[UILabel alloc] initWithFrame:dayFrame];
+        dayLabel.adjustsFontSizeToFitWidth = YES;
+        dayLabel.text = [days objectAtIndex:i];
+        
+        [self addSubview:monthLabel];
+        [self addSubview:dayLabel];
+    }
 }
 
 @end

@@ -16,12 +16,7 @@
 
 + (instancetype)singleton
 {
-    static AppDelegate *instance = nil;
-    dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        instance = [[AppDelegate alloc] init];
-    });
-    return instance;
+    return (AppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

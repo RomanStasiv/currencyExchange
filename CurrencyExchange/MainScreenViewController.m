@@ -26,10 +26,7 @@
     
     //[testObject insertFakeDataToCoreData];
     
-    //[workObject JSONParse];
-    //[workObject deleteAllObjectsFromCoreData];
-    //[workObject loadCoreDataObjects];
-
+    self.graph.backgroundColor = [UIColor blackColor];
 }
 
 - (void)didReceiveMemoryWarning
