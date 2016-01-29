@@ -8,6 +8,7 @@
 
 #import "MainScreenViewController.h"
 #import "JSONParseCoreDataSave.h"
+#import "TestCoreData.h"
 
 @interface MainScreenViewController ()
 @property (weak, nonatomic) IBOutlet UIView *graph;
@@ -20,6 +21,10 @@
 {
     [super viewDidLoad];
     JSONParseCoreDataSave* workObject = [[JSONParseCoreDataSave alloc] init];
+    TestCoreData* testObject = [[TestCoreData alloc] init];
+    
+    
+    //[testObject insertFakeDataToCoreData];
     
     //[workObject JSONParse];
     //[workObject deleteAllObjectsFromCoreData];
