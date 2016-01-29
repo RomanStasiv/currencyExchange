@@ -83,7 +83,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1328" y="468"/>
+            <point key="canvasLocation" x="1335" y="468"/>
         </scene>
         <!--Convert Money View Controller-->
         <scene sceneID="53b-ln-UuS">
