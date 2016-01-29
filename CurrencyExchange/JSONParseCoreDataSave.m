@@ -151,7 +151,6 @@
         if ([object isKindOfClass:[BankData class]]) {
             
             BankData* bank = (BankData*) object;
-            //NSLog(@"BANK: name = %@, region = %@, city = %@, address = %@ CURRENCY: EUR Ask = %@, EUR Bid = %@, USD Ask = %@, USD Bid = %@", bank.name, bank.region, bank.city, bank.address, bank.);
             NSLog(@"BANK: name = %@, region = %@, city = %@, address = %@ ", bank.name, bank.region, bank.city, bank.address);
             
         } else if ([object isKindOfClass:[BranchData class]]) {

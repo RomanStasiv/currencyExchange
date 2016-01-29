@@ -33,6 +33,7 @@
 		EF06169F1C5B524C0097B505 /* BranchData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0616961C5B524C0097B505 /* BranchData+CoreDataProperties.m */; };
 		EF0616A01C5B524C0097B505 /* BranchData.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0616981C5B524C0097B505 /* BranchData.m */; };
 		EF0616A61C5B52A90097B505 /* JSONParseCoreDataSave.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0616A51C5B52A90097B505 /* JSONParseCoreDataSave.m */; };
+		EF0616AF1C5B983A0097B505 /* TestCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0616AE1C5B983A0097B505 /* TestCoreData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +86,8 @@
 		EF0616981C5B524C0097B505 /* BranchData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchData.m; sourceTree = "<group>"; };
 		EF0616A41C5B52A90097B505 /* JSONParseCoreDataSave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONParseCoreDataSave.h; sourceTree = "<group>"; };
 		EF0616A51C5B52A90097B505 /* JSONParseCoreDataSave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONParseCoreDataSave.m; sourceTree = "<group>"; };
+		EF0616AD1C5B983A0097B505 /* TestCoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestCoreData.h; sourceTree = "<group>"; };
+		EF0616AE1C5B983A0097B505 /* TestCoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestCoreData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +224,8 @@
 			children = (
 				EF0616A41C5B52A90097B505 /* JSONParseCoreDataSave.h */,
 				EF0616A51C5B52A90097B505 /* JSONParseCoreDataSave.m */,
+				EF0616AD1C5B983A0097B505 /* TestCoreData.h */,
+				EF0616AE1C5B983A0097B505 /* TestCoreData.m */,
 			);
 			name = "Processing Files";
 			sourceTree = "<group>";
@@ -299,6 +304,7 @@
 				6A193CEF1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.m in Sources */,
 				6A193CF21C57C9E900093B36 /* ShareGoalsViewController.m in Sources */,
 				EF06169F1C5B524C0097B505 /* BranchData+CoreDataProperties.m in Sources */,
+				EF0616AF1C5B983A0097B505 /* TestCoreData.m in Sources */,
 				6A193CF81C57DB3000093B36 /* BanksTableViewController.m in Sources */,
 				97ED58651C5796BC004724A3 /* AppDelegate.m in Sources */,
 				6A193CEC1C57BD3800093B36 /* EarnMoneyViewController.m in Sources */,
