@@ -17,6 +17,7 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
++ (instancetype)singleton;
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 

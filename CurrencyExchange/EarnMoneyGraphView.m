@@ -54,15 +54,16 @@
     {
         for (int i = 0; i < self.avarageCurrencyObjectsArray.count - 1; i++)
         {
-            if ([((AvarageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i]).date compare:point.date] == NSOrderedAscending &&
-                [((AvarageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i + 1]).date compare:point.date] == NSOrderedDescending)
+            /*if ([((AvarageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i]).date compare:point.date] == NSOrderedAscending &&
+                [((AvarageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i + 1]).date compare:point.date] == NSOrderedDescending)*/
+            if ([((AvarageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i]).date compare:point.date] == NSOrderedSame)
             {
                 if ([point.currency isEqualToString: @"dolars"])
                 {
                     CGFloat xPoint = [[self.pointsOfUSDAskCurve objectAtIndex:i] CGPointValue].x;
                     Line *line = [[Line alloc]init];
-                    line.firstPoint = [NSValue valueWithCGPoint:CGPointMake(xPoint, self.insetFrame.origin.y)];
-                    line.lastPoint = [NSValue valueWithCGPoint:CGPointMake(xPoint, self.insetFrame.size.height)];
+                    line.firstPoint = [NSValue valueWithCGPoint:CGPointMake(xPoint, self.insetFrame.origin.y + self.inset)];
+                    line.lastPoint = [NSValue valueWithCGPoint:CGPointMake(xPoint, self.insetFrame.size.height + 20)];
                     if (!self.drawingQueue)
                         self.drawingQueue = [NSMutableArray array];
                     
@@ -73,8 +74,8 @@
                 {
                     CGFloat xPoint = [[self.pointsOfEURAskCurve objectAtIndex:i] CGPointValue].x;
                     Line *line = [[Line alloc]init];
-                    line.firstPoint = [NSValue valueWithCGPoint:CGPointMake(xPoint, self.insetFrame.origin.y)];
-                    line.lastPoint = [NSValue valueWithCGPoint:CGPointMake(xPoint, self.insetFrame.size.height)];
+                    line.firstPoint = [NSValue valueWithCGPoint:CGPointMake(xPoint, self.insetFrame.origin.y + self.inset)];
+                    line.lastPoint = [NSValue valueWithCGPoint:CGPointMake(xPoint, self.insetFrame.size.height + 20)];
                     if (!self.drawingQueue)
                         self.drawingQueue = [NSMutableArray array];
                     

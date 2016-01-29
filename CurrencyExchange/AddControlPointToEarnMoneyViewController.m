@@ -79,8 +79,7 @@
         if ([self TextIsNumeric:self.moneyTextField.text])
         {
             self.amountOfMoney = [self.moneyTextField.text floatValue];
-            [self.owner addControlPointWithAmountOfMoney:self.amountOfMoney
-                                             andCurrency:self.currency];
+            [self.owner addControlPointWithAmountOfMoney:self.amountOfMoney Currency:self.currency ForDate:self.date];
             [self.navigationController popViewControllerAnimated:YES];
         }
         else

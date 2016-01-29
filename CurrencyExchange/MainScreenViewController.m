@@ -7,6 +7,7 @@
 //
 
 #import "MainScreenViewController.h"
+#import "JSONParseCoreDataSave.h"
 
 @interface MainScreenViewController ()
 @property (weak, nonatomic) IBOutlet UIView *graph;

@@ -26,6 +26,15 @@
 		97ED586E1C5796BC004724A3 /* CurrencyExchange.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 97ED586C1C5796BC004724A3 /* CurrencyExchange.xcdatamodeld */; };
 		97ED58701C5796BC004724A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97ED586F1C5796BC004724A3 /* Assets.xcassets */; };
 		97ED58731C5796BC004724A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97ED58711C5796BC004724A3 /* LaunchScreen.storyboard */; };
+		EF0616991C5B524C0097B505 /* BankData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = EF06168A1C5B524C0097B505 /* BankData+CoreDataProperties.m */; };
+		EF06169A1C5B524C0097B505 /* BankData.m in Sources */ = {isa = PBXBuildFile; fileRef = EF06168C1C5B524C0097B505 /* BankData.m */; };
+		EF06169B1C5B524C0097B505 /* ObjectData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = EF06168E1C5B524C0097B505 /* ObjectData+CoreDataProperties.m */; };
+		EF06169C1C5B524C0097B505 /* ObjectData.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0616901C5B524C0097B505 /* ObjectData.m */; };
+		EF06169D1C5B524C0097B505 /* CurrencyData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0616921C5B524C0097B505 /* CurrencyData+CoreDataProperties.m */; };
+		EF06169E1C5B524C0097B505 /* CurrencyData.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0616941C5B524C0097B505 /* CurrencyData.m */; };
+		EF06169F1C5B524C0097B505 /* BranchData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0616961C5B524C0097B505 /* BranchData+CoreDataProperties.m */; };
+		EF0616A01C5B524C0097B505 /* BranchData.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0616981C5B524C0097B505 /* BranchData.m */; };
+		EF0616A61C5B52A90097B505 /* JSONParseCoreDataSave.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0616A51C5B52A90097B505 /* JSONParseCoreDataSave.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +73,24 @@
 		97ED586F1C5796BC004724A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97ED58721C5796BC004724A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97ED58741C5796BC004724A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF0616891C5B524C0097B505 /* BankData+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BankData+CoreDataProperties.h"; sourceTree = "<group>"; };
+		EF06168A1C5B524C0097B505 /* BankData+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BankData+CoreDataProperties.m"; sourceTree = "<group>"; };
+		EF06168B1C5B524C0097B505 /* BankData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankData.h; sourceTree = "<group>"; };
+		EF06168C1C5B524C0097B505 /* BankData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankData.m; sourceTree = "<group>"; };
+		EF06168D1C5B524C0097B505 /* ObjectData+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ObjectData+CoreDataProperties.h"; sourceTree = "<group>"; };
+		EF06168E1C5B524C0097B505 /* ObjectData+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjectData+CoreDataProperties.m"; sourceTree = "<group>"; };
+		EF06168F1C5B524C0097B505 /* ObjectData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectData.h; sourceTree = "<group>"; };
+		EF0616901C5B524C0097B505 /* ObjectData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectData.m; sourceTree = "<group>"; };
+		EF0616911C5B524C0097B505 /* CurrencyData+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CurrencyData+CoreDataProperties.h"; sourceTree = "<group>"; };
+		EF0616921C5B524C0097B505 /* CurrencyData+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CurrencyData+CoreDataProperties.m"; sourceTree = "<group>"; };
+		EF0616931C5B524C0097B505 /* CurrencyData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyData.h; sourceTree = "<group>"; };
+		EF0616941C5B524C0097B505 /* CurrencyData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyData.m; sourceTree = "<group>"; };
+		EF0616951C5B524C0097B505 /* BranchData+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BranchData+CoreDataProperties.h"; sourceTree = "<group>"; };
+		EF0616961C5B524C0097B505 /* BranchData+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BranchData+CoreDataProperties.m"; sourceTree = "<group>"; };
+		EF0616971C5B524C0097B505 /* BranchData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchData.h; sourceTree = "<group>"; };
+		EF0616981C5B524C0097B505 /* BranchData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchData.m; sourceTree = "<group>"; };
+		EF0616A41C5B52A90097B505 /* JSONParseCoreDataSave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONParseCoreDataSave.h; sourceTree = "<group>"; };
+		EF0616A51C5B52A90097B505 /* JSONParseCoreDataSave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONParseCoreDataSave.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,15 +178,17 @@
 		97ED585F1C5796BC004724A3 /* CurrencyExchange */ = {
 			isa = PBXGroup;
 			children = (
+				EFD86A811C5B4FF20015CC37 /* Processing Files */,
+				EFD86A801C5B4FDF0015CC37 /* Core Data Models */,
 				6A29890C1C58AEFA006328A5 /* UI */,
 				97ED58691C5796BC004724A3 /* Main.storyboard */,
 				97ED586C1C5796BC004724A3 /* CurrencyExchange.xcdatamodeld */,
 				97ED58631C5796BC004724A3 /* AppDelegate.h */,
 				97ED58641C5796BC004724A3 /* AppDelegate.m */,
 				97ED586F1C5796BC004724A3 /* Assets.xcassets */,
-				97ED58601C5796BC004724A3 /* Supporting Files */,
 				6A1A15501C5A7365003A3044 /* AvarageCurrency.h */,
 				6A1A15511C5A7365003A3044 /* AvarageCurrency.m */,
+				97ED58601C5796BC004724A3 /* Supporting Files */,
 			);
 			path = CurrencyExchange;
 			sourceTree = "<group>";
@@ -172,6 +201,38 @@
 				97ED58611C5796BC004724A3 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EFD86A801C5B4FDF0015CC37 /* Core Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				EF0616891C5B524C0097B505 /* BankData+CoreDataProperties.h */,
+				EF06168A1C5B524C0097B505 /* BankData+CoreDataProperties.m */,
+				EF06168B1C5B524C0097B505 /* BankData.h */,
+				EF06168C1C5B524C0097B505 /* BankData.m */,
+				EF06168D1C5B524C0097B505 /* ObjectData+CoreDataProperties.h */,
+				EF06168E1C5B524C0097B505 /* ObjectData+CoreDataProperties.m */,
+				EF06168F1C5B524C0097B505 /* ObjectData.h */,
+				EF0616901C5B524C0097B505 /* ObjectData.m */,
+				EF0616911C5B524C0097B505 /* CurrencyData+CoreDataProperties.h */,
+				EF0616921C5B524C0097B505 /* CurrencyData+CoreDataProperties.m */,
+				EF0616931C5B524C0097B505 /* CurrencyData.h */,
+				EF0616941C5B524C0097B505 /* CurrencyData.m */,
+				EF0616951C5B524C0097B505 /* BranchData+CoreDataProperties.h */,
+				EF0616961C5B524C0097B505 /* BranchData+CoreDataProperties.m */,
+				EF0616971C5B524C0097B505 /* BranchData.h */,
+				EF0616981C5B524C0097B505 /* BranchData.m */,
+			);
+			name = "Core Data Models";
+			sourceTree = "<group>";
+		};
+		EFD86A811C5B4FF20015CC37 /* Processing Files */ = {
+			isa = PBXGroup;
+			children = (
+				EF0616A41C5B52A90097B505 /* JSONParseCoreDataSave.h */,
+				EF0616A51C5B52A90097B505 /* JSONParseCoreDataSave.m */,
+			);
+			name = "Processing Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,6 +266,11 @@
 				TargetAttributes = {
 					97ED585C1C5796BC004724A3 = {
 						CreatedOnToolsVersion = 7.1.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -244,17 +310,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF06169D1C5B524C0097B505 /* CurrencyData+CoreDataProperties.m in Sources */,
 				6A193CEF1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.m in Sources */,
 				6A193CF21C57C9E900093B36 /* ShareGoalsViewController.m in Sources */,
+				EF06169F1C5B524C0097B505 /* BranchData+CoreDataProperties.m in Sources */,
 				6A193CF81C57DB3000093B36 /* BanksTableViewController.m in Sources */,
 				97ED58651C5796BC004724A3 /* AppDelegate.m in Sources */,
 				6A193CEC1C57BD3800093B36 /* EarnMoneyViewController.m in Sources */,
+				EF06169E1C5B524C0097B505 /* CurrencyData.m in Sources */,
 				6A1DBB9E1C5957E700859520 /* ControllPoint.m in Sources */,
+				EF06169B1C5B524C0097B505 /* ObjectData+CoreDataProperties.m in Sources */,
 				6A2989121C58AFDA006328A5 /* ConvertMoneyViewController.m in Sources */,
+				EF06169C1C5B524C0097B505 /* ObjectData.m in Sources */,
 				6A19D05F1C58035900529993 /* EarnMoneyGraphView.m in Sources */,
+				EF0616A01C5B524C0097B505 /* BranchData.m in Sources */,
+				EF0616991C5B524C0097B505 /* BankData+CoreDataProperties.m in Sources */,
 				979339E31C58D9A000A674D1 /* CurencyCourseGraph.m in Sources */,
 				6A1A15551C5AD6F9003A3044 /* Line.m in Sources */,
 				6A29C59C1C5A3BB60032B74D /* GraphDrawer.m in Sources */,
+				EF0616A61C5B52A90097B505 /* JSONParseCoreDataSave.m in Sources */,
+				EF06169A1C5B524C0097B505 /* BankData.m in Sources */,
 				97ED58621C5796BC004724A3 /* main.m in Sources */,
 				6A1A15521C5A7365003A3044 /* AvarageCurrency.m in Sources */,
 				6A2941A01C58CD7E00C5D207 /* MainScreenViewController.m in Sources */,
