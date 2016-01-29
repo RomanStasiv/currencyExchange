@@ -11,7 +11,7 @@
 
 @interface GraphDrawer : UIView
 
-@property (nonatomic, strong) NSMutableArray *avarageCurrencyObjectsArray;
+@property (nonatomic, strong) NSArray *avarageCurrencyObjectsArray;
 
 @property (nonatomic, assign) CGRect insetFrame;
 @property (nonatomic, assign) CGFloat inset;
