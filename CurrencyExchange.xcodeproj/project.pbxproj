@@ -24,6 +24,7 @@
 		6A29C59C1C5A3BB60032B74D /* GraphDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29C59B1C5A3BB60032B74D /* GraphDrawer.m */; };
 		6A8E906F1C5BB28A0069BABC /* CDControlPoint+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E906C1C5BB28A0069BABC /* CDControlPoint+CoreDataProperties.m */; };
 		6A8E90701C5BB28A0069BABC /* CDControlPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E906E1C5BB28A0069BABC /* CDControlPoint.m */; };
+		6A8E90741C5BB8760069BABC /* ControlPointCDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E90731C5BB8760069BABC /* ControlPointCDManager.m */; };
 		979339E31C58D9A000A674D1 /* CurencyCourseGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 979339E21C58D9A000A674D1 /* CurencyCourseGraph.m */; };
 		97ED58621C5796BC004724A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ED58611C5796BC004724A3 /* main.m */; };
 		97ED58651C5796BC004724A3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ED58641C5796BC004724A3 /* AppDelegate.m */; };
@@ -77,6 +78,8 @@
 		6A8E906C1C5BB28A0069BABC /* CDControlPoint+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CDControlPoint+CoreDataProperties.m"; path = "../CDControlPoint+CoreDataProperties.m"; sourceTree = "<group>"; };
 		6A8E906D1C5BB28A0069BABC /* CDControlPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDControlPoint.h; path = ../CDControlPoint.h; sourceTree = "<group>"; };
 		6A8E906E1C5BB28A0069BABC /* CDControlPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDControlPoint.m; path = ../CDControlPoint.m; sourceTree = "<group>"; };
+		6A8E90721C5BB8760069BABC /* ControlPointCDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlPointCDManager.h; sourceTree = "<group>"; };
+		6A8E90731C5BB8760069BABC /* ControlPointCDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlPointCDManager.m; sourceTree = "<group>"; };
 		979339E11C58D9A000A674D1 /* CurencyCourseGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurencyCourseGraph.h; sourceTree = "<group>"; };
 		979339E21C58D9A000A674D1 /* CurencyCourseGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurencyCourseGraph.m; sourceTree = "<group>"; };
 		97ED585D1C5796BC004724A3 /* CurrencyExchange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyExchange.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,6 +197,8 @@
 				6A8E906C1C5BB28A0069BABC /* CDControlPoint+CoreDataProperties.m */,
 				6A8E906D1C5BB28A0069BABC /* CDControlPoint.h */,
 				6A8E906E1C5BB28A0069BABC /* CDControlPoint.m */,
+				6A8E90721C5BB8760069BABC /* ControlPointCDManager.h */,
+				6A8E90731C5BB8760069BABC /* ControlPointCDManager.m */,
 			);
 			name = ControlPoint;
 			sourceTree = "<group>";
@@ -367,6 +372,7 @@
 				EF06169C1C5B524C0097B505 /* ObjectData.m in Sources */,
 				6A19D05F1C58035900529993 /* EarnMoneyGraphView.m in Sources */,
 				EF0616A01C5B524C0097B505 /* BranchData.m in Sources */,
+				6A8E90741C5BB8760069BABC /* ControlPointCDManager.m in Sources */,
 				EF0616991C5B524C0097B505 /* BankData+CoreDataProperties.m in Sources */,
 				979339E31C58D9A000A674D1 /* CurencyCourseGraph.m in Sources */,
 				6A8E90701C5BB28A0069BABC /* CDControlPoint.m in Sources */,

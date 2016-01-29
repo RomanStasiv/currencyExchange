@@ -41,22 +41,23 @@
 #pragma mark - Control point methods
 - (void)drawAllControlpoints
 {
+    [self configureVariable];
     for (ControllPoint *point in self.controlPointsArray)
     {
-        [self drawControlPoint:point];
+        [self addControlPointToDrawingQueue:point];
     }
     [self setNeedsDisplay];
 }
 
-- (void)drawControlPoint:(ControllPoint *)point
+- (void)addControlPointToDrawingQueue:(ControllPoint *)point
 {
     if (self.avarageCurrencyObjectsArray.count)
     {
         for (int i = 0; i < self.avarageCurrencyObjectsArray.count - 1; i++)
         {
-            /*if ([((AvarageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i]).date compare:point.date] == NSOrderedAscending &&
-                [((AvarageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i + 1]).date compare:point.date] == NSOrderedDescending)*/
-            if ([((AvarageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i]).date compare:point.date] == NSOrderedSame)
+            if (/*([((AvarageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i]).date compare:point.date] == NSOrderedAscending &&
+                [((AvarageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i + 1]).date compare:point.date] == NSOrderedDescending) ||*/
+                [((AvarageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i]).date compare:point.date] == NSOrderedSame)
             {
                 if ([point.currency isEqualToString: @"dolars"])
                 {

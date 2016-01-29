@@ -35,5 +35,6 @@
 @property (nonatomic, strong) NSArray *pointsOfEURAskCurve;
 
 - (void)drawLineFromPointA:(CGPoint)a toPointB:(CGPoint)b WithWidth:(CGFloat)width andColor:(UIColor *)color;
+- (void)configureVariable;
 
 @end

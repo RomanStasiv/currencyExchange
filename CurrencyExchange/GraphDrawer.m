@@ -22,8 +22,6 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    self.inset = 50;
-    self.insetFrame = CGRectMake(self.bounds.origin.x + self.inset, self.bounds.origin.y, self.bounds.size.width - self.inset, self.bounds.size.height - self.inset);
     [self configureVariable];
     [self drawGrid];
     [self drawGraphForCurrency:@"dolarsBid"];
@@ -39,6 +37,8 @@
 
 - (void)configureVariable
 {
+    self.inset = 50;
+    self.insetFrame = CGRectMake(self.bounds.origin.x + self.inset, self.bounds.origin.y, self.bounds.size.width - self.inset, self.bounds.size.height - self.inset);
     //Dynamic Drid
     // ____________________________________________________________________________
     self.segmentWidthCount = [self.avarageCurrencyObjectsArray count];
