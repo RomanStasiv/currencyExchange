@@ -7,6 +7,7 @@
 //
 
 #import "MainScreenViewController.h"
+#import "JSONParseCoreDataSave.h"
 
 @interface MainScreenViewController ()
 @property (weak, nonatomic) IBOutlet UIView *graph;
@@ -18,9 +19,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    JSONParseCoreDataSave* workObject = [[JSONParseCoreDataSave alloc] init];
     
-    
+    //[workObject JSONParse];
+    //[workObject deleteAllObjectsFromCoreData];
+    //[workObject loadCoreDataObjects];
+
 }
 
 - (void)didReceiveMemoryWarning

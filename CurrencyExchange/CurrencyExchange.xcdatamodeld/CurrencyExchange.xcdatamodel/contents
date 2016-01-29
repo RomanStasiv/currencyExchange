@@ -1,4 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15C50" minimumToolsVersion="Automatic">
+    <entity name="BankData" representedClassName="BankData" parentEntity="ObjectData" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="region" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="branch" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BranchData" inverseName="bank" inverseEntity="BranchData" syncable="YES"/>
+        <relationship name="currency" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CurrencyData" inverseName="bank" inverseEntity="CurrencyData" syncable="YES"/>
+    </entity>
+    <entity name="BranchData" representedClassName="BranchData" parentEntity="ObjectData" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="region" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="bank" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BankData" inverseName="branch" inverseEntity="BankData" syncable="YES"/>
+    </entity>
+    <entity name="CurrencyData" representedClassName="CurrencyData" parentEntity="ObjectData" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="eurCurrencyAsk" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="eurCurrencyBid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="usdCurrencyAsk" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="usdCurrencyBid" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="bank" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BankData" inverseName="currency" inverseEntity="BankData" syncable="YES"/>
+    </entity>
+    <entity name="ObjectData" representedClassName="ObjectData" isAbstract="YES" syncable="YES"/>
+    <elements>
+        <element name="BranchData" positionX="-1571" positionY="121" width="128" height="118"/>
+        <element name="BankData" positionX="-1911" positionY="144" width="128" height="133"/>
+        <element name="CurrencyData" positionX="-1352" positionY="144" width="128" height="133"/>
+        <element name="ObjectData" positionX="-1568" positionY="-9" width="128" height="43"/>
+    </elements>
 </model>
