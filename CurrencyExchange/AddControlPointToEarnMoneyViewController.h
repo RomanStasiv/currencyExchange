@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "EarnMoneyViewController.h"
 
-@interface AddControlPointToEarnMoneyViewController : UIViewController
+@interface AddControlPointToEarnMoneyViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (nonatomic, strong) EarnMoneyViewController *owner;
+@property (nonatomic, strong) NSArray *avarageCurrencyObjectsArray;
 
 @end

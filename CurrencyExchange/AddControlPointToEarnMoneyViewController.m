@@ -7,20 +7,26 @@
 //
 
 #import "AddControlPointToEarnMoneyViewController.h"
+#import "AvarageCurrency.h"
 
 @interface AddControlPointToEarnMoneyViewController ()
 
 @property (nonatomic, assign) CGFloat amountOfMoney;
 @property (nonatomic, strong) NSString *currency;
+@property (nonatomic ,strong) NSDate *date;
+
 @property (weak, nonatomic) IBOutlet UITextField *moneyTextField;
+@property (weak, nonatomic) IBOutlet UIPickerView *dateExchangePicker;
+@property (nonatomic, strong) NSArray *stringDatesArray;
 
 @end
 
 @implementation AddControlPointToEarnMoneyViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.stringDatesArray = [self ArrayOfStringDatesFromAvarageCurrencyObjectsArray];
 }
 
 - (IBAction)currencyDidChanged:(UISegmentedControl *)sender
@@ -32,7 +38,7 @@
             break;
             
         case 1:
-            self.currency = @"euros";
+            self.currency = @"euro";
             break;
             
         default:
@@ -79,9 +85,51 @@
         }
         else
         {
-            self.moneyTextField.text = nil;
+            self.moneyTextField.text = @"wrong";
+            UIColor *normalColor = self.moneyTextField.backgroundColor;
+            self.moneyTextField.backgroundColor = [UIColor redColor];
+            dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC));
+            dispatch_after(time, dispatch_get_main_queue(), ^
+            {
+                self.moneyTextField.text = nil;
+                self.moneyTextField.backgroundColor = normalColor;
+            });
         }
     }
+}
+
+#pragma mark - pickerMethods
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return self.avarageCurrencyObjectsArray.count;
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    self.date = ((AvarageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:row]).date;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [self.stringDatesArray objectAtIndex:row];
+}
+
+- (NSArray *)ArrayOfStringDatesFromAvarageCurrencyObjectsArray
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    NSDateFormatter *formater = [[NSDateFormatter alloc] init];
+    [formater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    
+    for (AvarageCurrency *object in self.avarageCurrencyObjectsArray)
+    {
+        [array addObject:[formater stringFromDate:object.date]];
+    }
+    return array;
 }
 
 /*

@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AvarageCurrency.h"
 
 @interface GraphDrawer : UIView
 
-@property (nonatomic, strong) NSMutableArray *USDArray;
-@property (nonatomic, strong) NSMutableArray *EURArray;
+@property (nonatomic, strong) NSArray *avarageCurrencyObjectsArray;
 
-@property (nonatomic, strong) UIColor *USDStrokeColor;
-@property (nonatomic, strong) UIColor *EURStrokeColor;
+@property (nonatomic, assign) CGRect insetFrame;
+@property (nonatomic, assign) CGFloat inset;
 
 @property (nonatomic, assign) CGFloat segmentWidth;
 @property (nonatomic, assign) NSUInteger segmentWidthCount;
@@ -24,11 +24,15 @@
 @property (nonatomic, assign) NSUInteger maxYvalue;
 @property (nonatomic, assign) NSUInteger minYvalue;
 
-@property (nonatomic, strong) NSArray *pointsOfUSDCurve;
-@property (nonatomic, strong) NSArray *pointsOfEURCurve;
+@property (nonatomic, strong) UIColor *USDBidStrokeColor;
+@property (nonatomic, strong) UIColor *USDAskStrokeColor;
+@property (nonatomic, strong) UIColor *EURBidStrokeColor;
+@property (nonatomic, strong) UIColor *EURAskStrokeColor;
 
-@property (nonatomic, assign) CGRect insetFrame;
-@property (nonatomic, assign) CGFloat inset;
+@property (nonatomic, strong) NSArray *pointsOfUSDBidCurve;
+@property (nonatomic, strong) NSArray *pointsOfEURBidCurve;
+@property (nonatomic, strong) NSArray *pointsOfUSDAskCurve;
+@property (nonatomic, strong) NSArray *pointsOfEURAskCurve;
 
 - (void)drawLineFromPointA:(CGPoint)a toPointB:(CGPoint)b WithWidth:(CGFloat)width andColor:(UIColor *)color;
 
