@@ -129,6 +129,7 @@
             
             
             AverageCurrency * tmp = [[AverageCurrency alloc]init];
+            
             tmp.date = [[arrayFromCoreData objectAtIndex:i] date];
             tmp.USDask  = [NSNumber numberWithFloat: resultUSDAsk];
             tmp.USDbid  = [NSNumber numberWithFloat: resultUSDBid];
