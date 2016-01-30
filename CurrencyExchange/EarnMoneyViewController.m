@@ -174,13 +174,18 @@ static NSString* EURask[] = {
 {
     ControlPointCDManager *pointManager = [[ControlPointCDManager alloc] init];
     self.arrayOfControlPoints = [[pointManager getArrayOfControlPointsFromCD] mutableCopy];
+    [self calculateEarningPosibilitiesOfControlPoints];
     self.graphView.controlPointsArray = self.arrayOfControlPoints;
     [self.graphView drawAllControlpoints];
 }
 
-- (void)checkEarningPosibilitiesOfControlPoints
+- (void)calculateEarningPosibilitiesOfControlPoints
 {
-    
+    ControlPointsEarnChecker *checker = [[ControlPointsEarnChecker alloc] init];
+    for (ControllPoint *point in self.arrayOfControlPoints)
+    {
+        point.earningPosibility = [checker canBeEarnedfromControlPoint:point];
+    }
 }
 
 #pragma mark - navigation

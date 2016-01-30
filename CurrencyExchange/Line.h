@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface Line : NSObject
 
 @property (nonatomic, strong) NSValue *firstPoint;
 @property (nonatomic, strong) NSValue *lastPoint;
+@property (nonatomic, strong) UIColor *color;
 
 @end
