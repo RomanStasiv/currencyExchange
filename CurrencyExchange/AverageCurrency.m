@@ -19,10 +19,10 @@
 {
     self = [super init];
     
-    self.USDBid = usdBid;
-    self.USDAsk = usdAsk;
-    self.EuroBid = eurBid;
-    self.EuroAsk = eurAsk;
+    self.USDbid = usdBid;
+    self.USDask = usdAsk;
+    self.EURbid = eurBid;
+    self.EURask = eurAsk;
     self.date = date;
     
     return self;

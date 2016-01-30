@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AvarageCurrency.h"
+#import "AverageCurrency.h"
 
 @interface GraphDrawer : UIView
 

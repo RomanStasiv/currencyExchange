@@ -101,10 +101,10 @@
     NSLog(@"%f", resultEuroBid );
     
     self.averageCurrency.date = tmp.date;
-    self.averageCurrency.USDAsk  = [NSNumber numberWithFloat: resultUSDAsk];
-    self.averageCurrency.USDBid  = [NSNumber numberWithFloat: resultUSDBid];
-    self.averageCurrency.EuroAsk = [NSNumber numberWithFloat: resultEuroAsk];
-    self.averageCurrency.EuroBid = [NSNumber numberWithFloat: resultEuroBid];
+    self.averageCurrency.USDask  = [NSNumber numberWithFloat: resultUSDAsk];
+    self.averageCurrency.USDbid  = [NSNumber numberWithFloat: resultUSDBid];
+    self.averageCurrency.EURask = [NSNumber numberWithFloat: resultEuroAsk];
+    self.averageCurrency.EURbid = [NSNumber numberWithFloat: resultEuroBid];
     
         [self.averageRates addObject:self.averageCurrency];
     }

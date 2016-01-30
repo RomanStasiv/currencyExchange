@@ -11,10 +11,10 @@
 @interface AverageCurrency : NSObject
 
 @property (strong, nonatomic) NSDate* date;
-@property (strong, nonatomic) NSNumber* USDBid;
-@property (strong, nonatomic) NSNumber* USDAsk;
-@property (strong, nonatomic) NSNumber* EuroBid;
-@property (strong, nonatomic) NSNumber* EuroAsk;
+@property (strong, nonatomic) NSNumber* USDbid;
+@property (strong, nonatomic) NSNumber* USDask;
+@property (strong, nonatomic) NSNumber* EURbid;
+@property (strong, nonatomic) NSNumber* EURask;
 
 
 -(instancetype) initWithEURCurrencyAsk:(NSNumber*) eurAsk

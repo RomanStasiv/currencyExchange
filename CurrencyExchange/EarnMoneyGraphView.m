@@ -55,9 +55,9 @@
     {
         for (int i = 0; i < self.avarageCurrencyObjectsArray.count - 1; i++)
         {
-            if (/*([((AvarageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i]).date compare:point.date] == NSOrderedAscending &&
-                [((AvarageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i + 1]).date compare:point.date] == NSOrderedDescending) ||*/
-                [((AvarageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i]).date compare:point.date] == NSOrderedSame)
+            if (/*([((AverageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i]).date compare:point.date] == NSOrderedAscending &&
+                [((AverageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i + 1]).date compare:point.date] == NSOrderedDescending) ||*/
+                [((AverageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i]).date compare:point.date] == NSOrderedSame)
             {
                 if ([point.currency isEqualToString: @"dolars"])
                 {
@@ -95,8 +95,8 @@
         for (int i = 0; i < self.avarageCurrencyObjectsArray.count - 1; i++)
         {
 #warning nonproper insertion of object
-            if ([((AvarageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i]).date compare:point.date] == NSOrderedDescending &&
-                [((AvarageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i + 1]).date compare:point.date] == NSOrderedAscending)
+            if ([((AverageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i]).date compare:point.date] == NSOrderedDescending &&
+                [((AverageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i + 1]).date compare:point.date] == NSOrderedAscending)
             {
                 [self.avarageCurrencyObjectsArray insertObject:point atIndex:i+1];
             }

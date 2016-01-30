@@ -90,7 +90,7 @@ static NSString* EURask[] = {
             NSTimeInterval secondsPerDay = 24 * 60 * 60; // Интервал в 1 день равный 86 400 секунд
             NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:secondsPerDay * i];
             
-            AvarageCurrency *object = [[AvarageCurrency alloc] init];
+            AverageCurrency *object = [[AverageCurrency alloc] init];
             object.USDbid = [NSNumber numberWithFloat:[USDbid[i] floatValue]];
             object.USDask = [NSNumber numberWithFloat:[USDask[i] floatValue]];
             object.EURbid = [NSNumber numberWithFloat:[EURbid[i] floatValue]];
@@ -129,8 +129,8 @@ static NSString* EURask[] = {
     NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:secondsPerDay * 4];
     point.date = [[NSDate alloc] init];*/
     point.date = date;
-    AvarageCurrency *thisCurrency = [[AvarageCurrency alloc] init];
-    for (AvarageCurrency *currency in self.avarageCurrencyObjectsArray)
+    AverageCurrency *thisCurrency = [[AverageCurrency alloc] init];
+    for (AverageCurrency *currency in self.avarageCurrencyObjectsArray)
     {
         if ([currency.date compare:date] == NSOrderedSame)
             thisCurrency = currency;
