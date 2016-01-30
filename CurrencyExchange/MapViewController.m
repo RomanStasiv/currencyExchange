@@ -26,9 +26,8 @@
     
     self.context = [AppDelegate singleton].managedObjectContext;
     
-    JSONParseCoreDataSave * jsonParser = [[JSONParseCoreDataSave alloc] init];
-    //[jsonParser loadCoreDataObjects];
-    
+//    JSONParseCoreDataSave * jsonParser = [[JSONParseCoreDataSave alloc] init];
+//    [jsonParser JSONParse];
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"BranchData"];
     
