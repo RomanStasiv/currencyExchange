@@ -22,7 +22,7 @@
 @property (strong, nonatomic) NSManagedObjectContext* context;
 
 
-- (AverageCurrency*) averageCurrencyRate;
+- (NSArray *) averageCurrencyRate;
 
 
 @end

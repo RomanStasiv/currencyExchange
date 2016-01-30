@@ -11,6 +11,7 @@
 #import "AddControlPointToEarnMoneyViewController.h"
 #import "ControllPoint.h"
 #import "ControlPointCDManager.h"
+#import "Fetcher.h"
 
 @interface EarnMoneyViewController ()
 
@@ -21,7 +22,7 @@
 @property (nonatomic, strong) NSMutableArray *avarageCurrencyObjectsArray;
 
 @end
-
+/*
 static NSString* USDbid[] = {
     @"25", @"25.5", @"26", @"24", @"25",
     @"22", @"20", @"19", @"18", @"17",
@@ -42,7 +43,7 @@ static NSString* EURask[] = {
     @"27", @"29", @"30", @"30", @"29",
     @"27", @"27", @"33", @"35", @"35",
     @"35", @"33", @"33", @"34", @"32"
-};
+};*/
 
 @implementation EarnMoneyViewController
 
@@ -76,11 +77,13 @@ static NSString* EURask[] = {
 
 - (void)prepareGraphView
 {
+    Fetcher *fetch = [[Fetcher alloc]init];
+    self.avarageCurrencyObjectsArray = [[fetch averageCurrencyRate] mutableCopy];
     self.graphView.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
     [self restoreData];
 }
 
-- (NSMutableArray *)avarageCurrencyObjectsArray
+/*- (NSArray *)avarageCurrencyObjectsArray
 {
     if (!_avarageCurrencyObjectsArray)
     {
@@ -101,7 +104,7 @@ static NSString* EURask[] = {
         }
     }
     return _avarageCurrencyObjectsArray;
-}
+}*/
 
 - (void)setNeedsOfIndicator:(UIImageView *)colorIndicator WithColor:(UIColor *)color
 {
