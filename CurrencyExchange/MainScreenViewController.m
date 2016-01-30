@@ -23,7 +23,7 @@
     [super viewDidLoad];
     //JSONParseCoreDataSave* workObject = [[JSONParseCoreDataSave alloc] init];
     //TestCoreData* testObject = [[TestCoreData alloc] init];
-    //Fetcher*tmp = [[Fetcher alloc]init];
+    Fetcher*tmp = [[Fetcher alloc]init];
     
     //[workObject JSONParse];
     //[workObject deleteAllObjectsFromCoreData];
