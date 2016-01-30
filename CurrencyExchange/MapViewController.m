@@ -7,12 +7,14 @@
 //
 
 #import "MapViewController.h"
-
+#import "AppDelegate.h"
+#import "JSONParseCoreDataSave.h"
+#import "BranchData.h"
 
 
 @interface MapViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
-
+@property (weak, nonatomic) NSManagedObjectContext *context;
 @end
 
 @implementation MapViewController
@@ -22,15 +24,35 @@
     [super viewDidLoad];
     self.mapView.delegate = self;
     
-    [self startForwardGeocodingOfAdresses:[self fillArrayWithTestData]];
+    self.context = [AppDelegate singleton].managedObjectContext;
+    
+    JSONParseCoreDataSave * jsonParser = [[JSONParseCoreDataSave alloc] init];
+    [jsonParser loadCoreDataObjects];
     
     
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"BranchData"];
+    
+    NSArray *temp = [self.context executeFetchRequest:fetchRequest error:nil];
+    
+    NSMutableArray *adresses = [[NSMutableArray alloc] init];
+    
+    for (BranchData *branch in temp)
+    {
+        NSString *temp = [NSString stringWithFormat:@"%@, %@, %@, Украина", branch.address, branch.city, branch.region ];
+        [adresses addObject:temp];
+    }
+    NSLog(@"%@", adresses);
+    
+    [self startForwardGeocodingOfAdresses:adresses];
 }
 
 -(void) startForwardGeocodingOfAdresses:(NSArray *) adresses
 {
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [self placePinForAdressAtIndex:@0 fromAdresses:adresses withGeocoder:geocoder];
+    if ( [adresses count] )
+    {
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        [self placePinForAdressAtIndex:@0 fromAdresses:adresses withGeocoder:geocoder];
+    }
 }
 
 -(void) placePinForAdressAtIndex:(NSNumber *) indexTemp
