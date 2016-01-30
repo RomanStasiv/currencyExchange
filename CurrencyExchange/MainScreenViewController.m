@@ -23,7 +23,8 @@
     JSONParseCoreDataSave* workObject = [[JSONParseCoreDataSave alloc] init];
     TestCoreData* testObject = [[TestCoreData alloc] init];
     
-    
+    //[workObject deleteAllObjectsFromCoreData];
+    //[workObject loadCoreDataObjects];
     //[testObject insertFakeDataToCoreData];
     
     self.graph.backgroundColor = [UIColor blackColor];

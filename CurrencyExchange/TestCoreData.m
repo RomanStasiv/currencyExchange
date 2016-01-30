@@ -15,6 +15,11 @@
 @interface TestCoreData ()
 
 @property (strong, nonatomic) NSManagedObjectContext* context;
+@property (assign, nonatomic) NSInteger banksCount;
+@property (assign, nonatomic) NSInteger branchesCount;
+@property (assign, nonatomic) NSInteger currenciesCount;
+
+
 
 @end
 
@@ -36,16 +41,23 @@ static NSString* addresses[] = {@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"G
 -(void) insertFakeDataToCoreData
 {
     self.context = [AppDelegate singleton].managedObjectContext;
-
+    self.banksCount = 10;
+    self.branchesCount = 5;
+    self.currenciesCount = 20;
+    
     NSError* error = nil;
     
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < self.banksCount; i++) {
         BankData* fakeBank = [self bankDataByIndex:i];
-        CurrencyData* fakeCurrency = [self currencyDataByIndex:i withEUR:29 withUSD:25];
         
-        [fakeBank addCurrencyObject:fakeCurrency];
+        for (int k = 0; k < self.currenciesCount ; k++)
+        {
+            CurrencyData* fakeCurrency = [self currencyDataByIndex:k withEUR:29 withUSD:25];
+            [fakeBank addCurrencyObject:fakeCurrency];
+
+        }
         
-        for (int j = 0; j < 5; j++)
+        for (int j = 0; j < self.branchesCount; j++)
         {
             BranchData* fakeBranch = [self branchDataByIndex:j];
             [fakeBank addBranchObject:fakeBranch];

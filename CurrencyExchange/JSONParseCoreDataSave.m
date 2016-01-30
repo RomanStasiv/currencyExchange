@@ -140,33 +140,60 @@
 
 #pragma mark - Check the Result
 
--(void) loadCoreDataObjects
+- (void) loadCoreDataObjects
 {
     self.context = [AppDelegate singleton].managedObjectContext;
 
-    NSArray* objectsArray = [self allObjects];
+    NSArray* objectsArray = [self getAllBanks];
     
-    for (id object in objectsArray)
+    for (BankData* bankObject in objectsArray)
     {
-        if ([object isKindOfClass:[BankData class]]) {
-            
-            BankData* bank = (BankData*) object;
-            NSLog(@"BANK: name = %@, region = %@, city = %@, address = %@ ", bank.name, bank.region, bank.city, bank.address);
-            
-        } else if ([object isKindOfClass:[BranchData class]]) {
-            
-            BranchData* branch = (BranchData*) object;
-            NSLog(@"BRANCH: name = %@, region = %@, city = %@, address = %@ BANK: name = %@",branch.name, branch.region, branch.city, branch.address, branch.bank.name);
-            
+        
+        NSArray* currenciesArray = [bankObject.currency allObjects];
+        NSArray* branchesArray = [bankObject.branch allObjects];
+
+        
+        NSLog(@"BANK: name = %@, region = %@, city = %@, address = %@ ", bankObject.name, bankObject.region, bankObject.city, bankObject.address);
+        
+        for (int i = 0; i < [currenciesArray count]; i++)
+        {
+            NSLog(@"CURRENCY of bank %@: EUR ask = %@, EUR bid = %@, USD ask = %@, USD bid = %@ DATE: %@", bankObject.name,
+                  [[currenciesArray objectAtIndex:i] eurCurrencyAsk],
+                  [[currenciesArray objectAtIndex:i] eurCurrencyBid],
+                  [[currenciesArray objectAtIndex:i] usdCurrencyAsk],
+                  [[currenciesArray objectAtIndex:i] usdCurrencyBid],
+                  [[currenciesArray objectAtIndex:i] date]);
         }
-        else if ([object isKindOfClass:[CurrencyData class]]) {
-            
-            CurrencyData* currency = (CurrencyData*) object;
-            NSLog(@"CURRENCY: EUR Ask = %@, EUR Bid = %@, USD Ask = %@, USD Bid = %@ DATE: %@", currency.eurCurrencyAsk, currency.eurCurrencyBid, currency.usdCurrencyAsk, currency.usdCurrencyBid,currency.date);
-            
+        
+        for (int j = 0; j < [branchesArray count]; j++)
+        {
+            NSLog(@"BRANCH of bank %@: name = %@, region = %@, city = %@, address = %@", bankObject.name,
+                  [[branchesArray objectAtIndex:j] name],
+                  [[branchesArray objectAtIndex:j] region],
+                  [[branchesArray objectAtIndex:j] city],
+                  [[branchesArray objectAtIndex:j] address]);
         }
+            
+        
     }
     
+}
+- (NSArray*) getAllBanks
+{
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription* description = [NSEntityDescription entityForName:@"BankData"
+                                                   inManagedObjectContext:self.context];
+    
+    [request setEntity:description];
+    
+    NSError* requestError = nil;
+    NSArray* resultArray = [self.context executeFetchRequest:request error:&requestError];
+    if (requestError) {
+        NSLog(@"%@", [requestError localizedDescription]);
+    }
+    
+    return resultArray;
 }
 
 - (NSArray*) allObjects {
@@ -187,7 +214,7 @@
     return resultArray;
 }
 
--(void) deleteAllObjectsFromCoreData
+- (void) deleteAllObjectsFromCoreData
 {
     self.context = [AppDelegate singleton].managedObjectContext;
     NSArray* allObjects = [self allObjects];
