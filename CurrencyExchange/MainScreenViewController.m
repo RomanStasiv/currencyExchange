@@ -21,12 +21,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //JSONParseCoreDataSave* workObject = [[JSONParseCoreDataSave alloc] init];
-    //TestCoreData* testObject = [[TestCoreData alloc] init];
+    JSONParseCoreDataSave* workObject = [[JSONParseCoreDataSave alloc] init];
+    TestCoreData* testObject = [[TestCoreData alloc] init];
     //Fetcher*tmp = [[Fetcher alloc]init];
     
     //[workObject JSONParse];
-    //[workObject deleteAllObjectsFromCoreData];
+    [workObject deleteAllObjectsFromCoreData];
     //[workObject loadCoreDataObjects];
     //[testObject insertFakeDataToCoreData];
     //[tmp averageCurrencyRate];
