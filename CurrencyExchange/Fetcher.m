@@ -40,6 +40,28 @@
     return sortedArray;
 }
 
+- (NSMutableArray*) dataForTableView
+{
+    
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription* description = [NSEntityDescription entityForName:@"BankData"
+                                                   inManagedObjectContext:self.context];
+    
+    [request setEntity:description];
+    
+    NSError* requestError = nil;
+    self.banksArray = [self.context executeFetchRequest:request error:&requestError];
+    if (requestError)
+    {
+        NSLog(@"%@", [requestError localizedDescription]);
+        
+        
+    }
+    return self.lastBanksRates;
+}
+
+
 - (NSInteger) allBanksQuantity {
     
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
@@ -74,14 +96,14 @@
     self.qtyOfBanks = [self allBanksQuantity];
     NSArray* arrayFromCoreData = [self sortedCurrency];
     
-    double sumUSDAsk;
-    double sumUSDBid;
-    double sumEuroAsk;
-    double sumEuroBid;
-    double resultUSDAsk;
-    double resultUSDBid;
-    double resultEuroAsk;
-    double resultEuroBid;
+    CGFloat sumUSDAsk = 0.0;
+    CGFloat sumUSDBid = 0.0;
+    CGFloat sumEuroAsk = 0.0;
+    CGFloat sumEuroBid = 0.0;
+    CGFloat resultUSDAsk;
+    CGFloat resultUSDBid;
+    CGFloat resultEuroAsk;
+    CGFloat resultEuroBid;
     
     if(self.qtyOfBanks > 0)
     {
@@ -89,43 +111,42 @@
         {
             for(int j = 0; j< self.qtyOfBanks; j++)
             {
-                sumUSDAsk  += [[[arrayFromCoreData objectAtIndex:j ] usdCurrencyAsk ] doubleValue];
-                sumUSDBid  += [[[arrayFromCoreData objectAtIndex:j ] usdCurrencyBid ] doubleValue];
-                sumEuroAsk += [[[arrayFromCoreData objectAtIndex:j ] eurCurrencyAsk ] doubleValue];
-                sumEuroBid += [[[arrayFromCoreData objectAtIndex:j ] eurCurrencyBid ] doubleValue];
-                
-            }
+                sumUSDAsk  += [[[arrayFromCoreData objectAtIndex:i ] usdCurrencyAsk ] doubleValue];
+                sumUSDBid  += [[[arrayFromCoreData objectAtIndex:i ] usdCurrencyBid ] doubleValue];
+                sumEuroAsk += [[[arrayFromCoreData objectAtIndex:i ] eurCurrencyAsk ] doubleValue];
+                sumEuroBid += [[[arrayFromCoreData objectAtIndex:i ] eurCurrencyBid ] doubleValue];
+             }
             
             resultUSDAsk  = sumUSDAsk/self.qtyOfBanks;
             resultUSDBid  = sumUSDBid/self.qtyOfBanks;
             resultEuroAsk = sumEuroAsk/self.qtyOfBanks;
             resultEuroBid = sumEuroBid/self.qtyOfBanks;
             
-            NSLog(@"%f", resultUSDAsk );
-            NSLog(@"%f", resultUSDBid );
-            NSLog(@"%f", resultEuroAsk );
-            NSLog(@"%f", resultEuroBid );
+//            NSLog(@"%f", resultUSDAsk );
+//            NSLog(@"%f", resultUSDBid );
+//            NSLog(@"%f", resultEuroAsk );
+//            NSLog(@"%f", resultEuroBid );
             
-            self.averageCurrency.date = [[arrayFromCoreData objectAtIndex:i] date];
-            self.averageCurrency.USDask  = [NSNumber numberWithFloat: resultUSDAsk];
-            self.averageCurrency.USDbid  = [NSNumber numberWithFloat: resultUSDBid];
-            self.averageCurrency.EURask = [NSNumber numberWithFloat: resultEuroAsk];
-            self.averageCurrency.EURbid = [NSNumber numberWithFloat: resultEuroBid];
             
-            [self.averageRates addObject:self.averageCurrency];
+            AverageCurrency * tmp = [[AverageCurrency alloc]init];
+            tmp.date = [[arrayFromCoreData objectAtIndex:i] date];
+            tmp.USDask  = [NSNumber numberWithFloat: resultUSDAsk];
+            tmp.USDbid  = [NSNumber numberWithFloat: resultUSDBid];
+            tmp.EURask = [NSNumber numberWithFloat: resultEuroAsk];
+            tmp.EURbid = [NSNumber numberWithFloat: resultEuroBid];
+            
+          
+            sumUSDAsk = 0.0;
+            sumUSDBid = 0.0;
+            sumEuroAsk = 0.0;
+            sumEuroBid = 0.0;
+            
+            [self.averageRates addObject:tmp];
         }
         return self.averageRates;
     }
     return nil;
 }
 
-- (NSMutableArray*) dataForTableView
-{
-
-    self.qtyOfBanks = [self allBanksQuantity];
-    
-    
-    return self.lastBanksRates;
-}
 
 @end
