@@ -61,7 +61,7 @@
     return self.qtyOfBanks;
 }
 
-- (NSArray*) averageCurrencyRate
+- (NSMutableArray*) averageCurrencyRate
 {
     AppDelegate * delegate = [AppDelegate singleton];
     self.context = delegate.managedObjectContext;
