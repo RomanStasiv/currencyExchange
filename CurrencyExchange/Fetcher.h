@@ -19,10 +19,11 @@
 @property (strong, nonatomic) JSONParseCoreDataSave* JSON;
 @property (strong, nonatomic) AverageCurrency* averageCurrency;
 @property (strong, nonatomic) NSMutableArray* averageRates;
+@property (strong, nonatomic) NSMutableArray* lastBanksRates;
 @property (strong, nonatomic) NSManagedObjectContext* context;
 
 
-- (NSArray *) averageCurrencyRate;
-
+- (NSArray*) averageCurrencyRate;
+- (NSMutableArray*) dataForTableView;
 
 @end

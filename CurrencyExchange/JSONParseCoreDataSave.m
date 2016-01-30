@@ -44,7 +44,7 @@
         NSURL* url = [NSURL URLWithString:dataUrl];
         self.jsonData = [[NSDictionary alloc] init];
         self.context = [AppDelegate singleton].managedObjectContext;
-        self.banksCount = 1582;
+        
         
         
         NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession] dataTaskWithURL:url
@@ -57,7 +57,8 @@
          NSString* dateToCut = @"";
          NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
          [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
-
+             
+         self.banksCount = [[self.jsonData objectForKey:@"organizations"] count];
 
          for (int i = 1; i < self.banksCount; i++)
          {
