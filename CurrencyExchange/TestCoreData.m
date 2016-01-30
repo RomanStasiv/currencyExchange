@@ -47,25 +47,44 @@ static NSString* addresses[] = {@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"G
     
     NSError* error = nil;
     
-    for (int i = 0; i < self.banksCount; i++) {
-        BankData* fakeBank = [self bankDataByIndex:i];
+    NSMutableArray* tempBankArray = [[NSMutableArray alloc] init];
+    NSMutableArray* tempDateArray = [[NSMutableArray alloc] init];
+    static NSInteger currencyCounter = 0;
+    
+    for (int bankCounter = 0; bankCounter < self.banksCount; bankCounter++)
+    {
+        BankData* fakeBank = [self bankDataByIndex:bankCounter];
+        [tempBankArray addObject:fakeBank];
+    }
+    
+    for (int dateCounter = 0; dateCounter < self.currenciesCount; dateCounter++)
+    {
+        NSDate* tempDate = [self generateRandomDateWithinDaysBeforeToday:200];
+        [tempDateArray addObject:tempDate];
+    }
+    
+    for (BankData* bankObject in tempBankArray) {
         
-        for (int k = 0; k < self.currenciesCount ; k++)
+        
+        for (NSDate* dateObject in tempDateArray)
         {
-            CurrencyData* fakeCurrency = [self currencyDataByIndex:k withEUR:29 withUSD:25];
-            [fakeBank addCurrencyObject:fakeCurrency];
+            CurrencyData* fakeCurrency = [self currencyDataByIndex:currencyCounter withEUR:29 withUSD:25 withDate:dateObject];
+            [bankObject addCurrencyObject:fakeCurrency];
+            currencyCounter++;
 
         }
         
         for (int j = 0; j < self.branchesCount; j++)
         {
             BranchData* fakeBranch = [self branchDataByIndex:j];
-            [fakeBank addBranchObject:fakeBranch];
+            [bankObject addBranchObject:fakeBranch];
         }
         
-        if (![self.context save:&error]) {
-            NSLog(@"%@", [error localizedDescription]);
-        }
+        
+    }
+    
+    if (![self.context save:&error]) {
+        NSLog(@"%@", [error localizedDescription]);
     }
     
 }
@@ -96,11 +115,11 @@ static NSString* addresses[] = {@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"G
     
 }
 
--(CurrencyData*) currencyDataByIndex:(NSInteger) currencyIndex withEUR:(NSInteger) eur withUSD:(NSInteger) usd
+-(CurrencyData*) currencyDataByIndex:(NSInteger) currencyIndex withEUR:(NSInteger) eur withUSD:(NSInteger) usd withDate:(NSDate*) date
 {
     
     CurrencyData* currency = [NSEntityDescription insertNewObjectForEntityForName:@"CurrencyData" inManagedObjectContext:self.context];
-    currency.date = [self generateRandomDateWithinDaysBeforeToday:200];
+    currency.date = date;
     currency.eurCurrencyAsk = [NSString stringWithFormat:@"%ld", eur+currencyIndex];
     currency.eurCurrencyBid = [NSString stringWithFormat:@"%ld", (eur-2)+currencyIndex];
     currency.usdCurrencyAsk = [NSString stringWithFormat:@"%ld", usd+currencyIndex];

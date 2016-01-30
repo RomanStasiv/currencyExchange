@@ -21,14 +21,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    JSONParseCoreDataSave* workObject = [[JSONParseCoreDataSave alloc] init];
-    TestCoreData* testObject = [[TestCoreData alloc] init];
+    //JSONParseCoreDataSave* workObject = [[JSONParseCoreDataSave alloc] init];
+    //TestCoreData* testObject = [[TestCoreData alloc] init];
     Fetcher*tmp = [[Fetcher alloc]init];
     
     //[workObject deleteAllObjectsFromCoreData];
     //[workObject loadCoreDataObjects];
     //[testObject insertFakeDataToCoreData];
-    [tmp averageCurrencyRate];
+    //[tmp averageCurrencyRate];
     self.graph.backgroundColor = [UIColor blackColor];
 }
 
