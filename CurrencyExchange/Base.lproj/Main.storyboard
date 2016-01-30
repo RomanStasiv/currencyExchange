@@ -330,7 +330,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fwm-qE-6xL">
+                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fwm-qE-6xL">
                                 <rect key="frame" x="0.0" y="288" width="600" height="88"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Djq-LH-aUk" id="d79-cV-hta"/>
