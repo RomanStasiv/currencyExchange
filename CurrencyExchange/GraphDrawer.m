@@ -37,6 +37,7 @@
 
 - (void)configureVariable
 {
+    
     self.inset = 50;
     self.insetFrame = CGRectMake(self.bounds.origin.x + self.inset, self.bounds.origin.y, self.bounds.size.width - self.inset, self.bounds.size.height - self.inset);
     //Dynamic Drid

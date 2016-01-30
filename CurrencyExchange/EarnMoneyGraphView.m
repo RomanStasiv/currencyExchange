@@ -21,6 +21,8 @@
 - (void)drawRect:(CGRect)rect
 {
     [super drawRect:rect];
+    if (self.shouldDrawControlPoints)
+        [self drawAllControlpoints];
     if (self.drawingQueue.count)
     {
         [self drawLinesFromQueue];
@@ -41,7 +43,7 @@
 #pragma mark - Control point methods
 - (void)drawAllControlpoints
 {
-    [self configureVariable];
+    //[self configureVariable];
     for (ControllPoint *point in self.controlPointsArray)
     {
         if ([self isItTimeForControlPoint:point])
@@ -72,6 +74,7 @@
                 [((AverageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i + 1]).date compare:point.date] == NSOrderedDescending) ||*/
                 [((AverageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i]).date compare:point.date] == NSOrderedSame)
             {
+                NSLog(@"%@",NSStringFromCGRect(self.frame));
                 if ([point.currency isEqualToString: @"dolars"])
                 {
                     CGFloat xPoint = [[self.pointsOfUSDAskCurve objectAtIndex:i] CGPointValue].x;
