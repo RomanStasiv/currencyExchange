@@ -7,7 +7,7 @@
 //
 
 #import "AddControlPointToEarnMoneyViewController.h"
-#import "AvarageCurrency.h"
+#import "AverageCurrency.h"
 
 @interface AddControlPointToEarnMoneyViewController ()
 
@@ -110,7 +110,7 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    self.date = ((AvarageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:row]).date;
+    self.date = ((AverageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:row]).date;
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
@@ -124,7 +124,7 @@
     NSDateFormatter *formater = [[NSDateFormatter alloc] init];
     [formater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     
-    for (AvarageCurrency *object in self.avarageCurrencyObjectsArray)
+    for (AverageCurrency *object in self.avarageCurrencyObjectsArray)
     {
         [array addObject:[formater stringFromDate:object.date]];
     }

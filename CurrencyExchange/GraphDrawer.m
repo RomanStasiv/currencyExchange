@@ -48,7 +48,7 @@
     NSMutableArray * USDaskValues = [[NSMutableArray alloc] init];
     NSMutableArray * EURbidValues = [[NSMutableArray alloc] init];
     NSMutableArray * EURaskValues = [[NSMutableArray alloc] init];
-    for (AvarageCurrency *object in self.avarageCurrencyObjectsArray)
+    for (AverageCurrency *object in self.avarageCurrencyObjectsArray)
     {
         [USDbidValues addObject:object.USDbid];
         [USDaskValues addObject:object.USDask];
@@ -331,7 +331,7 @@
     
     
     
-    for (AvarageCurrency *object in self.avarageCurrencyObjectsArray)
+    for (AverageCurrency *object in self.avarageCurrencyObjectsArray)
     {
         [month addObject:[monhtFormater stringFromDate:object.date]];
         [days addObject:[dayFormater stringFromDate:object.date]];
