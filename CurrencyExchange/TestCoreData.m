@@ -49,7 +49,8 @@ static NSString* addresses[] = {@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"G
     
     NSMutableArray* tempBankArray = [[NSMutableArray alloc] init];
     NSMutableArray* tempDateArray = [[NSMutableArray alloc] init];
-    static NSInteger currencyCounter = 0;
+    NSInteger currencyCounter = 0;
+    NSInteger bankCurrencyDifference = 0;
     
     for (int bankCounter = 0; bankCounter < self.banksCount; bankCounter++)
     {
@@ -65,10 +66,11 @@ static NSString* addresses[] = {@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"G
     
     for (BankData* bankObject in tempBankArray) {
         
+        currencyCounter = 0;
         
         for (NSDate* dateObject in tempDateArray)
         {
-            CurrencyData* fakeCurrency = [self currencyDataByIndex:currencyCounter withEUR:29 withUSD:25 withDate:dateObject];
+            CurrencyData* fakeCurrency = [self currencyDataByIndex:currencyCounter withEUR:20 + bankCurrencyDifference withUSD:18 + bankCurrencyDifference withDate:dateObject];
             [bankObject addCurrencyObject:fakeCurrency];
             currencyCounter++;
 
@@ -79,6 +81,7 @@ static NSString* addresses[] = {@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"G
             BranchData* fakeBranch = [self branchDataByIndex:j];
             [bankObject addBranchObject:fakeBranch];
         }
+        bankCurrencyDifference++;
         
         
     }
