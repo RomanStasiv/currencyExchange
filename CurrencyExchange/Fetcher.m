@@ -143,10 +143,20 @@
             
             [self.averageRates addObject:tmp];
         }
+        [self print];
         return self.averageRates;
     }
     return nil;
 }
 
+- (void)print
+{
+    NSDateFormatter *monhtFormater = [[NSDateFormatter alloc] init];
+    [monhtFormater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    for (AverageCurrency *c in self.averageRates)
+    {
+        NSLog(@"Date:%@, USDbid:%@, USDask:%@, EURbid:%@, EURask:%@",[monhtFormater stringFromDate:c.date],c.USDbid,c.USDask,c.EURbid,c.EURask);
+    }
+}
 
 @end
