@@ -18,7 +18,7 @@
 @property (strong, nonatomic) NSMutableDictionary* dataFromCoreData;
 @property (strong, nonatomic) JSONParseCoreDataSave* JSON;
 @property (strong, nonatomic) AverageCurrency* averageCurrency;
-
+@property (strong, nonatomic) NSMutableArray* averageRates;
 @property (strong, nonatomic) NSManagedObjectContext* context;
 
 
