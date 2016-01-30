@@ -26,7 +26,7 @@
     Fetcher*tmp = [[Fetcher alloc]init];
     
     //[workObject deleteAllObjectsFromCoreData];
-    //[testObject insertFakeDataToCoreData];
+    [testObject insertFakeDataToCoreData];
     [tmp averageCurrencyRate];
     self.graph.backgroundColor = [UIColor blackColor];
 }
