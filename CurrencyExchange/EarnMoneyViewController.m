@@ -11,6 +11,7 @@
 #import "AddControlPointToEarnMoneyViewController.h"
 #import "ControllPoint.h"
 #import "ControlPointCDManager.h"
+#import "ControlPointsEarnChecker.h"
 #import "Fetcher.h"
 
 @interface EarnMoneyViewController ()
@@ -175,6 +176,11 @@ static NSString* EURask[] = {
     self.arrayOfControlPoints = [[pointManager getArrayOfControlPointsFromCD] mutableCopy];
     self.graphView.controlPointsArray = self.arrayOfControlPoints;
     [self.graphView drawAllControlpoints];
+}
+
+- (void)checkEarningPosibilitiesOfControlPoints
+{
+    
 }
 
 #pragma mark - navigation
