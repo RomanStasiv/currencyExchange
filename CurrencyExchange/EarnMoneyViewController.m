@@ -10,6 +10,8 @@
 #import "EarnMoneyGraphView.h"
 #import "AddControlPointToEarnMoneyViewController.h"
 #import "ControllPoint.h"
+#import "ControlPointCDManager.h"
+#import "Fetcher.h"
 
 @interface EarnMoneyViewController ()
 
@@ -20,7 +22,7 @@
 @property (nonatomic, strong) NSMutableArray *avarageCurrencyObjectsArray;
 
 @end
-
+/*
 static NSString* USDbid[] = {
     @"25", @"25.5", @"26", @"24", @"25",
     @"22", @"20", @"19", @"18", @"17",
@@ -41,11 +43,47 @@ static NSString* EURask[] = {
     @"27", @"29", @"30", @"30", @"29",
     @"27", @"27", @"33", @"35", @"35",
     @"35", @"33", @"33", @"34", @"32"
-};
+};*/
 
 @implementation EarnMoneyViewController
 
-- (NSMutableArray *)avarageCurrencyObjectsArray
+- (void)viewDidLoad
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(saveData)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(saveData)
+                                                 name:UIApplicationWillTerminateNotification
+                                               object:nil];
+    /*[[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(restoreData)
+                                                 name:UIApplicationDidFinishLaunchingNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(restoreData)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];*/
+    [super viewDidLoad];
+    [self prepareGraphView];
+    /*self.graphView.USDStrokeColor = [UIColor blueColor];
+     self.graphView.EURStrokeColor = [UIColor greenColor];
+     [self setNeedsOfIndicator:self.USDColorIndicator WithColor:self.graphView.USDStrokeColor];
+     [self setNeedsOfIndicator:self.EURColorIndicator WithColor:self.graphView.EURStrokeColor];*/
+    
+    
+}
+
+- (void)prepareGraphView
+{
+    Fetcher *fetch = [[Fetcher alloc]init];
+    self.avarageCurrencyObjectsArray = [[fetch averageCurrencyRate] mutableCopy];
+    self.graphView.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
+    [self restoreData];
+}
+
+/*- (NSArray *)avarageCurrencyObjectsArray
 {
     if (!_avarageCurrencyObjectsArray)
     {
@@ -55,7 +93,7 @@ static NSString* EURask[] = {
             NSTimeInterval secondsPerDay = 24 * 60 * 60; // Интервал в 1 день равный 86 400 секунд
             NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:secondsPerDay * i];
             
-            AvarageCurrency *object = [[AvarageCurrency alloc] init];
+            AverageCurrency *object = [[AverageCurrency alloc] init];
             object.USDbid = [NSNumber numberWithFloat:[USDbid[i] floatValue]];
             object.USDask = [NSNumber numberWithFloat:[USDask[i] floatValue]];
             object.EURbid = [NSNumber numberWithFloat:[EURbid[i] floatValue]];
@@ -66,17 +104,7 @@ static NSString* EURask[] = {
         }
     }
     return _avarageCurrencyObjectsArray;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    self.graphView.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
-    /*self.graphView.USDStrokeColor = [UIColor blueColor];
-    self.graphView.EURStrokeColor = [UIColor greenColor];
-    [self setNeedsOfIndicator:self.USDColorIndicator WithColor:self.graphView.USDStrokeColor];
-    [self setNeedsOfIndicator:self.EURColorIndicator WithColor:self.graphView.EURStrokeColor];*/
-}
+}*/
 
 - (void)setNeedsOfIndicator:(UIImageView *)colorIndicator WithColor:(UIColor *)color
 {
@@ -97,9 +125,6 @@ static NSString* EURask[] = {
 #pragma mark - create control point
 - (void)addControlPointWithAmountOfMoney:(CGFloat)money Currency:(NSString *)currency ForDate:(NSDate *)date
 {
-    if (!self.arrayOfControlPoints)
-        self.arrayOfControlPoints = [NSMutableArray array];
-    
     ControllPoint *point = [[ControllPoint alloc] init];
     point.currency = currency;
     point.value = [NSNumber numberWithFloat:money];
@@ -107,8 +132,8 @@ static NSString* EURask[] = {
     NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:secondsPerDay * 4];
     point.date = [[NSDate alloc] init];*/
     point.date = date;
-    AvarageCurrency *thisCurrency = [[AvarageCurrency alloc] init];
-    for (AvarageCurrency *currency in self.avarageCurrencyObjectsArray)
+    AverageCurrency *thisCurrency = [[AverageCurrency alloc] init];
+    for (AverageCurrency *currency in self.avarageCurrencyObjectsArray)
     {
         if ([currency.date compare:date] == NSOrderedSame)
             thisCurrency = currency;
@@ -119,14 +144,37 @@ static NSString* EURask[] = {
         point.exChangeCource = thisCurrency.EURask;
     
     //adding point to array in EarnMoneyVC
+    if (!self.arrayOfControlPoints)
+        self.arrayOfControlPoints = [NSMutableArray array];
+    [self.arrayOfControlPoints addObject:point];
+    
     if (!self.graphView.controlPointsArray)
         self.graphView.controlPointsArray = [NSArray array];
-    NSMutableArray *mutableControlPointsArray = [self.graphView.controlPointsArray mutableCopy];
-    [mutableControlPointsArray addObject:point];
-    self.graphView.controlPointsArray = mutableControlPointsArray;
-    [self.graphView drawAllControlpoints];
     
+    /*NSMutableArray *mutableControlPointsArray = [self.graphView.controlPointsArray mutableCopy];
+    [mutableControlPointsArray addObject:point];*/
+    self.graphView.controlPointsArray = self.arrayOfControlPoints;
+    [self.graphView drawAllControlpoints];
+
 #warning not fully implement
+}
+
+#pragma mark - persistance
+- (void)saveData
+{
+    ControlPointCDManager *pointManager = [[ControlPointCDManager alloc] init];
+    for (ControllPoint *point in self.arrayOfControlPoints)
+    {
+        [pointManager saveToCDControlPoint:point];
+    }
+}
+
+- (void)restoreData
+{
+    ControlPointCDManager *pointManager = [[ControlPointCDManager alloc] init];
+    self.arrayOfControlPoints = [[pointManager getArrayOfControlPointsFromCD] mutableCopy];
+    self.graphView.controlPointsArray = self.arrayOfControlPoints;
+    [self.graphView drawAllControlpoints];
 }
 
 #pragma mark - navigation

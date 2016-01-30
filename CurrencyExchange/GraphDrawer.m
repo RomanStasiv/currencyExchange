@@ -22,8 +22,6 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    self.inset = 50;
-    self.insetFrame = CGRectMake(self.bounds.origin.x + self.inset, self.bounds.origin.y, self.bounds.size.width - self.inset, self.bounds.size.height - self.inset);
     [self configureVariable];
     [self drawGrid];
     [self drawGraphForCurrency:@"dolarsBid"];
@@ -39,6 +37,8 @@
 
 - (void)configureVariable
 {
+    self.inset = 50;
+    self.insetFrame = CGRectMake(self.bounds.origin.x + self.inset, self.bounds.origin.y, self.bounds.size.width - self.inset, self.bounds.size.height - self.inset);
     //Dynamic Drid
     // ____________________________________________________________________________
     self.segmentWidthCount = [self.avarageCurrencyObjectsArray count];
@@ -48,7 +48,7 @@
     NSMutableArray * USDaskValues = [[NSMutableArray alloc] init];
     NSMutableArray * EURbidValues = [[NSMutableArray alloc] init];
     NSMutableArray * EURaskValues = [[NSMutableArray alloc] init];
-    for (AvarageCurrency *object in self.avarageCurrencyObjectsArray)
+    for (AverageCurrency *object in self.avarageCurrencyObjectsArray)
     {
         [USDbidValues addObject:object.USDbid];
         [USDaskValues addObject:object.USDask];
@@ -331,19 +331,25 @@
     
     
     
-    for (AvarageCurrency *object in self.avarageCurrencyObjectsArray)
+    for (AverageCurrency *object in self.avarageCurrencyObjectsArray)
     {
         [month addObject:[monhtFormater stringFromDate:object.date]];
         [days addObject:[dayFormater stringFromDate:object.date]];
     }
     for (int i = 0; i < self.segmentWidthCount; i++)
     {
-        CGRect monthFrame = CGRectMake(self.inset + (self.segmentWidth * i),self.frame.size.height - 30,self.segmentWidth,self.segmentHeight);
+        CGRect monthFrame = CGRectMake(self.inset + (self.segmentWidth * i) - (self.segmentWidth / 2) + (self.segmentWidth / 10),
+                                       self.frame.size.height - 30,
+                                       self.segmentWidth - (self.segmentWidth / 10),
+                                       self.segmentWidth);
         UILabel *monthLabel = [[UILabel alloc] initWithFrame:monthFrame];
         monthLabel.adjustsFontSizeToFitWidth = YES;
         monthLabel.text = [month objectAtIndex:i];
         
-        CGRect dayFrame = CGRectMake(self.inset + (self.segmentWidth * i),self.frame.size.height - 30 + self.segmentHeight,self.segmentWidth,self.segmentHeight);
+        CGRect dayFrame = CGRectMake(self.inset + (self.segmentWidth * i) - (self.segmentWidth / 2) + (self.segmentWidth / 10),
+                                     self.frame.size.height - 30 + self.segmentWidth,
+                                     self.segmentWidth - (self.segmentWidth / 10),
+                                     self.segmentWidth);
         UILabel *dayLabel = [[UILabel alloc] initWithFrame:dayFrame];
         dayLabel.adjustsFontSizeToFitWidth = YES;
         dayLabel.text = [days objectAtIndex:i];
