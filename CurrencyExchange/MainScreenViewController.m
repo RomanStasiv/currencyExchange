@@ -26,7 +26,7 @@
     //Fetcher*tmp = [[Fetcher alloc]init];
     
     //[workObject JSONParse];
-    [workObject deleteAllObjectsFromCoreData];
+    //[workObject deleteAllObjectsFromCoreData];
     //[workObject loadCoreDataObjects];
     //[testObject insertFakeDataToCoreData];
     //[tmp averageCurrencyRate];

@@ -104,19 +104,22 @@
     CGFloat resultUSDBid;
     CGFloat resultEuroAsk;
     CGFloat resultEuroBid;
-    
+    NSInteger k = 0;
     if(self.qtyOfBanks > 0)
     {
         for(int i=0; i<[arrayFromCoreData count]/self.qtyOfBanks; i++)
         {
             for(int j = 0; j< self.qtyOfBanks; j++)
             {
-                sumUSDAsk  += [[[arrayFromCoreData objectAtIndex:i ] usdCurrencyAsk ] doubleValue];
-                sumUSDBid  += [[[arrayFromCoreData objectAtIndex:i ] usdCurrencyBid ] doubleValue];
-                sumEuroAsk += [[[arrayFromCoreData objectAtIndex:i ] eurCurrencyAsk ] doubleValue];
-                sumEuroBid += [[[arrayFromCoreData objectAtIndex:i ] eurCurrencyBid ] doubleValue];
+                sumUSDAsk  += [[[arrayFromCoreData objectAtIndex:k ] usdCurrencyAsk ] doubleValue];
+                sumUSDBid  += [[[arrayFromCoreData objectAtIndex:k ] usdCurrencyBid ] doubleValue];
+                sumEuroAsk += [[[arrayFromCoreData objectAtIndex:k ] eurCurrencyAsk ] doubleValue];
+                sumEuroBid += [[[arrayFromCoreData objectAtIndex:k ] eurCurrencyBid ] doubleValue];
+                k++;
              }
             
+            if(k == [arrayFromCoreData count])
+                k -= 1;
             resultUSDAsk  = sumUSDAsk/self.qtyOfBanks;
             resultUSDBid  = sumUSDBid/self.qtyOfBanks;
             resultEuroAsk = sumEuroAsk/self.qtyOfBanks;
@@ -129,7 +132,14 @@
             
             
             AverageCurrency * tmp = [[AverageCurrency alloc]init];
-            tmp.date = [[arrayFromCoreData objectAtIndex:i] date];
+            
+            tmp.date = [[arrayFromCoreData objectAtIndex:k] date];
+            
+            NSDateFormatter *monhtFormater = [[NSDateFormatter alloc] init];
+            [monhtFormater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+            NSLog(@"Date:%@",[monhtFormater stringFromDate:tmp.date]);
+            NSLog(@"Date Origin:%@",[monhtFormater stringFromDate:[[arrayFromCoreData objectAtIndex:k] date]]);
+
             tmp.USDask  = [NSNumber numberWithFloat: resultUSDAsk];
             tmp.USDbid  = [NSNumber numberWithFloat: resultUSDBid];
             tmp.EURask = [NSNumber numberWithFloat: resultEuroAsk];

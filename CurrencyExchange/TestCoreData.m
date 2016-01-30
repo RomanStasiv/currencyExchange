@@ -70,7 +70,7 @@ static NSString* addresses[] = {@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"G
         
         for (NSDate* dateObject in tempDateArray)
         {
-            CurrencyData* fakeCurrency = [self currencyDataByIndex:currencyCounter withEUR:20 + bankCurrencyDifference withUSD:18 + bankCurrencyDifference withDate:dateObject];
+            CurrencyData* fakeCurrency = [self currencyDataByIndex:currencyCounter withEUR:28 + bankCurrencyDifference withUSD:18 + bankCurrencyDifference withDate:dateObject];
             [bankObject addCurrencyObject:fakeCurrency];
             currencyCounter++;
 
