@@ -11,6 +11,8 @@
 
 @interface ControlPointsEarnChecker : NSObject
 
-- (BOOL)cansomethingBeEarnedfromControlPoint:(ControllPoint *)point;
+@property (nonatomic, strong) NSArray *averageCurrencyArray;
+
+- (NSNumber *)canBeEarnedfromControlPoint:(ControllPoint *)point;
 
 @end
