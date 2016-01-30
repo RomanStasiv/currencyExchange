@@ -28,7 +28,7 @@
     //[workObject deleteAllObjectsFromCoreData];
     //[workObject loadCoreDataObjects];
     //[testObject insertFakeDataToCoreData];
-    //[tmp averageCurrencyRate];
+    [tmp averageCurrencyRate];
     self.graph.backgroundColor = [UIColor blackColor];
 }
 
