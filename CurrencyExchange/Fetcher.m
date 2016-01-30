@@ -131,6 +131,12 @@
             AverageCurrency * tmp = [[AverageCurrency alloc]init];
             
             tmp.date = [[arrayFromCoreData objectAtIndex:i] date];
+            
+            NSDateFormatter *monhtFormater = [[NSDateFormatter alloc] init];
+            [monhtFormater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+            NSLog(@"Date:%@",[monhtFormater stringFromDate:tmp.date]);
+
+
             tmp.USDask  = [NSNumber numberWithFloat: resultUSDAsk];
             tmp.USDbid  = [NSNumber numberWithFloat: resultUSDBid];
             tmp.EURask = [NSNumber numberWithFloat: resultEuroAsk];
