@@ -15,5 +15,6 @@
 @property (nonatomic, strong) NSString *currency;
 #warning not implemented exChangeCource
 @property (nonatomic, strong) NSNumber *exChangeCource;
+@property (nonatomic, strong) NSNumber *earningPosibility;
 
 @end
