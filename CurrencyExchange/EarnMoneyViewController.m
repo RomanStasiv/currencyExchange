@@ -198,6 +198,7 @@ static NSString* EURask[] = {
 - (void)saveData
 {
     ControlPointCDManager *pointManager = [[ControlPointCDManager alloc] init];
+    [self calculateEarningPosibilitiesOfControlPoints];
     for (ControllPoint *point in self.arrayOfControlPoints)
     {
         [pointManager saveToCDControlPoint:point];
@@ -208,7 +209,7 @@ static NSString* EURask[] = {
 {
     ControlPointCDManager *pointManager = [[ControlPointCDManager alloc] init];
     self.arrayOfControlPoints = [[pointManager getArrayOfControlPointsFromCD] mutableCopy];
-    [self calculateEarningPosibilitiesOfControlPoints];
+    
     self.graphView.controlPointsArray = self.arrayOfControlPoints;
     self.graphView.shouldDrawControlPoints = YES;
 }

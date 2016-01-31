@@ -37,6 +37,7 @@
     coreDataPoint.value = point.value;
     coreDataPoint.currency = point.currency;
     coreDataPoint.exChangeCource = point.exChangeCource;
+    coreDataPoint.earningPosibility = point.earningPosibility;
     [self.context save:nil];
 }
 
@@ -79,6 +80,7 @@
         point.value = object.value;
         point.currency = object.currency;
         point.exChangeCource = object.exChangeCource;
+        point.earningPosibility = object.earningPosibility;
         
         [controlPointsArray addObject:point];
     }

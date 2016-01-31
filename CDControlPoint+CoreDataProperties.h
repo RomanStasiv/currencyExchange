@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSNumber *value;
 @property (nullable, nonatomic, retain) NSString *currency;
 @property (nullable, nonatomic, retain) NSNumber *exChangeCource;
+@property (nullable, nonatomic, retain) NSNumber *earningPosibility;
 
 @end
 

@@ -65,20 +65,13 @@
 - (void)configureCell:(CustomEGTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     CDControlPoint *CDobject = [self.fetchResultController objectAtIndexPath:indexPath];
-    ControllPoint *object = [[ControllPoint alloc] init];
-    [object calculateEarningPosibilityWithaverageCurrencyObjectsArray:self.averageCurrencyObjectsArray];
-    object.date = CDobject.date;
-    object.value = CDobject.value;
-    object.currency = CDobject.currency;
-    object.exChangeCource = CDobject.exChangeCource;
-    
     NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
     [dateFormater setDateFormat:@"yyyy-MM-dd HH:mm"];
 
-    cell.investingDate.text = [dateFormater stringFromDate:object.date];
-    cell.investingCurrency.text = object.currency;
-    cell.investingAmount.text = [NSString stringWithFormat:@"%.02f", [object.value floatValue]];
-    cell.EarningAmount.text = [NSString stringWithFormat:@"%.03f", [object.earningPosibility floatValue]];
+    cell.investingDate.text = [dateFormater stringFromDate:CDobject.date];
+    cell.investingCurrency.text = CDobject.currency;
+    cell.investingAmount.text = [NSString stringWithFormat:@"%.02f", [CDobject.value floatValue]];
+    cell.EarningAmount.text = [NSString stringWithFormat:@"%.03f", [CDobject.earningPosibility floatValue]];
     
     cell.showOnGraphButton.tag = 1;
     [cell.showOnGraphButton addTarget:self
@@ -90,6 +83,17 @@
                forControlEvents:UIControlEventTouchUpInside];
 }
 
+/*- (BOOL)isControlPointValidToDisplay:(CDControlPoint *)CDPoint
+{
+    ControllPoint *object = [[ControllPoint alloc] init];
+    object.date = CDPoint.date;
+    object.value = CDPoint.value;
+    object.currency = CDPoint.currency;
+    object.exChangeCource = CDPoint.exChangeCource;
+    [object calculateEarningPosibilityWithaverageCurrencyObjectsArray:self.averageCurrencyObjectsArray];
+    
+    return ([object.earningPosibility floatValue] > 0);
+}*/
 
 
 /*
@@ -138,13 +142,12 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"CDControlPoint" inManagedObjectContext:moc];
     [fetchRequest setEntity:entity];
-    
-    // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
-    // Edit the sort key as appropriate.
-    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"earningPosibility > 0"];
+    [fetchRequest setPredicate:predicate];
     
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
     [fetchRequest setSortDescriptors:@[descriptor]];
     
     // Edit the section name key path and cache name if appropriate.

@@ -17,5 +17,6 @@
 @dynamic value;
 @dynamic currency;
 @dynamic exChangeCource;
+@dynamic earningPosibility;
 
 @end
