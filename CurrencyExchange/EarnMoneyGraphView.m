@@ -10,6 +10,7 @@
 #import "ControllPoint.h"
 #import "Line.h"
 
+
 @interface EarnMoneyGraphView()
 
 @property (nonatomic, strong) NSMutableArray *drawingQueue;
@@ -51,7 +52,7 @@
         else
             [self addControlPointToDrawingQueue:point withColor:[UIColor blackColor]];
     }
-    [self setNeedsDisplay];
+    //[self setNeedsDisplay];
 }
 
 - (BOOL)isItTimeForControlPoint:(ControllPoint *)point
@@ -105,6 +106,9 @@
         }
     }
 }
+
+
+
 /*
 - (void)insertControlPointArray:(ControllPoint *)point
 {

@@ -13,14 +13,27 @@
 #import "ControlPointCDManager.h"
 #import "ControlPointsEarnChecker.h"
 #import "Fetcher.h"
+#import "EarnNotificationView.h"
+#import "EarningGoalsTableViewController.h"
 
 @interface EarnMoneyViewController ()
 
 @property (weak, nonatomic) IBOutlet EarnMoneyGraphView *graphView;
-@property (weak, nonatomic) IBOutlet UIImageView *USDColorIndicator;
-@property (weak, nonatomic) IBOutlet UIImageView *EURColorIndicator;
+@property (weak, nonatomic) IBOutlet UIImageView *USDBidColorIndicator;
+@property (weak, nonatomic) IBOutlet UIImageView *USDAskColorIndicator;
+@property (weak, nonatomic) IBOutlet UIImageView *EURBidColorIndicator;
+@property (weak, nonatomic) IBOutlet UIImageView *EURAskColorIndicator;
+
+@property (nonatomic, strong) UIColor *USDBidColor;
+@property (nonatomic, strong) UIColor *USDAskColor;
+@property (nonatomic, strong) UIColor *EURBidColor;
+@property (nonatomic, strong) UIColor *EURAskColor;
+
 @property (strong, nonatomic) NSMutableArray *arrayOfControlPoints;
+@property (nonatomic,strong) NSArray *readyToGoControlPoints;
 @property (nonatomic, strong) NSMutableArray *avarageCurrencyObjectsArray;
+
+@property (weak, nonatomic) IBOutlet UILabel *notificationLabel;
 
 @end
 /*
@@ -68,12 +81,30 @@ static NSString* EURask[] = {
                                                object:nil];*/
     [super viewDidLoad];
     [self prepareGraphView];
-    /*self.graphView.USDStrokeColor = [UIColor blueColor];
-     self.graphView.EURStrokeColor = [UIColor greenColor];
-     [self setNeedsOfIndicator:self.USDColorIndicator WithColor:self.graphView.USDStrokeColor];
-     [self setNeedsOfIndicator:self.EURColorIndicator WithColor:self.graphView.EURStrokeColor];*/
+       self.USDBidColor = [UIColor brownColor];
+    self.USDAskColor = [UIColor blueColor];
+    self.EURBidColor = [UIColor darkGrayColor];
+    self.EURAskColor = [UIColor grayColor];
+    [self setNeedsOfIndicator:self.USDBidColorIndicator WithColor:self.USDBidColor];
+    [self setNeedsOfIndicator:self.USDAskColorIndicator WithColor:self.USDAskColor];
+    [self setNeedsOfIndicator:self.EURBidColorIndicator WithColor:self.EURBidColor];
+    [self setNeedsOfIndicator:self.EURAskColorIndicator WithColor:self.EURAskColor];
     
-    
+    self.graphView.USDBidStrokeColor = self.USDBidColor;
+    self.graphView.USDAskStrokeColor = self.USDAskColor;
+    self.graphView.EURBidStrokeColor = self.EURBidColor;
+    self.graphView.EURAskStrokeColor = self.EURAskColor;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.readyToGoControlPoints = [self getControlPointsWithGoodEatningPosibility];
+    self.navigationItem.title = @"Earn";
+    if (self.readyToGoControlPoints.count)
+    {
+        [self showBarButtonItem];
+    }
 }
 
 - (void)prepareGraphView
@@ -187,6 +218,49 @@ static NSString* EURask[] = {
     {
         point.earningPosibility = [checker canBeEarnedfromControlPoint:point];
     }
+}
+
+- (NSArray *)getControlPointsWithGoodEatningPosibility
+{
+    NSMutableArray *resultArray = [NSMutableArray array];
+    
+    for (ControllPoint *point in self.arrayOfControlPoints)
+    {
+        if (point.earningPosibility > 0)
+            [resultArray addObject:point];
+    }
+    
+    return resultArray;
+}
+
+/*- (void)showNotificationForControlPoint:(ControllPoint *)point
+{
+    CGRect frame = CGRectMake(self.graphView.insetFrame.origin.x,
+                              self.graphView.insetFrame.origin.y,
+                              self.graphView.inset,
+                              self.graphView.inset);
+    NSString *notification = [NSString stringWithFormat:@"Earn %f!",[point.earningPosibility floatValue]];
+    EarnNotificationView *notificationView = [[EarnNotificationView alloc] initWithFrame:frame Notification:notification];
+    [self.graphView addSubview:notificationView];
+    
+    
+}*/
+
+- (void)showBarButtonItem
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    [button addTarget:self
+               action:@selector(showEarnGoalsViewController)
+     forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.title = @"You've got oportunity";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+}
+
+- (void)showEarnGoalsViewController
+{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    EarningGoalsTableViewController * egTVC = (EarningGoalsTableViewController *)[sb instantiateViewControllerWithIdentifier:@"EarningGoalsTVC"];
+    [self.navigationController pushViewController:egTVC animated:YES];
 }
 
 #pragma mark - navigation

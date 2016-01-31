@@ -10,4 +10,8 @@
 
 @interface EarnNotificationView : UIView
 
+- (instancetype)initWithFrame:(CGRect)frame Notification:(NSString *)notification;
+
+@property (nonatomic, strong) NSString *notificationString;
+
 @end

@@ -10,12 +10,27 @@
 
 @implementation EarnNotificationView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (instancetype)initWithFrame:(CGRect)frame Notification:(NSString *)notification
+{
+    self = [super initWithFrame:frame];
+    self.notificationString = notification;
+    self.backgroundColor = [UIColor redColor];
+    [self addNotificationLabel:frame];
+    return self;
 }
-*/
+
+/*- (void)drawRect:(CGRect)rect
+{
+    [self addNotificationLabel:rect];
+}*/
+
+- (void)addNotificationLabel:(CGRect)frame
+{
+    UILabel *label = [[UILabel alloc] initWithFrame:frame];
+    label.adjustsFontSizeToFitWidth = YES;
+    label.text = self.notificationString;
+    label.textColor = [UIColor blackColor];
+    label.font = [UIFont systemFontOfSize:frame.size.height];
+}
 
 @end
