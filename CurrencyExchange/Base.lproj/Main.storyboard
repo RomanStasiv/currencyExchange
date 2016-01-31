@@ -172,14 +172,7 @@
                                     <constraint firstAttribute="width" constant="50" id="jrD-r7-Fgr"/>
                                 </constraints>
                                 <state key="normal" image="add_icon"/>
-                                <connections>
-                                    <segue destination="Djq-LH-aUk" kind="show" identifier="addControlPoint" id="YB1-JO-5zw"/>
-                                </connections>
                             </button>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WMB-FN-6aU" customClass="EarnMoneyGraphView">
-                                <rect key="frame" x="0.0" y="64" width="541" height="536"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KVo-TX-LL6">
                                 <rect key="frame" x="541" y="350" width="59" height="120"/>
                                 <subviews>
@@ -378,10 +371,11 @@
                                     <constraint firstAttribute="height" constant="50" id="cvL-BN-crX"/>
                                 </constraints>
                                 <state key="normal" image="share_icon"/>
-                                <connections>
-                                    <segue destination="zUa-Si-UCn" kind="show" id="wFn-oF-7M9"/>
-                                </connections>
                             </button>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WMB-FN-6aU" customClass="EarnMoneyGraphView">
+                                <rect key="frame" x="0.0" y="64" width="541" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -457,7 +451,7 @@
         <!--Add Control Point To Earn Money View Controller-->
         <scene sceneID="Hrl-JT-ltY">
             <objects>
-                <viewController id="Djq-LH-aUk" customClass="AddControlPointToEarnMoneyViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addCPVC" id="Djq-LH-aUk" customClass="AddControlPointToEarnMoneyViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zra-oI-Km1"/>
                         <viewControllerLayoutGuide type="bottom" id="beM-7M-CPK"/>
@@ -466,33 +460,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r9k-0I-0n3">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r9k-0I-0n3">
                                 <rect key="frame" x="0.0" y="386" width="600" height="87"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rgy-bh-HLh">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rgy-bh-HLh">
                                 <rect key="frame" x="0.0" y="503" width="600" height="87"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
                                     <action selector="saveButtonBeenPressed:" destination="Djq-LH-aUk" eventType="touchUpInside" id="BsF-to-TeC"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3M-fj-5r9">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3M-fj-5r9">
                                 <rect key="frame" x="0.0" y="74" width="600" height="87"/>
                                 <string key="text">Here it is menu, gives tou opportunity to follow your savings. To do so, you need to schose currency, amount of money and press save button</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fwm-qE-6xL">
+                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fwm-qE-6xL">
                                 <rect key="frame" x="0.0" y="288" width="600" height="88"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Djq-LH-aUk" id="d79-cV-hta"/>
                                     <outlet property="delegate" destination="Djq-LH-aUk" id="Y1G-jg-HP4"/>
                                 </connections>
                             </pickerView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WdR-c5-ucj">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WdR-c5-ucj">
                                 <rect key="frame" x="0.0" y="191" width="600" height="88"/>
                                 <segments>
                                     <segment title="" image="dollar_sign"/>
@@ -535,7 +529,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mvo-OI-5Wd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="965" y="2055"/>
+            <point key="canvasLocation" x="1135" y="2077"/>
         </scene>
         <!--Earning Goals Table View Controller-->
         <scene sceneID="r6R-B8-hDT">
@@ -750,7 +744,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KxE-yT-sSl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1716" y="1631"/>
+            <point key="canvasLocation" x="1758" y="2077"/>
         </scene>
         <!--Web Sharing View Controller-->
         <scene sceneID="3iU-6V-OQd">
@@ -785,7 +779,7 @@
         <!--Share Goals View Controller-->
         <scene sceneID="R22-ts-oeu">
             <objects>
-                <viewController id="zUa-Si-UCn" customClass="ShareGoalsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="shareGoalsVC" id="zUa-Si-UCn" customClass="ShareGoalsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Qu4-Yv-n4x"/>
                         <viewControllerLayoutGuide type="bottom" id="hDP-Rx-Tgf"/>
@@ -859,7 +853,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="I'm_best" translatesAutoresizingMaskIntoConstraints="NO" id="OWp-4e-z5e">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="I'm_best" translatesAutoresizingMaskIntoConstraints="NO" id="OWp-4e-z5e">
                                 <rect key="frame" x="0.0" y="64" width="600" height="436"/>
                             </imageView>
                         </subviews>
@@ -880,7 +874,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OOe-3s-xlb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="300" y="2055"/>
+            <point key="canvasLocation" x="490" y="2077"/>
         </scene>
     </scenes>
     <resources>

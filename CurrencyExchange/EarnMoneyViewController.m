@@ -15,6 +15,7 @@
 #import "Fetcher.h"
 #import "EarnNotificationView.h"
 #import "EarningGoalsTableViewController.h"
+#import "ShareGoalsViewController.h"
 
 @interface EarnMoneyViewController ()
 
@@ -94,17 +95,12 @@ static NSString* EURask[] = {
     self.graphView.USDAskStrokeColor = self.USDAskColor;
     self.graphView.EURBidStrokeColor = self.EURBidColor;
     self.graphView.EURAskStrokeColor = self.EURAskColor;
-}
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     self.readyToGoControlPoints = [self getControlPointsWithGoodEatningPosibility];
-    self.navigationItem.title = @"Earn";
     if (self.readyToGoControlPoints.count)
-    {
-        [self showBarButtonItem];
-    }
+        [self addBarButtonItemsIncludeEarnGoals:YES];
+    else
+        [self addBarButtonItemsIncludeEarnGoals:NO];
 }
 
 - (void)prepareGraphView
@@ -247,8 +243,8 @@ static NSString* EURask[] = {
     
     
 }*/
-
-- (void)showBarButtonItem
+/*
+- (void)showEarnGoalsBarButtonItem
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     [button addTarget:self
@@ -256,6 +252,51 @@ static NSString* EURask[] = {
      forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.title = @"You've got oportunity";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+}
+*/
+- (void)addBarButtonItemsIncludeEarnGoals:(BOOL)goals
+{
+    
+    CGRect ImageRect = CGRectMake(0, 0, 30, 30);
+    
+    UIImage *addImage = [UIImage imageNamed:@"tabBar_Add.png"];
+    UIButton *addButton = [[UIButton alloc] initWithFrame:ImageRect];
+    [addButton setBackgroundImage:addImage forState:UIControlStateNormal];
+    [addButton addTarget:self
+                    action:@selector(showAddControlPointViewController)
+          forControlEvents:UIControlEventTouchUpInside];
+    [addButton setShowsTouchWhenHighlighted:YES];
+    
+    UIBarButtonItem *addBarButton = [[UIBarButtonItem alloc] initWithCustomView:addButton];
+    
+    UIImage *shareImage = [UIImage imageNamed:@"tabBar_share.png"];
+    UIButton *shareButton = [[UIButton alloc] initWithFrame:ImageRect];
+    [shareButton setBackgroundImage:shareImage forState:UIControlStateNormal];
+    [shareButton addTarget:self
+                    action:@selector(showShareGoalsViewController)
+          forControlEvents:UIControlEventTouchUpInside];
+    [shareButton setShowsTouchWhenHighlighted:YES];
+    
+    UIBarButtonItem *shareBarButton = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
+
+    if (goals)
+    {
+        UIImage *goalsImage = [UIImage imageNamed:@"tabBar_money.png"];
+        UIButton *goalsButton = [[UIButton alloc] initWithFrame:ImageRect];
+        [goalsButton setBackgroundImage:goalsImage forState:UIControlStateNormal];
+        [goalsButton addTarget:self
+                        action:@selector(showEarnGoalsViewController)
+              forControlEvents:UIControlEventTouchUpInside];
+        [goalsButton setShowsTouchWhenHighlighted:YES];
+
+        UIBarButtonItem *goalsBarButton = [[UIBarButtonItem alloc] initWithCustomView:goalsButton];
+        
+        self.navigationItem.rightBarButtonItems = @[addBarButton, shareBarButton, goalsBarButton];
+    }
+    else
+    {
+        self.navigationItem.rightBarButtonItems = @[addBarButton, shareBarButton];
+    }
 }
 
 - (void)showEarnGoalsViewController
@@ -266,15 +307,31 @@ static NSString* EURask[] = {
     [self.navigationController pushViewController:egTVC animated:YES];
 }
 
-#pragma mark - navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)showShareGoalsViewController
 {
-    if ([segue.identifier isEqualToString: @"addControlPoint"])
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ShareGoalsViewController * shareGoalsVC = (ShareGoalsViewController *)[sb instantiateViewControllerWithIdentifier:@"shareGoalsVC"];
+    [self.navigationController pushViewController:shareGoalsVC animated:YES];
+}
+
+- (void)showAddControlPointViewController
+{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AddControlPointToEarnMoneyViewController * addCPVC = (AddControlPointToEarnMoneyViewController *)[sb instantiateViewControllerWithIdentifier:@"addCPVC"];
+    addCPVC.owner = self;
+    addCPVC.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
+    [self.navigationController pushViewController:addCPVC animated:YES];
+}
+
+#pragma mark - navigation
+/*- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString: @"addCPVC"])
     {
         ((AddControlPointToEarnMoneyViewController *)segue.destinationViewController).owner = self;
         ((AddControlPointToEarnMoneyViewController *)segue.destinationViewController).avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
     }
-}
+}*/
 
 
 @end
