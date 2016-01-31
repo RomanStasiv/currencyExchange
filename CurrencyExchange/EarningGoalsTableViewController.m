@@ -66,12 +66,11 @@
 {
     CDControlPoint *CDobject = [self.fetchResultController objectAtIndexPath:indexPath];
     ControllPoint *object = [[ControllPoint alloc] init];
-    ControlPointsEarnChecker *Checker = [[ControlPointsEarnChecker alloc] init];
+    [object calculateEarningPosibilityWithaverageCurrencyObjectsArray:self.averageCurrencyObjectsArray];
     object.date = CDobject.date;
     object.value = CDobject.value;
     object.currency = CDobject.currency;
     object.exChangeCource = CDobject.exChangeCource;
-    object.earningPosibility = [Checker canBeEarnedfromControlPoint:object];
     
     NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
     [dateFormater setDateFormat:@"yyyy-MM-dd HH:mm"];

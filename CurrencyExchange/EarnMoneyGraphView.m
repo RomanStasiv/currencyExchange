@@ -52,14 +52,14 @@
         else
             [self addControlPointToDrawingQueue:point withColor:[UIColor blackColor]];
     }
-    //[self setNeedsDisplay];
+    [self setNeedsDisplay];
 }
 
 - (BOOL)isItTimeForControlPoint:(ControllPoint *)point
 {
     BOOL success = NO;
     
-    if (point.earningPosibility > 0)
+    if ([point.earningPosibility floatValue] > 0)
         success = YES;
     
     return success;
@@ -75,7 +75,6 @@
                 [((AverageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i + 1]).date compare:point.date] == NSOrderedDescending) ||*/
                 [((AverageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i]).date compare:point.date] == NSOrderedSame)
             {
-                NSLog(@"%@",NSStringFromCGRect(self.frame));
                 if ([point.currency isEqualToString: @"dolars"])
                 {
                     CGFloat xPoint = [[self.pointsOfUSDAskCurve objectAtIndex:i] CGPointValue].x;

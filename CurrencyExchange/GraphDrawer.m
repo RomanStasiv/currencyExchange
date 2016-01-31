@@ -268,6 +268,7 @@
 {
     [self drawLineFromPointA:a toPointB:b WithWidth:width andColor:color];
     
+#warning  WHY NOT DASHED ???
     //drawing triangle at the end of axis
     CGFloat length[] = {1,1,1,1,3,1};
     
@@ -296,8 +297,11 @@
 
 - (void)drawDivisionsOnAxis
 {
-    [self drawDivisionsOnYAxe];
-    [self drawDivisionsOnXAxe];
+    if ([self.avarageCurrencyObjectsArray count])
+    {
+        [self drawDivisionsOnYAxe];
+        [self drawDivisionsOnXAxe];
+    }
 }
 
 - (void)drawDivisionsOnYAxe

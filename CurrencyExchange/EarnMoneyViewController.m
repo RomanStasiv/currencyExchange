@@ -168,7 +168,10 @@ static NSString* EURask[] = {
     for (AverageCurrency *currency in self.avarageCurrencyObjectsArray)
     {
         if ([currency.date compare:date] == NSOrderedSame)
+        {
             thisCurrency = currency;
+            break;
+        }
     }
     if ([currency isEqualToString:@"dolars"])
         point.exChangeCource = thisCurrency.USDask;
@@ -212,11 +215,9 @@ static NSString* EURask[] = {
 
 - (void)calculateEarningPosibilitiesOfControlPoints
 {
-    ControlPointsEarnChecker *checker = [[ControlPointsEarnChecker alloc] init];
-    checker.averageCurrencyArray = self.avarageCurrencyObjectsArray;
     for (ControllPoint *point in self.arrayOfControlPoints)
     {
-        point.earningPosibility = [checker canBeEarnedfromControlPoint:point];
+        [point calculateEarningPosibilityWithaverageCurrencyObjectsArray:self.avarageCurrencyObjectsArray];
     }
 }
 
@@ -226,7 +227,7 @@ static NSString* EURask[] = {
     
     for (ControllPoint *point in self.arrayOfControlPoints)
     {
-        if (point.earningPosibility > 0)
+        if ([point.earningPosibility floatValue] > 0)
             [resultArray addObject:point];
     }
     
@@ -260,6 +261,7 @@ static NSString* EURask[] = {
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     EarningGoalsTableViewController * egTVC = (EarningGoalsTableViewController *)[sb instantiateViewControllerWithIdentifier:@"EarningGoalsTVC"];
+    egTVC.averageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
     [self.navigationController pushViewController:egTVC animated:YES];
 }
 
