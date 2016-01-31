@@ -81,11 +81,6 @@
     self.pointsOfEURBidCurve = [self makeArrayOfPointsFromArrayOfCurrency:EURbidValues];
     self.pointsOfUSDAskCurve = [self makeArrayOfPointsFromArrayOfCurrency:USDaskValues];
     self.pointsOfEURAskCurve = [self makeArrayOfPointsFromArrayOfCurrency:EURaskValues];
-    
-    self.USDBidStrokeColor = [UIColor blackColor];
-    self.USDAskStrokeColor = [UIColor grayColor];
-    self.EURBidStrokeColor = [UIColor blueColor];
-    self.EURAskStrokeColor = [UIColor greenColor];
 }
 
 - (NSArray *)makeArrayOfPointsFromArrayOfCurrency:(NSArray *)currency
@@ -273,6 +268,7 @@
 {
     [self drawLineFromPointA:a toPointB:b WithWidth:width andColor:color];
     
+#warning  WHY NOT DASHED ???
     //drawing triangle at the end of axis
     CGFloat length[] = {1,1,1,1,3,1};
     
@@ -301,8 +297,11 @@
 
 - (void)drawDivisionsOnAxis
 {
-    [self drawDivisionsOnYAxe];
-    [self drawDivisionsOnXAxe];
+    if ([self.avarageCurrencyObjectsArray count])
+    {
+        [self drawDivisionsOnYAxe];
+        [self drawDivisionsOnXAxe];
+    }
 }
 
 - (void)drawDivisionsOnYAxe
@@ -313,7 +312,8 @@
     {
         CGRect frame = CGRectMake(0, (self.insetFrame.size.height - self.segmentHeight *2/3) - self.segmentHeight * i, 30, self.segmentHeight);
         UILabel *valueLabel = [[UILabel alloc] initWithFrame:frame];
-        valueLabel.adjustsFontSizeToFitWidth = YES;
+        //valueLabel.adjustsFontSizeToFitWidth = YES;
+        valueLabel.font = [UIFont systemFontOfSize:self.segmentHeight];
         valueLabel.text = [NSString stringWithFormat:@"%.02f",value];
         [self addSubview:valueLabel];
         value += distance;
@@ -339,24 +339,55 @@
     }
     for (int i = 0; i < self.segmentWidthCount; i++)
     {
-        CGRect monthFrame = CGRectMake(self.inset + (self.segmentWidth * i) - (self.segmentWidth / 2) + (self.segmentWidth / 10),
-                                       self.frame.size.height - 30,
-                                       self.segmentWidth - (self.segmentWidth / 10),
-                                       self.segmentWidth);
-        UILabel *monthLabel = [[UILabel alloc] initWithFrame:monthFrame];
-        monthLabel.adjustsFontSizeToFitWidth = YES;
-        monthLabel.text = [month objectAtIndex:i];
-        
-        CGRect dayFrame = CGRectMake(self.inset + (self.segmentWidth * i) - (self.segmentWidth / 2) + (self.segmentWidth / 10),
-                                     self.frame.size.height - 30 + self.segmentWidth,
-                                     self.segmentWidth - (self.segmentWidth / 10),
-                                     self.segmentWidth);
-        UILabel *dayLabel = [[UILabel alloc] initWithFrame:dayFrame];
-        dayLabel.adjustsFontSizeToFitWidth = YES;
-        dayLabel.text = [days objectAtIndex:i];
-        
-        [self addSubview:monthLabel];
-        [self addSubview:dayLabel];
+        if (self.segmentWidthCount > 10)
+        {
+            if (i % 2 == 0)
+            {
+                CGRect monthFrame = CGRectMake(self.inset + (self.segmentWidth * i) - (self.segmentWidth / 2) + (self.segmentWidth / 10),
+                                               self.frame.size.height - 30,
+                                               30,
+                                               self.segmentWidth);
+                UILabel *monthLabel = [[UILabel alloc] initWithFrame:monthFrame];
+                //monthLabel.adjustsFontSizeToFitWidth = YES;
+                monthLabel.font = [UIFont systemFontOfSize:self.segmentHeight];
+                monthLabel.text = [month objectAtIndex:i];
+                
+                CGRect dayFrame = CGRectMake(self.inset + (self.segmentWidth * i) - (self.segmentWidth / 2) + (self.segmentWidth / 10),
+                                             self.frame.size.height - 30 + self.segmentWidth,
+                                             30,
+                                             self.segmentWidth);
+                UILabel *dayLabel = [[UILabel alloc] initWithFrame:dayFrame];
+#warning HOW TO AJUST ???
+                dayLabel.font = [UIFont systemFontOfSize:self.segmentWidth - (self.segmentWidth / 10)];
+                //dayLabel.adjustsFontSizeToFitWidth = YES;
+                dayLabel.text = [days objectAtIndex:i];
+                [self addSubview:monthLabel];
+                [self addSubview:dayLabel];
+            }
+        }
+        else
+        {
+            CGRect monthFrame = CGRectMake(self.inset + (self.segmentWidth * i) - (self.segmentWidth / 2) + (self.segmentWidth / 10),
+                                           self.frame.size.height - 30,
+                                           30,
+                                           self.segmentWidth);
+            UILabel *monthLabel = [[UILabel alloc] initWithFrame:monthFrame];
+            //monthLabel.adjustsFontSizeToFitWidth = YES;
+            monthLabel.font = [UIFont systemFontOfSize:self.segmentHeight];
+            monthLabel.text = [month objectAtIndex:i];
+            
+            CGRect dayFrame = CGRectMake(self.inset + (self.segmentWidth * i) - (self.segmentWidth / 2) + (self.segmentWidth / 10),
+                                         self.frame.size.height - 30 + self.segmentWidth,
+                                         30,
+                                         self.segmentWidth);
+            UILabel *dayLabel = [[UILabel alloc] initWithFrame:dayFrame];
+#warning HOW TO AJUST ???
+            dayLabel.font = [UIFont systemFontOfSize:self.segmentWidth - (self.segmentWidth / 10)];
+            //dayLabel.adjustsFontSizeToFitWidth = YES;
+            dayLabel.text = [days objectAtIndex:i];
+            [self addSubview:monthLabel];
+            [self addSubview:dayLabel];
+        }
     }
 }
 

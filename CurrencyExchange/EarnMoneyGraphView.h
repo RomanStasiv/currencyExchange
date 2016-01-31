@@ -12,6 +12,7 @@
 @interface EarnMoneyGraphView : GraphDrawer
 
 @property (nonatomic, strong) NSArray *controlPointsArray;
+@property (nonatomic, strong) NSArray *notificationViewsArray;
 @property (nonatomic, assign) BOOL shouldDrawControlPoints;
 
 - (void)drawAllControlpoints;

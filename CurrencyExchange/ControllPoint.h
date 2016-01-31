@@ -8,13 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ControllPoint : NSObject // nsmanagedobje/.........
+@interface ControllPoint : NSObject
 
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSNumber *value;
 @property (nonatomic, strong) NSString *currency;
-#warning not implemented exChangeCource
 @property (nonatomic, strong) NSNumber *exChangeCource;
+
+//should be called, before using earningPosibility property of object
+- (void)calculateEarningPosibilityWithaverageCurrencyObjectsArray:(NSArray *)array;
+
 @property (nonatomic, strong) NSNumber *earningPosibility;
 
 @end

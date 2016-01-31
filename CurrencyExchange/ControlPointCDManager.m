@@ -7,14 +7,14 @@
 //
 
 #import "ControlPointCDManager.h"
-#import <CoreData/CoreData.h>
 #import "AppDelegate.h"
 #import "ControllPoint.h"
 #import "CDControlPoint.h"
+#import "ControlPointsCDSotrer.h"
 
 @interface ControlPointCDManager()
 
-@property (nonatomic, strong) NSManagedObjectContext *context;
+
 
 @end
 
@@ -37,6 +37,7 @@
     coreDataPoint.value = point.value;
     coreDataPoint.currency = point.currency;
     coreDataPoint.exChangeCource = point.exChangeCource;
+    coreDataPoint.earningPosibility = point.earningPosibility;
     [self.context save:nil];
 }
 
@@ -79,9 +80,19 @@
         point.value = object.value;
         point.currency = object.currency;
         point.exChangeCource = object.exChangeCource;
+        point.earningPosibility = object.earningPosibility;
         
         [controlPointsArray addObject:point];
     }
     return controlPointsArray;
+}
+
+- (NSArray *)getSortedArrayOfControlPointsFromCDAscending:(BOOL) ascending
+{
+    ControlPointsCDSotrer *sorter = [[ControlPointsCDSotrer alloc] init];
+    NSArray *resultArray = [NSArray array];
+    resultArray = [sorter sort:[self getArrayOfControlPointsFromCD]
+                     Ascending:ascending];
+    return resultArray;
 }
 @end
