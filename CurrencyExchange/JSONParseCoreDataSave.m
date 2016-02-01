@@ -64,6 +64,7 @@
         self.banksCount = [jsonArray count];
         
         BankData* bankToBind = nil;
+        BankData* bankToUpdate = nil;
              
         for (int i = 1; i < self.banksCount; i++)
         {
@@ -134,12 +135,34 @@
            
             else if ([bankNamesArray containsObject:self.bankName])
             {
+                if (self.haveBranch == false)
+                {
+                    bankToUpdate = [self getBankByName:self.bankName];
+                    CurrencyData* currencyData = [NSEntityDescription insertNewObjectForEntityForName:@"CurrencyData" inManagedObjectContext:self.context];
+                    currencyData.date = self.bankDate;
+                    currencyData.eurCurrencyAsk = self.bankEURCurrencyAsk;
+                    currencyData.eurCurrencyBid = self.bankEURCurrencyBid;
+                    currencyData.usdCurrencyAsk = self.bankUSDCurrencyAsk;
+                    currencyData.usdCurrencyBid = self.bankUSDCurrencyBid;
+                    
+                    [bankToUpdate addCurrencyObject:currencyData];
+                    
+                    bankToBind = bankToUpdate;
+                }
                 
+                if (self.haveBranch == true)
+                {
+                    
+                    BranchData* branchData = [NSEntityDescription insertNewObjectForEntityForName:@"BranchData" inManagedObjectContext:self.context];
+                    
+                    branchData.name = self.bankName;
+                    branchData.region = self.bankRegion;
+                    branchData.city = self.bankCity;
+                    branchData.address = self.bankAddress;
+                    
+                    [bankToBind addBranchObject:branchData];
+                }
             }
-            
-             
-            
-            
 
         }
         NSError* saveError = nil;
@@ -241,8 +264,34 @@
     }
     
     [self.context save:nil];
-    
-    
+
 }
+
+
+-(BankData*) getBankByName:(NSString*) name
+{
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription* description = [NSEntityDescription entityForName:@"BankData"
+                                                   inManagedObjectContext:self.context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"name == %@", name];
+    [request setPredicate:predicate];
+    [request setEntity:description];
+    
+    NSError* requestError = nil;
+    NSArray* resultArray = [self.context executeFetchRequest:request error:&requestError];
+    if (requestError) {
+        NSLog(@"%@", [requestError localizedDescription]);
+    }
+    
+    return [resultArray objectAtIndex:0];
+}
+
+
+
+
+
+
+
 
 @end
