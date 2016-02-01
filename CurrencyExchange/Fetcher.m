@@ -40,6 +40,64 @@
     return sortedArray;
 }
 
+- (NSMutableArray*) dataForTableView
+{
+    AppDelegate * delegate = [AppDelegate singleton];
+    self.context = delegate.managedObjectContext;
+    
+    NSMutableArray *arrayForTableView = [[NSMutableArray alloc]init];
+    
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription* description =
+    [NSEntityDescription entityForName:@"BankData"
+                inManagedObjectContext:self.context];
+    
+    [request setEntity:description];
+    
+    NSError* requestError = nil;
+    NSArray* resultArray = [self.context executeFetchRequest:request error:&requestError];
+    for(int k =0; k<[resultArray count]; k++)
+    {
+        ReportDataForTable* tmp = [[ReportDataForTable alloc]init];
+        tmp.bankName =((BankData *)resultArray[k]).name;
+        
+        NSLog(@"%@", tmp.bankName);
+        
+        NSMutableArray *finalArray = [[NSMutableArray alloc]init];
+        
+        NSMutableDictionary* branchs = [[NSMutableDictionary alloc]init];
+        for (BranchData *branch in (((BankData *)resultArray[k]).branch))
+        {
+            NSString* name = [NSString stringWithString:branch.name];
+            NSString* address = [NSString stringWithFormat:@"%@, %@, %@, Украина", branch.address, branch.city, branch.region ];
+            
+            NSLog(@"%@", address);
+            [branchs setObject:address forKey:name];
+            
+        }
+        [finalArray addObject:branchs];
+        tmp.branchs = finalArray;
+        
+        NSArray* currency = [[self sortedCurrency]sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]]];;
+        for(int  i = 0; i < [resultArray count]; i++)
+        {
+            if(tmp.bankName == [currency[i] bank].name)
+            {
+                tmp.usdCurrencyAsk = [currency[i] usdCurrencyAsk];
+                tmp.usdCurrencyBid = [currency[i] usdCurrencyBid];
+                tmp.eurCurrencyAsk = [currency[i] eurCurrencyAsk];
+                tmp.eurCurrencyBid = [currency[i] eurCurrencyBid];
+                break;
+            }
+            
+        }
+        [arrayForTableView addObject:tmp];
+    }
+    return arrayForTableView;
+}
+
+
 - (NSInteger) allBanksQuantity {
     
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
@@ -74,58 +132,77 @@
     self.qtyOfBanks = [self allBanksQuantity];
     NSArray* arrayFromCoreData = [self sortedCurrency];
     
-    double sumUSDAsk;
-    double sumUSDBid;
-    double sumEuroAsk;
-    double sumEuroBid;
-    double resultUSDAsk;
-    double resultUSDBid;
-    double resultEuroAsk;
-    double resultEuroBid;
-    
+    CGFloat sumUSDAsk = 0.0;
+    CGFloat sumUSDBid = 0.0;
+    CGFloat sumEuroAsk = 0.0;
+    CGFloat sumEuroBid = 0.0;
+    CGFloat resultUSDAsk;
+    CGFloat resultUSDBid;
+    CGFloat resultEuroAsk;
+    CGFloat resultEuroBid;
+    NSInteger k = 0;
     if(self.qtyOfBanks > 0)
     {
         for(int i=0; i<[arrayFromCoreData count]/self.qtyOfBanks; i++)
         {
             for(int j = 0; j< self.qtyOfBanks; j++)
             {
-                sumUSDAsk  += [[[arrayFromCoreData objectAtIndex:j ] usdCurrencyAsk ] doubleValue];
-                sumUSDBid  += [[[arrayFromCoreData objectAtIndex:j ] usdCurrencyBid ] doubleValue];
-                sumEuroAsk += [[[arrayFromCoreData objectAtIndex:j ] eurCurrencyAsk ] doubleValue];
-                sumEuroBid += [[[arrayFromCoreData objectAtIndex:j ] eurCurrencyBid ] doubleValue];
-                
-            }
+                sumUSDAsk  += [[[arrayFromCoreData objectAtIndex:k ] usdCurrencyAsk ] doubleValue];
+                sumUSDBid  += [[[arrayFromCoreData objectAtIndex:k ] usdCurrencyBid ] doubleValue];
+                sumEuroAsk += [[[arrayFromCoreData objectAtIndex:k ] eurCurrencyAsk ] doubleValue];
+                sumEuroBid += [[[arrayFromCoreData objectAtIndex:k ] eurCurrencyBid ] doubleValue];
+                k++;
+             }
             
+            if(k == [arrayFromCoreData count])
+                k -= 1;
             resultUSDAsk  = sumUSDAsk/self.qtyOfBanks;
             resultUSDBid  = sumUSDBid/self.qtyOfBanks;
             resultEuroAsk = sumEuroAsk/self.qtyOfBanks;
             resultEuroBid = sumEuroBid/self.qtyOfBanks;
             
-            NSLog(@"%f", resultUSDAsk );
-            NSLog(@"%f", resultUSDBid );
-            NSLog(@"%f", resultEuroAsk );
-            NSLog(@"%f", resultEuroBid );
+//            NSLog(@"%f", resultUSDAsk );
+//            NSLog(@"%f", resultUSDBid );
+//            NSLog(@"%f", resultEuroAsk );
+//            NSLog(@"%f", resultEuroBid );
             
-            self.averageCurrency.date = [[arrayFromCoreData objectAtIndex:i] date];
-            self.averageCurrency.USDask  = [NSNumber numberWithFloat: resultUSDAsk];
-            self.averageCurrency.USDbid  = [NSNumber numberWithFloat: resultUSDBid];
-            self.averageCurrency.EURask = [NSNumber numberWithFloat: resultEuroAsk];
-            self.averageCurrency.EURbid = [NSNumber numberWithFloat: resultEuroBid];
             
-            [self.averageRates addObject:self.averageCurrency];
+            AverageCurrency * tmp = [[AverageCurrency alloc]init];
+            
+            tmp.date = [[arrayFromCoreData objectAtIndex:k] date];
+//            
+//            NSDateFormatter *monhtFormater = [[NSDateFormatter alloc] init];
+//            [monhtFormater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+//            NSLog(@"Date:%@",[monhtFormater stringFromDate:tmp.date]);
+//            NSLog(@"Date Origin:%@",[monhtFormater stringFromDate:[[arrayFromCoreData objectAtIndex:k] date]]);
+
+            tmp.USDask  = [NSNumber numberWithFloat: resultUSDAsk];
+            tmp.USDbid  = [NSNumber numberWithFloat: resultUSDBid];
+            tmp.EURask = [NSNumber numberWithFloat: resultEuroAsk];
+            tmp.EURbid = [NSNumber numberWithFloat: resultEuroBid];
+            
+          
+            sumUSDAsk = 0.0;
+            sumUSDBid = 0.0;
+            sumEuroAsk = 0.0;
+            sumEuroBid = 0.0;
+            
+            [self.averageRates addObject:tmp];
         }
+        //[self print];
         return self.averageRates;
     }
     return nil;
 }
 
-- (NSMutableArray*) dataForTableView
+- (void)print
 {
-
-    self.qtyOfBanks = [self allBanksQuantity];
-    
-    
-    return self.lastBanksRates;
+    NSDateFormatter *monhtFormater = [[NSDateFormatter alloc] init];
+    [monhtFormater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    for (AverageCurrency *c in self.averageRates)
+    {
+        NSLog(@"Date:%@, USDbid:%@, USDask:%@, EURbid:%@, EURask:%@",[monhtFormater stringFromDate:c.date],c.USDbid,c.USDask,c.EURbid,c.EURask);
+    }
 }
 
 @end

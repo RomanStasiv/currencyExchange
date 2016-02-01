@@ -26,6 +26,7 @@
 		6A8E90701C5BB28A0069BABC /* CDControlPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E906E1C5BB28A0069BABC /* CDControlPoint.m */; };
 		6A8E90741C5BB8760069BABC /* ControlPointCDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E90731C5BB8760069BABC /* ControlPointCDManager.m */; };
 		6A8E90791C5BFDA70069BABC /* ControlPointsEarnChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E90781C5BFDA70069BABC /* ControlPointsEarnChecker.m */; };
+		6AA459091C5D3A7900415698 /* EarnNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA459081C5D3A7900415698 /* EarnNotificationView.m */; };
 		979339E31C58D9A000A674D1 /* CurencyCourseGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 979339E21C58D9A000A674D1 /* CurencyCourseGraph.m */; };
 		97ED58621C5796BC004724A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ED58611C5796BC004724A3 /* main.m */; };
 		97ED58651C5796BC004724A3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ED58641C5796BC004724A3 /* AppDelegate.m */; };
@@ -84,6 +85,8 @@
 		6A8E90731C5BB8760069BABC /* ControlPointCDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlPointCDManager.m; sourceTree = "<group>"; };
 		6A8E90771C5BFDA70069BABC /* ControlPointsEarnChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlPointsEarnChecker.h; sourceTree = "<group>"; };
 		6A8E90781C5BFDA70069BABC /* ControlPointsEarnChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlPointsEarnChecker.m; sourceTree = "<group>"; };
+		6AA459071C5D3A7900415698 /* EarnNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarnNotificationView.h; sourceTree = "<group>"; };
+		6AA459081C5D3A7900415698 /* EarnNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarnNotificationView.m; sourceTree = "<group>"; };
 		979339E11C58D9A000A674D1 /* CurencyCourseGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurencyCourseGraph.h; sourceTree = "<group>"; };
 		979339E21C58D9A000A674D1 /* CurencyCourseGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurencyCourseGraph.m; sourceTree = "<group>"; };
 		97ED585D1C5796BC004724A3 /* CurrencyExchange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyExchange.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -169,6 +172,7 @@
 		6A29890E1C58AF3D006328A5 /* earn */ = {
 			isa = PBXGroup;
 			children = (
+				6A80BF801C5E25F600B57EC5 /* EarninigGoalsTVC */,
 				6A193CEA1C57BD3800093B36 /* EarnMoneyViewController.h */,
 				6A193CEB1C57BD3800093B36 /* EarnMoneyViewController.m */,
 				6A19D05D1C58035900529993 /* EarnMoneyGraphView.h */,
@@ -183,6 +187,8 @@
 				6A193CF11C57C9E900093B36 /* ShareGoalsViewController.m */,
 				6A193CF31C57CF0500093B36 /* WebSharingViewController.h */,
 				6A193CF41C57CF0500093B36 /* WebSharingViewController.m */,
+				6AA459071C5D3A7900415698 /* EarnNotificationView.h */,
+				6AA459081C5D3A7900415698 /* EarnNotificationView.m */,
 			);
 			name = earn;
 			sourceTree = "<group>";
@@ -198,6 +204,17 @@
 			name = "show banks";
 			sourceTree = "<group>";
 		};
+		6A80BF801C5E25F600B57EC5 /* EarninigGoalsTVC */ = {
+			isa = PBXGroup;
+			children = (
+				6A80BF7D1C5E22B300B57EC5 /* EarningGoalsTableViewController.h */,
+				6A80BF7E1C5E22B300B57EC5 /* EarningGoalsTableViewController.m */,
+				6A80BF811C5E264D00B57EC5 /* CustomEGTableViewCell.h */,
+				6A80BF821C5E264D00B57EC5 /* CustomEGTableViewCell.m */,
+			);
+			name = EarninigGoalsTVC;
+			sourceTree = "<group>";
+		};
 		6A8E90711C5BB29A0069BABC /* ControlPoint */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +224,8 @@
 				6A8E906E1C5BB28A0069BABC /* CDControlPoint.m */,
 				6A8E90721C5BB8760069BABC /* ControlPointCDManager.h */,
 				6A8E90731C5BB8760069BABC /* ControlPointCDManager.m */,
+				6A80BF841C5E31A700B57EC5 /* ControlPointsCDSotrer.h */,
+				6A80BF851C5E31A700B57EC5 /* ControlPointsCDSotrer.m */,
 			);
 			name = ControlPoint;
 			sourceTree = "<group>";
@@ -388,8 +407,11 @@
 				EF06169E1C5B524C0097B505 /* CurrencyData.m in Sources */,
 				6A1DBB9E1C5957E700859520 /* ControllPoint.m in Sources */,
 				EF06169B1C5B524C0097B505 /* ObjectData+CoreDataProperties.m in Sources */,
+				6A80BF831C5E264D00B57EC5 /* CustomEGTableViewCell.m in Sources */,
+				6A80BF861C5E31A700B57EC5 /* ControlPointsCDSotrer.m in Sources */,
 				6A2989121C58AFDA006328A5 /* ConvertMoneyViewController.m in Sources */,
 				EF06169C1C5B524C0097B505 /* ObjectData.m in Sources */,
+				6A80BF7F1C5E22B300B57EC5 /* EarningGoalsTableViewController.m in Sources */,
 				6A8E90791C5BFDA70069BABC /* ControlPointsEarnChecker.m in Sources */,
 				6A19D05F1C58035900529993 /* EarnMoneyGraphView.m in Sources */,
 				EF0616A01C5B524C0097B505 /* BranchData.m in Sources */,
@@ -402,6 +424,7 @@
 				EF0616A61C5B52A90097B505 /* JSONParseCoreDataSave.m in Sources */,
 				EF06169A1C5B524C0097B505 /* BankData.m in Sources */,
 				401ED9751C5BE1F3006CFBBB /* AverageCurrency.m in Sources */,
+				6AA459091C5D3A7900415698 /* EarnNotificationView.m in Sources */,
 				97ED58621C5796BC004724A3 /* main.m in Sources */,
 				6A2941A01C58CD7E00C5D207 /* MainScreenViewController.m in Sources */,
 				6A193CF51C57CF0500093B36 /* WebSharingViewController.m in Sources */,

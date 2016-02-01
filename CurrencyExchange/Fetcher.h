@@ -12,14 +12,14 @@
 #import "CurrencyData.h"
 #import "BankData.h"
 #import "AppDelegate.h"
+#import "BranchData.h"
+#import "ReportDataForTable.h"
 
 @interface Fetcher : NSObject
 
 @property (strong, nonatomic) NSMutableDictionary* dataFromCoreData;
-@property (strong, nonatomic) JSONParseCoreDataSave* JSON;
 @property (strong, nonatomic) AverageCurrency* averageCurrency;
 @property (strong, nonatomic) NSMutableArray* averageRates;
-@property (strong, nonatomic) NSMutableArray* lastBanksRates;
 @property (strong, nonatomic) NSManagedObjectContext* context;
 
 

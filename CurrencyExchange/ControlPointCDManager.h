@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 @class ControllPoint;
 
 @interface ControlPointCDManager : NSObject
+
+@property (nonatomic, strong) NSManagedObjectContext *context;
 
 - (void)saveToCDControlPoint:(ControllPoint *)point;
 - (void)deleteFromCDControlPoint:(ControllPoint *)point;

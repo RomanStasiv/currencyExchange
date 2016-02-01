@@ -31,12 +31,12 @@
 }
 
 - (void)drawRect:(CGRect)rect
-{
+{/*
     [self fillCourseArrays];
     [self drawGrid];
     
     [self drawLineWithColor:[UIColor redColor] fromArray:self.EURCourse];
-    [self drawLineWithColor:[UIColor purpleColor] fromArray:self.USDCourse];
+    [self drawLineWithColor:[UIColor purpleColor] fromArray:self.USDCourse];*/
 }
 
 
