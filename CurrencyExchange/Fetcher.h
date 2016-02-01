@@ -25,6 +25,6 @@
 
 - (NSArray*) averageCurrencyRate;
 - (NSMutableArray*) dataForTableView;
-- (NSArray*) banksStringArray;
+- (NSArray*) arrayOfBankNames;
 
 @end

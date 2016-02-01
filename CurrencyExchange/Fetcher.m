@@ -40,7 +40,7 @@
     return sortedArray;
 }
 
-- (NSArray*) banksStringArray
+- (NSArray*) arrayOfBankNames
 {
     AppDelegate * delegate = [AppDelegate singleton];
     self.context = delegate.managedObjectContext;
