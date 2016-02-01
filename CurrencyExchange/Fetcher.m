@@ -40,11 +40,10 @@
     return sortedArray;
 }
 
-- (NSArray*) arrayOfBankNames
+- (NSArray*) allBanks
 {
     AppDelegate * delegate = [AppDelegate singleton];
     self.context = delegate.managedObjectContext;
-    NSMutableArray* banksNames = [[NSMutableArray alloc]init];
     
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
     
@@ -56,6 +55,35 @@
     
     NSError* requestError = nil;
     NSArray* resultArray = [self.context executeFetchRequest:request error:&requestError];
+
+    return resultArray;
+}
+
+- (NSArray*) allBranchs
+{
+    AppDelegate * delegate = [AppDelegate singleton];
+    self.context = delegate.managedObjectContext;
+    
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription* description =
+    [NSEntityDescription entityForName:@"BranchData"
+                inManagedObjectContext:self.context];
+    
+    [request setEntity:description];
+    
+    NSError* requestError = nil;
+    NSArray* resultArray = [self.context executeFetchRequest:request error:&requestError];
+    
+    return resultArray;
+}
+
+
+- (NSArray*) arrayOfBankNames
+{
+   NSMutableArray* banksNames = [[NSMutableArray alloc]init];
+   
+    NSArray* resultArray = [self allBanks];
     NSInteger qty = [resultArray count];
     
     for(int i = 0; i < qty; i++)
@@ -63,28 +91,17 @@
         NSString* tmp = [NSString stringWithString:((BankData *)resultArray[i]).name];
         [banksNames addObject:tmp];
     }
-    
     return banksNames;
 }
 
 - (NSMutableArray*) dataForTableView
 {
-    AppDelegate * delegate = [AppDelegate singleton];
-    self.context = delegate.managedObjectContext;
+      NSMutableArray *arrayForTableView = [[NSMutableArray alloc]init];
     
-    NSMutableArray *arrayForTableView = [[NSMutableArray alloc]init];
-    
-    NSFetchRequest* request = [[NSFetchRequest alloc] init];
-    
-    NSEntityDescription* description =
-    [NSEntityDescription entityForName:@"BankData"
-                inManagedObjectContext:self.context];
-    
-    [request setEntity:description];
-    
-    NSError* requestError = nil;
-    NSArray* resultArray = [self.context executeFetchRequest:request error:&requestError];
-    for(int k =0; k<[resultArray count]; k++)
+        NSArray* resultArray = [self allBanks];
+        NSArray* resultBranchArray = [self allBranchs];
+    NSInteger qty = [resultArray count];
+    for(int k =0; k<qty; k++)
     {
         ReportDataForTable* tmp = [[ReportDataForTable alloc]init];
         tmp.bankName =((BankData *)resultArray[k]).name;
@@ -94,14 +111,16 @@
         NSMutableArray *finalArray = [[NSMutableArray alloc]init];
         
         NSMutableDictionary* branchs = [[NSMutableDictionary alloc]init];
-        for (BranchData *branch in (((BankData *)resultArray[k]).branch))
+        for (BranchData *branch in resultBranchArray)
         {
-            NSString* name = [NSString stringWithString:branch.name];
-            NSString* address = [NSString stringWithFormat:@"%@, %@, %@, Украина", branch.address, branch.city, branch.region ];
-            
-            NSLog(@"%@", address);
-            [branchs setObject:address forKey:name];
-            
+            if(tmp.bankName == branch.bank.name)
+            {
+                NSString* name = [NSString stringWithString:branch.name];
+                NSString* address = [NSString stringWithFormat:@"%@, %@, %@, Украина", branch.address, branch.city, branch.region ];
+                
+                NSLog(@"%@", address);
+                [branchs setObject:address forKey:name];
+            }
         }
         [finalArray addObject:branchs];
         tmp.branchs = finalArray;
@@ -117,7 +136,6 @@
                 tmp.eurCurrencyBid = [currency[i] eurCurrencyBid];
                 break;
             }
-            
         }
         [arrayForTableView addObject:tmp];
     }
@@ -125,21 +143,10 @@
 }
 
 
-- (NSInteger) allBanksQuantity {
+- (NSInteger) allBanksQuantity
+{
     
-    NSFetchRequest* request = [[NSFetchRequest alloc] init];
-    
-    NSEntityDescription* description = [NSEntityDescription entityForName:@"BankData"
-                                                   inManagedObjectContext:self.context];
-    
-    [request setEntity:description];
-    
-    NSError* requestError = nil;
-    self.banksArray = [self.context executeFetchRequest:request error:&requestError];
-    if (requestError) {
-        NSLog(@"%@", [requestError localizedDescription]);
-    }
-    self.qtyOfBanks = [self.banksArray count];
+   self.qtyOfBanks = [[self allBanks]count];
     
     NSLog(@" %ld",self.qtyOfBanks);
     

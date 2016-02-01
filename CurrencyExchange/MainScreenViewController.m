@@ -23,7 +23,7 @@
     [super viewDidLoad];
     JSONParseCoreDataSave* workObject = [[JSONParseCoreDataSave alloc] init];
     //TestCoreData* testObject = [[TestCoreData alloc] init];
-    //Fetcher*tmp = [[Fetcher alloc]init];
+    Fetcher*tmp = [[Fetcher alloc]init];
     
      NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
     
@@ -31,7 +31,7 @@
     //[workObject JSONParse];
     //[workObject loadCoreDataObjects];
     //[testObject insertFakeDataToCoreData];
-    //[tmp banksStringArray];
+    [tmp dataForTableView];
     self.graph.backgroundColor = [UIColor blackColor];
 }
 

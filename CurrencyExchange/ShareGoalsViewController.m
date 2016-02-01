@@ -93,7 +93,7 @@ static NSString *seaguewID = @"shareSeague";
     
     // Present the mail composition interface.
     //[self presentViewController:picker animated:YES completion:nil];
-     dispatch_async(dispatch_get_main_queue(), ^{[self presentViewController:picker animated:YES completion:nil];});
+     dispatch_async(dispatch_get_main_queue(), ^{[self.navigationController presentViewController:picker animated:YES completion:nil];});
     
     
     //[self presentModalViewController:picker animated:YES];
