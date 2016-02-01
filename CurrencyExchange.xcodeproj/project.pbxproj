@@ -10,6 +10,7 @@
 		401ED9751C5BE1F3006CFBBB /* AverageCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = 401ED9701C5BE1F3006CFBBB /* AverageCurrency.m */; };
 		401ED9761C5BE1F3006CFBBB /* Fetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 401ED9721C5BE1F3006CFBBB /* Fetcher.m */; };
 		401ED9771C5BE1F3006CFBBB /* ReportDataForTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 401ED9741C5BE1F3006CFBBB /* ReportDataForTable.m */; };
+		401ED9791C5F53F9006CFBBB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 401ED9781C5F53F9006CFBBB /* MessageUI.framework */; };
 		6A193CEC1C57BD3800093B36 /* EarnMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CEB1C57BD3800093B36 /* EarnMoneyViewController.m */; };
 		6A193CEF1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CEE1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.m */; };
 		6A193CF21C57C9E900093B36 /* ShareGoalsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CF11C57C9E900093B36 /* ShareGoalsViewController.m */; };
@@ -56,6 +57,7 @@
 		401ED9721C5BE1F3006CFBBB /* Fetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fetcher.m; sourceTree = "<group>"; };
 		401ED9731C5BE1F3006CFBBB /* ReportDataForTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportDataForTable.h; sourceTree = "<group>"; };
 		401ED9741C5BE1F3006CFBBB /* ReportDataForTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportDataForTable.m; sourceTree = "<group>"; };
+		401ED9781C5F53F9006CFBBB /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		6A193CEA1C57BD3800093B36 /* EarnMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarnMoneyViewController.h; sourceTree = "<group>"; };
 		6A193CEB1C57BD3800093B36 /* EarnMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarnMoneyViewController.m; sourceTree = "<group>"; };
 		6A193CED1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddControlPointToEarnMoneyViewController.h; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				401ED9791C5F53F9006CFBBB /* MessageUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +154,14 @@
 				401ED9701C5BE1F3006CFBBB /* AverageCurrency.m */,
 			);
 			name = Fetching;
+			sourceTree = "<group>";
+		};
+		401ED97A1C5F5423006CFBBB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				401ED9781C5F53F9006CFBBB /* MessageUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		6A29890C1C58AEFA006328A5 /* UI */ = {
@@ -283,6 +294,7 @@
 		97ED58601C5796BC004724A3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				401ED97A1C5F5423006CFBBB /* Frameworks */,
 				97ED58711C5796BC004724A3 /* LaunchScreen.storyboard */,
 				97ED58741C5796BC004724A3 /* Info.plist */,
 				97ED58611C5796BC004724A3 /* main.m */,
