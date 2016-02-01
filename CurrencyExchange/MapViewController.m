@@ -15,6 +15,8 @@
 @interface MapViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) NSManagedObjectContext *context;
+@property (strong, nonatomic) NSArray *adresses;
+@property (strong, nonatomic) __block NSMutableArray *locations;
 @end
 
 @implementation MapViewController
@@ -26,10 +28,7 @@
     
     self.context = [AppDelegate singleton].managedObjectContext;
     
-//    JSONParseCoreDataSave * jsonParser = [[JSONParseCoreDataSave alloc] init];
-//    [jsonParser JSONParse];
-    
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"BranchData"];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"BankData"];
     
     NSArray *temp = [self.context executeFetchRequest:fetchRequest error:nil];
     
@@ -42,11 +41,58 @@
     }
     NSLog(@"%@", adresses);
     
-    [self startForwardGeocodingOfAdresses:adresses];
+    [self fetchData:adresses];
 }
 
--(void) startForwardGeocodingOfAdresses:(NSArray *) adresses
+-(void)viewWillDisappear:(BOOL)animated
 {
+    if ([NSJSONSerialization isValidJSONObject:self.locations])
+    {
+        NSString *path = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        path = [path stringByAppendingString:@"//locations.dat"];
+        NSOutputStream *ostream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
+        
+        [ostream open];
+        [NSJSONSerialization writeJSONObject:self.locations
+                                    toStream:ostream
+                                     options:nil
+                                       error:nil];
+        [ostream close];
+    }
+    
+}
+
+
+-(void) fetchData:(NSMutableArray *) adresses
+{
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    path = [path stringByAppendingString:@"//locations.dat"];
+    NSData * jsonData = [NSData dataWithContentsOfFile:path];
+    
+    self.locations = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                     options:NSJSONReadingMutableContainers
+                                                       error:nil];
+    if ([self.locations count])
+    {
+        for (NSDictionary *location in self.locations )
+        {
+            if ([adresses indexOfObjectIdenticalTo:[location valueForKey:@"adress"]] )
+            {
+                MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+                point.coordinate = CLLocationCoordinate2DMake([[[location valueForKey:@"location"] firstObject] doubleValue],
+                                                              [[[location valueForKey:@"location"] lastObject] doubleValue]);
+                point.title = [location valueForKey:@"adress"];
+                
+                [self.mapView addAnnotation:point];
+                
+                [adresses removeObjectIdenticalTo:[location valueForKey:@"adress"]];
+            }
+        }
+    }
+    else
+    {
+        self.locations = [[NSMutableArray alloc] init];
+    }
     if ( [adresses count] )
     {
         CLGeocoder *geocoder = [[CLGeocoder alloc] init];
@@ -71,54 +117,58 @@
                  point.title = [adresses objectAtIndex:[index integerValue]];
                  
                  [self.mapView addAnnotation:point];
+                 
+                 NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
+                 [temp setValue:[adresses objectAtIndex:[index integerValue]]
+                         forKey:@"adress"];
+                 
+                 NSMutableArray *coordinates = [[NSMutableArray alloc] init];
+                 [coordinates addObject:[NSNumber numberWithDouble:placemark.location.coordinate.latitude]];
+                 [coordinates addObject:[NSNumber numberWithDouble:placemark.location.coordinate.longitude]];
+                 [temp setValue:coordinates
+                         forKey:@"location"];
+                 
+                 [self.locations addObject:temp];
              }
          }
          else
          {
-             NSLog([NSString stringWithFormat:@"request limit! cache it, baca!! at index: %@", index ]);
+             NSLog(@"ERROR! Trying to geocode bank at: %@", [adresses objectAtIndex:[index integerValue]]);
          }
          int indexInt = [index intValue];
          index = [NSNumber numberWithInt:++indexInt];
          if ( [index intValue] < [adresses count])
          {
-             [self placePinForAdressAtIndex:index fromAdresses:adresses withGeocoder:geocoder];
+             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                 [self placePinForAdressAtIndex:index fromAdresses:adresses withGeocoder:geocoder];
+             });
+             
          }
+         if ([adresses count] == [index intValue])
+         {//should be deleted
+             if ([NSJSONSerialization isValidJSONObject:self.locations])
+             {
+                 NSString *path = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+                 path = [path stringByAppendingString:@"//locations.dat"];
+                 NSOutputStream *ostream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
+                 [ostream open];
+                 
+                 [NSJSONSerialization writeJSONObject:self.locations
+                                             toStream:ostream
+                                              options:nil
+                                                error:nil];
+                 
+                 [ostream close];
+             }
+         }
+         
     }];
 }
-
--(NSArray *) fillArrayWithTestData
-{
-    NSMutableArray *adresses = [[NSMutableArray alloc] init];
-    [adresses addObject:@"ул. Соборная, 94, Ровенская область, Украина"];
-    [adresses addObject:@"ул. Батумская, 11, Днепропетровская область, Украина"];
-    [adresses addObject:@"пр-т Коцюбинского, 16, Винница, Винницкая область, Украина"];
-    [adresses addObject:@"пр-т Ленина, 234, Запорожье, Запорожская область, Украина"];
-    [adresses addObject:@"ул. Владимира Великого, 12А, Ивано-Франковск, Ивано-Франковская область, Украина"];
-    [adresses addObject:@"ул. Леси Украинки, 10, Тернополь, Тернопольская область, Украина"];
-    
-    return adresses;
-}
-
-
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
-{
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800);
-    [self.mapView setRegion:[self.mapView regionThatFits:region] animated:YES];
-    
-    // Add an annotation
-    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-    point.coordinate = userLocation.coordinate;
-    point.title = @"Where am I?";
-    point.subtitle = @"I'm here!!!";
-    
-    [self.mapView addAnnotation:point];
 }
 
 /*
