@@ -333,17 +333,17 @@
     
     NSArray *shrinkedValueArray = [self getShrinkedArrayFromArray:valueArray ToCount:maximumPosibleYDivisionsCount];
     
-    double heightDifference = (self.insetFrame.size.height - self.topAndRightMargin) - ((size0000.height + margin) * (shrinkedValueArray.count - 1));
+    double heightDifference = (self.insetFrame.size.height - self.topAndRightMargin) - ((size0000.height + margin) * (shrinkedValueArray.count));
     if (heightDifference > 0)
     {
         double differencePerMargin = heightDifference / (shrinkedValueArray.count - 1);
         margin = margin + differencePerMargin;
     }
     
-    for (int i = shrinkedValueArray.count - 1; i >= 0; i--)
+    for (int i = 0; i < shrinkedValueArray.count; i++)
     {
         CGRect frame = CGRectMake(0,
-                                  self.topAndRightMargin + ((size0000.height + margin)* i),
+                                  self.insetFrame.size.height - size0000.height/2 - ((size0000.height + margin)* i),
                                   size0000.width,
                                   size0000.height);
         
@@ -381,7 +381,7 @@
     NSArray *shrinkedDayArray = [self getShrinkedArrayFromArray:days ToCount:maximumPosibleXDivisionsCount];
     NSArray *shrinkedMonthArray = [self getShrinkedArrayFromArray:month ToCount:maximumPosibleXDivisionsCount];
     
-    double widthDifference = self.insetFrame.size.width - ((size00.width + margin) * (shrinkedDayArray.count - 1));
+    double widthDifference = self.insetFrame.size.width - ((size00.width + margin) * (shrinkedDayArray.count));
     if (widthDifference > 0)
     {
         double differencePerMargin = widthDifference / (shrinkedDayArray.count - 1);
@@ -391,7 +391,7 @@
     for (int i = 0; i < shrinkedDayArray.count; i++)
     {
         
-        CGRect monthFrame = CGRectMake(self.inset - margin/2 + ((size00.width + margin) * i),
+        CGRect monthFrame = CGRectMake(self.inset - size00.width/2 + ((size00.width + margin) * i),
                                        self.insetFrame.size.height + 20,
                                        size00.height,
                                        size00.width);
@@ -401,7 +401,7 @@
         monthLabel.font = [UIFont systemFontOfSize:11];
         monthLabel.text = [shrinkedMonthArray objectAtIndex:i];
         
-        CGRect dayFrame = CGRectMake(self.inset - margin/2 + ((size00.width + margin) * i),
+        CGRect dayFrame = CGRectMake(self.inset - size00.width/2 + ((size00.width + margin) * i),
                                      self.insetFrame.size.height + 20 + size00.height,
                                      size00.height,
                                      size00.width);
@@ -419,7 +419,7 @@
 {
     NSMutableArray *resultArray = [NSMutableArray array];
     
-    if (array.count <= desiredCount)
+    if (array.count < desiredCount)
     {
         resultArray = [[NSMutableArray alloc] initWithArray:array];
     }
