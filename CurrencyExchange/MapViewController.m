@@ -27,8 +27,11 @@
     self.mapView.delegate = self;
     
     self.context = [AppDelegate singleton].managedObjectContext;
+    JSONParseCoreDataSave * jsonParse = [[JSONParseCoreDataSave alloc] init];
+    //[jsonParse deleteAllObjectsFromCoreData];
+    [jsonParse loadCoreDataObjects];
     
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"BankData"];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"BranchData"];
     
     NSArray *temp = [self.context executeFetchRequest:fetchRequest error:nil];
     

@@ -22,6 +22,9 @@
 		6A2989121C58AFDA006328A5 /* ConvertMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2989111C58AFDA006328A5 /* ConvertMoneyViewController.m */; };
 		6A29C59C1C5A3BB60032B74D /* GraphDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29C59B1C5A3BB60032B74D /* GraphDrawer.m */; };
 		9730E7961C5CD44A00C06195 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9730E7951C5CD44A00C06195 /* MapViewController.m */; };
+		6A80BF7F1C5E22B300B57EC5 /* EarningGoalsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A80BF7E1C5E22B300B57EC5 /* EarningGoalsTableViewController.m */; };
+		6A80BF831C5E264D00B57EC5 /* CustomEGTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A80BF821C5E264D00B57EC5 /* CustomEGTableViewCell.m */; };
+		6A80BF861C5E31A700B57EC5 /* ControlPointsCDSotrer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A80BF851C5E31A700B57EC5 /* ControlPointsCDSotrer.m */; };
 		6A8E906F1C5BB28A0069BABC /* CDControlPoint+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E906C1C5BB28A0069BABC /* CDControlPoint+CoreDataProperties.m */; };
 		6A8E90701C5BB28A0069BABC /* CDControlPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E906E1C5BB28A0069BABC /* CDControlPoint.m */; };
 		6A8E90741C5BB8760069BABC /* ControlPointCDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E90731C5BB8760069BABC /* ControlPointCDManager.m */; };
@@ -77,6 +80,12 @@
 		6A29C59B1C5A3BB60032B74D /* GraphDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphDrawer.m; sourceTree = "<group>"; };
 		9730E7941C5CD44A00C06195 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		9730E7951C5CD44A00C06195 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		6A80BF7D1C5E22B300B57EC5 /* EarningGoalsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarningGoalsTableViewController.h; sourceTree = "<group>"; };
+		6A80BF7E1C5E22B300B57EC5 /* EarningGoalsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarningGoalsTableViewController.m; sourceTree = "<group>"; };
+		6A80BF811C5E264D00B57EC5 /* CustomEGTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEGTableViewCell.h; sourceTree = "<group>"; };
+		6A80BF821C5E264D00B57EC5 /* CustomEGTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomEGTableViewCell.m; sourceTree = "<group>"; };
+		6A80BF841C5E31A700B57EC5 /* ControlPointsCDSotrer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlPointsCDSotrer.h; sourceTree = "<group>"; };
+		6A80BF851C5E31A700B57EC5 /* ControlPointsCDSotrer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlPointsCDSotrer.m; sourceTree = "<group>"; };
 		6A8E906B1C5BB28A0069BABC /* CDControlPoint+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CDControlPoint+CoreDataProperties.h"; path = "../CDControlPoint+CoreDataProperties.h"; sourceTree = "<group>"; };
 		6A8E906C1C5BB28A0069BABC /* CDControlPoint+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CDControlPoint+CoreDataProperties.m"; path = "../CDControlPoint+CoreDataProperties.m"; sourceTree = "<group>"; };
 		6A8E906D1C5BB28A0069BABC /* CDControlPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDControlPoint.h; path = ../CDControlPoint.h; sourceTree = "<group>"; };
