@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
-@interface ShareGoalsViewController : UIViewController
+
+@interface ShareGoalsViewController : UIViewController <MFMailComposeViewControllerDelegate>
 
 @end

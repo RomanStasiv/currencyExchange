@@ -42,6 +42,7 @@ static NSString *seaguewID = @"shareSeague";
             
         case 3:
             self.source = @"Gmail";
+            [self displayComposerSheet];
             break;
             
         default:
@@ -50,6 +51,49 @@ static NSString *seaguewID = @"shareSeague";
     [self performSegueWithIdentifier:@"shareSeague" sender:self];
 }
 
+
+-(void)displayComposerSheet
+{
+    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+    picker.mailComposeDelegate = self;
+    
+    [picker setSubject:@"Hello from Big Boss!"];
+    
+    // Set up the recipients.
+    NSArray *toRecipients = [NSArray arrayWithObjects:@"first@example.com",
+                             nil];
+    NSArray *ccRecipients = [NSArray arrayWithObjects:@"second@example.com",
+                             @"third@example.com", nil];
+    NSArray *bccRecipients = [NSArray arrayWithObjects:@"four@example.com",
+                              nil];
+    
+    [picker setToRecipients:toRecipients];
+    [picker setCcRecipients:ccRecipients];
+    [picker setBccRecipients:bccRecipients];
+    
+    // Attach an image to the email.
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"ipodnano"
+                                                     ofType:@"png"];
+    NSData *myData = [NSData dataWithContentsOfFile:path];
+    [picker addAttachmentData:myData mimeType:@"image/png"
+                     fileName:@"ipodnano"];
+    
+    // Fill out the email body text.
+    NSString *emailBody = @"I am the Winner!";
+    [picker setMessageBody:emailBody isHTML:NO];
+    [picker setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+    
+    // Present the mail composition interface.
+    [self presentModalViewController:picker animated:YES];
+    }
+
+// The mail compose view controller delegate method
+- (void)mailComposeController:(MFMailComposeViewController *)controller
+          didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError *)error
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
 
 #pragma mark - Navigation
 
@@ -61,6 +105,7 @@ static NSString *seaguewID = @"shareSeague";
             [(WebSharingViewController *)segue.destinationViewController setSourceToShare:self.source];
     }
 }
+
 
 
 @end
