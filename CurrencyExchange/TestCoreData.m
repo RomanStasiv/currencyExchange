@@ -51,6 +51,7 @@ static NSString* addresses[] = {@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"G
     NSMutableArray* tempDateArray = [[NSMutableArray alloc] init];
     NSInteger currencyCounter = 0;
     NSInteger bankCurrencyDifference = 0;
+    NSInteger currencyFlexibility = 0;
     
     for (int bankCounter = 0; bankCounter < self.banksCount; bankCounter++)
     {
@@ -70,7 +71,8 @@ static NSString* addresses[] = {@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"G
         
         for (NSDate* dateObject in tempDateArray)
         {
-            CurrencyData* fakeCurrency = [self currencyDataByIndex:currencyCounter withEUR:28 + bankCurrencyDifference withUSD:18 + bankCurrencyDifference withDate:dateObject];
+            currencyFlexibility = arc4random_uniform(10);
+            CurrencyData* fakeCurrency = [self currencyDataByIndex:currencyCounter withEUR:28 + bankCurrencyDifference + currencyFlexibility withUSD:18 + bankCurrencyDifference + currencyFlexibility withDate:dateObject];
             [bankObject addCurrencyObject:fakeCurrency];
             currencyCounter++;
 
