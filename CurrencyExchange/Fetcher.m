@@ -42,23 +42,59 @@
 
 - (NSMutableArray*) dataForTableView
 {
+    AppDelegate * delegate = [AppDelegate singleton];
+    self.context = delegate.managedObjectContext;
+    
+    NSMutableArray *arrayForTableView = [[NSMutableArray alloc]init];
     
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
     
-    NSEntityDescription* description = [NSEntityDescription entityForName:@"BankData"
-                                                   inManagedObjectContext:self.context];
+    NSEntityDescription* description =
+    [NSEntityDescription entityForName:@"BankData"
+                inManagedObjectContext:self.context];
     
     [request setEntity:description];
     
     NSError* requestError = nil;
-    self.banksArray = [self.context executeFetchRequest:request error:&requestError];
-    if (requestError)
+    NSArray* resultArray = [self.context executeFetchRequest:request error:&requestError];
+    for(int k =0; k<[resultArray count]; k++)
     {
-        NSLog(@"%@", [requestError localizedDescription]);
+        ReportDataForTable* tmp = [[ReportDataForTable alloc]init];
+        tmp.bankName =((BankData *)resultArray[k]).name;
         
+        NSLog(@"%@", tmp.bankName);
         
+        NSMutableArray *finalArray = [[NSMutableArray alloc]init];
+        
+        NSMutableDictionary* branchs = [[NSMutableDictionary alloc]init];
+        for (BranchData *branch in (((BankData *)resultArray[k]).branch))
+        {
+            NSString* name = [NSString stringWithString:branch.name];
+            NSString* address = [NSString stringWithFormat:@"%@, %@, %@, Украина", branch.address, branch.city, branch.region ];
+            
+            NSLog(@"%@", address);
+            [branchs setObject:address forKey:name];
+            
+        }
+        [finalArray addObject:branchs];
+        tmp.branchs = finalArray;
+        
+        NSArray* currency = [[self sortedCurrency]sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]]];;
+        for(int  i = 0; i < [resultArray count]; i++)
+        {
+            if(tmp.bankName == [currency[i] bank].name)
+            {
+                tmp.usdCurrencyAsk = [currency[i] usdCurrencyAsk];
+                tmp.usdCurrencyBid = [currency[i] usdCurrencyBid];
+                tmp.eurCurrencyAsk = [currency[i] eurCurrencyAsk];
+                tmp.eurCurrencyBid = [currency[i] eurCurrencyBid];
+                break;
+            }
+            
+        }
+        [arrayForTableView addObject:tmp];
     }
-    return self.lastBanksRates;
+    return arrayForTableView;
 }
 
 
@@ -134,11 +170,11 @@
             AverageCurrency * tmp = [[AverageCurrency alloc]init];
             
             tmp.date = [[arrayFromCoreData objectAtIndex:k] date];
-            
-            NSDateFormatter *monhtFormater = [[NSDateFormatter alloc] init];
-            [monhtFormater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-            NSLog(@"Date:%@",[monhtFormater stringFromDate:tmp.date]);
-            NSLog(@"Date Origin:%@",[monhtFormater stringFromDate:[[arrayFromCoreData objectAtIndex:k] date]]);
+//            
+//            NSDateFormatter *monhtFormater = [[NSDateFormatter alloc] init];
+//            [monhtFormater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+//            NSLog(@"Date:%@",[monhtFormater stringFromDate:tmp.date]);
+//            NSLog(@"Date Origin:%@",[monhtFormater stringFromDate:[[arrayFromCoreData objectAtIndex:k] date]]);
 
             tmp.USDask  = [NSNumber numberWithFloat: resultUSDAsk];
             tmp.USDbid  = [NSNumber numberWithFloat: resultUSDBid];
@@ -153,7 +189,7 @@
             
             [self.averageRates addObject:tmp];
         }
-        [self print];
+        //[self print];
         return self.averageRates;
     }
     return nil;

@@ -10,6 +10,7 @@
 #import "ControllPoint.h"
 #import "Line.h"
 
+
 @interface EarnMoneyGraphView()
 
 @property (nonatomic, strong) NSMutableArray *drawingQueue;
@@ -21,6 +22,8 @@
 - (void)drawRect:(CGRect)rect
 {
     [super drawRect:rect];
+    if (self.shouldDrawControlPoints)
+        [self drawAllControlpoints];
     if (self.drawingQueue.count)
     {
         [self drawLinesFromQueue];
@@ -34,22 +37,35 @@
         [self drawLineFromPointA:[line.firstPoint CGPointValue]
                         toPointB:[line.lastPoint CGPointValue]
                        WithWidth:self.segmentWidth / 3
-                        andColor:[UIColor redColor]];
+                        andColor:line.color];
     }
 }
 
 #pragma mark - Control point methods
 - (void)drawAllControlpoints
 {
-    [self configureVariable];
+    //[self configureVariable];
     for (ControllPoint *point in self.controlPointsArray)
     {
-        [self addControlPointToDrawingQueue:point];
+        if ([self isItTimeForControlPoint:point])
+            [self addControlPointToDrawingQueue:point withColor:[UIColor greenColor]];
+        else
+            [self addControlPointToDrawingQueue:point withColor:[UIColor blackColor]];
     }
     [self setNeedsDisplay];
 }
 
-- (void)addControlPointToDrawingQueue:(ControllPoint *)point
+- (BOOL)isItTimeForControlPoint:(ControllPoint *)point
+{
+    BOOL success = NO;
+    
+    if ([point.earningPosibility floatValue] > 0)
+        success = YES;
+    
+    return success;
+}
+
+- (void)addControlPointToDrawingQueue:(ControllPoint *)point withColor:(UIColor *)successColor
 {
     if (self.avarageCurrencyObjectsArray.count)
     {
@@ -65,6 +81,7 @@
                     Line *line = [[Line alloc]init];
                     line.firstPoint = [NSValue valueWithCGPoint:CGPointMake(xPoint, self.insetFrame.origin.y + self.inset)];
                     line.lastPoint = [NSValue valueWithCGPoint:CGPointMake(xPoint, self.insetFrame.size.height + 20)];
+                    line.color = successColor;
                     if (!self.drawingQueue)
                         self.drawingQueue = [NSMutableArray array];
                     
@@ -77,6 +94,7 @@
                     Line *line = [[Line alloc]init];
                     line.firstPoint = [NSValue valueWithCGPoint:CGPointMake(xPoint, self.insetFrame.origin.y + self.inset)];
                     line.lastPoint = [NSValue valueWithCGPoint:CGPointMake(xPoint, self.insetFrame.size.height + 20)];
+                    line.color = successColor;
                     if (!self.drawingQueue)
                         self.drawingQueue = [NSMutableArray array];
                     
@@ -87,6 +105,9 @@
         }
     }
 }
+
+
+
 /*
 - (void)insertControlPointArray:(ControllPoint *)point
 {
