@@ -27,11 +27,11 @@
     
      NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
     
-    [workObject deleteAllObjectsFromCoreData];
+    //[workObject deleteAllObjectsFromCoreData];
     //[workObject JSONParse];
     //[workObject loadCoreDataObjects];
     //[testObject insertFakeDataToCoreData];
-    //[tmp dataForTableView];
+    //[tmp banksStringArray];
     self.graph.backgroundColor = [UIColor blackColor];
 }
 

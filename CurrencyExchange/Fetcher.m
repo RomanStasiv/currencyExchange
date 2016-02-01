@@ -40,6 +40,33 @@
     return sortedArray;
 }
 
+- (NSArray*) banksStringArray
+{
+    AppDelegate * delegate = [AppDelegate singleton];
+    self.context = delegate.managedObjectContext;
+    NSMutableArray* banksNames = [[NSMutableArray alloc]init];
+    
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription* description =
+    [NSEntityDescription entityForName:@"BankData"
+                inManagedObjectContext:self.context];
+    
+    [request setEntity:description];
+    
+    NSError* requestError = nil;
+    NSArray* resultArray = [self.context executeFetchRequest:request error:&requestError];
+    NSInteger qty = [resultArray count];
+    
+    for(int i = 0; i < qty; i++)
+    {
+        NSString* tmp = [NSString stringWithString:((BankData *)resultArray[i]).name];
+        [banksNames addObject:tmp];
+    }
+    
+    return banksNames;
+}
+
 - (NSMutableArray*) dataForTableView
 {
     AppDelegate * delegate = [AppDelegate singleton];

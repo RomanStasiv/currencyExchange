@@ -54,14 +54,16 @@ static NSString *seaguewID = @"shareSeague";
 
 -(void)displayComposerSheet
 {
+    
     MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
     picker.mailComposeDelegate = self;
     
-    [picker setSubject:@"Hello from Big Boss!"];
+    [picker setSubject:@"I am the winner!"];
     
     // Set up the recipients.
-    NSArray *toRecipients = [NSArray arrayWithObjects:@"first@example.com",
-                             nil];
+    NSString *adress = @"gmr@inbox.ru";
+    NSArray *toRecipients = [[NSArray alloc]initWithObjects:adress, nil];
+    
     NSArray *ccRecipients = [NSArray arrayWithObjects:@"second@example.com",
                              @"third@example.com", nil];
     NSArray *bccRecipients = [NSArray arrayWithObjects:@"four@example.com",
@@ -71,12 +73,18 @@ static NSString *seaguewID = @"shareSeague";
     [picker setCcRecipients:ccRecipients];
     [picker setBccRecipients:bccRecipients];
     
+    
+    UIImage *myImage = [UIImage imageNamed:@"filename.png"];
+    NSData *imageData = UIImagePNGRepresentation(myImage);
+    [picker addAttachmentData:imageData mimeType:@"image/png" fileName:@"Name"];
     // Attach an image to the email.
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"ipodnano"
-                                                     ofType:@"png"];
-    NSData *myData = [NSData dataWithContentsOfFile:path];
-    [picker addAttachmentData:myData mimeType:@"image/png"
-                     fileName:@"ipodnano"];
+    //NSString *path = [[NSBundle mainBundle] pathForResource:@"ipodnano"
+   //                                                  ofType:@"png"];
+   // NSData *myData = [NSData dataWithContentsOfFile:path];
+   //[picker addAttachmentData:myData mimeType:@"image/png"
+   //                  fileName:@"ipodnano"];
+    
+   
     
     // Fill out the email body text.
     NSString *emailBody = @"I am the Winner!";
@@ -84,7 +92,11 @@ static NSString *seaguewID = @"shareSeague";
     [picker setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
     
     // Present the mail composition interface.
-    [self presentModalViewController:picker animated:YES];
+    //[self presentViewController:picker animated:YES completion:nil];
+     dispatch_async(dispatch_get_main_queue(), ^{[self presentViewController:picker animated:YES completion:nil];});
+    
+    
+    //[self presentModalViewController:picker animated:YES];
     }
 
 // The mail compose view controller delegate method
@@ -92,7 +104,7 @@ static NSString *seaguewID = @"shareSeague";
           didFinishWithResult:(MFMailComposeResult)result
                         error:(NSError *)error
 {
-    [self dismissModalViewControllerAnimated:YES];
+   [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Navigation
