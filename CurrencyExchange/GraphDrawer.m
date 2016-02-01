@@ -12,7 +12,6 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    //[self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self removeSubviews];
     [self configureVariable];
     [self drawGrid];
@@ -318,21 +317,41 @@
     CGSize size0000 = [@"00.00" sizeWithAttributes:
                      @{NSFontAttributeName:
                            [UIFont systemFontOfSize:11.0f]}];
+    double margin = 3;
+    
+    NSInteger maximumPosibleYDivisionsCount = (self.insetFrame.size.height - self.topAndRightMargin) / (size0000.height + margin);
+    
+    NSMutableArray *valueArray = [NSMutableArray array];
     
     CGFloat value = self.minYvalue;
     CGFloat distance = (self.maxYvalue - self.minYvalue) / (self.segmentHeightCount - 1);
     for (int i = 0; i < self.segmentHeightCount; i++)
     {
-        if (i % 2 == 0)
-        {
-            CGRect frame = CGRectMake(0, (self.insetFrame.size.height - self.segmentHeight *2/3) - self.segmentHeight * i, size0000.width, size0000.height);
-            UILabel *valueLabel = [[UILabel alloc] initWithFrame:frame];
-            valueLabel.font = [UIFont systemFontOfSize:10];
-            valueLabel.text = [NSString stringWithFormat:@"%.02f",value];
-            valueLabel.backgroundColor = [UIColor lightGrayColor];
-            [self addSubview:valueLabel];
-            value += distance;
-        }
+        [valueArray addObject:[NSNumber numberWithFloat:value]];
+        value += distance;
+    }
+    
+    NSArray *shrinkedValueArray = [self getShrinkedArrayFromArray:valueArray ToCount:maximumPosibleYDivisionsCount];
+    
+    double heightDifference = (self.insetFrame.size.height - self.topAndRightMargin) - ((size0000.height + margin) * (shrinkedValueArray.count - 1));
+    if (heightDifference > 0)
+    {
+        double differencePerMargin = heightDifference / (shrinkedValueArray.count - 1);
+        margin = margin + differencePerMargin;
+    }
+    
+    for (int i = shrinkedValueArray.count - 1; i >= 0; i--)
+    {
+        CGRect frame = CGRectMake(0,
+                                  self.topAndRightMargin + ((size0000.height + margin)* i),
+                                  size0000.width,
+                                  size0000.height);
+        
+        UILabel *valueLabel = [[UILabel alloc] initWithFrame:frame];
+        valueLabel.font = [UIFont systemFontOfSize:10];
+        valueLabel.text = [NSString stringWithFormat:@"%.02f",[[shrinkedValueArray objectAtIndex:i] floatValue]];
+        valueLabel.backgroundColor = [UIColor lightGrayColor];
+        [self addSubview:valueLabel];
     }
 }
 
@@ -361,12 +380,15 @@
 
     NSArray *shrinkedDayArray = [self getShrinkedArrayFromArray:days ToCount:maximumPosibleXDivisionsCount];
     NSArray *shrinkedMonthArray = [self getShrinkedArrayFromArray:month ToCount:maximumPosibleXDivisionsCount];
-    double widthDifference = self.insetFrame.size.width -
-    ((size00.width + margin) * (shrinkedDayArray.count - 1));
     
-    double differencePerMargin = widthDifference / (shrinkedDayArray.count - 1);
-    margin = margin + differencePerMargin;
-    for (int i = 0; i < shrinkedDayArray.count - 1; i++)
+    double widthDifference = self.insetFrame.size.width - ((size00.width + margin) * (shrinkedDayArray.count - 1));
+    if (widthDifference > 0)
+    {
+        double differencePerMargin = widthDifference / (shrinkedDayArray.count - 1);
+        margin = margin + differencePerMargin;
+    }
+    
+    for (int i = 0; i < shrinkedDayArray.count; i++)
     {
         
         CGRect monthFrame = CGRectMake(self.inset - margin/2 + ((size00.width + margin) * i),

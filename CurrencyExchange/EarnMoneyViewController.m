@@ -34,7 +34,7 @@
 @property (nonatomic,strong) NSArray *readyToGoControlPoints;
 @property (nonatomic, strong) NSMutableArray *avarageCurrencyObjectsArray;
 
-@property (weak, nonatomic) IBOutlet UILabel *notificationLabel;
+@property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
 
 @end
 /*
@@ -101,6 +101,34 @@ static NSString* EURask[] = {
         [self addBarButtonItemsIncludeEarnGoals:YES];
     else
         [self addBarButtonItemsIncludeEarnGoals:NO];
+    
+    self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                              action:@selector(handlePan:)];
+    [self.graphView addGestureRecognizer:self.panGesture];
+}
+
+#pragma mark - gestures
+- (void)handlePan:(UIPanGestureRecognizer *)pan
+{
+#warning pan-pan-pan
+    CGPoint location = [pan locationInView:self.view];
+    UIView *viewToMove = [self.view hitTest:location withEvent:nil];
+    
+    if (pan.state == UIGestureRecognizerStateBegan || pan.state == UIGestureRecognizerStateChanged)
+    {
+        if(viewToMove.tag == 113 || viewToMove.tag == 114)
+        {
+            [viewToMove removeFromSuperview];
+            [self.view addSubview:viewToMove];
+            [viewToMove setNeedsDisplay];
+            CGPoint translation = [pan translationInView:self.view];
+            viewToMove.center = CGPointMake(viewToMove.center.x + translation.x,
+                                                viewToMove.center.y + translation.y);
+            [pan setTranslation:CGPointZero inView:self.view];
+        }
+        else
+            return;
+    }
 }
 
 - (void)prepareGraphView

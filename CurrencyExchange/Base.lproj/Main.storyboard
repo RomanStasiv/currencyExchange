@@ -165,8 +165,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WMB-FN-6aU" customClass="EarnMoneyGraphView">
-                                <rect key="frame" x="0.0" y="64" width="541" height="536"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WMB-FN-6aU" customClass="EarnMoneyGraphView">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <subviews>
                                     <view alpha="0.5" tag="113" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KVo-TX-LL6">
                                         <rect key="frame" x="241" y="8" width="59" height="120"/>
@@ -263,8 +263,8 @@
                                             </mask>
                                         </variation>
                                     </view>
-                                    <view alpha="0.5" tag="114" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bMT-ly-EXv">
-                                        <rect key="frame" x="308" y="8" width="59" height="120"/>
+                                    <view alpha="0.5" tag="114" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bMT-ly-EXv">
+                                        <rect key="frame" x="300" y="8" width="59" height="120"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bid" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zdf-FF-ktY">
                                                 <rect key="frame" x="9" y="24" width="42" height="21"/>
@@ -318,8 +318,8 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="EUR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0c-aM-TLc">
-                                                <rect key="frame" x="1" y="8" width="59" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EUR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0c-aM-TLc">
+                                                <rect key="frame" x="0.0" y="0.0" width="59" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="Qji-Ga-FeN"/>
                                                     <constraint firstAttribute="height" constant="21" id="l0V-3g-icc"/>
@@ -363,6 +363,7 @@
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="KVo-TX-LL6" firstAttribute="centerX" secondItem="WMB-FN-6aU" secondAttribute="centerX" constant="-30" id="7uM-fN-GEL"/>
                                     <constraint firstItem="bMT-ly-EXv" firstAttribute="centerX" secondItem="WMB-FN-6aU" secondAttribute="centerX" constant="29.5" id="HfZ-lO-ch9"/>
@@ -385,9 +386,11 @@
                         <outlet property="USDAskColorIndicator" destination="a9E-DU-6UV" id="gT5-Hy-5MP"/>
                         <outlet property="USDBidColorIndicator" destination="yDE-Fb-o0T" id="fuT-Dr-XqV"/>
                         <outlet property="graphView" destination="WMB-FN-6aU" id="rzJ-TO-7S3"/>
+                        <outlet property="panGesture" destination="3uR-t5-9Xc" id="e7b-Im-wvk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AUY-9y-cXU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="3uR-t5-9Xc"/>
             </objects>
             <point key="canvasLocation" x="1088" y="1238"/>
         </scene>
