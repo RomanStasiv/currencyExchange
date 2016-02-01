@@ -82,7 +82,7 @@ static NSString* EURask[] = {
                                                object:nil];*/
     [super viewDidLoad];
     [self prepareGraphView];
-       self.USDBidColor = [UIColor brownColor];
+    self.USDBidColor = [UIColor brownColor];
     self.USDAskColor = [UIColor blueColor];
     self.EURBidColor = [UIColor darkGrayColor];
     self.EURAskColor = [UIColor grayColor];
@@ -108,6 +108,7 @@ static NSString* EURask[] = {
     Fetcher *fetch = [[Fetcher alloc]init];
     self.avarageCurrencyObjectsArray = [[fetch averageCurrencyRate] mutableCopy];
     self.graphView.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
+    self.graphView.contentMode = UIViewContentModeRedraw;
     [self restoreData];
 }
 

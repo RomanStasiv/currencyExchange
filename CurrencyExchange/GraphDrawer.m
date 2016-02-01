@@ -8,20 +8,12 @@
 
 #import "GraphDrawer.h"
 
-
-
-
-
-@interface GraphDrawer()
-
-
-
-@end
-
 @implementation GraphDrawer
 
 - (void)drawRect:(CGRect)rect
 {
+    //[self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self removeSubviews];
     [self configureVariable];
     [self drawGrid];
     [self drawGraphForCurrency:@"dolarsBid"];
@@ -32,14 +24,26 @@
     [self drawDivisionsOnAxis];
 }
 
+- (void)removeSubviews
+{
+    for (UIView *view in self.subviews)
+    {
+        if (view.tag != 113 && view.tag != 114)
+            [view removeFromSuperview];
+    }
+}
+
 #pragma mark - preparation
 
 
 - (void)configureVariable
 {
-    
+    self.topAndRightMargin = 20;
     self.inset = 50;
-    self.insetFrame = CGRectMake(self.bounds.origin.x + self.inset, self.bounds.origin.y, self.bounds.size.width - self.inset, self.bounds.size.height - self.inset);
+    self.insetFrame = CGRectMake(self.bounds.origin.x + self.inset,
+                                 self.bounds.origin.y,
+                                 self.bounds.size.width - self.inset - self.topAndRightMargin,
+                                 self.bounds.size.height - self.inset);
     //Dynamic Drid
     // ____________________________________________________________________________
     self.segmentWidthCount = [self.avarageCurrencyObjectsArray count];
@@ -66,7 +70,7 @@
     self.minYvalue = MIN(usdBitMin, eurBitMin);
     
     self.segmentHeightCount = self.maxYvalue - self.minYvalue +1;
-    self.segmentHeight = (self.insetFrame.size.height - self.inset) / self.segmentHeightCount;
+    self.segmentHeight = (self.insetFrame.size.height - self.topAndRightMargin) / self.segmentHeightCount;
     
     
     
@@ -115,36 +119,43 @@
     CGFloat xPoint = self.inset;
     for (int i = 0; i < self.segmentWidthCount; i++)
     {
-        CGPoint a = CGPointMake(xPoint, self.insetFrame.origin.y + self.inset);
+        CGPoint a = CGPointMake(xPoint, self.insetFrame.origin.y + self.topAndRightMargin);
         CGPoint b = CGPointMake(xPoint, self.insetFrame.size.height + 20);
-        [self drawLineFromPointA:a toPointB:b WithWidth:((self.segmentHeight + self.segmentWidth) / 2) * 0.01 andColor:[UIColor blackColor]];
+        [self drawLineFromPointA:a toPointB:b WithWidth:((self.segmentHeight + self.segmentWidth) / 2) * 0.01 Color:[UIColor blackColor] Dashed:NO];
         xPoint += self.segmentWidth;
     }
 }
 
 - (void)drawHorizontalLines
 {
-    CGFloat yPoint = self.segmentHeight + self.inset;
+    CGFloat yPoint = self.segmentHeight + self.topAndRightMargin;
     for (int i = 0; i < self.segmentHeightCount; i++)
     {
         CGPoint a = CGPointMake(self.insetFrame.origin.x - 20, yPoint);
-        CGPoint b = CGPointMake(self.frame.size.width, yPoint);
-        [self drawLineFromPointA:a toPointB:b WithWidth:((self.segmentHeight + self.segmentWidth) / 2) * 0.01 andColor:[UIColor blackColor]];
+        CGPoint b = CGPointMake(self.frame.size.width - self.topAndRightMargin, yPoint);
+        [self drawLineFromPointA:a toPointB:b WithWidth:((self.segmentHeight + self.segmentWidth) / 2) * 0.01 Color:[UIColor blackColor] Dashed:NO];
         yPoint += self.segmentHeight;
     }
 }
 
-- (void)drawLineFromPointA:(CGPoint)a toPointB:(CGPoint)b WithWidth:(CGFloat)width andColor:(UIColor *)color
+- (void)drawLineFromPointA:(CGPoint)a toPointB:(CGPoint)b WithWidth:(CGFloat)width Color:(UIColor *)color Dashed:(BOOL)dashed
 {
     UIBezierPath *path = [UIBezierPath bezierPath];
     [color setStroke];
     path.lineWidth = width;
     path.lineCapStyle = kCGLineCapRound;
     
+    if (dashed)
+    {
+        float dashPattern[] = {width/2,width*2};
+        [path setLineDash:dashPattern count:2 phase:3];
+    }
+    
     [path moveToPoint:a];
     [path addLineToPoint:b];
     
     [path stroke];
+    [path closePath];
 }
 
 #pragma mark - Graph
@@ -193,7 +204,12 @@
     
     if (points.count > 2)
     {
-        [path addLineToPoint:[self getMidPointBetweenPointA:firstPoint
+        for (int i = 0; i < points.count-1; i++)
+        {
+            [path addLineToPoint:[[points objectAtIndex:i] CGPointValue]];
+        }
+#warning HOW THIS SHOULD BE DONE?
+        /*[path addLineToPoint:[self getMidPointBetweenPointA:firstPoint
                                                        andB:[[points objectAtIndex:1] CGPointValue]]];
         for (int i = 1; i < points.count-1; i++)
         {
@@ -202,7 +218,7 @@
             [path addQuadCurveToPoint:midpoint
                          controlPoint:[[points objectAtIndex:i] CGPointValue]];
         }
-        [path addLineToPoint:[[points lastObject] CGPointValue]];
+        [path addLineToPoint:[[points lastObject] CGPointValue]];*/
     }
     else if (points.count == 2)
     {
@@ -223,26 +239,24 @@
 #pragma mark - Axis
 - (void)drawAxis
 {
+    double lightAxisInset = 5;
     //vertical axis
-    CGPoint startPoint = CGPointMake(40, self.bounds.size.height);
-    CGPoint stopPoint = CGPointMake(40, self.bounds.origin.y + 3);
-    [self drawYAxisFromPointA:startPoint ToPointB:stopPoint WithWidth:3 AndColor:[UIColor redColor]];
+    CGPoint startPoint = CGPointMake(40, self.bounds.size.height - lightAxisInset);
+    CGPoint stopPoint = CGPointMake(40, self.bounds.origin.y + lightAxisInset);
+    [self drawYAxisFromPointA:startPoint ToPointB:stopPoint WithWidth:3 Color:[UIColor redColor] Dashed:YES];
     
     //horizontal axis
-    startPoint = CGPointMake(self.bounds.origin.x, self.bounds.size.height - 40);
-    stopPoint = CGPointMake(self.bounds.size.width - 3, self.bounds.size.height - 40);
-    [self drawXAxisFromPointA:startPoint ToPointB:stopPoint WithWidth:3 AndColor:[UIColor redColor]];
+    startPoint = CGPointMake(self.bounds.origin.x + lightAxisInset, self.bounds.size.height - 40);
+    stopPoint = CGPointMake(self.bounds.size.width - lightAxisInset, self.bounds.size.height - 40);
+    [self drawXAxisFromPointA:startPoint ToPointB:stopPoint WithWidth:3 Color:[UIColor redColor] Dashed:YES];
 }
 
-- (void)drawXAxisFromPointA:(CGPoint)a ToPointB:(CGPoint)b WithWidth:(CGFloat)width AndColor:(UIColor *)color
+- (void)drawXAxisFromPointA:(CGPoint)a ToPointB:(CGPoint)b WithWidth:(CGFloat)width Color:(UIColor *)color Dashed:(BOOL)dashed
 {
-    [self drawLineFromPointA:a toPointB:b WithWidth:width andColor:color];
+    [self drawLineFromPointA:a toPointB:b WithWidth:width Color:color Dashed:YES];
     
     //drawing triangle at the end of axis
-    CGFloat length[] = {1,1,1,1,3,1};
-    
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextSetLineDash(ctx, 3, length, 6);
     CGContextSetLineWidth(ctx, width);
     CGContextSetLineCap(ctx, kCGLineCapRound);
     CGContextSetLineJoin(ctx, kCGLineJoinRound);
@@ -260,29 +274,22 @@
     CGContextClosePath(ctx);
     
     CGContextStrokePath(ctx);
-    CGContextFillPath(ctx);
-    //UIGraphicsEndImageContext();
+    UIGraphicsEndImageContext();
 }
 
-- (void)drawYAxisFromPointA:(CGPoint)a ToPointB:(CGPoint)b WithWidth:(CGFloat)width AndColor:(UIColor *)color
+- (void)drawYAxisFromPointA:(CGPoint)a ToPointB:(CGPoint)b WithWidth:(CGFloat)width Color:(UIColor *)color Dashed:(BOOL)dashed
 {
-    [self drawLineFromPointA:a toPointB:b WithWidth:width andColor:color];
+    [self drawLineFromPointA:a toPointB:b WithWidth:width Color:color Dashed:YES];
     
-#warning  WHY NOT DASHED ???
     //drawing triangle at the end of axis
-    CGFloat length[] = {10,10};
-    
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    
-    CGContextSetLineDash(ctx, 3, length, 2);
-    
+
     CGContextSetLineWidth(ctx, width);
     CGContextSetLineCap(ctx, kCGLineCapRound);
     CGContextSetLineJoin(ctx, kCGLineJoinRound);
     CGContextSetStrokeColorWithColor(ctx, [color CGColor]);
-    CGContextSetFillColorWithColor(ctx, [color CGColor]);
     
-    CGFloat sideLength = width + width;
+    CGFloat sideLength = width;
     CGPoint FirstPoint = CGPointMake(b.x - sideLength, b.y + sideLength);
     CGPoint SecondPoint = CGPointMake(b.x + sideLength, b.y + sideLength);
     CGPoint ThirdPoint = CGPointMake(b.x, b.y);
@@ -292,9 +299,7 @@
     CGContextAddLineToPoint(ctx, ThirdPoint.x, ThirdPoint.y);
     CGContextClosePath(ctx);
     
-    CGContextFillPath(ctx);
     CGContextStrokePath(ctx);
-    
     UIGraphicsEndImageContext();
 }
 
