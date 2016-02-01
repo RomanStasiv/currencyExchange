@@ -236,7 +236,10 @@
             break;
             
         case 2:
-            
+        {
+#warning CAN'T PUSH VC IN navigation, cause there is no navigation
+            //self.navigationController
+        }
             break;
             
         default:
