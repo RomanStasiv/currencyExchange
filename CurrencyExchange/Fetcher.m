@@ -56,6 +56,14 @@
     NSError* requestError = nil;
     NSArray* resultArray = [self.context executeFetchRequest:request error:&requestError];
 
+//    NSInteger qty = [resultArray count];
+//    
+//    for(int i = 0; i < qty; i++)
+//    {
+//        NSString* tmp = [NSString stringWithString:((BankData *)resultArray[i]).name];
+//        NSLog(@"%@", tmp);
+//    }
+    
     return resultArray;
 }
 
@@ -94,6 +102,21 @@
     return banksNames;
 }
 
+- (NSArray*) arrayOfBranchNames
+{
+    NSMutableArray* branchNames = [[NSMutableArray alloc]init];
+    
+    NSArray* resultArray = [self allBranchs];
+    NSInteger qty = [resultArray count];
+    
+    for(int i = 0; i < qty; i++)
+    {
+        NSString* tmp = [NSString stringWithString:((BranchData *)resultArray[i]).name];
+        [branchNames addObject:tmp];
+    }
+    return branchNames;
+}
+
 - (NSMutableArray*) dataForTableView
 {
       NSMutableArray *arrayForTableView = [[NSMutableArray alloc]init];
@@ -118,10 +141,13 @@
                 NSString* name = [NSString stringWithString:branch.name];
                 NSString* address = [NSString stringWithFormat:@"%@, %@, %@, Украина", branch.address, branch.city, branch.region ];
                 
-                NSLog(@"%@", address);
+                NSLog(@"%@", name);
                 [branchs setObject:address forKey:name];
             }
+           
+      
         }
+        //NSLog(@"%lu", (unsigned long)[branchs count]);
         [finalArray addObject:branchs];
         tmp.branchs = finalArray;
         
@@ -137,6 +163,7 @@
                 break;
             }
         }
+       // NSLog(@"%@, %lu, USD:%@, USD:%@, EURO:%@, EURO:%@", tmp.bankName, (unsigned long)[tmp.branchs count], tmp.usdCurrencyAsk, tmp.usdCurrencyBid, tmp.eurCurrencyAsk, tmp.eurCurrencyBid);
         [arrayForTableView addObject:tmp];
     }
     return arrayForTableView;
@@ -223,7 +250,7 @@
             
             [self.averageRates addObject:tmp];
         }
-        //[self print];
+        [self print];
         return self.averageRates;
     }
     return nil;
