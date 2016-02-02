@@ -34,6 +34,7 @@
 @property (nonatomic, strong) NSMutableArray *avarageCurrencyObjectsArray;
 
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
+@property (weak, nonatomic) UIView *viewToMove;
 
 @end
 /*
@@ -109,24 +110,27 @@ static NSString* EURask[] = {
 #pragma mark - gestures
 - (void)handlePan:(UIPanGestureRecognizer *)pan
 {
-#warning paran-pan-pan
     CGPoint location = [pan locationInView:self.view];
-    UIView *viewToMove = [self.view hitTest:location withEvent:nil];
+    UIView *view = [self.view hitTest:location withEvent:nil];
     
-    if (pan.state == UIGestureRecognizerStateBegan || pan.state == UIGestureRecognizerStateChanged)
+    if (pan.state == UIGestureRecognizerStateBegan)
     {
-        if(viewToMove.tag == 113 || viewToMove.tag == 114)
-        {
-            [viewToMove removeFromSuperview];
-            [self.view addSubview:viewToMove];
-            [viewToMove setNeedsDisplay];
-            CGPoint translation = [pan translationInView:self.view];
-            viewToMove.center = CGPointMake(viewToMove.center.x + translation.x,
-                                                viewToMove.center.y + translation.y);
-            [pan setTranslation:CGPointZero inView:self.view];
-        }
+        if(view.tag == 113 || view.tag == 114)
+            self.viewToMove = view;
+        
         else
             return;
+    }
+    else if (pan.state == UIGestureRecognizerStateChanged)
+    {
+        CGPoint translation = [pan translationInView:self.view];
+        self.viewToMove.center = CGPointMake(self.viewToMove.center.x + translation.x,
+                                             self.viewToMove.center.y + translation.y);
+        [pan setTranslation:CGPointZero inView:self.view];
+    }
+    else
+    {
+        self.viewToMove = nil;
     }
 }
 
