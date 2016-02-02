@@ -28,7 +28,7 @@
      NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
     
     //[workObject deleteAllObjectsFromCoreData];
-    //[workObject JSONParse];
+    [workObject JSONParse];
     //[workObject loadCoreDataObjects];
     //[tmp allBanksQuantity];
     //[testObject insertFakeDataToCoreData];
