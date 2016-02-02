@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="z7x-lm-5OT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="z7x-lm-5OT">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -407,7 +407,7 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="93x-dM-mgS" id="tzI-d1-Z60">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -518,7 +518,7 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Md-0d-OOV" id="M8f-Ge-3NN">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="119"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="119.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9aU-tX-6KQ">
@@ -789,40 +789,39 @@
                                             <action selector="wayOfSharingBeenChosen:" destination="zUa-Si-UCn" eventType="touchUpInside" id="PNR-b2-yXW"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hjU-67-Hyf">
-                                        <rect key="frame" x="200" y="40" width="200" height="60"/>
-                                        <state key="normal" image="Fb_icon"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jlX-Yz-1Wn">
+                                        <rect key="frame" x="249" y="55" width="83" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="83" id="5KM-3C-o5n"/>
+                                        </constraints>
+                                        <state key="normal" title="Show Social"/>
                                         <connections>
-                                            <action selector="wayOfSharingBeenChosen:" destination="zUa-Si-UCn" eventType="touchUpInside" id="Lv5-Mq-Oga"/>
+                                            <action selector="showActivityViewController:" destination="zUa-Si-UCn" eventType="touchUpInside" id="wfg-oR-D1G"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="sOP-7x-bUe" firstAttribute="top" secondItem="RHR-Xw-QhQ" secondAttribute="top" id="3rP-gw-K8s"/>
-                                    <constraint firstItem="sOP-7x-bUe" firstAttribute="top" secondItem="NME-Ls-dn0" secondAttribute="bottom" id="6pI-TV-tOh"/>
                                     <constraint firstAttribute="height" constant="100" id="7QH-T8-RHz"/>
-                                    <constraint firstItem="sOP-7x-bUe" firstAttribute="width" secondItem="Oei-e6-wm1" secondAttribute="width" id="Br7-VX-HCc"/>
-                                    <constraint firstItem="Oei-e6-wm1" firstAttribute="top" secondItem="NME-Ls-dn0" secondAttribute="bottom" id="EHC-NO-P5b"/>
-                                    <constraint firstItem="sOP-7x-bUe" firstAttribute="leading" secondItem="hjU-67-Hyf" secondAttribute="trailing" id="HpF-HT-gjR"/>
+                                    <constraint firstItem="Oei-e6-wm1" firstAttribute="centerY" secondItem="jlX-Yz-1Wn" secondAttribute="centerY" id="8H2-M7-hmm"/>
+                                    <constraint firstAttribute="bottom" secondItem="Oei-e6-wm1" secondAttribute="bottom" id="9RC-nY-ZaT"/>
+                                    <constraint firstAttribute="trailing" secondItem="sOP-7x-bUe" secondAttribute="trailing" id="Cf6-DN-S0i"/>
+                                    <constraint firstItem="jlX-Yz-1Wn" firstAttribute="top" secondItem="NME-Ls-dn0" secondAttribute="bottom" constant="15" id="LYv-2Y-lK9"/>
                                     <constraint firstItem="Oei-e6-wm1" firstAttribute="top" secondItem="RHR-Xw-QhQ" secondAttribute="top" id="Lbs-XR-nPo"/>
-                                    <constraint firstAttribute="bottom" secondItem="hjU-67-Hyf" secondAttribute="bottom" id="M3u-ME-vie"/>
-                                    <constraint firstItem="hjU-67-Hyf" firstAttribute="top" secondItem="NME-Ls-dn0" secondAttribute="bottom" id="TwM-Ub-k1R"/>
-                                    <constraint firstItem="hjU-67-Hyf" firstAttribute="leading" secondItem="Oei-e6-wm1" secondAttribute="trailing" id="VLY-OM-JSl"/>
-                                    <constraint firstItem="hjU-67-Hyf" firstAttribute="top" secondItem="RHR-Xw-QhQ" secondAttribute="top" id="VbF-zK-2UZ"/>
-                                    <constraint firstItem="Oei-e6-wm1" firstAttribute="leading" secondItem="RHR-Xw-QhQ" secondAttribute="leading" id="Zwb-Oj-Irf"/>
-                                    <constraint firstItem="hjU-67-Hyf" firstAttribute="width" secondItem="Oei-e6-wm1" secondAttribute="width" id="avk-eZ-5PF"/>
+                                    <constraint firstItem="Oei-e6-wm1" firstAttribute="leading" secondItem="NME-Ls-dn0" secondAttribute="leading" id="PzH-Je-e5M"/>
+                                    <constraint firstItem="sOP-7x-bUe" firstAttribute="leading" secondItem="jlX-Yz-1Wn" secondAttribute="trailing" constant="68" id="UQX-Hy-gFl"/>
                                     <constraint firstItem="NME-Ls-dn0" firstAttribute="leading" secondItem="RHR-Xw-QhQ" secondAttribute="leading" id="b6g-Zq-Ti9"/>
                                     <constraint firstAttribute="trailing" secondItem="NME-Ls-dn0" secondAttribute="trailing" constant="20" id="gJc-hA-j6N"/>
-                                    <constraint firstAttribute="bottom" secondItem="Oei-e6-wm1" secondAttribute="bottom" id="hp1-FK-MgF"/>
-                                    <constraint firstAttribute="trailing" secondItem="sOP-7x-bUe" secondAttribute="trailing" id="m9W-lg-wNg"/>
-                                    <constraint firstAttribute="bottom" secondItem="sOP-7x-bUe" secondAttribute="bottom" id="sAn-fN-SDw"/>
+                                    <constraint firstItem="sOP-7x-bUe" firstAttribute="bottom" secondItem="Oei-e6-wm1" secondAttribute="bottom" id="m2o-vY-Ld1"/>
+                                    <constraint firstItem="jlX-Yz-1Wn" firstAttribute="leading" secondItem="Oei-e6-wm1" secondAttribute="trailing" constant="49" id="oB2-bH-rFo"/>
+                                    <constraint firstItem="Oei-e6-wm1" firstAttribute="top" secondItem="sOP-7x-bUe" secondAttribute="top" id="uvX-MX-QAe"/>
+                                    <constraint firstItem="jlX-Yz-1Wn" firstAttribute="centerX" secondItem="NME-Ls-dn0" secondAttribute="centerX" id="vka-Fw-EgD"/>
                                     <constraint firstItem="NME-Ls-dn0" firstAttribute="top" secondItem="RHR-Xw-QhQ" secondAttribute="top" id="zcL-lc-GRo"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="Lbs-XR-nPo"/>
-                                        <exclude reference="VbF-zK-2UZ"/>
                                         <exclude reference="3rP-gw-K8s"/>
                                     </mask>
                                 </variation>
@@ -853,7 +852,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Fb_icon" width="60" height="60"/>
         <image name="Gmail_icon" width="81" height="60"/>
         <image name="Vk_icon" width="60" height="60"/>
         <image name="dollar_sign" width="586" height="586"/>
