@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-@class ControllPoint;
+#import "ControllPoint.h"
+#import "CDControlPoint.h"
+#import "ControlPointsCDSotrer.h"
 
 @interface ControlPointCDManager : NSObject
 

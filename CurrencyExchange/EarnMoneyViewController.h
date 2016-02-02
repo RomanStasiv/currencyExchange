@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProtocolHeader.h"
 
-@interface EarnMoneyViewController : UIViewController
+@interface EarnMoneyViewController : UIViewController <shareGraphViewDelegate>
 
 - (void)addControlPointWithAmountOfMoney:(CGFloat)money Currency:(NSString *)currency ForDate:(NSDate *)date;
 

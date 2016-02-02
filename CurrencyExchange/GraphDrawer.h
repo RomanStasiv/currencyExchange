@@ -15,6 +15,7 @@
 
 @property (nonatomic, assign) CGRect insetFrame;
 @property (nonatomic, assign) CGFloat inset;
+@property (nonatomic, assign) double topAndRightMargin;
 
 @property (nonatomic, assign) CGFloat segmentWidth;
 @property (nonatomic, assign) NSUInteger segmentWidthCount;
@@ -34,7 +35,7 @@
 @property (nonatomic, strong) NSArray *pointsOfUSDAskCurve;
 @property (nonatomic, strong) NSArray *pointsOfEURAskCurve;
 
-- (void)drawLineFromPointA:(CGPoint)a toPointB:(CGPoint)b WithWidth:(CGFloat)width andColor:(UIColor *)color;
+- (void)drawLineFromPointA:(CGPoint)a toPointB:(CGPoint)b WithWidth:(CGFloat)width Color:(UIColor *)color Dashed:(BOOL)dashed;
 - (void)configureVariable;
 
 @end
