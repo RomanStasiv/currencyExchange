@@ -204,25 +204,26 @@
     
     if (points.count > 2)
     {
-        for (int i = 0; i < points.count-1; i++)
+        for (int i = 0; i < points.count; i++)
         {
             [path addLineToPoint:[[points objectAtIndex:i] CGPointValue]];
         }
 #warning HOW THIS SHOULD BE DONE?
         /*[path addLineToPoint:[self getMidPointBetweenPointA:firstPoint
                                                        andB:[[points objectAtIndex:1] CGPointValue]]];
-        for (int i = 1; i < points.count-1; i++)
+        for (int i = 1; i < points.count; i++)
         {
             CGPoint midpoint = [self getMidPointBetweenPointA:[[points objectAtIndex:i] CGPointValue]
                                                          andB:[[points objectAtIndex:i+1] CGPointValue]];
             [path addQuadCurveToPoint:midpoint
                          controlPoint:[[points objectAtIndex:i] CGPointValue]];
         }
-        [path addLineToPoint:[[points lastObject] CGPointValue]];*/
+        [path addLineToPoint:[[points lastObject] CGPointValue]];
     }
     else if (points.count == 2)
     {
         [path addLineToPoint:[self getMidPointBetweenPointA:firstPoint andB:[[points objectAtIndex:1] CGPointValue]]];
+    }*/
     }
     else
     {

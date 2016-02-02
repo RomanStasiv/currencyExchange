@@ -65,21 +65,13 @@ static NSString* EURask[] = {
 - (void)viewDidLoad
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(saveData)
+                                             selector:@selector(saveAllContolPointsToCD)
                                                  name:UIApplicationDidEnterBackgroundNotification
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(saveData)
+                                             selector:@selector(saveAllContolPointsToCD)
                                                  name:UIApplicationWillTerminateNotification
                                                object:nil];
-    /*[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(restoreData)
-                                                 name:UIApplicationDidFinishLaunchingNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(restoreData)
-                                                 name:UIApplicationWillEnterForegroundNotification
-                                               object:nil];*/
     [super viewDidLoad];
     [self prepareGraphView];
     self.USDBidColor = [UIColor brownColor];
@@ -104,7 +96,7 @@ static NSString* EURask[] = {
     
     self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                               action:@selector(handlePan:)];
-    [self.graphView addGestureRecognizer:self.panGesture];
+    [self.view addGestureRecognizer:self.panGesture];
 }
 
 #pragma mark - gestures
@@ -140,7 +132,7 @@ static NSString* EURask[] = {
     self.avarageCurrencyObjectsArray = [[fetch averageCurrencyRate] mutableCopy];
     self.graphView.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
     self.graphView.contentMode = UIViewContentModeRedraw;
-    [self restoreData];
+    [self restoreAllControlPointsFromCD];
 }
 
 /*- (NSArray *)avarageCurrencyObjectsArray
@@ -188,9 +180,6 @@ static NSString* EURask[] = {
     ControllPoint *point = [[ControllPoint alloc] init];
     point.currency = currency;
     point.value = [NSNumber numberWithFloat:money];
-   /* NSTimeInterval secondsPerDay = 24 * 60 * 60; // Интервал в 1 день равный 86 400 секунд
-    NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:secondsPerDay * 4];
-    point.date = [[NSDate alloc] init];*/
     point.date = date;
     AverageCurrency *thisCurrency = [[AverageCurrency alloc] init];
     for (AverageCurrency *currency in self.avarageCurrencyObjectsArray)
@@ -209,31 +198,40 @@ static NSString* EURask[] = {
     //adding point to array in EarnMoneyVC
     if (!self.arrayOfControlPoints)
         self.arrayOfControlPoints = [NSMutableArray array];
+    [point calculateEarningPosibilityWithaverageCurrencyObjectsArray:self.avarageCurrencyObjectsArray];
     [self.arrayOfControlPoints addObject:point];
     
     if (!self.graphView.controlPointsArray)
         self.graphView.controlPointsArray = [NSArray array];
     
-    /*NSMutableArray *mutableControlPointsArray = [self.graphView.controlPointsArray mutableCopy];
-    [mutableControlPointsArray addObject:point];*/
     self.graphView.controlPointsArray = self.arrayOfControlPoints;
+    [self saveControlPointToCD:point];
     [self.graphView drawAllControlpoints];
-
-#warning not fully implement
 }
 
 #pragma mark - persistance
-- (void)saveData
+- (void)saveControlPointToCD:(ControllPoint *)point
 {
     ControlPointCDManager *pointManager = [[ControlPointCDManager alloc] init];
-    [self calculateEarningPosibilitiesOfControlPoints];
-    for (ControllPoint *point in self.arrayOfControlPoints)
+    [pointManager saveToCDControlPoint:point];
+}
+
+- (void)saveAllContolPointsToCD
+{
+    ControlPointCDManager *pointManager = [[ControlPointCDManager alloc] init];
+    NSArray *existingPoints = [NSArray array];
+    existingPoints = [pointManager getArrayOfControlPointsFromCD];
+    for (ControllPoint *existingPoint in existingPoints)
     {
-        [pointManager saveToCDControlPoint:point];
+        for (ControllPoint *point in self.arrayOfControlPoints)
+        {
+            if ([existingPoint.date compare: point.date] != NSOrderedSame)
+                [pointManager saveToCDControlPoint:point];
+        }
     }
 }
 
-- (void)restoreData
+- (void)restoreAllControlPointsFromCD
 {
     ControlPointCDManager *pointManager = [[ControlPointCDManager alloc] init];
     self.arrayOfControlPoints = [[pointManager getArrayOfControlPointsFromCD] mutableCopy];
