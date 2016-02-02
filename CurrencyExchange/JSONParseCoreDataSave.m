@@ -137,7 +137,7 @@
                 
             }
            
-            else 
+            else if ([bankNamesArray containsObject:self.bankName] && [branchNamesArray containsObject:self.bankName])
             {
                 if (self.haveBranch == false)
                 {
@@ -291,7 +291,6 @@
     
     return [resultArray objectAtIndex:0];
 }
-
 
 
 
