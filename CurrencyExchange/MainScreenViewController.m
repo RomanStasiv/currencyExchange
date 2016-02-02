@@ -28,13 +28,15 @@
      NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
     
     //[workObject deleteAllObjectsFromCoreData];
-    //[workObject JSONParse];
+    
+    [workObject JSONParse];
+    
     //[workObject loadCoreDataObjects];
     //[tmp allBanksQuantity];
     //[testObject insertFakeDataToCoreData];
     //[tmp dataForTableView];
     self.graph.backgroundColor = [UIColor blackColor];
-    /*self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:10.0
+    /*self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:30.0
                                                     target: workObject
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil

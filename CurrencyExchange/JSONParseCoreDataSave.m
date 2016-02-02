@@ -64,7 +64,8 @@
              
         self.banksCount = [jsonArray count];
         
-        BankData* bankToBind = nil;
+        BankData* bankToBindOrigin = nil;
+        BankData* bankToBindNew = nil;
         BankData* bankToUpdate = nil;
              
         for (int i = 1; i < self.banksCount; i++)
@@ -116,7 +117,7 @@
                         
                         [bankData addCurrencyObject:currencyData];
                         
-                        bankToBind = bankData;
+                        bankToBindOrigin = bankData;
                         
                         
                     }
@@ -131,7 +132,7 @@
                         branchData.city = self.bankCity;
                         branchData.address = self.bankAddress;
                         
-                        [bankToBind addBranchObject:branchData];
+                        [bankToBindOrigin addBranchObject:branchData];
                     }
                 
             }
@@ -150,7 +151,7 @@
                     
                     [bankToUpdate addCurrencyObject:currencyData];
                     
-                    bankToBind = bankToUpdate;
+                    bankToBindNew = bankToUpdate;
                 }
                 
                 if (self.haveBranch == true)
@@ -163,7 +164,7 @@
                     branchData.city = self.bankCity;
                     branchData.address = self.bankAddress;
                     
-                    [bankToBind addBranchObject:branchData];
+                    [bankToBindNew addBranchObject:branchData];
                 }
             }
 
