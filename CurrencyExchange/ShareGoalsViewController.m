@@ -12,6 +12,7 @@
 @interface ShareGoalsViewController ()
 
 @property (nonatomic, strong) NSString *source;
+@property(nonatomic, weak) IBOutlet UIImageView *imageView;
 
 @end
 
@@ -19,9 +20,10 @@ static NSString *seaguewID = @"shareSeague";
 
 @implementation ShareGoalsViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.imageView.image = self.imageToShare;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -378,13 +378,13 @@
                            [UIFont systemFontOfSize:12.0f]}];
     double margin = 3;
     double heightMargin = margin;
-    NSInteger maximumPosibleXDivisionsCount = (self.insetFrame.size.width - self.topAndRightMargin) / (size00.width + margin);
+    NSInteger maximumPosibleXDivisionsCount = (self.insetFrame.size.width ) / (size00.width + margin);
     
 
     NSArray *shrinkedDayArray = [self getShrinkedArrayFromArray:days ToCount:maximumPosibleXDivisionsCount];
     NSArray *shrinkedMonthArray = [self getShrinkedArrayFromArray:month ToCount:maximumPosibleXDivisionsCount];
     
-    double widthDifference = (self.insetFrame.size.width - self.topAndRightMargin) - ((size00.width + margin) * (shrinkedDayArray.count));
+    double widthDifference = (self.insetFrame.size.width ) - ((size00.width + margin) * (shrinkedDayArray.count));
     if (widthDifference > 0)
     {
         double differencePerMargin;

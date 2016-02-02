@@ -234,7 +234,8 @@
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ShareGoalsViewController * shareGoalsVC = (ShareGoalsViewController *)[sb instantiateViewControllerWithIdentifier:@"shareGoalsVC"];
-    shareGoalsVC.imageView.image = [self.imageGetterDelegate getImageToShareForControlPoint:CDobject];
+    UIImage *image = [self.imageGetterDelegate getImageToShareForControlPoint:CDobject];
+    shareGoalsVC.imageToShare = image;
     [self.navigationController popViewControllerAnimated:YES];
     [self.navigationController pushViewController:shareGoalsVC animated:YES];
     
