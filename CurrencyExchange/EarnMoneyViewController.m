@@ -206,6 +206,7 @@ static NSString* EURask[] = {
     
     self.graphView.controlPointsArray = self.arrayOfControlPoints;
     [self saveControlPointToCD:point];
+    [self addBarButtonItemsIncludeEarnGoals:YES];
     [self.graphView drawAllControlpoints];
 }
 
