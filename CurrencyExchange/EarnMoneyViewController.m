@@ -6,6 +6,8 @@
 //  Copyright © 2016 Roman Stasiv. All rights reserved.
 //
 
+#define RADIANS(degrees) ((degrees * M_PI) / 180.0)
+
 #import "EarnMoneyViewController.h"
 #import "EarnMoneyGraphView.h"
 #import "AddControlPointToEarnMoneyViewController.h"
@@ -361,15 +363,81 @@ static NSString* EURask[] = {
 #pragma mark - shareGraphViewDelegate methods
 - (UIImage *)getGraphDescriptionImageForControlPoint:(CDControlPoint *)point
 {
+    NSString *earningMoneyString = [NSString stringWithFormat:@"I earn %.f UAN\nAnd You ?", [point.earningPosibility floatValue]];
+    
+    UIView *darkLight = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x,
+                                                                self.view.frame.origin.y,
+                                                                self.view.frame.size.width,
+                                                                 self.view.frame.size.height)];
+    darkLight.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
+    [self.view addSubview:darkLight];
+    
+    CGRect frame = CGRectMake(self.view.bounds.origin.x + (self.view.bounds.size.width)/4,
+                               self.view.bounds.origin.y + (self.view.bounds.size.height)/4,
+                               (self.view.bounds.size.width)*0.6,
+                               (self.view.bounds.size.height)*0.6);
+    UILabel *showOffLabel = [[UILabel alloc] initWithFrame:frame];
+    showOffLabel.numberOfLines = 0;
+    showOffLabel.text = earningMoneyString;
+    
+    showOffLabel.font = [UIFont fontWithName:@"marker felt" size:10];
+    [self sizeLabel:showOffLabel toRect:frame];
+    showOffLabel.textColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"goldTexture"]];
+    [self.view addSubview:showOffLabel];
+    
+    showOffLabel.transform = CGAffineTransformMakeRotation(RADIANS(330));
+    
     UIImage *image = [[UIImage alloc] init];
-    image = [UIImage imageNamed:@"I'm_best"];
+    
+    UIGraphicsBeginImageContextWithOptions(self.view.frame.size, NO, 1); //making image from view
+    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    [showOffLabel removeFromSuperview];
+
+#warning need to store history of images somewhere
     return image;
 }
+
+- (void) sizeLabel: (UILabel *) label toRect: (CGRect) labelRect  {
+    
+    // Set the frame of the label to the targeted rectangle
+    label.frame = labelRect;
+    
+    // Try all font sizes from largest to smallest font size
+    int fontSize = 300;
+    int minFontSize = 5;
+    
+    // Fit label width wize
+    CGSize constraintSize = CGSizeMake(label.frame.size.width, MAXFLOAT);
+    
+    do {
+        // Set current font size
+        label.font = [UIFont fontWithName:label.font.fontName size:fontSize];
+        
+        // Find label size for current font size
+        CGRect textRect = [[label text] boundingRectWithSize:constraintSize
+                                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                                  attributes:@{NSFontAttributeName:label.font}
+                                                     context:nil];
+        
+        CGSize labelSize = textRect.size;
+        
+        // Done, if created label is within target size
+        if( labelSize.height <= label.frame.size.height )
+            break;
+        
+        // Decrease the font size and try again
+        fontSize -= 2;
+        
+    } while (fontSize > minFontSize);
+}
+
 - (UIImage *)getImageToShareForControlPoint:(CDControlPoint *)point
 {
-    UIImage *image = [[UIImage alloc] init];
-    image = [UIImage imageNamed:@"I'm_best"];
-    return image;
+    return [self getGraphDescriptionImageForControlPoint:point];
 }
 
 @end
