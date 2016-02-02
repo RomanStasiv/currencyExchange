@@ -32,7 +32,7 @@
     [workObject JSONParse];
     
     //[workObject loadCoreDataObjects];
-    //[tmp allBanksQuantity];
+    [tmp allBanksQuantity];
     //[testObject insertFakeDataToCoreData];
     //[tmp dataForTableView];
     self.graph.backgroundColor = [UIColor blackColor];
