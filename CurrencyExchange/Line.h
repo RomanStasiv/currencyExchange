@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) NSValue *firstPoint;
 @property (nonatomic, strong) NSValue *lastPoint;
+@property (nonatomic, strong) NSValue *originalPoint;
 @property (nonatomic, strong) UIColor *color;
 
 @end
