@@ -79,6 +79,7 @@
 		6A2989111C58AFDA006328A5 /* ConvertMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvertMoneyViewController.m; sourceTree = "<group>"; };
 		6A29C59A1C5A3BB50032B74D /* GraphDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphDrawer.h; sourceTree = "<group>"; };
 		6A29C59B1C5A3BB60032B74D /* GraphDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphDrawer.m; sourceTree = "<group>"; };
+		6A7109781C602B0A002B49D1 /* ProtocolHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProtocolHeader.h; sourceTree = "<group>"; };
 		6A80BF7D1C5E22B300B57EC5 /* EarningGoalsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarningGoalsTableViewController.h; sourceTree = "<group>"; };
 		6A80BF7E1C5E22B300B57EC5 /* EarningGoalsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarningGoalsTableViewController.m; sourceTree = "<group>"; };
 		6A80BF811C5E264D00B57EC5 /* CustomEGTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEGTableViewCell.h; sourceTree = "<group>"; };
@@ -226,6 +227,7 @@
 				6A80BF7E1C5E22B300B57EC5 /* EarningGoalsTableViewController.m */,
 				6A80BF811C5E264D00B57EC5 /* CustomEGTableViewCell.h */,
 				6A80BF821C5E264D00B57EC5 /* CustomEGTableViewCell.m */,
+				6A7109781C602B0A002B49D1 /* ProtocolHeader.h */,
 			);
 			name = EarninigGoalsTVC;
 			sourceTree = "<group>";

@@ -9,7 +9,6 @@
 #import "EarnMoneyViewController.h"
 #import "EarnMoneyGraphView.h"
 #import "AddControlPointToEarnMoneyViewController.h"
-#import "ControllPoint.h"
 #import "ControlPointCDManager.h"
 #import "ControlPointsEarnChecker.h"
 #import "Fetcher.h"
@@ -34,7 +33,7 @@
 @property (nonatomic,strong) NSArray *readyToGoControlPoints;
 @property (nonatomic, strong) NSMutableArray *avarageCurrencyObjectsArray;
 
-@property (weak, nonatomic) IBOutlet UILabel *notificationLabel;
+@property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
 
 @end
 /*
@@ -82,7 +81,7 @@ static NSString* EURask[] = {
                                                object:nil];*/
     [super viewDidLoad];
     [self prepareGraphView];
-       self.USDBidColor = [UIColor brownColor];
+    self.USDBidColor = [UIColor brownColor];
     self.USDAskColor = [UIColor blueColor];
     self.EURBidColor = [UIColor darkGrayColor];
     self.EURAskColor = [UIColor grayColor];
@@ -101,6 +100,34 @@ static NSString* EURask[] = {
         [self addBarButtonItemsIncludeEarnGoals:YES];
     else
         [self addBarButtonItemsIncludeEarnGoals:NO];
+    
+    self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                              action:@selector(handlePan:)];
+    [self.graphView addGestureRecognizer:self.panGesture];
+}
+
+#pragma mark - gestures
+- (void)handlePan:(UIPanGestureRecognizer *)pan
+{
+#warning pan-pan-pan
+    CGPoint location = [pan locationInView:self.view];
+    UIView *viewToMove = [self.view hitTest:location withEvent:nil];
+    
+    if (pan.state == UIGestureRecognizerStateBegan || pan.state == UIGestureRecognizerStateChanged)
+    {
+        if(viewToMove.tag == 113 || viewToMove.tag == 114)
+        {
+            [viewToMove removeFromSuperview];
+            [self.view addSubview:viewToMove];
+            [viewToMove setNeedsDisplay];
+            CGPoint translation = [pan translationInView:self.view];
+            viewToMove.center = CGPointMake(viewToMove.center.x + translation.x,
+                                                viewToMove.center.y + translation.y);
+            [pan setTranslation:CGPointZero inView:self.view];
+        }
+        else
+            return;
+    }
 }
 
 - (void)prepareGraphView
@@ -108,6 +135,7 @@ static NSString* EURask[] = {
     Fetcher *fetch = [[Fetcher alloc]init];
     self.avarageCurrencyObjectsArray = [[fetch averageCurrencyRate] mutableCopy];
     self.graphView.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
+    self.graphView.contentMode = UIViewContentModeRedraw;
     [self restoreData];
 }
 
@@ -299,11 +327,15 @@ static NSString* EURask[] = {
     }
 }
 
+#pragma mark - navigation
 - (void)showEarnGoalsViewController
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     EarningGoalsTableViewController * egTVC = (EarningGoalsTableViewController *)[sb instantiateViewControllerWithIdentifier:@"EarningGoalsTVC"];
     egTVC.averageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
+    
+    egTVC.imageGetterDelegate = self;//shareGraphViewDelegate
+    
     [self.navigationController pushViewController:egTVC animated:YES];
 }
 
@@ -323,15 +355,18 @@ static NSString* EURask[] = {
     [self.navigationController pushViewController:addCPVC animated:YES];
 }
 
-#pragma mark - navigation
-/*- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+#pragma mark - shareGraphViewDelegate methods
+- (UIImage *)getGraphDescriptionImageForControlPoint:(CDControlPoint *)point
 {
-    if ([segue.identifier isEqualToString: @"addCPVC"])
-    {
-        ((AddControlPointToEarnMoneyViewController *)segue.destinationViewController).owner = self;
-        ((AddControlPointToEarnMoneyViewController *)segue.destinationViewController).avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
-    }
-}*/
-
+    UIImage *image = [[UIImage alloc] init];
+    image = [UIImage imageNamed:@"I'm_best"];
+    return image;
+}
+- (UIImage *)getImageToShareForControlPoint:(CDControlPoint *)point
+{
+    UIImage *image = [[UIImage alloc] init];
+    image = [UIImage imageNamed:@"I'm_best"];
+    return image;
+}
 
 @end
