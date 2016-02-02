@@ -10,4 +10,6 @@
 
 @interface ShareGoalsViewController : UIViewController
 
+@property(nonatomic, weak) IBOutlet UIImageView *imageView;
+
 @end

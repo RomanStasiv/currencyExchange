@@ -827,8 +827,8 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="I'm_best" translatesAutoresizingMaskIntoConstraints="NO" id="OWp-4e-z5e">
-                                <rect key="frame" x="0.0" y="64" width="600" height="436"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OWp-4e-z5e">
+                                <rect key="frame" x="0.0" y="20" width="600" height="436"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -843,18 +843,18 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="imageView" destination="OWp-4e-z5e" id="3pW-v2-o89"/>
                         <segue destination="7XC-P8-vbG" kind="show" identifier="shareSeague" id="nEJ-oX-5qC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OOe-3s-xlb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="506" y="2077"/>
+            <point key="canvasLocation" x="516" y="2077"/>
         </scene>
     </scenes>
     <resources>
         <image name="Fb_icon" width="60" height="60"/>
         <image name="Gmail_icon" width="81" height="60"/>
-        <image name="I'm_best" width="600" height="700"/>
         <image name="Vk_icon" width="60" height="60"/>
         <image name="dollar_sign" width="586" height="586"/>
         <image name="euro_sign" width="256" height="256"/>

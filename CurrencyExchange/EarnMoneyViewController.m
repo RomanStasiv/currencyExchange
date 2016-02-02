@@ -9,7 +9,6 @@
 #import "EarnMoneyViewController.h"
 #import "EarnMoneyGraphView.h"
 #import "AddControlPointToEarnMoneyViewController.h"
-#import "ControllPoint.h"
 #import "ControlPointCDManager.h"
 #import "ControlPointsEarnChecker.h"
 #import "Fetcher.h"
@@ -328,11 +327,15 @@ static NSString* EURask[] = {
     }
 }
 
+#pragma mark - navigation
 - (void)showEarnGoalsViewController
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     EarningGoalsTableViewController * egTVC = (EarningGoalsTableViewController *)[sb instantiateViewControllerWithIdentifier:@"EarningGoalsTVC"];
     egTVC.averageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
+    
+    egTVC.imageGetterDelegate = self;//shareGraphViewDelegate
+    
     [self.navigationController pushViewController:egTVC animated:YES];
 }
 
@@ -352,15 +355,18 @@ static NSString* EURask[] = {
     [self.navigationController pushViewController:addCPVC animated:YES];
 }
 
-#pragma mark - navigation
-/*- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+#pragma mark - shareGraphViewDelegate methods
+- (UIImage *)getGraphDescriptionImageForControlPoint:(CDControlPoint *)point
 {
-    if ([segue.identifier isEqualToString: @"addCPVC"])
-    {
-        ((AddControlPointToEarnMoneyViewController *)segue.destinationViewController).owner = self;
-        ((AddControlPointToEarnMoneyViewController *)segue.destinationViewController).avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
-    }
-}*/
-
+    UIImage *image = [[UIImage alloc] init];
+    image = [UIImage imageNamed:@"I'm_best"];
+    return image;
+}
+- (UIImage *)getImageToShareForControlPoint:(CDControlPoint *)point
+{
+    UIImage *image = [[UIImage alloc] init];
+    image = [UIImage imageNamed:@"I'm_best"];
+    return image;
+}
 
 @end
