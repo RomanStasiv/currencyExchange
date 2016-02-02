@@ -54,6 +54,7 @@
         self.jsonData = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         NSArray* jsonArray = [self.jsonData objectForKey:@"organizations"];
         NSArray* bankNamesArray = [fetcherObject arrayOfBankNames];
+        
         NSString* regionToParse = @"";
         NSString* cityToParse = @"";
         NSString* dateToConvert = @"";
