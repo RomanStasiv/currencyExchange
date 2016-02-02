@@ -396,6 +396,7 @@ static NSString* EURask[] = {
     UIGraphicsEndImageContext();
     
     [showOffLabel removeFromSuperview];
+    [darkLight removeFromSuperview];
 
 #warning need to store history of images somewhere
     return image;
