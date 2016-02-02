@@ -202,13 +202,18 @@ static NSString* EURask[] = {
         self.arrayOfControlPoints = [NSMutableArray array];
     [point calculateEarningPosibilityWithaverageCurrencyObjectsArray:self.avarageCurrencyObjectsArray];
     [self.arrayOfControlPoints addObject:point];
+    for (ControllPoint *point in self.arrayOfControlPoints)
+    {
+        if (point.earningPosibility > 0)
+            [self addBarButtonItemsIncludeEarnGoals:YES];
+    }
     
     if (!self.graphView.controlPointsArray)
         self.graphView.controlPointsArray = [NSArray array];
     
     self.graphView.controlPointsArray = self.arrayOfControlPoints;
     [self saveControlPointToCD:point];
-    [self addBarButtonItemsIncludeEarnGoals:YES];
+    
     [self.graphView drawAllControlpoints];
 }
 
@@ -348,6 +353,7 @@ static NSString* EURask[] = {
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ShareGoalsViewController * shareGoalsVC = (ShareGoalsViewController *)[sb instantiateViewControllerWithIdentifier:@"shareGoalsVC"];
+#warning Maybe not using that ?
     [self.navigationController pushViewController:shareGoalsVC animated:YES];
 }
 
