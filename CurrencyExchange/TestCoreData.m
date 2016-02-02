@@ -101,8 +101,8 @@ static NSString* addresses[] = {@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"G
     BankData* bank = [NSEntityDescription insertNewObjectForEntityForName:@"BankData" inManagedObjectContext:self.context];
     bank.name = [NSString stringWithFormat:@"Bank #%ld", bankIndex];
     bank.region = [NSString stringWithFormat:@"Bank region #%ld", bankIndex];
-    bank.city = [NSString stringWithFormat:@"%@",cities[arc4random_uniform(50)]];
-    bank.address = [NSString stringWithFormat:@"%@", addresses[arc4random_uniform(26)]];
+    bank.city = [NSString stringWithFormat:@"%@",cities[bankIndex]];
+    bank.address = [NSString stringWithFormat:@"%@", addresses[bankIndex]];
     
     return bank;
     
@@ -114,8 +114,8 @@ static NSString* addresses[] = {@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"G
     BranchData* branch = [NSEntityDescription insertNewObjectForEntityForName:@"BranchData" inManagedObjectContext:self.context];
     branch.name = [NSString stringWithFormat:@"Branch #%ld", branchIndex];
     branch.region = [NSString stringWithFormat:@"Branch region #%ld", branchIndex];
-    branch.city = [NSString stringWithFormat:@"%@",cities[arc4random_uniform(50)]];
-    branch.address = [NSString stringWithFormat:@"%@", addresses[arc4random_uniform(26)]];
+    branch.city = [NSString stringWithFormat:@"%@",cities[branchIndex + 10]];
+    branch.address = [NSString stringWithFormat:@"%@", addresses[branchIndex + 10]];
     return branch;
     
 }
@@ -155,8 +155,57 @@ static NSString* addresses[] = {@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"G
     return rndDate1;
 }
 
+#pragma mark - Udate fake data
 
-
+-(void) newFakeData
+{
+    self.context = [AppDelegate singleton].managedObjectContext;
+    self.banksCount = 5;
+    self.branchesCount = 2;
+    self.currenciesCount = 5;
+    
+    NSError* error = nil;
+    
+    NSMutableArray* tempBankArray = [[NSMutableArray alloc] init];
+    NSMutableArray* tempDateArray = [[NSMutableArray alloc] init];
+    NSInteger currencyCounter = 0;
+    
+    for (int bankCounter = 0; bankCounter < self.banksCount; bankCounter++)
+    {
+        BankData* fakeBank = [self bankDataByIndex:bankCounter];
+        [tempBankArray addObject:fakeBank];
+    }
+    
+    for (int dateCounter = 0; dateCounter < self.currenciesCount; dateCounter++)
+    {
+        NSDate* tempDate = [self generateRandomDateWithinDaysBeforeToday:200];
+        [tempDateArray addObject:tempDate];
+    }
+    
+    for (BankData* bankObject in tempBankArray) {
+        
+        currencyCounter = 0;
+        
+        for (NSDate* dateObject in tempDateArray)
+        {
+            CurrencyData* fakeCurrency = [self currencyDataByIndex:currencyCounter withEUR:28 withUSD:18 withDate:dateObject];
+            [bankObject addCurrencyObject:fakeCurrency];
+            currencyCounter++;
+            
+        }
+        
+        for (int j = 0; j < self.branchesCount; j++)
+        {
+            BranchData* fakeBranch = [self branchDataByIndex:j];
+            [bankObject addBranchObject:fakeBranch];
+        }
+        
+    }
+    
+    if (![self.context save:&error]) {
+        NSLog(@"%@", [error localizedDescription]);
+    }
+}
 
 
 

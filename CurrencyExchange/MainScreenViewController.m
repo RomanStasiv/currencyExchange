@@ -22,7 +22,7 @@
 {
     [super viewDidLoad];
     JSONParseCoreDataSave* workObject = [[JSONParseCoreDataSave alloc] init];
-    //TestCoreData* testObject = [[TestCoreData alloc] init];
+    TestCoreData* testObject = [[TestCoreData alloc] init];
     Fetcher*tmp = [[Fetcher alloc]init];
     
      NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
