@@ -178,6 +178,7 @@
         
         [downloadTask resume];
     }
+    NSLog(@"Called by NSTimer!!!");
 }
 
 #pragma mark - Check the Result
