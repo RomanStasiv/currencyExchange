@@ -109,7 +109,7 @@ static NSString* EURask[] = {
 #pragma mark - gestures
 - (void)handlePan:(UIPanGestureRecognizer *)pan
 {
-#warning pan-pan-pan
+#warning paran-pan-pan
     CGPoint location = [pan locationInView:self.view];
     UIView *viewToMove = [self.view hitTest:location withEvent:nil];
     

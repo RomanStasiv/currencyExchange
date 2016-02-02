@@ -337,7 +337,7 @@
     double heightDifference = (self.insetFrame.size.height - self.topAndRightMargin) - ((size0000.height + margin) * (shrinkedValueArray.count));
     if (heightDifference > 0)
     {
-        double differencePerMargin = heightDifference / (shrinkedValueArray.count - 1);
+        double differencePerMargin = heightDifference / (shrinkedValueArray.count);
         margin = margin + differencePerMargin;
     }
     
@@ -376,26 +376,33 @@
                      @{NSFontAttributeName:
                            [UIFont systemFontOfSize:12.0f]}];
     double margin = 3;
-    NSInteger maximumPosibleXDivisionsCount = self.insetFrame.size.width / (size00.width + margin);
+    double heightMargin = margin;
+    NSInteger maximumPosibleXDivisionsCount = (self.insetFrame.size.width - self.topAndRightMargin) / (size00.width + margin);
     
 
     NSArray *shrinkedDayArray = [self getShrinkedArrayFromArray:days ToCount:maximumPosibleXDivisionsCount];
     NSArray *shrinkedMonthArray = [self getShrinkedArrayFromArray:month ToCount:maximumPosibleXDivisionsCount];
     
-    double widthDifference = self.insetFrame.size.width - ((size00.width + margin) * (shrinkedDayArray.count));
+    double widthDifference = (self.insetFrame.size.width - self.topAndRightMargin) - ((size00.width + margin) * (shrinkedDayArray.count));
     if (widthDifference > 0)
     {
-        double differencePerMargin = widthDifference / (shrinkedDayArray.count - 1);
+        double differencePerMargin;
+        if (shrinkedDayArray.count == 1)
+            differencePerMargin = widthDifference;
+        else
+            differencePerMargin = widthDifference / (shrinkedDayArray.count);
+        
         margin = margin + differencePerMargin;
     }
-    
+
     for (int i = 0; i < shrinkedDayArray.count; i++)
     {
         
         CGRect monthFrame = CGRectMake(self.inset - size00.width/2 + ((size00.width + margin) * i),
-                                       self.insetFrame.size.height + 15 + size00.height + margin,
+                                       self.insetFrame.size.height + 15 + size00.height + heightMargin,
                                        size00.height,
                                        size00.width);
+        NSLog(@"monthFrame:%@",NSStringFromCGRect(monthFrame));
         
         UILabel *monthLabel = [[UILabel alloc] initWithFrame:monthFrame];
         monthLabel.backgroundColor = [UIColor lightGrayColor];
@@ -406,6 +413,7 @@
                                      self.insetFrame.size.height + 15,
                                      size00.height,
                                      size00.width);
+        NSLog(@"dayFrame:%@",NSStringFromCGRect(dayFrame));
         
         UILabel *dayLabel = [[UILabel alloc] initWithFrame:dayFrame];
         dayLabel.backgroundColor = [UIColor lightGrayColor];
