@@ -27,8 +27,8 @@
     
      NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
     
-    [workObject deleteAllObjectsFromCoreData];
-    //[workObject JSONParse];
+    //[workObject deleteAllObjectsFromCoreData];
+    [workObject JSONParse];
     //[workObject loadCoreDataObjects];
     //[testObject insertFakeDataToCoreData];
     //[tmp dataForTableView];
