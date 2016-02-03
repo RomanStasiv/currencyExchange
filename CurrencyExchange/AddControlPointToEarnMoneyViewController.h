@@ -14,4 +14,6 @@
 @property (nonatomic, strong) EarnMoneyViewController *owner;
 @property (nonatomic, strong) NSArray *avarageCurrencyObjectsArray;
 
+- (void)prepareAllData;
+
 @end

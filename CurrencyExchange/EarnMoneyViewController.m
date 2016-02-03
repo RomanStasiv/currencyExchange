@@ -38,6 +38,12 @@
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
 @property (weak, nonatomic) UIView *viewToMove;
 
+//resize logic
+@property (weak, nonatomic) AddControlPointToEarnMoneyViewController * addCPVC;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightConstraintAddCPContainer;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthConstraintAddCPContainer;
+
+
 @end
 /*
 static NSString* USDbid[] = {
@@ -64,6 +70,8 @@ static NSString* EURask[] = {
 
 @implementation EarnMoneyViewController
 
+static BOOL isAddCPVCOpened = NO;
+
 - (void)viewDidLoad
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -75,6 +83,12 @@ static NSString* EURask[] = {
                                                  name:UIApplicationWillTerminateNotification
                                                object:nil];
     [super viewDidLoad];
+    [self selfUpdate];
+}
+
+- (void)selfUpdate
+{
+    [self updateAverageCurrencyObjectsArray];
     [self prepareGraphView];
     self.USDBidColor = [UIColor brownColor];
     self.USDAskColor = [UIColor blueColor];
@@ -89,16 +103,34 @@ static NSString* EURask[] = {
     self.graphView.USDAskStrokeColor = self.USDAskColor;
     self.graphView.EURBidStrokeColor = self.EURBidColor;
     self.graphView.EURAskStrokeColor = self.EURAskColor;
+    
+    [self performAddNavButtonsLogic];
+    
+    self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                              action:@selector(handlePan:)];
+    [self.view addGestureRecognizer:self.panGesture];
+}
 
+- (void)performAddNavButtonsLogic
+{
     self.readyToGoControlPoints = [self getControlPointsWithGoodEatningPosibility];
     if (self.readyToGoControlPoints.count)
         [self addBarButtonItemsIncludeEarnGoals:YES];
     else
         [self addBarButtonItemsIncludeEarnGoals:NO];
-    
-    self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self
-                                                              action:@selector(handlePan:)];
-    [self.view addGestureRecognizer:self.panGesture];
+}
+
+- (void)prepareGraphView
+{
+    self.graphView.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
+    self.graphView.contentMode = UIViewContentModeRedraw;
+    [self restoreAllControlPointsFromCD];
+}
+
+- (void)updateAverageCurrencyObjectsArray
+{
+    Fetcher *fetch = [[Fetcher alloc]init];
+    self.avarageCurrencyObjectsArray = [[fetch averageCurrencyRate] mutableCopy];
 }
 
 - (void)redrawGraphView
@@ -134,14 +166,7 @@ static NSString* EURask[] = {
     }
 }
 
-- (void)prepareGraphView
-{
-    Fetcher *fetch = [[Fetcher alloc]init];
-    self.avarageCurrencyObjectsArray = [[fetch averageCurrencyRate] mutableCopy];
-    self.graphView.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
-    self.graphView.contentMode = UIViewContentModeRedraw;
-    [self restoreAllControlPointsFromCD];
-}
+
 
 /*- (NSArray *)avarageCurrencyObjectsArray
 {
@@ -185,42 +210,59 @@ static NSString* EURask[] = {
 #pragma mark - create control point
 - (void)addControlPointWithAmountOfMoney:(CGFloat)money Currency:(NSString *)currency ForDate:(NSDate *)date
 {
-    ControllPoint *point = [[ControllPoint alloc] init];
-    point.currency = currency;
-    point.value = [NSNumber numberWithFloat:money];
-    point.date = date;
-    AverageCurrency *thisCurrency = [[AverageCurrency alloc] init];
-    for (AverageCurrency *currency in self.avarageCurrencyObjectsArray)
-    {
-        if ([currency.date compare:date] == NSOrderedSame)
+    [self hideAddControlPointViewControllerWithComletionHandler:^() {
+        ControllPoint *point = [[ControllPoint alloc] init];
+        point.currency = currency;
+        point.value = [NSNumber numberWithFloat:money];
+        point.date = date;
+        AverageCurrency *thisCurrency = [[AverageCurrency alloc] init];
+        for (AverageCurrency *currency in self.avarageCurrencyObjectsArray)
         {
-            thisCurrency = currency;
-            break;
+            if ([currency.date compare:date] == NSOrderedSame)
+            {
+                thisCurrency = currency;
+                break;
+            }
         }
-    }
-    if ([currency isEqualToString:@"dolars"])
-        point.exChangeCource = thisCurrency.USDask;
-    else if ([currency isEqualToString:@"euro"])
-        point.exChangeCource = thisCurrency.EURask;
-    
-    //adding point to array in EarnMoneyVC
-    if (!self.arrayOfControlPoints)
-        self.arrayOfControlPoints = [NSMutableArray array];
-    [point calculateEarningPosibilityWithaverageCurrencyObjectsArray:self.avarageCurrencyObjectsArray];
-    [self.arrayOfControlPoints addObject:point];
-    for (ControllPoint *point in self.arrayOfControlPoints)
-    {
-        if (point.earningPosibility > 0)
-            [self addBarButtonItemsIncludeEarnGoals:YES];
-    }
-    
-    if (!self.graphView.controlPointsArray)
-        self.graphView.controlPointsArray = [NSArray array];
-    
-    self.graphView.controlPointsArray = self.arrayOfControlPoints;
-    [self saveControlPointToCD:point];
-    
-    [self.graphView drawAllControlpoints];
+        if ([currency isEqualToString:@"dolars"])
+            point.exChangeCource = thisCurrency.USDask;
+        else if ([currency isEqualToString:@"euro"])
+            point.exChangeCource = thisCurrency.EURask;
+        
+        //adding point to array in EarnMoneyVC
+        if (!self.arrayOfControlPoints)
+            self.arrayOfControlPoints = [NSMutableArray array];
+        
+        BOOL shouldAdd = YES;
+        for (ControllPoint *existingPoint in self.arrayOfControlPoints)
+        {
+            if ([existingPoint isEqualToPoint:point])
+                shouldAdd = NO;
+                
+        }
+        if (shouldAdd)
+        {
+            [point calculateEarningPosibilityWithaverageCurrencyObjectsArray:self.avarageCurrencyObjectsArray];
+            [self.arrayOfControlPoints addObject:point];
+            for (ControllPoint *point in self.arrayOfControlPoints)
+            {
+                if (point.earningPosibility > 0)
+                {
+                    [self addBarButtonItemsIncludeEarnGoals:YES];
+                    break;
+                }
+                
+            }
+            
+            if (!self.graphView.controlPointsArray)
+                self.graphView.controlPointsArray = [NSArray array];
+            
+            self.graphView.controlPointsArray = self.arrayOfControlPoints;
+            [self saveControlPointToCD:point];
+            
+            [self.graphView drawAllControlpoints];
+        }
+    }];
 }
 
 #pragma mark - persistance
@@ -365,11 +407,50 @@ static NSString* EURask[] = {
 
 - (void)showAddControlPointViewController
 {
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    AddControlPointToEarnMoneyViewController * addCPVC = (AddControlPointToEarnMoneyViewController *)[sb instantiateViewControllerWithIdentifier:@"addCPVC"];
-    addCPVC.owner = self;
-    addCPVC.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
-    [self.navigationController pushViewController:addCPVC animated:YES];
+    if(!isAddCPVCOpened)
+    {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        {
+            [self animateChangingOfConstraint:self.widthConstraintAddCPContainer
+                                      ToValue:self.view.frame.size.width * (3/2)];
+        }
+        else if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            [self animateChangingOfConstraint:self.widthConstraintAddCPContainer
+                                      ToValue:self.view.frame.size.width / 4];
+        }
+        [self animateChangingOfConstraint:self.rightConstraintAddCPContainer
+                                  ToValue:0];
+        self.addCPVC.owner = self;
+        self.addCPVC.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
+        [self.addCPVC prepareAllData];
+        isAddCPVCOpened = YES;
+    }
+    else
+    {
+        [self hideAddControlPointViewControllerWithComletionHandler:^{
+            isAddCPVCOpened = NO;
+        }];
+    }
+}
+
+- (void)hideAddControlPointViewControllerWithComletionHandler:(void(^)())completion
+{
+    [self animateChangingOfConstraint:self.rightConstraintAddCPContainer
+                              ToValue:-self.widthConstraintAddCPContainer.constant];
+    isAddCPVCOpened = NO;
+    completion();
+}
+
+- (void)animateChangingOfConstraint:(NSLayoutConstraint *)constraint ToValue:(CGFloat)value
+{
+    constraint.constant = value;
+    [self.view setNeedsUpdateConstraints];
+    
+    [UIView animateWithDuration:0.8f animations:^
+    {
+        [self.view layoutIfNeeded];
+    }];
 }
 
 #pragma mark - shareGraphViewDelegate methods
@@ -451,6 +532,14 @@ static NSString* EURask[] = {
 - (UIImage *)getImageToShareForControlPoint:(CDControlPoint *)point
 {
     return [self getGraphDescriptionImageForControlPoint:point];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"addCPVC_segue"])
+    {
+        self.addCPVC = (AddControlPointToEarnMoneyViewController *)[segue destinationViewController];
+    }
 }
 
 @end

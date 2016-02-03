@@ -12,5 +12,6 @@
 @interface EarnMoneyViewController : UIViewController <GraphViewDelegate>
 
 - (void)addControlPointWithAmountOfMoney:(CGFloat)money Currency:(NSString *)currency ForDate:(NSDate *)date;
+- (void)hideAddControlPointViewControllerWithComletionHandler:(void(^)())completion;
 
 @end

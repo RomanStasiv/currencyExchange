@@ -371,13 +371,25 @@
                                     <constraint firstItem="KVo-TX-LL6" firstAttribute="top" secondItem="WMB-FN-6aU" secondAttribute="top" constant="8" id="wPp-Hd-8bx"/>
                                 </constraints>
                             </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYf-hP-TMG">
+                                <rect key="frame" x="600" y="64" width="100" height="536"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="o7d-Bi-quF"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="Djq-LH-aUk" kind="embed" identifier="addCPVC_segue" id="yRA-1t-3nE"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="WMB-FN-6aU" firstAttribute="top" secondItem="XHj-O7-QAg" secondAttribute="bottom" id="DrR-Nv-vFd"/>
+                            <constraint firstAttribute="trailing" secondItem="HYf-hP-TMG" secondAttribute="trailing" constant="-100" id="MFa-kO-gso"/>
                             <constraint firstItem="WMB-FN-6aU" firstAttribute="leading" secondItem="AzN-Cy-n4F" secondAttribute="leading" id="c8I-jx-GPx"/>
+                            <constraint firstItem="nxr-9f-xkf" firstAttribute="top" secondItem="HYf-hP-TMG" secondAttribute="bottom" id="euB-5Y-7mB"/>
                             <constraint firstItem="nxr-9f-xkf" firstAttribute="top" secondItem="WMB-FN-6aU" secondAttribute="bottom" id="gU3-bI-3iO"/>
-                            <constraint firstAttribute="trailing" secondItem="WMB-FN-6aU" secondAttribute="trailing" id="hhE-Fx-Ua7"/>
+                            <constraint firstItem="HYf-hP-TMG" firstAttribute="leading" secondItem="WMB-FN-6aU" secondAttribute="trailing" id="rLp-Vj-zPT"/>
+                            <constraint firstItem="HYf-hP-TMG" firstAttribute="top" secondItem="XHj-O7-QAg" secondAttribute="bottom" id="veA-N8-nq6"/>
                         </constraints>
                     </view>
                     <connections>
@@ -387,12 +399,14 @@
                         <outlet property="USDBidColorIndicator" destination="yDE-Fb-o0T" id="fuT-Dr-XqV"/>
                         <outlet property="graphView" destination="WMB-FN-6aU" id="rzJ-TO-7S3"/>
                         <outlet property="panGesture" destination="3uR-t5-9Xc" id="e7b-Im-wvk"/>
+                        <outlet property="rightConstraintAddCPContainer" destination="MFa-kO-gso" id="nX9-DC-PhW"/>
+                        <outlet property="widthConstraintAddCPContainer" destination="o7d-Bi-quF" id="DwH-9A-1zF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AUY-9y-cXU" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="3uR-t5-9Xc"/>
             </objects>
-            <point key="canvasLocation" x="1088" y="1238"/>
+            <point key="canvasLocation" x="1114" y="1246"/>
         </scene>
         <!--Banks Table View Controller-->
         <scene sceneID="PFQ-71-N8b">
@@ -431,37 +445,37 @@
                         <viewControllerLayoutGuide type="bottom" id="beM-7M-CPK"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Tko-tL-doU">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r9k-0I-0n3">
-                                <rect key="frame" x="0.0" y="386" width="600" height="87"/>
+                                <rect key="frame" x="0.0" y="386" width="100" height="87"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rgy-bh-HLh">
-                                <rect key="frame" x="0.0" y="503" width="600" height="87"/>
+                                <rect key="frame" x="0.0" y="503" width="100" height="87"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
                                     <action selector="saveButtonBeenPressed:" destination="Djq-LH-aUk" eventType="touchUpInside" id="BsF-to-TeC"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3M-fj-5r9">
-                                <rect key="frame" x="0.0" y="74" width="600" height="87"/>
+                                <rect key="frame" x="0.0" y="74" width="100" height="87"/>
                                 <string key="text">Here it is menu, gives tou opportunity to follow your savings. To do so, you need to schose currency, amount of money and press save button</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fwm-qE-6xL">
-                                <rect key="frame" x="0.0" y="288" width="600" height="88"/>
+                                <rect key="frame" x="0.0" y="288" width="100" height="88"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Djq-LH-aUk" id="d79-cV-hta"/>
                                     <outlet property="delegate" destination="Djq-LH-aUk" id="Y1G-jg-HP4"/>
                                 </connections>
                             </pickerView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WdR-c5-ucj">
-                                <rect key="frame" x="0.0" y="191" width="600" height="88"/>
+                                <rect key="frame" x="0.0" y="191" width="100" height="88"/>
                                 <segments>
                                     <segment title="" image="dollar_sign"/>
                                     <segment title="" image="euro_sign"/>
@@ -503,7 +517,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mvo-OI-5Wd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1135" y="2077"/>
+            <point key="canvasLocation" x="1565" y="1214"/>
         </scene>
         <!--Earning Goals Table View Controller-->
         <scene sceneID="r6R-B8-hDT">
@@ -718,7 +732,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KxE-yT-sSl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1758" y="2077"/>
+            <point key="canvasLocation" x="1886" y="2045"/>
         </scene>
         <!--Web Sharing View Controller-->
         <scene sceneID="3iU-6V-OQd">

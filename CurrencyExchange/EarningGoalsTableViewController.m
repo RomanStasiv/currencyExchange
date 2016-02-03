@@ -18,15 +18,35 @@
 
 @implementation EarningGoalsTableViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    UIBarButtonItem* editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
+                                                                                target:self
+                                                                                action:@selector(actionEdit:)];
+    self.navigationItem.rightBarButtonItem = editButton;
 }
+
+- (void) actionEdit:(UIBarButtonItem*) sender
+{
+    BOOL isEditing = self.tableView.editing;
+    
+    [self.tableView setEditing:!isEditing animated:YES];
+    
+    UIBarButtonSystemItem item = UIBarButtonSystemItemEdit;
+    
+    if (self.tableView.editing)
+    {
+        item = UIBarButtonSystemItemDone;
+    }
+    
+    UIBarButtonItem* editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:item
+                                                                                target:self
+                                                                                action:@selector(actionEdit:)];
+    [self.navigationItem setRightBarButtonItem:editButton animated:YES];
+}
+
 
 - (ControlPointCDManager *)manager
 {
@@ -73,62 +93,31 @@
     cell.investingAmount.text = [NSString stringWithFormat:@"%.02f", [CDobject.value floatValue]];
     cell.earningAmount.text = [NSString stringWithFormat:@"%.03f", [CDobject.earningPosibility floatValue]];
     
-    cell.removeControlPoint.tag = indexPath.row;
+   /* cell.removeControlPoint.tag = indexPath.row;
     [cell.removeControlPoint addTarget:self
                                action:@selector(removeControlPoint:)
-                     forControlEvents:UIControlEventTouchUpInside];
+                     forControlEvents:UIControlEventTouchUpInside];*/
     cell.shareButton.tag = indexPath.row;
     [cell.shareButton addTarget:self
                          action:@selector(showAnotherViewController:)
                forControlEvents:UIControlEventTouchUpInside];
 }
 
-/*- (BOOL)isControlPointValidToDisplay:(CDControlPoint *)CDPoint
-{
-    ControllPoint *object = [[ControllPoint alloc] init];
-    object.date = CDPoint.date;
-    object.value = CDPoint.value;
-    object.currency = CDPoint.currency;
-    object.exChangeCource = CDPoint.exChangeCource;
-    [object calculateEarningPosibilityWithaverageCurrencyObjectsArray:self.averageCurrencyObjectsArray];
-    
-    return ([object.earningPosibility floatValue] > 0);
-}*/
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        CDControlPoint *CDobject = [self.fetchResultController objectAtIndexPath:indexPath];
+        
+        ControlPointCDManager *manager = [ControlPointCDManager sharedManager];
+        [manager deleteFromCDControlPoint:CDobject];
+        
+        [self.graphViewControllerDelegate restoreAllControlPointsFromCD];
+        [self.graphViewControllerDelegate performAddNavButtonsLogic];
+        [self.graphViewControllerDelegate redrawGraphView];
+    }
+    
 }
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - NSFetchedResultsControllerDelegate
 - (NSFetchedResultsController *)fetchResultController
@@ -226,6 +215,13 @@
     [self.tableView endUpdates];
 }
 
+#pragma mark - UITableViewDelegate
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+
 #pragma mark - CellButtonIvents
 - (void)showAnotherViewController:(UIButton *)sender
 {
@@ -240,30 +236,5 @@
     [self.navigationController pushViewController:shareGoalsVC animated:YES];
 }
 
-- (void)removeControlPoint:(UIButton *)sender
-{
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
-    CDControlPoint *CDobject = [self.fetchResultController objectAtIndexPath:indexPath];
-    
-    ControlPointCDManager *manager = [ControlPointCDManager sharedManager];
-    [manager deleteFromCDControlPoint:CDobject];
-    
-    [self.graphViewControllerDelegate redrawGraphView];
-    /*UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ShareGoalsViewController * shareGoalsVC = (ShareGoalsViewController *)[sb instantiateViewControllerWithIdentifier:@"shareGoalsVC"];
-    UIImage *image = [self.imageGetterDelegate getImageToShareForControlPoint:CDobject];
-    shareGoalsVC.imageToShare = image;
-    [self.navigationController popViewControllerAnimated:YES];
-    [self.navigationController pushViewController:shareGoalsVC animated:YES];*/
-}
-/*
-
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -19,7 +19,7 @@
 
 //should be called, before using earningPosibility property of object
 - (void)calculateEarningPosibilityWithaverageCurrencyObjectsArray:(NSArray *)array;
-
 @property (nonatomic, strong) NSNumber *earningPosibility;
 
+- (BOOL)isEqualToPoint:(ControllPoint *)point;
 @end

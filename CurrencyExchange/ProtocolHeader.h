@@ -15,7 +15,8 @@
 
 - (UIImage *)getImageToShareForControlPoint:(CDControlPoint *)point;
 - (void)redrawGraphView;
-
+- (void)restoreAllControlPointsFromCD;
+- (void)performAddNavButtonsLogic;
 @end
 
 #endif /* ProtocolHeader_h */

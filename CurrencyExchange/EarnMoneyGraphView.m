@@ -61,9 +61,7 @@
 #pragma mark - Control point methods
 - (void)drawAllControlpoints
 {
-    //[self configureVariable];
-#warning NO?
-    //self.shouldDrawControlPoints = NO;
+    self.drawingQueue = nil;
     for (ControllPoint *point in self.controlPointsArray)
     {
         if ([self isItTimeForControlPoint:point])

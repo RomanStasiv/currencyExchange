@@ -19,4 +19,19 @@
     self.earningPosibility = [checker canBeEarnedfromControlPoint:self];
 }
 
+- (BOOL)isEqualToPoint:(ControllPoint *)point
+{
+    BOOL success = NO;
+    
+    if ([self.date compare:point.date] == NSOrderedSame &&
+        [self.currency isEqualToString:point.currency] &&
+        [self.value floatValue] == [point.value floatValue] &&
+        [self.exChangeCource floatValue] == [point.exChangeCource floatValue])
+    {
+        success = YES;
+    }
+    
+    return success;
+}
+
 @end

@@ -30,6 +30,13 @@
     self.currency = @"dolars";
 }
 
+- (void)prepareAllData
+{
+    self.stringDatesArray = [self ArrayOfStringDatesFromAvarageCurrencyObjectsArray];
+    self.currency = @"dolars";
+    [self.dateExchangePicker reloadAllComponents];
+}
+
 - (IBAction)currencyDidChanged:(UISegmentedControl *)sender
 {
     switch (sender.selectedSegmentIndex)
@@ -64,7 +71,6 @@
         {
             self.amountOfMoney = [self.moneyTextField.text floatValue];
             [self.owner addControlPointWithAmountOfMoney:self.amountOfMoney Currency:self.currency ForDate:self.date];
-            [self.navigationController popViewControllerAnimated:YES];
         }
         else if (![self TextIsNumeric:self.moneyTextField.text])
         {
