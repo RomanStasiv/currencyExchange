@@ -101,6 +101,12 @@ static NSString* EURask[] = {
     [self.view addGestureRecognizer:self.panGesture];
 }
 
+- (void)redrawGraphView
+{
+    [self prepareGraphView];
+    [self.graphView setNeedsDisplay];
+}
+
 #pragma mark - gestures
 - (void)handlePan:(UIPanGestureRecognizer *)pan
 {
@@ -344,7 +350,7 @@ static NSString* EURask[] = {
     EarningGoalsTableViewController * egTVC = (EarningGoalsTableViewController *)[sb instantiateViewControllerWithIdentifier:@"EarningGoalsTVC"];
     egTVC.averageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
     
-    egTVC.imageGetterDelegate = self;//shareGraphViewDelegate
+    egTVC.graphViewControllerDelegate = self;//shareGraphViewDelegate
     
     [self.navigationController pushViewController:egTVC animated:YES];
 }

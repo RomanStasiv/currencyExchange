@@ -27,7 +27,7 @@
     
      NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
     
-    [workObject deleteAllObjectsFromCoreData];
+    //[workObject deleteAllObjectsFromCoreData];
     
     //[workObject JSONParse];
     

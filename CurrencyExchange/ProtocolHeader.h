@@ -11,10 +11,10 @@
 
 @class CDControlPoint;
 
-@protocol shareGraphViewDelegate <NSObject>
+@protocol GraphViewDelegate <NSObject>
 
-- (UIImage *)getGraphDescriptionImageForControlPoint:(CDControlPoint *)point;
 - (UIImage *)getImageToShareForControlPoint:(CDControlPoint *)point;
+- (void)redrawGraphView;
 
 @end
 

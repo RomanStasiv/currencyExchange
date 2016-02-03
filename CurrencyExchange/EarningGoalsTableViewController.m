@@ -71,14 +71,14 @@
     cell.investingDate.text = [dateFormater stringFromDate:CDobject.date];
     cell.investingCurrency.text = CDobject.currency;
     cell.investingAmount.text = [NSString stringWithFormat:@"%.02f", [CDobject.value floatValue]];
-    cell.EarningAmount.text = [NSString stringWithFormat:@"%.03f", [CDobject.earningPosibility floatValue]];
+    cell.earningAmount.text = [NSString stringWithFormat:@"%.03f", [CDobject.earningPosibility floatValue]];
     
-    /*cell.showOnGraphButton.tag = 1;
-    [cell.showOnGraphButton addTarget:self
-                               action:@selector(showAnotherViewController:)
-                     forControlEvents:UIControlEventTouchUpInside];*/
-    cell.ShareButton.tag = indexPath.row;
-    [cell.ShareButton addTarget:self
+    cell.removeControlPoint.tag = indexPath.row;
+    [cell.removeControlPoint addTarget:self
+                               action:@selector(removeControlPoint:)
+                     forControlEvents:UIControlEventTouchUpInside];
+    cell.shareButton.tag = indexPath.row;
+    [cell.shareButton addTarget:self
                          action:@selector(showAnotherViewController:)
                forControlEvents:UIControlEventTouchUpInside];
 }
@@ -226,7 +226,7 @@
     [self.tableView endUpdates];
 }
 
-#pragma mark - Navigation
+#pragma mark - CellButtonIvents
 - (void)showAnotherViewController:(UIButton *)sender
 {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
@@ -234,32 +234,28 @@
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ShareGoalsViewController * shareGoalsVC = (ShareGoalsViewController *)[sb instantiateViewControllerWithIdentifier:@"shareGoalsVC"];
-    UIImage *image = [self.imageGetterDelegate getImageToShareForControlPoint:CDobject];
+    UIImage *image = [self.graphViewControllerDelegate getImageToShareForControlPoint:CDobject];
     shareGoalsVC.imageToShare = image;
     [self.navigationController popViewControllerAnimated:YES];
     [self.navigationController pushViewController:shareGoalsVC animated:YES];
-    
-    /*switch (sender.tag)
-    {
-        case 1:
-            //do delegate job
-            break;
-            
-        case 2:
-        {
-            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            ShareGoalsViewController * shareGoalsVC = (ShareGoalsViewController *)[sb instantiateViewControllerWithIdentifier:@"shareGoalsVC"];
-            shareGoalsVC.imageView.image = self.imageGetterDelegate getImageToShareForControlPoint:<#(CDControlPoint *)#>
-            [self.navigationController popViewControllerAnimated:YES];
-            [self.navigationController pushViewController:shareGoalsVC animated:YES];
-        }
-            break;
-            
-        default:
-            break;
-    }*/
 }
 
+- (void)removeControlPoint:(UIButton *)sender
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
+    CDControlPoint *CDobject = [self.fetchResultController objectAtIndexPath:indexPath];
+    
+    ControlPointCDManager *manager = [ControlPointCDManager sharedManager];
+    [manager deleteFromCDControlPoint:CDobject];
+    
+    [self.graphViewControllerDelegate redrawGraphView];
+    /*UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ShareGoalsViewController * shareGoalsVC = (ShareGoalsViewController *)[sb instantiateViewControllerWithIdentifier:@"shareGoalsVC"];
+    UIImage *image = [self.imageGetterDelegate getImageToShareForControlPoint:CDobject];
+    shareGoalsVC.imageToShare = image;
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController pushViewController:shareGoalsVC animated:YES];*/
+}
 /*
 
 

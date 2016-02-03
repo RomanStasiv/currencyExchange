@@ -8,6 +8,7 @@
 
 #import "ControllPoint.h"
 #import "ControlPointsEarnChecker.h"
+#import "CDControlPoint.h"
 
 @implementation ControllPoint
 

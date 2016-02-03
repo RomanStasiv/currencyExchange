@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class CDControlPoint;
+
 @interface ControllPoint : NSObject
 
 @property (nonatomic, strong) NSDate *date;

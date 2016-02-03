@@ -14,10 +14,12 @@
 
 @interface ControlPointCDManager : NSObject
 
++ (instancetype) sharedManager;
+
 @property (nonatomic, strong) NSManagedObjectContext *context;
 
 - (void)saveToCDControlPoint:(ControllPoint *)point;
-- (void)deleteFromCDControlPoint:(ControllPoint *)point;
+- (void)deleteFromCDControlPoint:(CDControlPoint *)point;
 - (NSArray *)getArrayOfControlPointsFromCD;
 
 @end
