@@ -11,16 +11,16 @@
 #import "TestCoreData.h"
 #import "Fetcher.h"
 
-static const char *MainScreenViewControllerTimerQueueContext = "MainScreenViewControllerTimerQueueContext";
+//static const char *MainScreenViewControllerTimerQueueContext = "MainScreenViewControllerTimerQueueContext";
 
 @interface MainScreenViewController ()
 @property (weak, nonatomic) IBOutlet UIView *graph;
 
-@property (strong, nonatomic) MSWeakTimer *timer;
-@property (strong, nonatomic) MSWeakTimer *backgroundTimer;
+//@property (strong, nonatomic) MSWeakTimer *timer;
+//@property (strong, nonatomic) MSWeakTimer *backgroundTimer;
 @property (strong, nonatomic) JSONParseCoreDataSave * workObject;
-@property (strong, nonatomic) dispatch_queue_t privateQueue;
-
+//@property (strong, nonatomic) dispatch_queue_t privateQueue;
+//
 @end
 
 @implementation MainScreenViewController
@@ -37,43 +37,43 @@ static const char *MainScreenViewControllerTimerQueueContext = "MainScreenViewCo
     //[self.workObject deleteAllObjectsFromCoreData];
     //[self.workObject JSONParse];
     //[workObject loadCoreDataObjects];
-    //[tmp allBanksQuantity];
+    [tmp allBanksQuantity];
     //[testObject insertFakeDataToCoreData];
     //[tmp dataForTableView];
     self.graph.backgroundColor = [UIColor blackColor];
-    /*self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:30.0
-                                                    target: workObject
+   NSTimer* Timer = [NSTimer scheduledTimerWithTimeInterval:30.0
+                                                    target: self.workObject
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
-                                                   repeats: YES];*/
+                                                   repeats: YES];
     
-    self.timer = [MSWeakTimer scheduledTimerWithTimeInterval:10
-                                                      target:self.workObject
-                                                    selector:@selector(JSONParse)
-                                                    userInfo:nil
-                                                     repeats:YES
-                                               dispatchQueue:dispatch_get_main_queue()];
+//self.timer = [MSWeakTimer scheduledTimerWithTimeInterval: 20
+//                                                      target:self.workObject
+//                                                    selector:@selector(JSONParse)
+//                                                    userInfo:nil
+//                                                     repeats:YES
+//                                               dispatchQueue:dispatch_get_main_queue()];
 
 }
 
-- (id)init
-{
-    if ((self = [super init]))
-    {
-        self.privateQueue = dispatch_queue_create("com.mindsnacks.private_queue", DISPATCH_QUEUE_CONCURRENT);
-        
-        self.backgroundTimer = [MSWeakTimer scheduledTimerWithTimeInterval:0.2
-                                                                    target:self.workObject
-                                                                  selector:@selector(JSONParse)
-                                                                  userInfo:nil
-                                                                   repeats:YES
-                                                             dispatchQueue:self.privateQueue];
-        
-        dispatch_queue_set_specific(self.privateQueue, (__bridge const void *)(self), (void *)MainScreenViewControllerTimerQueueContext, NULL);
-    }
-    
-    return self;
-}
+//- (id)init
+//{
+//    if ((self = [super init]))
+//    {
+//        self.privateQueue = dispatch_queue_create("com.mindsnacks.private_queue", DISPATCH_QUEUE_CONCURRENT);
+//        
+//        self.backgroundTimer = [MSWeakTimer scheduledTimerWithTimeInterval:0.2
+//                                                                    target:self.workObject
+//                                                                  selector:@selector(JSONParse)
+//                                                                  userInfo:nil
+//                                                                   repeats:YES
+//                                                             dispatchQueue:self.privateQueue];
+//        
+//        dispatch_queue_set_specific(self.privateQueue, (__bridge const void *)(self), (void *)MainScreenViewControllerTimerQueueContext, NULL);
+//    }
+//    
+//    return self;
+//}
 
 - (void)didReceiveMemoryWarning
 {
@@ -83,20 +83,20 @@ static const char *MainScreenViewControllerTimerQueueContext = "MainScreenViewCo
 
 #pragma mark - MSWeakTimerDelegate
 
-- (void)mainThreadTimerDidFire:(MSWeakTimer *)timer
-{
-    NSAssert([NSThread isMainThread], @"This should be called from the main thread");
-    
-   }
-
-#pragma mark -
-
-- (void)backgroundTimerDidFire
-{
-    NSAssert(![NSThread isMainThread], @"This shouldn't be called from the main thread");
-    
-    const BOOL calledInPrivateQueue = dispatch_queue_get_specific(self.privateQueue, (__bridge const void *)(self)) == MainScreenViewControllerTimerQueueContext;
-    NSAssert(calledInPrivateQueue, @"This should be called on the provided queue");
-}
+//- (void)mainThreadTimerDidFire:(MSWeakTimer *)timer
+//{
+//    NSAssert([NSThread isMainThread], @"This should be called from the main thread");
+//    
+//   }
+//
+//#pragma mark -
+//
+//- (void)backgroundTimerDidFire
+//{
+//    NSAssert(![NSThread isMainThread], @"This shouldn't be called from the main thread");
+//    
+//    const BOOL calledInPrivateQueue = dispatch_queue_get_specific(self.privateQueue, (__bridge const void *)(self)) == MainScreenViewControllerTimerQueueContext;
+//    NSAssert(calledInPrivateQueue, @"This should be called on the provided queue");
+//}
 
 @end

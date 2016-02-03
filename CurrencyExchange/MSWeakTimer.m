@@ -73,6 +73,16 @@
                                             0,
                                             0,
                                             self.privateSerialQueue);
+        dispatch_queue_t backgroundQueue = dispatch_queue_create("com.mycompany.myqueue", 0);
+        
+//        dispatch_async(backgroundQueue, ^{
+//            int result = <some really long calculation that takes seconds to complete>;
+//            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self updateMyUIWithResult:result];
+//            });    
+//        });
+        
     }
 
     return self;
