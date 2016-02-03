@@ -22,7 +22,8 @@
 @property (strong, nonatomic) NSMutableArray* averageRates;
 @property (strong, nonatomic) NSManagedObjectContext* context;
 
-
+- (NSArray*) arrayOfBranchNames;
+- (NSInteger) allBanksQuantity;
 - (NSArray*) averageCurrencyRate;
 - (NSMutableArray*) dataForTableView;
 - (NSArray*) arrayOfBankNames;

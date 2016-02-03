@@ -12,4 +12,6 @@
 
 @interface ShareGoalsViewController : UIViewController <MFMailComposeViewControllerDelegate>
 
+@property (nonatomic, strong) UIImage *imageToShare;
+
 @end

@@ -6,10 +6,11 @@
 //  Copyright © 2016 Roman Stasiv. All rights reserved.
 //
 
+#define RADIANS(degrees) ((degrees * M_PI) / 180.0)
+
 #import "EarnMoneyViewController.h"
 #import "EarnMoneyGraphView.h"
 #import "AddControlPointToEarnMoneyViewController.h"
-#import "ControllPoint.h"
 #import "ControlPointCDManager.h"
 #import "ControlPointsEarnChecker.h"
 #import "Fetcher.h"
@@ -34,7 +35,8 @@
 @property (nonatomic,strong) NSArray *readyToGoControlPoints;
 @property (nonatomic, strong) NSMutableArray *avarageCurrencyObjectsArray;
 
-@property (weak, nonatomic) IBOutlet UILabel *notificationLabel;
+@property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
+@property (weak, nonatomic) UIView *viewToMove;
 
 @end
 /*
@@ -65,24 +67,16 @@ static NSString* EURask[] = {
 - (void)viewDidLoad
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(saveData)
+                                             selector:@selector(saveAllContolPointsToCD)
                                                  name:UIApplicationDidEnterBackgroundNotification
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(saveData)
+                                             selector:@selector(saveAllContolPointsToCD)
                                                  name:UIApplicationWillTerminateNotification
                                                object:nil];
-    /*[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(restoreData)
-                                                 name:UIApplicationDidFinishLaunchingNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(restoreData)
-                                                 name:UIApplicationWillEnterForegroundNotification
-                                               object:nil];*/
     [super viewDidLoad];
     [self prepareGraphView];
-       self.USDBidColor = [UIColor brownColor];
+    self.USDBidColor = [UIColor brownColor];
     self.USDAskColor = [UIColor blueColor];
     self.EURBidColor = [UIColor darkGrayColor];
     self.EURAskColor = [UIColor grayColor];
@@ -101,6 +95,37 @@ static NSString* EURask[] = {
         [self addBarButtonItemsIncludeEarnGoals:YES];
     else
         [self addBarButtonItemsIncludeEarnGoals:NO];
+    
+    self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                              action:@selector(handlePan:)];
+    [self.view addGestureRecognizer:self.panGesture];
+}
+
+#pragma mark - gestures
+- (void)handlePan:(UIPanGestureRecognizer *)pan
+{
+    CGPoint location = [pan locationInView:self.view];
+    UIView *view = [self.view hitTest:location withEvent:nil];
+    
+    if (pan.state == UIGestureRecognizerStateBegan)
+    {
+        if(view.tag == 113 || view.tag == 114)
+            self.viewToMove = view;
+        
+        else
+            return;
+    }
+    else if (pan.state == UIGestureRecognizerStateChanged)
+    {
+        CGPoint translation = [pan translationInView:self.view];
+        self.viewToMove.center = CGPointMake(self.viewToMove.center.x + translation.x,
+                                             self.viewToMove.center.y + translation.y);
+        [pan setTranslation:CGPointZero inView:self.view];
+    }
+    else
+    {
+        self.viewToMove = nil;
+    }
 }
 
 - (void)prepareGraphView
@@ -108,7 +133,8 @@ static NSString* EURask[] = {
     Fetcher *fetch = [[Fetcher alloc]init];
     self.avarageCurrencyObjectsArray = [[fetch averageCurrencyRate] mutableCopy];
     self.graphView.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
-    [self restoreData];
+    self.graphView.contentMode = UIViewContentModeRedraw;
+    [self restoreAllControlPointsFromCD];
 }
 
 /*- (NSArray *)avarageCurrencyObjectsArray
@@ -156,9 +182,6 @@ static NSString* EURask[] = {
     ControllPoint *point = [[ControllPoint alloc] init];
     point.currency = currency;
     point.value = [NSNumber numberWithFloat:money];
-   /* NSTimeInterval secondsPerDay = 24 * 60 * 60; // Интервал в 1 день равный 86 400 секунд
-    NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:secondsPerDay * 4];
-    point.date = [[NSDate alloc] init];*/
     point.date = date;
     AverageCurrency *thisCurrency = [[AverageCurrency alloc] init];
     for (AverageCurrency *currency in self.avarageCurrencyObjectsArray)
@@ -177,31 +200,46 @@ static NSString* EURask[] = {
     //adding point to array in EarnMoneyVC
     if (!self.arrayOfControlPoints)
         self.arrayOfControlPoints = [NSMutableArray array];
+    [point calculateEarningPosibilityWithaverageCurrencyObjectsArray:self.avarageCurrencyObjectsArray];
     [self.arrayOfControlPoints addObject:point];
+    for (ControllPoint *point in self.arrayOfControlPoints)
+    {
+        if (point.earningPosibility > 0)
+            [self addBarButtonItemsIncludeEarnGoals:YES];
+    }
     
     if (!self.graphView.controlPointsArray)
         self.graphView.controlPointsArray = [NSArray array];
     
-    /*NSMutableArray *mutableControlPointsArray = [self.graphView.controlPointsArray mutableCopy];
-    [mutableControlPointsArray addObject:point];*/
     self.graphView.controlPointsArray = self.arrayOfControlPoints;
+    [self saveControlPointToCD:point];
+    
     [self.graphView drawAllControlpoints];
-
-#warning not fully implement
 }
 
 #pragma mark - persistance
-- (void)saveData
+- (void)saveControlPointToCD:(ControllPoint *)point
 {
     ControlPointCDManager *pointManager = [[ControlPointCDManager alloc] init];
-    [self calculateEarningPosibilitiesOfControlPoints];
-    for (ControllPoint *point in self.arrayOfControlPoints)
+    [pointManager saveToCDControlPoint:point];
+}
+
+- (void)saveAllContolPointsToCD
+{
+    ControlPointCDManager *pointManager = [[ControlPointCDManager alloc] init];
+    NSArray *existingPoints = [NSArray array];
+    existingPoints = [pointManager getArrayOfControlPointsFromCD];
+    for (ControllPoint *existingPoint in existingPoints)
     {
-        [pointManager saveToCDControlPoint:point];
+        for (ControllPoint *point in self.arrayOfControlPoints)
+        {
+            if ([existingPoint.date compare: point.date] != NSOrderedSame)
+                [pointManager saveToCDControlPoint:point];
+        }
     }
 }
 
-- (void)restoreData
+- (void)restoreAllControlPointsFromCD
 {
     ControlPointCDManager *pointManager = [[ControlPointCDManager alloc] init];
     self.arrayOfControlPoints = [[pointManager getArrayOfControlPointsFromCD] mutableCopy];
@@ -299,11 +337,15 @@ static NSString* EURask[] = {
     }
 }
 
+#pragma mark - navigation
 - (void)showEarnGoalsViewController
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     EarningGoalsTableViewController * egTVC = (EarningGoalsTableViewController *)[sb instantiateViewControllerWithIdentifier:@"EarningGoalsTVC"];
     egTVC.averageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
+    
+    egTVC.imageGetterDelegate = self;//shareGraphViewDelegate
+    
     [self.navigationController pushViewController:egTVC animated:YES];
 }
 
@@ -311,6 +353,7 @@ static NSString* EURask[] = {
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ShareGoalsViewController * shareGoalsVC = (ShareGoalsViewController *)[sb instantiateViewControllerWithIdentifier:@"shareGoalsVC"];
+#warning Maybe not using that ?
     [self.navigationController pushViewController:shareGoalsVC animated:YES];
 }
 
@@ -323,15 +366,85 @@ static NSString* EURask[] = {
     [self.navigationController pushViewController:addCPVC animated:YES];
 }
 
-#pragma mark - navigation
-/*- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+#pragma mark - shareGraphViewDelegate methods
+- (UIImage *)getGraphDescriptionImageForControlPoint:(CDControlPoint *)point
 {
-    if ([segue.identifier isEqualToString: @"addCPVC"])
-    {
-        ((AddControlPointToEarnMoneyViewController *)segue.destinationViewController).owner = self;
-        ((AddControlPointToEarnMoneyViewController *)segue.destinationViewController).avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
-    }
-}*/
+    NSString *earningMoneyString = [NSString stringWithFormat:@"I earn %.f UAN\nAnd You ?", [point.earningPosibility floatValue]];
+    
+    UIView *darkLight = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x,
+                                                                self.view.frame.origin.y,
+                                                                self.view.frame.size.width,
+                                                                 self.view.frame.size.height)];
+    darkLight.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
+    [self.view addSubview:darkLight];
+    
+    CGRect frame = CGRectMake(self.view.bounds.origin.x + (self.view.bounds.size.width)/4,
+                               self.view.bounds.origin.y + (self.view.bounds.size.height)/4,
+                               (self.view.bounds.size.width)*0.6,
+                               (self.view.bounds.size.height)*0.6);
+    UILabel *showOffLabel = [[UILabel alloc] initWithFrame:frame];
+    showOffLabel.numberOfLines = 0;
+    showOffLabel.text = earningMoneyString;
+    
+    showOffLabel.font = [UIFont fontWithName:@"marker felt" size:10];
+    [self sizeLabel:showOffLabel toRect:frame];
+    showOffLabel.textColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"goldTexture"]];
+    [self.view addSubview:showOffLabel];
+    
+    showOffLabel.transform = CGAffineTransformMakeRotation(RADIANS(330));
+    
+    UIImage *image = [[UIImage alloc] init];
+    
+    UIGraphicsBeginImageContextWithOptions(self.view.frame.size, NO, 1); //making image from view
+    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    [showOffLabel removeFromSuperview];
+    [darkLight removeFromSuperview];
 
+#warning need to store history of images somewhere
+    return image;
+}
+
+- (void) sizeLabel: (UILabel *) label toRect: (CGRect) labelRect  {
+    
+    // Set the frame of the label to the targeted rectangle
+    label.frame = labelRect;
+    
+    // Try all font sizes from largest to smallest font size
+    int fontSize = 300;
+    int minFontSize = 5;
+    
+    // Fit label width wize
+    CGSize constraintSize = CGSizeMake(label.frame.size.width, MAXFLOAT);
+    
+    do {
+        // Set current font size
+        label.font = [UIFont fontWithName:label.font.fontName size:fontSize];
+        
+        // Find label size for current font size
+        CGRect textRect = [[label text] boundingRectWithSize:constraintSize
+                                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                                  attributes:@{NSFontAttributeName:label.font}
+                                                     context:nil];
+        
+        CGSize labelSize = textRect.size;
+        
+        // Done, if created label is within target size
+        if( labelSize.height <= label.frame.size.height )
+            break;
+        
+        // Decrease the font size and try again
+        fontSize -= 2;
+        
+    } while (fontSize > minFontSize);
+}
+
+- (UIImage *)getImageToShareForControlPoint:(CDControlPoint *)point
+{
+    return [self getGraphDescriptionImageForControlPoint:point];
+}
 
 @end

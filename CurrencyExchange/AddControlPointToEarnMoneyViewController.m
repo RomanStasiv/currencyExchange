@@ -27,6 +27,7 @@
 {
     [super viewDidLoad];
     self.stringDatesArray = [self ArrayOfStringDatesFromAvarageCurrencyObjectsArray];
+    self.currency = @"dolars";
 }
 
 - (IBAction)currencyDidChanged:(UISegmentedControl *)sender
@@ -76,25 +77,40 @@
 {
     if (self.moneyTextField.text)
     {
-        if ([self TextIsNumeric:self.moneyTextField.text])
+        if ([self TextIsNumeric:self.moneyTextField.text] && self.date && self.currency)
         {
             self.amountOfMoney = [self.moneyTextField.text floatValue];
             [self.owner addControlPointWithAmountOfMoney:self.amountOfMoney Currency:self.currency ForDate:self.date];
             [self.navigationController popViewControllerAnimated:YES];
         }
-        else
+        else if (![self TextIsNumeric:self.moneyTextField.text])
         {
-            self.moneyTextField.text = @"wrong";
-            UIColor *normalColor = self.moneyTextField.backgroundColor;
-            self.moneyTextField.backgroundColor = [UIColor redColor];
-            dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC));
-            dispatch_after(time, dispatch_get_main_queue(), ^
-            {
-                self.moneyTextField.text = nil;
-                self.moneyTextField.backgroundColor = normalColor;
-            });
+            [self showMessageWith:@"Wrong amount of mooney"];
+        }
+        else if (!self.date)
+        {
+            [self showMessageWith:@"Chose a date"];
+        }
+        else if (!self.currency)
+        {
+            [self showMessageWith:@"Chose a currency"];
         }
     }
+}
+
+- (void)showMessageWith:(NSString *)message
+{
+    UIColor *normalColor = self.moneyTextField.backgroundColor;
+    NSString *normalText = self.moneyTextField.text;
+    
+    self.moneyTextField.text = message;
+    self.moneyTextField.backgroundColor = [UIColor redColor];
+    dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC));
+    dispatch_after(time, dispatch_get_main_queue(), ^
+                   {
+                       self.moneyTextField.text = normalText;
+                       self.moneyTextField.backgroundColor = normalColor;
+                   });
 }
 
 #pragma mark - pickerMethods

@@ -9,8 +9,8 @@
 #import "EarningGoalsTableViewController.h"
 #import "CustomEGTableViewCell.h"
 #import "CDControlPoint.h"
-#import "ControllPoint.h"
-#import "ControlPointsEarnChecker.h"
+#import "ShareGoalsViewController.h"
+#import "EarnMoneyViewController.h"
 
 @interface EarningGoalsTableViewController ()
 
@@ -73,11 +73,11 @@
     cell.investingAmount.text = [NSString stringWithFormat:@"%.02f", [CDobject.value floatValue]];
     cell.EarningAmount.text = [NSString stringWithFormat:@"%.03f", [CDobject.earningPosibility floatValue]];
     
-    cell.showOnGraphButton.tag = 1;
+    /*cell.showOnGraphButton.tag = 1;
     [cell.showOnGraphButton addTarget:self
                                action:@selector(showAnotherViewController:)
-                     forControlEvents:UIControlEventTouchUpInside];
-    cell.ShareButton.tag = 2;
+                     forControlEvents:UIControlEventTouchUpInside];*/
+    cell.ShareButton.tag = indexPath.row;
     [cell.ShareButton addTarget:self
                          action:@selector(showAnotherViewController:)
                forControlEvents:UIControlEventTouchUpInside];
@@ -229,19 +229,35 @@
 #pragma mark - Navigation
 - (void)showAnotherViewController:(UIButton *)sender
 {
-    switch (sender.tag)
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
+    CDControlPoint *CDobject = [self.fetchResultController objectAtIndexPath:indexPath];
+    
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ShareGoalsViewController * shareGoalsVC = (ShareGoalsViewController *)[sb instantiateViewControllerWithIdentifier:@"shareGoalsVC"];
+    UIImage *image = [self.imageGetterDelegate getImageToShareForControlPoint:CDobject];
+    shareGoalsVC.imageToShare = image;
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController pushViewController:shareGoalsVC animated:YES];
+    
+    /*switch (sender.tag)
     {
         case 1:
-            
+            //do delegate job
             break;
             
         case 2:
-            
+        {
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ShareGoalsViewController * shareGoalsVC = (ShareGoalsViewController *)[sb instantiateViewControllerWithIdentifier:@"shareGoalsVC"];
+            shareGoalsVC.imageView.image = self.imageGetterDelegate getImageToShareForControlPoint:<#(CDControlPoint *)#>
+            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController pushViewController:shareGoalsVC animated:YES];
+        }
             break;
             
         default:
             break;
-    }
+    }*/
 }
 
 /*

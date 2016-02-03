@@ -8,20 +8,11 @@
 
 #import "GraphDrawer.h"
 
-
-
-
-
-@interface GraphDrawer()
-
-
-
-@end
-
 @implementation GraphDrawer
 
 - (void)drawRect:(CGRect)rect
 {
+    [self removeSubviews];
     [self configureVariable];
     [self drawGrid];
     [self drawGraphForCurrency:@"dolarsBid"];
@@ -30,6 +21,16 @@
     [self drawGraphForCurrency:@"euroAsk"];
     [self drawAxis];
     [self drawDivisionsOnAxis];
+    [self drawInformationLabels];
+}
+
+- (void)removeSubviews
+{
+    for (UIView *view in self.subviews)
+    {
+        if (view.tag != 113 && view.tag != 114)
+            [view removeFromSuperview];
+    }
 }
 
 #pragma mark - preparation
@@ -37,9 +38,12 @@
 
 - (void)configureVariable
 {
-    
+    self.topAndRightMargin = 20;
     self.inset = 50;
-    self.insetFrame = CGRectMake(self.bounds.origin.x + self.inset, self.bounds.origin.y, self.bounds.size.width - self.inset, self.bounds.size.height - self.inset);
+    self.insetFrame = CGRectMake(self.bounds.origin.x + self.inset,
+                                 self.bounds.origin.y,
+                                 self.bounds.size.width - self.inset - self.topAndRightMargin,
+                                 self.bounds.size.height - self.inset);
     //Dynamic Drid
     // ____________________________________________________________________________
     self.segmentWidthCount = [self.avarageCurrencyObjectsArray count];
@@ -66,7 +70,7 @@
     self.minYvalue = MIN(usdBitMin, eurBitMin);
     
     self.segmentHeightCount = self.maxYvalue - self.minYvalue +1;
-    self.segmentHeight = (self.insetFrame.size.height - self.inset) / self.segmentHeightCount;
+    self.segmentHeight = (self.insetFrame.size.height - self.topAndRightMargin) / self.segmentHeightCount;
     
     
     
@@ -115,36 +119,43 @@
     CGFloat xPoint = self.inset;
     for (int i = 0; i < self.segmentWidthCount; i++)
     {
-        CGPoint a = CGPointMake(xPoint, self.insetFrame.origin.y + self.inset);
+        CGPoint a = CGPointMake(xPoint, self.insetFrame.origin.y + self.topAndRightMargin);
         CGPoint b = CGPointMake(xPoint, self.insetFrame.size.height + 20);
-        [self drawLineFromPointA:a toPointB:b WithWidth:((self.segmentHeight + self.segmentWidth) / 2) * 0.01 andColor:[UIColor blackColor]];
+        [self drawLineFromPointA:a toPointB:b WithWidth:((self.segmentHeight + self.segmentWidth) / 2) * 0.01 Color:[UIColor blackColor] Dashed:NO];
         xPoint += self.segmentWidth;
     }
 }
 
 - (void)drawHorizontalLines
 {
-    CGFloat yPoint = self.segmentHeight + self.inset;
+    CGFloat yPoint = self.segmentHeight + self.topAndRightMargin;
     for (int i = 0; i < self.segmentHeightCount; i++)
     {
         CGPoint a = CGPointMake(self.insetFrame.origin.x - 20, yPoint);
-        CGPoint b = CGPointMake(self.frame.size.width, yPoint);
-        [self drawLineFromPointA:a toPointB:b WithWidth:((self.segmentHeight + self.segmentWidth) / 2) * 0.01 andColor:[UIColor blackColor]];
+        CGPoint b = CGPointMake(self.frame.size.width - self.topAndRightMargin, yPoint);
+        [self drawLineFromPointA:a toPointB:b WithWidth:((self.segmentHeight + self.segmentWidth) / 2) * 0.01 Color:[UIColor blackColor] Dashed:NO];
         yPoint += self.segmentHeight;
     }
 }
 
-- (void)drawLineFromPointA:(CGPoint)a toPointB:(CGPoint)b WithWidth:(CGFloat)width andColor:(UIColor *)color
+- (void)drawLineFromPointA:(CGPoint)a toPointB:(CGPoint)b WithWidth:(CGFloat)width Color:(UIColor *)color Dashed:(BOOL)dashed
 {
     UIBezierPath *path = [UIBezierPath bezierPath];
     [color setStroke];
     path.lineWidth = width;
     path.lineCapStyle = kCGLineCapRound;
     
+    if (dashed)
+    {
+        float dashPattern[] = {width/2,width*2};
+        [path setLineDash:dashPattern count:2 phase:3];
+    }
+    
     [path moveToPoint:a];
     [path addLineToPoint:b];
     
     [path stroke];
+    [path closePath];
 }
 
 #pragma mark - Graph
@@ -193,9 +204,14 @@
     
     if (points.count > 2)
     {
-        [path addLineToPoint:[self getMidPointBetweenPointA:firstPoint
+        for (int i = 0; i < points.count; i++)
+        {
+            [path addLineToPoint:[[points objectAtIndex:i] CGPointValue]];
+        }
+#warning HOW THIS SHOULD BE DONE?
+        /*[path addLineToPoint:[self getMidPointBetweenPointA:firstPoint
                                                        andB:[[points objectAtIndex:1] CGPointValue]]];
-        for (int i = 1; i < points.count-1; i++)
+        for (int i = 1; i < points.count; i++)
         {
             CGPoint midpoint = [self getMidPointBetweenPointA:[[points objectAtIndex:i] CGPointValue]
                                                          andB:[[points objectAtIndex:i+1] CGPointValue]];
@@ -207,6 +223,7 @@
     else if (points.count == 2)
     {
         [path addLineToPoint:[self getMidPointBetweenPointA:firstPoint andB:[[points objectAtIndex:1] CGPointValue]]];
+    }*/
     }
     else
     {
@@ -223,26 +240,24 @@
 #pragma mark - Axis
 - (void)drawAxis
 {
+    double lightAxisInset = 5;
     //vertical axis
     CGPoint startPoint = CGPointMake(40, self.bounds.size.height);
-    CGPoint stopPoint = CGPointMake(40, self.bounds.origin.y + 3);
-    [self drawYAxisFromPointA:startPoint ToPointB:stopPoint WithWidth:3 AndColor:[UIColor redColor]];
+    CGPoint stopPoint = CGPointMake(40, self.bounds.origin.y + lightAxisInset);
+    [self drawYAxisFromPointA:startPoint ToPointB:stopPoint WithWidth:3 Color:[UIColor redColor] Dashed:YES];
     
     //horizontal axis
     startPoint = CGPointMake(self.bounds.origin.x, self.bounds.size.height - 40);
-    stopPoint = CGPointMake(self.bounds.size.width - 3, self.bounds.size.height - 40);
-    [self drawXAxisFromPointA:startPoint ToPointB:stopPoint WithWidth:3 AndColor:[UIColor redColor]];
+    stopPoint = CGPointMake(self.bounds.size.width - lightAxisInset, self.bounds.size.height - 40);
+    [self drawXAxisFromPointA:startPoint ToPointB:stopPoint WithWidth:3 Color:[UIColor redColor] Dashed:YES];
 }
 
-- (void)drawXAxisFromPointA:(CGPoint)a ToPointB:(CGPoint)b WithWidth:(CGFloat)width AndColor:(UIColor *)color
+- (void)drawXAxisFromPointA:(CGPoint)a ToPointB:(CGPoint)b WithWidth:(CGFloat)width Color:(UIColor *)color Dashed:(BOOL)dashed
 {
-    [self drawLineFromPointA:a toPointB:b WithWidth:width andColor:color];
+    [self drawLineFromPointA:a toPointB:b WithWidth:width Color:color Dashed:YES];
     
     //drawing triangle at the end of axis
-    CGFloat length[] = {1,1,1,1,3,1};
-    
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextSetLineDash(ctx, 3, length, 6);
     CGContextSetLineWidth(ctx, width);
     CGContextSetLineCap(ctx, kCGLineCapRound);
     CGContextSetLineJoin(ctx, kCGLineJoinRound);
@@ -260,25 +275,20 @@
     CGContextClosePath(ctx);
     
     CGContextStrokePath(ctx);
-    CGContextFillPath(ctx);
-    //UIGraphicsEndImageContext();
+    UIGraphicsEndImageContext();
 }
 
-- (void)drawYAxisFromPointA:(CGPoint)a ToPointB:(CGPoint)b WithWidth:(CGFloat)width AndColor:(UIColor *)color
+- (void)drawYAxisFromPointA:(CGPoint)a ToPointB:(CGPoint)b WithWidth:(CGFloat)width Color:(UIColor *)color Dashed:(BOOL)dashed
 {
-    [self drawLineFromPointA:a toPointB:b WithWidth:width andColor:color];
+    [self drawLineFromPointA:a toPointB:b WithWidth:width Color:color Dashed:YES];
     
-#warning  WHY NOT DASHED ???
     //drawing triangle at the end of axis
-    CGFloat length[] = {1,1,1,1,3,1};
-    
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextSetLineDash(ctx, 3, length, 6);
+
     CGContextSetLineWidth(ctx, width);
     CGContextSetLineCap(ctx, kCGLineCapRound);
     CGContextSetLineJoin(ctx, kCGLineJoinRound);
     CGContextSetStrokeColorWithColor(ctx, [color CGColor]);
-    CGContextSetFillColorWithColor(ctx, [color CGColor]);
     
     CGFloat sideLength = width;
     CGPoint FirstPoint = CGPointMake(b.x - sideLength, b.y + sideLength);
@@ -291,12 +301,12 @@
     CGContextClosePath(ctx);
     
     CGContextStrokePath(ctx);
-    CGContextFillPath(ctx);
     UIGraphicsEndImageContext();
 }
 
 - (void)drawDivisionsOnAxis
 {
+    
     if ([self.avarageCurrencyObjectsArray count])
     {
         [self drawDivisionsOnYAxe];
@@ -306,17 +316,44 @@
 
 - (void)drawDivisionsOnYAxe
 {
+    CGSize size0000 = [@"00.00" sizeWithAttributes:
+                     @{NSFontAttributeName:
+                           [UIFont systemFontOfSize:11.0f]}];
+    double margin = 3;
+    
+    NSInteger maximumPosibleYDivisionsCount = (self.insetFrame.size.height - self.topAndRightMargin) / (size0000.height + margin);
+    
+    NSMutableArray *valueArray = [NSMutableArray array];
+    
     CGFloat value = self.minYvalue;
     CGFloat distance = (self.maxYvalue - self.minYvalue) / (self.segmentHeightCount - 1);
     for (int i = 0; i < self.segmentHeightCount; i++)
     {
-        CGRect frame = CGRectMake(0, (self.insetFrame.size.height - self.segmentHeight *2/3) - self.segmentHeight * i, 30, self.segmentHeight);
-        UILabel *valueLabel = [[UILabel alloc] initWithFrame:frame];
-        //valueLabel.adjustsFontSizeToFitWidth = YES;
-        valueLabel.font = [UIFont systemFontOfSize:self.segmentHeight];
-        valueLabel.text = [NSString stringWithFormat:@"%.02f",value];
-        [self addSubview:valueLabel];
+        [valueArray addObject:[NSNumber numberWithFloat:value]];
         value += distance;
+    }
+    
+    NSArray *shrinkedValueArray = [self getShrinkedArrayFromArray:valueArray ToCount:maximumPosibleYDivisionsCount];
+    
+    double heightDifference = (self.insetFrame.size.height - self.topAndRightMargin) - ((size0000.height + margin) * (shrinkedValueArray.count));
+    if (heightDifference > 0)
+    {
+        double differencePerMargin = heightDifference / (shrinkedValueArray.count);
+        margin = margin + differencePerMargin;
+    }
+    
+    for (int i = 0; i < shrinkedValueArray.count; i++)
+    {
+        CGRect frame = CGRectMake(0,
+                                  self.insetFrame.size.height - size0000.height/2 - ((size0000.height + margin)* i),
+                                  size0000.width,
+                                  size0000.height);
+        
+        UILabel *valueLabel = [[UILabel alloc] initWithFrame:frame];
+        valueLabel.font = [UIFont systemFontOfSize:10];
+        valueLabel.text = [NSString stringWithFormat:@"%.02f",[[shrinkedValueArray objectAtIndex:i] floatValue]];
+        valueLabel.backgroundColor = [UIColor lightGrayColor];
+        [self addSubview:valueLabel];
     }
 }
 
@@ -328,67 +365,163 @@
     NSDateFormatter *monhtFormater = [[NSDateFormatter alloc] init];
     [monhtFormater setDateFormat:@"MM"];
     NSDateFormatter *dayFormater = [[NSDateFormatter alloc] init];
-    [dayFormater setDateFormat:@"d"];
-    
-    
+    [dayFormater setDateFormat:@"dd"];
     
     for (AverageCurrency *object in self.avarageCurrencyObjectsArray)
     {
         [month addObject:[monhtFormater stringFromDate:object.date]];
         [days addObject:[dayFormater stringFromDate:object.date]];
     }
-    for (int i = 0; i < self.segmentWidthCount; i++)
+    
+    CGSize size00 = [@"00" sizeWithAttributes:
+                     @{NSFontAttributeName:
+                           [UIFont systemFontOfSize:12.0f]}];
+    double margin = 3;
+    double heightMargin = margin;
+    NSInteger maximumPosibleXDivisionsCount = (self.insetFrame.size.width ) / (size00.width + margin);
+    
+
+    NSArray *shrinkedDayArray = [self getShrinkedArrayFromArray:days ToCount:maximumPosibleXDivisionsCount];
+    NSArray *shrinkedMonthArray = [self getShrinkedArrayFromArray:month ToCount:maximumPosibleXDivisionsCount];
+    
+    double widthDifference = (self.insetFrame.size.width ) - ((size00.width + margin) * (shrinkedDayArray.count));
+    if (widthDifference > 0)
     {
-        if (self.segmentWidthCount > 10)
+        double differencePerMargin;
+        if (shrinkedDayArray.count == 1)
+            differencePerMargin = widthDifference;
+        else
+            differencePerMargin = widthDifference / (shrinkedDayArray.count);
+        
+        margin = margin + differencePerMargin;
+    }
+
+    for (int i = 0; i < shrinkedDayArray.count; i++)
+    {
+        
+        CGRect monthFrame = CGRectMake(self.inset - size00.width/2 + ((size00.width + margin) * i),
+                                       self.insetFrame.size.height + 15 + size00.height + heightMargin,
+                                       size00.height,
+                                       size00.width);
+        NSLog(@"monthFrame:%@",NSStringFromCGRect(monthFrame));
+        
+        UILabel *monthLabel = [[UILabel alloc] initWithFrame:monthFrame];
+        monthLabel.backgroundColor = [UIColor lightGrayColor];
+        monthLabel.font = [UIFont systemFontOfSize:11];
+        monthLabel.text = [shrinkedMonthArray objectAtIndex:i];
+        
+        CGRect dayFrame = CGRectMake(self.inset - size00.width/2 + ((size00.width + margin) * i),
+                                     self.insetFrame.size.height + 15,
+                                     size00.height,
+                                     size00.width);
+        NSLog(@"dayFrame:%@",NSStringFromCGRect(dayFrame));
+        
+        UILabel *dayLabel = [[UILabel alloc] initWithFrame:dayFrame];
+        dayLabel.backgroundColor = [UIColor lightGrayColor];
+        dayLabel.font = [UIFont systemFontOfSize:11];
+        dayLabel.text = [shrinkedDayArray objectAtIndex:i];
+        [self addSubview:monthLabel];
+        [self addSubview:dayLabel];
+    }
+}
+
+- (NSArray *)getShrinkedArrayFromArray:(NSArray *)array ToCount:(NSInteger)desiredCount
+{
+    NSMutableArray *resultArray = [[NSMutableArray alloc] initWithArray:array];
+    
+    if (resultArray.count < desiredCount)
+    {
+        return resultArray;
+    }
+    else
+    {
+        NSInteger differance = resultArray.count - desiredCount;
+        if (differance > resultArray.count/2)
         {
-            if (i % 2 == 0)
+            for (int i = 1; i < resultArray.count - 1; i++)
             {
-                CGRect monthFrame = CGRectMake(self.inset + (self.segmentWidth * i) - (self.segmentWidth / 2) + (self.segmentWidth / 10),
-                                               self.frame.size.height - 30,
-                                               30,
-                                               self.segmentWidth);
-                UILabel *monthLabel = [[UILabel alloc] initWithFrame:monthFrame];
-                //monthLabel.adjustsFontSizeToFitWidth = YES;
-                monthLabel.font = [UIFont systemFontOfSize:self.segmentHeight];
-                monthLabel.text = [month objectAtIndex:i];
-                
-                CGRect dayFrame = CGRectMake(self.inset + (self.segmentWidth * i) - (self.segmentWidth / 2) + (self.segmentWidth / 10),
-                                             self.frame.size.height - 30 + self.segmentWidth,
-                                             30,
-                                             self.segmentWidth);
-                UILabel *dayLabel = [[UILabel alloc] initWithFrame:dayFrame];
-#warning HOW TO AJUST ???
-                dayLabel.font = [UIFont systemFontOfSize:self.segmentWidth - (self.segmentWidth / 10)];
-                //dayLabel.adjustsFontSizeToFitWidth = YES;
-                dayLabel.text = [days objectAtIndex:i];
-                [self addSubview:monthLabel];
-                [self addSubview:dayLabel];
+                if (i % 2 == 0)
+                {
+                    [resultArray removeObjectAtIndex:i];
+                }
             }
         }
         else
         {
-            CGRect monthFrame = CGRectMake(self.inset + (self.segmentWidth * i) - (self.segmentWidth / 2) + (self.segmentWidth / 10),
-                                           self.frame.size.height - 30,
-                                           30,
-                                           self.segmentWidth);
-            UILabel *monthLabel = [[UILabel alloc] initWithFrame:monthFrame];
-            //monthLabel.adjustsFontSizeToFitWidth = YES;
-            monthLabel.font = [UIFont systemFontOfSize:self.segmentHeight];
-            monthLabel.text = [month objectAtIndex:i];
-            
-            CGRect dayFrame = CGRectMake(self.inset + (self.segmentWidth * i) - (self.segmentWidth / 2) + (self.segmentWidth / 10),
-                                         self.frame.size.height - 30 + self.segmentWidth,
-                                         30,
-                                         self.segmentWidth);
-            UILabel *dayLabel = [[UILabel alloc] initWithFrame:dayFrame];
-#warning HOW TO AJUST ???
-            dayLabel.font = [UIFont systemFontOfSize:self.segmentWidth - (self.segmentWidth / 10)];
-            //dayLabel.adjustsFontSizeToFitWidth = YES;
-            dayLabel.text = [days objectAtIndex:i];
-            [self addSubview:monthLabel];
-            [self addSubview:dayLabel];
+            for (int i = 1; i < resultArray.count - 1; i++)
+            {
+                if (i % 3 != 0)
+                {
+                    [resultArray removeObjectAtIndex:i];
+                }
+            }
         }
     }
+    return [self getShrinkedArrayFromArray:resultArray ToCount:desiredCount];;
+}
+
+- (void)drawInformationLabels
+{
+    double offset = 8;
+    
+    //xAxisLabel
+    CGSize xAxisFrameSize = [@"time" sizeWithAttributes:
+                     @{NSFontAttributeName:
+                           [UIFont systemFontOfSize:10.0f]}];
+    
+    CGRect xAxisFrame = CGRectMake(self.frame.size.width - (xAxisFrameSize.width + offset),
+                                   self.insetFrame.size.height - offset,
+                                   xAxisFrameSize.width,
+                                   xAxisFrameSize.height);
+    UILabel *xAxisLabel = [[UILabel alloc] initWithFrame:xAxisFrame];
+    xAxisLabel.font = [UIFont systemFontOfSize:9];
+    xAxisLabel.textColor = [UIColor redColor];
+    xAxisLabel.text = @"time";
+    [self addSubview:xAxisLabel];
+    
+    //yAxisLabel
+    CGSize yAxisFrameSize = [@"UAN" sizeWithAttributes:
+                             @{NSFontAttributeName:
+                                   [UIFont systemFontOfSize:10.0f]}];
+    
+    CGRect yAxisFrame = CGRectMake(self.insetFrame.origin.x,
+                                   offset,
+                                   yAxisFrameSize.width,
+                                   yAxisFrameSize.height);
+    UILabel *yAxisLabel = [[UILabel alloc] initWithFrame:yAxisFrame];
+    yAxisLabel.font = [UIFont systemFontOfSize:9];
+    yAxisLabel.textColor = [UIColor redColor];
+    yAxisLabel.text = @"UAN";
+    [self addSubview:yAxisLabel];
+    
+    //day&monthInfoLabels
+    CGSize dayInfoFrameSize = [@"day" sizeWithAttributes:
+                             @{NSFontAttributeName:
+                                   [UIFont systemFontOfSize:10.0f]}];
+    
+    CGRect dayInfoFrame = CGRectMake(self.frame.origin.x + offset,
+                                   self.insetFrame.size.height + 17,
+                                   dayInfoFrameSize.width,
+                                   dayInfoFrameSize.height);
+    UILabel *dayInfoLabel = [[UILabel alloc] initWithFrame:dayInfoFrame];
+    dayInfoLabel.font = [UIFont systemFontOfSize:9];
+    dayInfoLabel.textColor = [UIColor darkTextColor];
+    dayInfoLabel.text = @"day";
+    [self addSubview:dayInfoLabel];
+    
+    CGSize monthInfoFrameSize = [@"month" sizeWithAttributes:
+                               @{NSFontAttributeName:
+                                     [UIFont systemFontOfSize:10.0f]}];
+    
+    CGRect monthInfoFrame = CGRectMake(self.frame.origin.x + offset,
+                                     self.insetFrame.size.height + 17 + dayInfoFrameSize.height + 5,
+                                     monthInfoFrameSize.width,
+                                     monthInfoFrameSize.height);
+    UILabel *monthInfoLabel = [[UILabel alloc] initWithFrame:monthInfoFrame];
+    monthInfoLabel.font = [UIFont systemFontOfSize:9];
+    monthInfoLabel.textColor = [UIColor darkTextColor];
+    monthInfoLabel.text = @"month";
+    [self addSubview:monthInfoLabel];
 }
 
 @end
