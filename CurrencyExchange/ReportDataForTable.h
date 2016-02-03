@@ -15,7 +15,7 @@
 
 @property (strong, nonatomic) NSString* bankName;
 @property (strong, nonatomic) NSArray* branchs;
-//@property (strong, nonatomic) NSString* branchAddress;
+@property (strong, nonatomic) NSString* brankAddress;
 @property (strong, nonatomic) NSString *eurCurrencyAsk;
 @property (strong, nonatomic) NSString *eurCurrencyBid;
 @property (strong, nonatomic) NSString *usdCurrencyAsk;

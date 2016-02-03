@@ -119,15 +119,17 @@
 
 - (NSMutableArray*) dataForTableView
 {
-      NSMutableArray *arrayForTableView = [[NSMutableArray alloc]init];
+    NSMutableArray *arrayForTableView = [[NSMutableArray alloc]init];
     
-        NSArray* resultArray = [self allBanks];
-        NSArray* resultBranchArray = [self allBranchs];
+    NSArray* resultArray = [self allBanks];
+    NSArray* resultBranchArray = [self allBranchs];
     NSInteger qty = [resultArray count];
     for(int k =0; k<qty; k++)
     {
         ReportDataForTable* tmp = [[ReportDataForTable alloc]init];
         tmp.bankName =((BankData *)resultArray[k]).name;
+        tmp.brankAddress = [NSString stringWithFormat:@"%@, %@, %@, Украина", ((BankData *)resultArray[k]).address, ((BankData *)resultArray[k]).city, ((BankData *)resultArray[k]).region ];
+        NSLog(@"%@", tmp.brankAddress);
         
         NSLog(@"%@", tmp.bankName);
         
@@ -141,11 +143,11 @@
                 NSString* name = [NSString stringWithString:branch.name];
                 NSString* address = [NSString stringWithFormat:@"%@, %@, %@, Украина", branch.address, branch.city, branch.region ];
                 
-                NSLog(@"%@", name);
+               // NSLog(@"%@", name);
                 [branchs setObject:address forKey:name];
             }
-           
-      
+            
+            
         }
         //NSLog(@"%lu", (unsigned long)[branchs count]);
         [finalArray addObject:branchs];
@@ -163,7 +165,7 @@
                 break;
             }
         }
-       // NSLog(@"%@, %lu, USD:%@, USD:%@, EURO:%@, EURO:%@", tmp.bankName, (unsigned long)[tmp.branchs count], tmp.usdCurrencyAsk, tmp.usdCurrencyBid, tmp.eurCurrencyAsk, tmp.eurCurrencyBid);
+        // NSLog(@"%@, %lu, USD:%@, USD:%@, EURO:%@, EURO:%@", tmp.bankName, (unsigned long)[tmp.branchs count], tmp.usdCurrencyAsk, tmp.usdCurrencyBid, tmp.eurCurrencyAsk, tmp.eurCurrencyBid);
         [arrayForTableView addObject:tmp];
     }
     return arrayForTableView;
