@@ -12,6 +12,7 @@
 @interface ShareGoalsViewController ()
 
 @property (nonatomic, strong) NSString *source;
+@property(nonatomic, weak) IBOutlet UIImageView *imageView;
 
 @end
 
@@ -19,9 +20,10 @@ static NSString *seaguewID = @"shareSeague";
 
 @implementation ShareGoalsViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.imageView.image = self.imageToShare;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -117,6 +119,44 @@ static NSString *seaguewID = @"shareSeague";
             [(WebSharingViewController *)segue.destinationViewController setSourceToShare:self.source];
     }
 }
+
+- (IBAction)showActivityViewController:(UIButton *)sender {
+    NSString *str = @"Image form My app";
+    NSArray *postItems = @[str];
+    
+    UIActivityViewController* activityVC = [[UIActivityViewController alloc] initWithActivityItems:postItems applicationActivities:nil];
+    
+    activityVC.excludedActivityTypes = @[UIActivityTypePostToWeibo,
+                                         UIActivityTypeMessage,
+                                         UIActivityTypePrint,
+                                         UIActivityTypeCopyToPasteboard,
+                                         UIActivityTypeAssignToContact,
+                                         UIActivityTypeAddToReadingList,
+                                         UIActivityTypePostToFlickr,
+                                         UIActivityTypePostToVimeo,
+                                         UIActivityTypePostToTencentWeibo];
+    
+    //if iPhone
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [self presentViewController:activityVC animated:YES completion:nil];
+    }
+    //if iPad
+    else {
+        // Change Rect to position Popover
+        UIPopoverController* popup = [[UIPopoverController alloc] initWithContentViewController:activityVC];
+        [popup presentPopoverFromRect:CGRectMake(self.view.frame.size.width/2, self.view.frame.size.height/4, 0, 0)inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+    
+}
+
+
+
+
+
+
+
+
+
 
 
 

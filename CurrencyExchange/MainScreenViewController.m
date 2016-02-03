@@ -37,7 +37,7 @@ static const char *MainScreenViewControllerTimerQueueContext = "MainScreenViewCo
     //[self.workObject deleteAllObjectsFromCoreData];
     //[self.workObject JSONParse];
     //[workObject loadCoreDataObjects];
-    [tmp allBanksQuantity];
+    //[tmp allBanksQuantity];
     //[testObject insertFakeDataToCoreData];
     //[tmp dataForTableView];
     self.graph.backgroundColor = [UIColor blackColor];

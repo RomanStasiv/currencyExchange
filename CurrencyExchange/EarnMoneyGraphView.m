@@ -37,7 +37,7 @@
     {
         [self drawLineFromPointA:[line.firstPoint CGPointValue]
                         toPointB:[line.lastPoint CGPointValue]
-                       WithWidth:1
+                       WithWidth:3
                            Color:line.color
                           Dashed:YES];
         [self drawCircleInPoint:[line.originalPoint CGPointValue]
@@ -56,22 +56,23 @@
     CGContextSetLineWidth(ctx, 2);
     CGContextAddEllipseInRect(ctx, CGRectInset(rect, 1, 1));
     CGContextStrokePath(ctx);
-    CGContextClosePath(ctx);
 }
 
 #pragma mark - Control point methods
 - (void)drawAllControlpoints
 {
     //[self configureVariable];
+#warning NO?
+    //self.shouldDrawControlPoints = NO;
     for (ControllPoint *point in self.controlPointsArray)
     {
         if ([self isItTimeForControlPoint:point])
             [self addControlPointToDrawingQueue:point withColor:[UIColor greenColor]];
         else
-            [self addControlPointToDrawingQueue:point withColor:[UIColor blackColor]];
+            [self addControlPointToDrawingQueue:point withColor:[UIColor orangeColor]];
         
     }
-    //[self setNeedsDisplay];
+    [self setNeedsDisplay];
 }
 
 - (BOOL)isItTimeForControlPoint:(ControllPoint *)point
