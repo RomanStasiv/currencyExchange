@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CurencyCourseGraph.h"
+#import "MSWeakTimer.h"
 
 @interface MainScreenViewController : UIViewController
 
