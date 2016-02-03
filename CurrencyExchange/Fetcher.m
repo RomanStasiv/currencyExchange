@@ -96,10 +96,10 @@
 
 - (NSMutableArray*) dataForTableView
 {
-      NSMutableArray *arrayForTableView = [[NSMutableArray alloc]init];
+    NSMutableArray *arrayForTableView = [[NSMutableArray alloc]init];
     
-        NSArray* resultArray = [self allBanks];
-        NSArray* resultBranchArray = [self allBranchs];
+    NSArray* resultArray = [self allBanks];
+    NSArray* resultBranchArray = [self allBranchs];
     NSInteger qty = [resultArray count];
     for(int k =0; k<qty; k++)
     {
@@ -109,20 +109,21 @@
         NSLog(@"%@", tmp.bankName);
         
         NSMutableArray *finalArray = [[NSMutableArray alloc]init];
-        
-        NSMutableDictionary* branchs = [[NSMutableDictionary alloc]init];
+    
         for (BranchData *branch in resultBranchArray)
         {
             if(tmp.bankName == branch.bank.name)
             {
+                NSMutableDictionary* branchs = [[NSMutableDictionary alloc]init];
                 NSString* name = [NSString stringWithString:branch.name];
                 NSString* address = [NSString stringWithFormat:@"%@, %@, %@, Украина", branch.address, branch.city, branch.region ];
                 
                 NSLog(@"%@", address);
-                [branchs setObject:address forKey:name];
+                [branchs setObject:address forKey:@"adress"];
+                [branchs setObject:name forKey:@"name"];
+                [finalArray addObject:branchs];
             }
         }
-        [finalArray addObject:branchs];
         tmp.branchs = finalArray;
         
         NSArray* currency = [[self sortedCurrency]sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]]];;

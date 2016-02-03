@@ -11,12 +11,12 @@
 #import "JSONParseCoreDataSave.h"
 #import "BranchData.h"
 
-
 @interface MapViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) NSManagedObjectContext *context;
 @property (strong, nonatomic) NSArray *adresses;
 @property (strong, nonatomic) __block NSMutableArray *locations;
+
 @end
 
 @implementation MapViewController
@@ -24,12 +24,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     self.mapView.delegate = self;
     
     self.context = [AppDelegate singleton].managedObjectContext;
     JSONParseCoreDataSave * jsonParse = [[JSONParseCoreDataSave alloc] init];
     //[jsonParse deleteAllObjectsFromCoreData];
-    [jsonParse loadCoreDataObjects];
+    //[jsonParse loadCoreDataObjects];
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"BranchData"];
     
@@ -46,7 +47,6 @@
     
     [self fetchData:adresses];
 }
-
 -(void)viewWillDisappear:(BOOL)animated
 {
     if ([NSJSONSerialization isValidJSONObject:self.locations])

@@ -22,7 +22,6 @@
 		6A2941A01C58CD7E00C5D207 /* MainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29419F1C58CD7E00C5D207 /* MainScreenViewController.m */; };
 		6A2989121C58AFDA006328A5 /* ConvertMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2989111C58AFDA006328A5 /* ConvertMoneyViewController.m */; };
 		6A29C59C1C5A3BB60032B74D /* GraphDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29C59B1C5A3BB60032B74D /* GraphDrawer.m */; };
-		9730E7961C5CD44A00C06195 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9730E7951C5CD44A00C06195 /* MapViewController.m */; };
 		6A80BF7F1C5E22B300B57EC5 /* EarningGoalsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A80BF7E1C5E22B300B57EC5 /* EarningGoalsTableViewController.m */; };
 		6A80BF831C5E264D00B57EC5 /* CustomEGTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A80BF821C5E264D00B57EC5 /* CustomEGTableViewCell.m */; };
 		6A80BF861C5E31A700B57EC5 /* ControlPointsCDSotrer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A80BF851C5E31A700B57EC5 /* ControlPointsCDSotrer.m */; };
@@ -31,6 +30,7 @@
 		6A8E90741C5BB8760069BABC /* ControlPointCDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E90731C5BB8760069BABC /* ControlPointCDManager.m */; };
 		6A8E90791C5BFDA70069BABC /* ControlPointsEarnChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E90781C5BFDA70069BABC /* ControlPointsEarnChecker.m */; };
 		6AA459091C5D3A7900415698 /* EarnNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA459081C5D3A7900415698 /* EarnNotificationView.m */; };
+		9730E7961C5CD44A00C06195 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9730E7951C5CD44A00C06195 /* MapViewController.m */; };
 		979339E31C58D9A000A674D1 /* CurencyCourseGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 979339E21C58D9A000A674D1 /* CurencyCourseGraph.m */; };
 		97ED58621C5796BC004724A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ED58611C5796BC004724A3 /* main.m */; };
 		97ED58651C5796BC004724A3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ED58641C5796BC004724A3 /* AppDelegate.m */; };
@@ -80,8 +80,6 @@
 		6A2989111C58AFDA006328A5 /* ConvertMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvertMoneyViewController.m; sourceTree = "<group>"; };
 		6A29C59A1C5A3BB50032B74D /* GraphDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphDrawer.h; sourceTree = "<group>"; };
 		6A29C59B1C5A3BB60032B74D /* GraphDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphDrawer.m; sourceTree = "<group>"; };
-		9730E7941C5CD44A00C06195 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
-		9730E7951C5CD44A00C06195 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		6A80BF7D1C5E22B300B57EC5 /* EarningGoalsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarningGoalsTableViewController.h; sourceTree = "<group>"; };
 		6A80BF7E1C5E22B300B57EC5 /* EarningGoalsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarningGoalsTableViewController.m; sourceTree = "<group>"; };
 		6A80BF811C5E264D00B57EC5 /* CustomEGTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEGTableViewCell.h; sourceTree = "<group>"; };
@@ -98,6 +96,8 @@
 		6A8E90781C5BFDA70069BABC /* ControlPointsEarnChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlPointsEarnChecker.m; sourceTree = "<group>"; };
 		6AA459071C5D3A7900415698 /* EarnNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarnNotificationView.h; sourceTree = "<group>"; };
 		6AA459081C5D3A7900415698 /* EarnNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarnNotificationView.m; sourceTree = "<group>"; };
+		9730E7941C5CD44A00C06195 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		9730E7951C5CD44A00C06195 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		979339E11C58D9A000A674D1 /* CurencyCourseGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurencyCourseGraph.h; sourceTree = "<group>"; };
 		979339E21C58D9A000A674D1 /* CurencyCourseGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurencyCourseGraph.m; sourceTree = "<group>"; };
 		97ED585D1C5796BC004724A3 /* CurrencyExchange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyExchange.app; sourceTree = BUILT_PRODUCTS_DIR; };

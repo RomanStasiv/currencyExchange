@@ -7,24 +7,28 @@
 //
 
 #import "BanksTableViewController.h"
+#import "Fetcher.h"
+
 
 @interface BanksTableViewController ()
+
+@property (strong, nonatomic) NSArray *BanksData;
 
 @end
 
 @implementation BanksTableViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    Fetcher *fetcher = [[Fetcher alloc] init];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.BanksData = [fetcher dataForTableView];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -33,25 +37,38 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    return [self.BanksData count];
+}
 
-    return 0;
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return [[self.BanksData objectAtIndex:section] bankName];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
-    return 0;
+    return [[(ReportDataForTable *)[self.BanksData objectAtIndex:section] branchs] count] + 1;
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [[UITableViewCell alloc] init];
+
+    if (indexPath.row == 0)
+    {
+        cell.textLabel.text = [NSString stringWithFormat:@"%@", [[self.BanksData objectAtIndex:indexPath.section] bankName]] ;
+    }
+    else
+    {
+        id branches = [[self.BanksData objectAtIndex:indexPath.section] branchs];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@", [[branches objectAtIndex:(indexPath.row - 1)] valueForKey:@"name"]];
+    }
     return cell;
 }
-*/
+
+#pragma mark - Table view delegate
+
 
 /*
 // Override to support conditional editing of the table view.
