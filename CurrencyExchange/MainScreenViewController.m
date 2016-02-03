@@ -39,7 +39,7 @@
     //[workObject loadCoreDataObjects];
     [tmp allBanksQuantity];
     //[testObject insertFakeDataToCoreData];
-    //[tmp dataForTableView];
+    [tmp dataForTableView];
     self.graph.backgroundColor = [UIColor blackColor];
    NSTimer* Timer = [NSTimer scheduledTimerWithTimeInterval:30.0
                                                     target: self.workObject
