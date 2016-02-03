@@ -47,23 +47,6 @@
     }
 }
 
-- (IBAction)amountOfMoneyDidChanged:(UITextField *)sender
-{
-    
-}
-
-/*- (NSString *)deleteLastCharInString:(NSString *)string
-{
-    NSString *result = nil;
-    
-    if ([string length])
-    {
-        result = [string substringToIndex:[string length]-1];
-    }
-    
-    return result;
-}*/
-
 - (BOOL) TextIsNumeric:(NSString *)text
 {
     BOOL result = false;
@@ -138,7 +121,7 @@
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
     NSDateFormatter *formater = [[NSDateFormatter alloc] init];
-    [formater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    [formater setDateFormat:@"dd-MM-yyyy HH:mm"];
     
     for (AverageCurrency *object in self.avarageCurrencyObjectsArray)
     {

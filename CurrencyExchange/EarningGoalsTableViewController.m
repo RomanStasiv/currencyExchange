@@ -66,7 +66,7 @@
 {
     CDControlPoint *CDobject = [self.fetchResultController objectAtIndexPath:indexPath];
     NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
-    [dateFormater setDateFormat:@"yyyy-MM-dd HH:mm"];
+    [dateFormater setDateFormat:@"dd-MM-yyyy HH:mm"];
 
     cell.investingDate.text = [dateFormater stringFromDate:CDobject.date];
     cell.investingCurrency.text = CDobject.currency;

@@ -403,7 +403,6 @@
                                        self.insetFrame.size.height + 15 + size00.height + heightMargin,
                                        size00.height,
                                        size00.width);
-        NSLog(@"monthFrame:%@",NSStringFromCGRect(monthFrame));
         
         UILabel *monthLabel = [[UILabel alloc] initWithFrame:monthFrame];
         monthLabel.backgroundColor = [UIColor lightGrayColor];
@@ -414,7 +413,6 @@
                                      self.insetFrame.size.height + 15,
                                      size00.height,
                                      size00.width);
-        NSLog(@"dayFrame:%@",NSStringFromCGRect(dayFrame));
         
         UILabel *dayLabel = [[UILabel alloc] initWithFrame:dayFrame];
         dayLabel.backgroundColor = [UIColor lightGrayColor];
