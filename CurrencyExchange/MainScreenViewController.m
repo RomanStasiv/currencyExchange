@@ -22,19 +22,19 @@
 {
     [super viewDidLoad];
     JSONParseCoreDataSave* workObject = [[JSONParseCoreDataSave alloc] init];
-    TestCoreData* testObject = [[TestCoreData alloc] init];
+    //TestCoreData* testObject = [[TestCoreData alloc] init];
     Fetcher*tmp = [[Fetcher alloc]init];
     
      //NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
     
-    //[workObject deleteAllObjectsFromCoreData];
-    [workObject JSONParse];
+    [workObject deleteAllObjectsFromCoreData];
+    //[workObject JSONParse];
     //[workObject loadCoreDataObjects];
     [tmp allBanksQuantity];
     //[testObject insertFakeDataToCoreData];
     [tmp dataForTableView];
     self.graph.backgroundColor = [UIColor blackColor];
-    /*self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:30.0
+    /*self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:10.0
                                                     target: workObject
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
