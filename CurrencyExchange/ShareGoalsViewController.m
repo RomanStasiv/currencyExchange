@@ -121,8 +121,8 @@ static NSString *seaguewID = @"shareSeague";
 }
 
 - (IBAction)showActivityViewController:(UIButton *)sender {
-    NSString *str = @"Image form My app";
-    NSArray *postItems = @[str];
+    
+    NSArray *postItems = @[self.imageToShare];
     
     UIActivityViewController* activityVC = [[UIActivityViewController alloc] initWithActivityItems:postItems applicationActivities:nil];
     

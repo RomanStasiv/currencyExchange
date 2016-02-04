@@ -38,6 +38,8 @@
 		97ED586E1C5796BC004724A3 /* CurrencyExchange.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 97ED586C1C5796BC004724A3 /* CurrencyExchange.xcdatamodeld */; };
 		97ED58701C5796BC004724A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97ED586F1C5796BC004724A3 /* Assets.xcassets */; };
 		97ED58731C5796BC004724A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97ED58711C5796BC004724A3 /* LaunchScreen.storyboard */; };
+		EF0320841C635D7B0032C699 /* BankInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0320831C635D7B0032C699 /* BankInfo.m */; };
+		EF0320871C635D920032C699 /* BranchInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0320861C635D920032C699 /* BranchInfo.m */; };
 		EF0616991C5B524C0097B505 /* BankData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = EF06168A1C5B524C0097B505 /* BankData+CoreDataProperties.m */; };
 		EF06169A1C5B524C0097B505 /* BankData.m in Sources */ = {isa = PBXBuildFile; fileRef = EF06168C1C5B524C0097B505 /* BankData.m */; };
 		EF06169B1C5B524C0097B505 /* ObjectData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = EF06168E1C5B524C0097B505 /* ObjectData+CoreDataProperties.m */; };
@@ -110,6 +112,10 @@
 		97ED586F1C5796BC004724A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97ED58721C5796BC004724A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97ED58741C5796BC004724A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF0320821C635D7B0032C699 /* BankInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankInfo.h; sourceTree = "<group>"; };
+		EF0320831C635D7B0032C699 /* BankInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankInfo.m; sourceTree = "<group>"; };
+		EF0320851C635D920032C699 /* BranchInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchInfo.h; sourceTree = "<group>"; };
+		EF0320861C635D920032C699 /* BranchInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchInfo.m; sourceTree = "<group>"; };
 		EF0616891C5B524C0097B505 /* BankData+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BankData+CoreDataProperties.h"; sourceTree = "<group>"; };
 		EF06168A1C5B524C0097B505 /* BankData+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BankData+CoreDataProperties.m"; sourceTree = "<group>"; };
 		EF06168B1C5B524C0097B505 /* BankData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankData.h; sourceTree = "<group>"; };
@@ -337,6 +343,10 @@
 				EF0616A51C5B52A90097B505 /* JSONParseCoreDataSave.m */,
 				EF0616AD1C5B983A0097B505 /* TestCoreData.h */,
 				EF0616AE1C5B983A0097B505 /* TestCoreData.m */,
+				EF0320821C635D7B0032C699 /* BankInfo.h */,
+				EF0320831C635D7B0032C699 /* BankInfo.m */,
+				EF0320851C635D920032C699 /* BranchInfo.h */,
+				EF0320861C635D920032C699 /* BranchInfo.m */,
 			);
 			name = "Processing Files";
 			sourceTree = "<group>";
@@ -429,6 +439,7 @@
 				6A193CEC1C57BD3800093B36 /* EarnMoneyViewController.m in Sources */,
 				6A8E906F1C5BB28A0069BABC /* CDControlPoint+CoreDataProperties.m in Sources */,
 				EF06169E1C5B524C0097B505 /* CurrencyData.m in Sources */,
+				EF0320871C635D920032C699 /* BranchInfo.m in Sources */,
 				6A1DBB9E1C5957E700859520 /* ControllPoint.m in Sources */,
 				EF06169B1C5B524C0097B505 /* ObjectData+CoreDataProperties.m in Sources */,
 				6A80BF831C5E264D00B57EC5 /* CustomEGTableViewCell.m in Sources */,
@@ -444,6 +455,7 @@
 				979339E31C58D9A000A674D1 /* CurencyCourseGraph.m in Sources */,
 				6A8E90701C5BB28A0069BABC /* CDControlPoint.m in Sources */,
 				6A1A15551C5AD6F9003A3044 /* Line.m in Sources */,
+				EF0320841C635D7B0032C699 /* BankInfo.m in Sources */,
 				6A29C59C1C5A3BB60032B74D /* GraphDrawer.m in Sources */,
 				EF0616A61C5B52A90097B505 /* JSONParseCoreDataSave.m in Sources */,
 				EF06169A1C5B524C0097B505 /* BankData.m in Sources */,

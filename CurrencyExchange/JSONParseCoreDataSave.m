@@ -8,9 +8,14 @@
 
 #import "JSONParseCoreDataSave.h"
 #import "AppDelegate.h"
+
 #import "BankData.h"
 #import "CurrencyData.h"
 #import "BranchData.h"
+
+#import "BankInfo.h"
+#import "BranchInfo.h"
+
 #import "Fetcher.h"
 
 NSString* const JSONParseDidUpdatesCoreDataNotification = @"JSONParseDidUpdatedCoreDataNotification";
@@ -21,19 +26,21 @@ NSString* const JSONParseDidUpdatesCoreDataNotification = @"JSONParseDidUpdatedC
 @property (assign, nonatomic) NSInteger banksCount;
 @property (assign, nonatomic) BOOL haveBranch;
 
-@property (strong, nonatomic) NSString* bankName;
-@property (strong, nonatomic) NSString* bankCity;
-@property (strong, nonatomic) NSString* bankRegion;
-@property (strong, nonatomic) NSString* bankAddress;
-@property (strong, nonatomic) NSString* bankEURCurrencyAsk;
-@property (strong, nonatomic) NSString* bankEURCurrencyBid;
-@property (strong, nonatomic) NSString* bankUSDCurrencyAsk;
-@property (strong, nonatomic) NSString* bankUSDCurrencyBid;
-@property (strong, nonatomic) NSDate* bankDate;
+@property (strong, nonatomic) NSString* bankJSONName;
+@property (strong, nonatomic) NSString* bankJSONCity;
+@property (strong, nonatomic) NSString* bankJSONRegion;
+@property (strong, nonatomic) NSString* bankJSONAddress;
+@property (strong, nonatomic) NSString* bankJSONEURCurrencyAsk;
+@property (strong, nonatomic) NSString* bankJSONEURCurrencyBid;
+@property (strong, nonatomic) NSString* bankJSONUSDCurrencyAsk;
+@property (strong, nonatomic) NSString* bankJSONUSDCurrencyBid;
+@property (strong, nonatomic) NSDate* bankJSONDate;
 
 @property (strong, nonatomic) NSManagedObjectContext* context;
 
-
+@property (strong, nonatomic) NSMutableArray* branchesTempArray;
+@property (strong, nonatomic) NSArray* sortedBranchesArray;
+@property (strong, nonatomic) NSMutableArray* banks;
 
 @end
 
@@ -50,9 +57,10 @@ NSString* const JSONParseDidUpdatesCoreDataNotification = @"JSONParseDidUpdatedC
     {
         NSString* dataUrl = @"http://resources.finance.ua/ua/public/currency-cash.json";
         NSURL* url = [NSURL URLWithString:dataUrl];
+        
         self.jsonData = [[NSDictionary alloc] init];
-        self.context = [AppDelegate singleton].managedObjectContext;
-        Fetcher* fetcherObject = [[Fetcher alloc] init];
+        self.banks = [NSMutableArray array];
+        self.branchesTempArray = [NSMutableArray array];
         
         NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession] dataTaskWithURL:url
                                                                          completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
@@ -184,7 +192,6 @@ NSString* const JSONParseDidUpdatesCoreDataNotification = @"JSONParseDidUpdatedC
                                                      });
                                               }];
         
-        
         [downloadTask resume];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:JSONParseDidUpdatesCoreDataNotification
@@ -203,8 +210,8 @@ NSString* const JSONParseDidUpdatesCoreDataNotification = @"JSONParseDidUpdatedC
     for (BankData* bankObject in objectsArray)
     {
         
-        NSArray* currenciesArray = [bankObject.currency allObjects];
-        NSArray* branchesArray = [bankObject.branch allObjects];
+        NSArray* currenciesArray = [bankObject.currency array];
+        NSArray* branchesArray = [bankObject.branch array];
 
         
         NSLog(@"BANK: name = %@, region = %@, city = %@, address = %@ ", bankObject.name, bankObject.region, bankObject.city, bankObject.address);
