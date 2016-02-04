@@ -14,7 +14,6 @@
 @interface MapViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) NSManagedObjectContext *context;
-@property (strong, nonatomic) NSArray *adresses;
 @property (strong, nonatomic) __block NSMutableArray *locations;
 
 @end
@@ -27,25 +26,8 @@
     
     self.mapView.delegate = self;
     
-    self.context = [AppDelegate singleton].managedObjectContext;
-    JSONParseCoreDataSave * jsonParse = [[JSONParseCoreDataSave alloc] init];
-    //[jsonParse deleteAllObjectsFromCoreData];
-    //[jsonParse loadCoreDataObjects];
+    [self fetchData:self.adresses];
     
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"BranchData"];
-    
-    NSArray *temp = [self.context executeFetchRequest:fetchRequest error:nil];
-    
-    NSMutableArray *adresses = [[NSMutableArray alloc] init];
-    
-    for (BranchData *branch in temp)
-    {
-        NSString *temp = [NSString stringWithFormat:@"%@, %@, %@, Украина", branch.address, branch.city, branch.region ];
-        [adresses addObject:temp];
-    }
-    NSLog(@"%@", adresses);
-    
-    [self fetchData:adresses];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -65,7 +47,6 @@
     
 }
 
-
 -(void) fetchData:(NSMutableArray *) adresses
 {
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
@@ -79,7 +60,7 @@
     {
         for (NSDictionary *location in self.locations )
         {
-            if ([adresses indexOfObjectIdenticalTo:[location valueForKey:@"adress"]] )
+            if ([adresses indexOfObject:[location valueForKey:@"adress"]] != NSNotFound)
             {
                 MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
                 point.coordinate = CLLocationCoordinate2DMake([[[location valueForKey:@"location"] firstObject] doubleValue],
@@ -88,7 +69,10 @@
                 
                 [self.mapView addAnnotation:point];
                 
-                [adresses removeObjectIdenticalTo:[location valueForKey:@"adress"]];
+                NSLog(@"LOCATION %@ %@", [[location valueForKey:@"location"] firstObject], [[location valueForKey:@"location"] lastObject]);
+                
+                [adresses removeObject:[location valueForKey:@"adress"]];
+
             }
         }
     }
@@ -142,27 +126,10 @@
          index = [NSNumber numberWithInt:++indexInt];
          if ( [index intValue] < [adresses count])
          {
-             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.2 * NSEC_PER_SEC),
+                            dispatch_get_main_queue(), ^{
                  [self placePinForAdressAtIndex:index fromAdresses:adresses withGeocoder:geocoder];
              });
-             
-         }
-         if ([adresses count] == [index intValue])
-         {//should be deleted
-             if ([NSJSONSerialization isValidJSONObject:self.locations])
-             {
-                 NSString *path = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-                 path = [path stringByAppendingString:@"//locations.dat"];
-                 NSOutputStream *ostream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
-                 [ostream open];
-                 
-                 [NSJSONSerialization writeJSONObject:self.locations
-                                             toStream:ostream
-                                              options:nil
-                                                error:nil];
-                 
-                 [ostream close];
-             }
          }
          
     }];

@@ -11,5 +11,6 @@
 
 
 @interface MapViewController : UIViewController <MKMapViewDelegate>
-
+-(void) setAdresses:(NSMutableArray *)adresses;
+@property (strong, nonatomic) NSMutableArray *adresses;
 @end

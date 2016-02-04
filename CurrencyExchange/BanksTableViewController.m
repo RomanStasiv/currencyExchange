@@ -8,11 +8,14 @@
 
 #import "BanksTableViewController.h"
 #import "Fetcher.h"
-
+#import "MapViewController.h"
+#import "BanksTVCell.h"
 
 @interface BanksTableViewController ()
 
 @property (strong, nonatomic) NSArray *BanksData;
+@property (strong, nonatomic) NSMutableArray *adresses;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -25,12 +28,8 @@
     Fetcher *fetcher = [[Fetcher alloc] init];
     
     self.BanksData = [fetcher dataForTableView];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    [self.tableView registerClass:[BanksTVCell class] forCellReuseIdentifier:@"banksCell"];
 }
 
 #pragma mark - Table view data source
@@ -53,21 +52,54 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
-
+    BanksTVCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"banksCell"];
+    
+    if (!cell)
+        cell = [[BanksTVCell alloc] init];
+    
+    
+    
     if (indexPath.row == 0)
     {
-        cell.textLabel.text = [NSString stringWithFormat:@"%@", [[self.BanksData objectAtIndex:indexPath.section] bankName]] ;
+        cell.nameLabel.text = [NSString stringWithFormat:@"%@", [[self.BanksData objectAtIndex:indexPath.section] bankName]] ;
+        cell.adressLabel.text = [NSString stringWithFormat:@"%@", @"noadresssrybro"];
     }
     else
     {
         id branches = [[self.BanksData objectAtIndex:indexPath.section] branchs];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@", [[branches objectAtIndex:(indexPath.row - 1)] valueForKey:@"name"]];
+        cell.nameLabel.text = [NSString stringWithFormat:@"%@", [[branches objectAtIndex:(indexPath.row - 1)] valueForKey:@"name"]];
+        cell.adressLabel.text = [NSString stringWithFormat:@"%@", [[branches objectAtIndex:(indexPath.row - 1)] valueForKey:@"adress"]];
     }
     return cell;
 }
 
 #pragma mark - Table view delegate
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.adresses = [[NSMutableArray alloc] init];
+
+    
+    //[adresses addObject: [[self.BanksData objectAtIndex:indexPath.section] ]];
+    
+    
+    for (NSMutableDictionary *branch in [[self.BanksData objectAtIndex:indexPath.section] branchs])
+    {
+        [self.adresses addObject:[branch valueForKey:@"adress"]];
+    }
+    
+    [self performSegueWithIdentifier:@"showMapView" sender:self];
+    
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"showMapView"])
+    {
+        ((MapViewController *)[segue destinationViewController]).adresses = self.adresses;
+    }
+}
 
 
 /*

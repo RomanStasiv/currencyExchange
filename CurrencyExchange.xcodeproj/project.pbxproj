@@ -31,6 +31,7 @@
 		6A8E90791C5BFDA70069BABC /* ControlPointsEarnChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E90781C5BFDA70069BABC /* ControlPointsEarnChecker.m */; };
 		6AA459091C5D3A7900415698 /* EarnNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA459081C5D3A7900415698 /* EarnNotificationView.m */; };
 		9730E7961C5CD44A00C06195 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9730E7951C5CD44A00C06195 /* MapViewController.m */; };
+		973F19C71C6377E500E3EC1F /* BanksTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 973F19C61C6377E500E3EC1F /* BanksTVCell.m */; };
 		979339E31C58D9A000A674D1 /* CurencyCourseGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 979339E21C58D9A000A674D1 /* CurencyCourseGraph.m */; };
 		97ED58621C5796BC004724A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ED58611C5796BC004724A3 /* main.m */; };
 		97ED58651C5796BC004724A3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ED58641C5796BC004724A3 /* AppDelegate.m */; };
@@ -99,6 +100,8 @@
 		6AA459081C5D3A7900415698 /* EarnNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarnNotificationView.m; sourceTree = "<group>"; };
 		9730E7941C5CD44A00C06195 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		9730E7951C5CD44A00C06195 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		973F19C51C6377E500E3EC1F /* BanksTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BanksTVCell.h; sourceTree = "<group>"; };
+		973F19C61C6377E500E3EC1F /* BanksTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BanksTVCell.m; sourceTree = "<group>"; };
 		979339E11C58D9A000A674D1 /* CurencyCourseGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurencyCourseGraph.h; sourceTree = "<group>"; };
 		979339E21C58D9A000A674D1 /* CurencyCourseGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurencyCourseGraph.m; sourceTree = "<group>"; };
 		97ED585D1C5796BC004724A3 /* CurrencyExchange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyExchange.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -219,6 +222,8 @@
 			children = (
 				6A193CF61C57DB3000093B36 /* BanksTableViewController.h */,
 				6A193CF71C57DB3000093B36 /* BanksTableViewController.m */,
+				973F19C51C6377E500E3EC1F /* BanksTVCell.h */,
+				973F19C61C6377E500E3EC1F /* BanksTVCell.m */,
 				9730E7941C5CD44A00C06195 /* MapViewController.h */,
 				9730E7951C5CD44A00C06195 /* MapViewController.m */,
 			);
@@ -428,6 +433,7 @@
 				6A193CEC1C57BD3800093B36 /* EarnMoneyViewController.m in Sources */,
 				9730E7961C5CD44A00C06195 /* MapViewController.m in Sources */,
 				6A8E906F1C5BB28A0069BABC /* CDControlPoint+CoreDataProperties.m in Sources */,
+				973F19C71C6377E500E3EC1F /* BanksTVCell.m in Sources */,
 				EF06169E1C5B524C0097B505 /* CurrencyData.m in Sources */,
 				6A1DBB9E1C5957E700859520 /* ControllPoint.m in Sources */,
 				EF06169B1C5B524C0097B505 /* ObjectData+CoreDataProperties.m in Sources */,
