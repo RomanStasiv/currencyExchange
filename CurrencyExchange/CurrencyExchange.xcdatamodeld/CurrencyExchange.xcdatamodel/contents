@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="14F27" minimumToolsVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Automatic">
     <entity name="BankData" representedClassName="BankData" parentEntity="ObjectData" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="region" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="branch" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BranchData" inverseName="bank" inverseEntity="BranchData" syncable="YES"/>
-        <relationship name="currency" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CurrencyData" inverseName="bank" inverseEntity="CurrencyData" syncable="YES"/>
+        <relationship name="branch" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="BranchData" inverseName="bank" inverseEntity="BranchData" syncable="YES"/>
+        <relationship name="currency" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="CurrencyData" inverseName="bank" inverseEntity="CurrencyData" syncable="YES"/>
     </entity>
     <entity name="BranchData" representedClassName="BranchData" parentEntity="ObjectData" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>

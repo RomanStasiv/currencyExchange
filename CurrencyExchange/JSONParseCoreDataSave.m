@@ -29,6 +29,7 @@
 @property (strong, nonatomic) NSDate* bankDate;
 
 @property (strong, nonatomic) NSManagedObjectContext* context;
+@property (strong, nonatomic) NSPersistentStoreCoordinator *coordinator;
 
 
 
@@ -45,11 +46,13 @@
         NSURL* url = [NSURL URLWithString:dataUrl];
         self.jsonData = [[NSDictionary alloc] init];
         self.context = [AppDelegate singleton].managedObjectContext;
+        self.coordinator = [AppDelegate singleton].persistentStoreCoordinator;
         Fetcher* fetcherObject = [[Fetcher alloc] init];
         
         
         NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession] dataTaskWithURL:url
          completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
+        
 
         self.jsonData = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         NSArray* jsonArray = [self.jsonData objectForKey:@"organizations"];
@@ -68,7 +71,7 @@
         BankData* bankToBindNew = nil;
         BankData* bankToUpdate = nil;
              
-        for (int i = 1; i < self.banksCount; i++)
+        for (int i = 1; i < 100; i++)
         {
             self.bankName = [[jsonArray objectAtIndex:i] objectForKey:@"title"];
              
@@ -95,7 +98,8 @@
              
             self.haveBranch = [[[jsonArray objectAtIndex:i] objectForKey:@"branch"] boolValue];
              
-           
+            
+            
             if (![bankNamesArray containsObject:self.bankName] && ![branchNamesArray containsObject:self.bankName])
             {
                 
@@ -137,7 +141,7 @@
                 
             }
            
-            else if ([bankNamesArray containsObject:self.bankName] && [branchNamesArray containsObject:self.bankName])
+            else if ([bankNamesArray containsObject:self.bankName] || [branchNamesArray containsObject:self.bankName])
             {
                 if (self.haveBranch == false)
                 {
@@ -169,18 +173,30 @@
             }
 
         }
-        NSError* saveError = nil;
-        if (![self.context save:&saveError]) {
-            NSLog(@"%@", [error localizedDescription]);
-        }
+             
+             
+             __block NSError *saveError;
+             __block BOOL savedOK = NO;
+             [self.context performBlockAndWait:^{
+                 // Do lots of things with the context.
+                 savedOK = [self.context save:&saveError];
+             }];
+        
              
         }];
         
+        
+        /*NSError* saveError = nil;
+        if (![self.context save:&saveError]) {
+            NSLog(@"%@", [saveError localizedDescription]);
+        }*/
         
         [downloadTask resume];
     }
     NSLog(@"called by NSTimer!!!");
 }
+
+
 
 #pragma mark - Check the Result
 
@@ -193,8 +209,8 @@
     for (BankData* bankObject in objectsArray)
     {
         
-        NSArray* currenciesArray = [bankObject.currency allObjects];
-        NSArray* branchesArray = [bankObject.branch allObjects];
+        NSArray* currenciesArray = [bankObject.currency array];
+        NSArray* branchesArray = [bankObject.branch array];
 
         
         NSLog(@"BANK: name = %@, region = %@, city = %@, address = %@ ", bankObject.name, bankObject.region, bankObject.city, bankObject.address);
