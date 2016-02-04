@@ -13,6 +13,9 @@
 #import "BranchData.h"
 #import "Fetcher.h"
 
+NSString* const JSONParseDidUpdatesCoreDataNotification = @"JSONParseDidUpdatedCoreDataNotification";
+
+
 @interface JSONParseCoreDataSave ()
 
 @property (assign, nonatomic) NSInteger banksCount;
@@ -40,6 +43,7 @@
 
 -(void) JSONParse
 {
+        NSLog(@"called by NSTimer!!!");
     dispatch_async (dispatch_get_main_queue(), ^{
        
     });
@@ -183,8 +187,10 @@
         
         [downloadTask resume];
     }
-    NSLog(@"called by NSTimer!!!");
-}
+    [[NSNotificationCenter defaultCenter] postNotificationName:JSONParseDidUpdatesCoreDataNotification
+                                                        object:nil
+                                                      userInfo:nil];
+  }
 
 #pragma mark - Check the Result
 

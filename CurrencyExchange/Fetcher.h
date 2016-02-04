@@ -15,6 +15,9 @@
 #import "BranchData.h"
 #import "ReportDataForTable.h"
 
+extern NSString* const CoreDataDidSavedNotification;
+extern NSString* const CoreDataDidSavedUserInfoKey;
+
 @interface Fetcher : NSObject
 
 @property (strong, nonatomic) NSMutableDictionary* dataFromCoreData;
