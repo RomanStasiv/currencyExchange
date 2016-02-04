@@ -159,7 +159,10 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
     {
         ReportDataForTable* tmp = [[ReportDataForTable alloc]init];
         tmp.bankName =((BankData *)resultArray[k]).name;
-        tmp.brankAddress = [NSString stringWithFormat:@"%@, %@, %@, Украина", ((BankData *)resultArray[k]).address, ((BankData *)resultArray[k]).city, ((BankData *)resultArray[k]).region ];
+        tmp.bankStreet = ((BankData *)resultArray[k]).address;
+        tmp.bankCity = ((BankData *)resultArray[k]).city;
+        tmp.bankRegion = ((BankData *)resultArray[k]).region ;
+       // tmp.bankAddress = [NSString stringWithFormat:@"%@, %@, %@", ((BankData *)resultArray[k]).address, ((BankData *)resultArray[k]).city, ((BankData *)resultArray[k]).region ];
         //NSLog(@"%@", tmp.brankAddress);
         
         //NSLog(@"%@", tmp.bankName);
@@ -172,13 +175,15 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
             if(tmp.bankName == branch.bank.name)
             {
                 NSString* name = [NSString stringWithString:branch.name];
-                NSString* address = [NSString stringWithFormat:@"%@, %@, %@, Украина", branch.address, branch.city, branch.region ];
+                //NSString* address = [NSString stringWithFormat:@"%@, %@, %@", branch.address, branch.city, branch.region ];
                 
                 // NSLog(@"%@", name);
-                [branchs setObject:address forKey:name];
+                [branchs setObject:name forKey:@"name"];
+                [branchs setObject:branch.address forKey:@"address"];
+                [branchs setObject:branch.city forKey:@"city"];
+                [branchs setObject:branch.region forKey:@"region"];
             }
-            
-            
+           
         }
         //NSLog(@"%lu", (unsigned long)[branchs count]);
         [finalArray addObject:branchs];
