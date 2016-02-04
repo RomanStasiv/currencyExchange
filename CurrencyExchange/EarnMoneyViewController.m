@@ -45,6 +45,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightConstraintAddCPContainer;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthConstraintAddCPContainer;
 
+@property (nonatomic, assign) BOOL canBeInLandscape;
+
 
 @end
 /*
@@ -87,7 +89,7 @@ static BOOL isAddCPVCOpened = NO;
     self.graphView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
     [super viewDidLoad];
     [self selfUpdate];
-    
+    self.canBeInLandscape = YES;
 }
 
 - (void)selfUpdate
@@ -428,6 +430,7 @@ static BOOL isAddCPVCOpened = NO;
             [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
             [self animateChangingOfConstraint:self.widthConstraintAddCPContainer
                                       ToValue:self.view.frame.size.width / 2];
+            /*self.canBeInLandscape = NO;*/
         }
         else if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         {
@@ -448,6 +451,22 @@ static BOOL isAddCPVCOpened = NO;
         }];
     }
 }
+
+/*- (BOOL)shouldAutorotate
+{
+    if (!self.canBeInLandscape)
+        return NO;
+    else
+        return YES;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    if (!self.canBeInLandscape)
+        return UIInterfaceOrientationMaskPortrait;
+    else
+        return UIInterfaceOrientationMaskAll;
+}*/
 
 - (void)hideAddControlPointViewControllerWithComletionHandler:(void(^)())completion
 {

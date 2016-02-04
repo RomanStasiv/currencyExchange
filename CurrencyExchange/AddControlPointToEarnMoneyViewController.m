@@ -29,6 +29,8 @@
 
 @implementation AddControlPointToEarnMoneyViewController
 
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -56,6 +58,12 @@
     self.stringDatesArray = [self ArrayOfStringDatesFromAvarageCurrencyObjectsArray];
     self.currency = @"dolars";
     [self.dateExchangePicker reloadAllComponents];
+}
+
+#pragma mark hideKeyboard
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
 }
 
 - (void)tapOnHintLabelDetected
