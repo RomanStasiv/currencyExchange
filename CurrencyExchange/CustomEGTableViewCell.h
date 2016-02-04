@@ -14,6 +14,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *investingCurrency;
 @property (weak, nonatomic) IBOutlet UILabel *earningAmount;
 
-@property (weak, nonatomic) IBOutlet UIButton *removeControlPoint;
 @property (weak, nonatomic) IBOutlet UIButton *shareButton;
 @end

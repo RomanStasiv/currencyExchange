@@ -77,16 +77,16 @@
                                                                  self.view.bounds.size.height)]];
     
     // border radius
-    self.view.layer.cornerRadius = 30;
+    self.view.layer.cornerRadius = 10;
     
      // border
      [self.view.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-     [self.view.layer setBorderWidth:1.5f];
+     [self.view.layer setBorderWidth:0.5f];
      
      // drop shadow
      [self.view.layer setShadowColor:[UIColor blackColor].CGColor];
      [self.view.layer setShadowOpacity:0.8];
-     [self.view.layer setShadowRadius:8.0];
+     [self.view.layer setShadowRadius:15.0];
      [self.view.layer setShadowOffset:CGSizeMake(5.0, 5.0)];
 }
 
@@ -251,10 +251,10 @@
     self.date = ((AverageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:row]).date;
 }
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+/*- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     return [self.stringDatesArray objectAtIndex:row];
-}
+}*/
 
 - (NSArray *)ArrayOfStringDatesFromAvarageCurrencyObjectsArray
 {

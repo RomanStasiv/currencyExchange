@@ -47,6 +47,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthConstraintAddCPContainer;
 
 
+
+
 @end
 /*
 static NSString* USDbid[] = {
@@ -86,6 +88,7 @@ static BOOL isAddCPVCOpened = NO;
                                                  name:UIApplicationWillTerminateNotification
                                                object:nil];
     self.graphView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
     [super viewDidLoad];
     [self selfUpdate];
     ((CustomNavigationController *)self.navigationController).canBeInLandscape = YES;
@@ -95,10 +98,10 @@ static BOOL isAddCPVCOpened = NO;
 {
     [self updateAverageCurrencyObjectsArray];
     [self prepareGraphView];
-    self.USDBidColor = [UIColor brownColor];
-    self.USDAskColor = [UIColor blueColor];
-    self.EURBidColor = [UIColor darkGrayColor];
-    self.EURAskColor = [UIColor grayColor];
+    self.USDBidColor = [UIColor colorWithRed:0.9 green:0.11 blue:0.05 alpha:1];
+    self.USDAskColor = [UIColor colorWithRed:0.85 green:0.39 blue:0.06 alpha:1];
+    self.EURBidColor = [UIColor colorWithRed:0.09 green:0.41 blue:0.07 alpha:1];
+    self.EURAskColor = [UIColor colorWithRed:0.12 green:0.77 blue:0.07 alpha:1];
     [self setNeedsOfIndicator:self.USDBidColorIndicator WithColor:self.USDBidColor];
     [self setNeedsOfIndicator:self.USDAskColorIndicator WithColor:self.USDAskColor];
     [self setNeedsOfIndicator:self.EURBidColorIndicator WithColor:self.EURBidColor];
@@ -268,7 +271,7 @@ static BOOL isAddCPVCOpened = NO;
             [self.graphView drawAllControlpoints];
         }
     }];
-    isAddCPVCOpened = NO;
+    ((CustomNavigationController *)self.navigationController).canBeInLandscape = YES;
 }
 
 #pragma mark - persistance
@@ -510,7 +513,7 @@ static BOOL isAddCPVCOpened = NO;
     
     showOffLabel.font = [UIFont fontWithName:@"marker felt" size:10];
     [self sizeLabel:showOffLabel toRect:frame];
-    showOffLabel.textColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"goldTexture"]];
+    showOffLabel.textColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sea_texture"]];
     [self.view addSubview:showOffLabel];
     
     showOffLabel.transform = CGAffineTransformMakeRotation(RADIANS(330));
@@ -526,7 +529,6 @@ static BOOL isAddCPVCOpened = NO;
     [showOffLabel removeFromSuperview];
     [darkLight removeFromSuperview];
 
-#warning need to store history of images somewhere
     return image;
 }
 

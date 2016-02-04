@@ -33,6 +33,7 @@
     
     self.view.clipsToBounds = YES;
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
+    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
 }
 
 
@@ -101,10 +102,6 @@
     cell.investingAmount.text = [NSString stringWithFormat:@"%.02f", [CDobject.value floatValue]];
     cell.earningAmount.text = [NSString stringWithFormat:@"%.03f", [CDobject.earningPosibility floatValue]];
     
-   /* cell.removeControlPoint.tag = indexPath.row;
-    [cell.removeControlPoint addTarget:self
-                               action:@selector(removeControlPoint:)
-                     forControlEvents:UIControlEventTouchUpInside];*/
     cell.shareButton.tag = indexPath.row;
     [cell.shareButton addTarget:self
                          action:@selector(showAnotherViewController:)
@@ -146,12 +143,10 @@
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
     [fetchRequest setSortDescriptors:@[descriptor]];
     
-    // Edit the section name key path and cache name if appropriate.
-    // nil for section name key path means "no sections".
     NSFetchedResultsController *aFetchedResultsController =
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:moc
-                                          sectionNameKeyPath:nil
+                                          sectionNameKeyPath:nil/*@"Control Points"*/
                                                    cacheName:nil];
     aFetchedResultsController.delegate = self;
     self.fetchResultController = aFetchedResultsController;
