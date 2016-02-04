@@ -10,6 +10,7 @@
 #import "JSONParseCoreDataSave.h"
 #import "TestCoreData.h"
 #import "Fetcher.h"
+#import "MetalJSONParse.h"
 
 
 @interface MainScreenViewController ()
@@ -26,44 +27,33 @@
 {
     [super viewDidLoad];
     
-    NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
-    
-    [nc addObserver:self
-           selector:@selector(coreDataUpdated:)
-               name:CoreDataDidSavedNotification
-             object:nil];
-    
-    
     
     self.workObject = [[JSONParseCoreDataSave alloc] init];
+    
     //TestCoreData* testObject = [[TestCoreData alloc] init];
-    Fetcher*tmp = [[Fetcher alloc]init];
+    MetalJSONParse* tester = [[MetalJSONParse alloc]init];
+    //Fetcher*tmp = [[Fetcher alloc]init];
     
     //[self.workObject deleteAllObjectsFromCoreData];
     //[self.workObject JSONParse];
     //[workObject loadCoreDataObjects];
-    [tmp allBanksQuantity];
+    //[tmp allBanksQuantity];
+    
+    dispatch_queue_t queueJsonMetal = dispatch_queue_create("Metal", DISPATCH_QUEUE_CONCURRENT);
+    dispatch_async(queueJsonMetal, ^{
+        [tester JSONMetalParse];
+    });
+    
     //[testObject insertFakeDataToCoreData];
     //[tmp dataForTableView];
     self.graph.backgroundColor = [UIColor blackColor];
-    /*self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:10.0
-                                                    target: workObject
+    self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:30.0
+                                                    target: self.workObject
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
                                                    repeats: YES];
     
 }
-
-#pragma mark - Notifications
-
-- (void) coreDataUpdated:(NSNotification*) notification
-{
-    
-    NSArray* array = [notification.userInfo objectForKey:CoreDataDidSavedUserInfoKey];
-    
-}
-
-#pragma mark - Timer
 
 
 - (void)didReceiveMemoryWarning
@@ -83,3 +73,5 @@
 
 
 @end
+
+
