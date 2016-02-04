@@ -12,6 +12,8 @@
 #import "ShareGoalsViewController.h"
 #import "EarnMoneyViewController.h"
 
+#import <QuartzCore/QuartzCore.h>
+
 @interface EarningGoalsTableViewController ()
 
 @end
@@ -19,14 +21,32 @@
 @implementation EarningGoalsTableViewController
 
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     UIBarButtonItem* editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
                                                                                 target:self
                                                                                 action:@selector(actionEdit:)];
     self.navigationItem.rightBarButtonItem = editButton;
+    
+#warning ANIMATE ! ANIMATE, YOU, WH***
+    // border radius
+    self.view.layer.cornerRadius = 30;
+    /*
+    // border
+    [self.view.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+    [self.view.layer setBorderWidth:1.5f];
+    
+    // drop shadow
+    [self.view.layer setShadowColor:[UIColor blackColor].CGColor];
+    [self.view.layer setShadowOpacity:0.8];
+    [self.view.layer setShadowRadius:8.0];
+    [self.view.layer setShadowOffset:CGSizeMake(5.0, 5.0)];*/
+    
+    self.view.clipsToBounds = YES;
 }
+
 
 - (void) actionEdit:(UIBarButtonItem*) sender
 {
@@ -116,7 +136,6 @@
         [self.graphViewControllerDelegate performAddNavButtonsLogic];
         [self.graphViewControllerDelegate redrawGraphView];
     }
-    
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate

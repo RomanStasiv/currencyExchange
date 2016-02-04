@@ -18,6 +18,8 @@
 #import "EarningGoalsTableViewController.h"
 #import "ShareGoalsViewController.h"
 
+#import <QuartzCore/QuartzCore.h>
+
 @interface EarnMoneyViewController ()
 
 @property (weak, nonatomic) IBOutlet EarnMoneyGraphView *graphView;
@@ -82,8 +84,10 @@ static BOOL isAddCPVCOpened = NO;
                                              selector:@selector(saveAllContolPointsToCD)
                                                  name:UIApplicationWillTerminateNotification
                                                object:nil];
+    self.graphView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
     [super viewDidLoad];
     [self selfUpdate];
+    
 }
 
 - (void)selfUpdate
@@ -355,7 +359,7 @@ static BOOL isAddCPVCOpened = NO;
     
     UIBarButtonItem *addBarButton = [[UIBarButtonItem alloc] initWithCustomView:addButton];
     
-    UIImage *shareImage = [UIImage imageNamed:@"tabBar_share.png"];
+    /*UIImage *shareImage = [UIImage imageNamed:@"tabBar_share.png"];
     UIButton *shareButton = [[UIButton alloc] initWithFrame:ImageRect];
     [shareButton setBackgroundImage:shareImage forState:UIControlStateNormal];
     [shareButton addTarget:self
@@ -363,7 +367,7 @@ static BOOL isAddCPVCOpened = NO;
           forControlEvents:UIControlEventTouchUpInside];
     [shareButton setShowsTouchWhenHighlighted:YES];
     
-    UIBarButtonItem *shareBarButton = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
+    UIBarButtonItem *shareBarButton = [[UIBarButtonItem alloc] initWithCustomView:shareButton];*/
 
     if (goals)
     {
@@ -377,11 +381,20 @@ static BOOL isAddCPVCOpened = NO;
 
         UIBarButtonItem *goalsBarButton = [[UIBarButtonItem alloc] initWithCustomView:goalsButton];
         
-        self.navigationItem.rightBarButtonItems = @[addBarButton, shareBarButton, goalsBarButton];
+        self.navigationItem.rightBarButtonItems = @[addBarButton,/* shareBarButton,*/ goalsBarButton];
+        
+        CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
+        anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        anim.duration = 0.5;
+        anim.repeatCount = 5;
+        anim.autoreverses = YES;
+        anim.removedOnCompletion = YES;
+        anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.5, 1.5, 1.0)];
+        [goalsButton.layer addAnimation:anim forKey:nil];
     }
     else
     {
-        self.navigationItem.rightBarButtonItems = @[addBarButton, shareBarButton];
+        self.navigationItem.rightBarButtonItems = @[addBarButton/*, shareBarButton*/];
     }
 }
 
@@ -397,13 +410,13 @@ static BOOL isAddCPVCOpened = NO;
     [self.navigationController pushViewController:egTVC animated:YES];
 }
 
-- (void)showShareGoalsViewController
-{
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ShareGoalsViewController * shareGoalsVC = (ShareGoalsViewController *)[sb instantiateViewControllerWithIdentifier:@"shareGoalsVC"];
-#warning Maybe not using that ?
-    [self.navigationController pushViewController:shareGoalsVC animated:YES];
-}
+//- (void)showShareGoalsViewController
+//{
+//    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    ShareGoalsViewController * shareGoalsVC = (ShareGoalsViewController *)[sb instantiateViewControllerWithIdentifier:@"shareGoalsVC"];
+//#warning Maybe not using that ?
+//    [self.navigationController pushViewController:shareGoalsVC animated:YES];
+//}
 
 - (void)showAddControlPointViewController
 {
@@ -411,8 +424,10 @@ static BOOL isAddCPVCOpened = NO;
     {
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         {
+            NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
+            [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
             [self animateChangingOfConstraint:self.widthConstraintAddCPContainer
-                                      ToValue:self.view.frame.size.width * (3/2)];
+                                      ToValue:self.view.frame.size.width / 2];
         }
         else if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         {
@@ -495,7 +510,7 @@ static BOOL isAddCPVCOpened = NO;
     return image;
 }
 
-- (void) sizeLabel: (UILabel *) label toRect: (CGRect) labelRect  {
+- (void) sizeLabel: (UILabel *) label toRect: (CGRect) labelRect{
     
     // Set the frame of the label to the targeted rectangle
     label.frame = labelRect;

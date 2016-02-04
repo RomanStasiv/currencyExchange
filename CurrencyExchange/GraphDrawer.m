@@ -352,7 +352,7 @@
         UILabel *valueLabel = [[UILabel alloc] initWithFrame:frame];
         valueLabel.font = [UIFont systemFontOfSize:10];
         valueLabel.text = [NSString stringWithFormat:@"%.02f",[[shrinkedValueArray objectAtIndex:i] floatValue]];
-        valueLabel.backgroundColor = [UIColor lightGrayColor];
+        valueLabel.backgroundColor = [UIColor colorWithRed:0.07 green:0.06 blue:0.07 alpha:0.15];
         [self addSubview:valueLabel];
     }
 }
@@ -405,7 +405,7 @@
                                        size00.width);
         
         UILabel *monthLabel = [[UILabel alloc] initWithFrame:monthFrame];
-        monthLabel.backgroundColor = [UIColor lightGrayColor];
+        monthLabel.backgroundColor = [UIColor colorWithRed:0.07 green:0.06 blue:0.07 alpha:0.15];
         monthLabel.font = [UIFont systemFontOfSize:11];
         monthLabel.text = [shrinkedMonthArray objectAtIndex:i];
         
@@ -415,7 +415,7 @@
                                      size00.width);
         
         UILabel *dayLabel = [[UILabel alloc] initWithFrame:dayFrame];
-        dayLabel.backgroundColor = [UIColor lightGrayColor];
+        dayLabel.backgroundColor = [UIColor colorWithRed:0.07 green:0.06 blue:0.07 alpha:0.15];
         dayLabel.font = [UIFont systemFontOfSize:11];
         dayLabel.text = [shrinkedDayArray objectAtIndex:i];
         [self addSubview:monthLabel];

@@ -15,9 +15,15 @@
 @property (nonatomic, strong) NSString *currency;
 @property (nonatomic ,strong) NSDate *date;
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *currencyControl;
 @property (weak, nonatomic) IBOutlet UITextField *moneyTextField;
 @property (weak, nonatomic) IBOutlet UIPickerView *dateExchangePicker;
+@property (weak, nonatomic) IBOutlet UILabel *hintLabel;
 @property (nonatomic, strong) NSArray *stringDatesArray;
+
+@property (nonatomic, strong) NSString *hint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *hintHeightConstraint;
+@property (nonatomic, strong) UIPanGestureRecognizer *pan;
 
 @end
 
@@ -28,6 +34,21 @@
     [super viewDidLoad];
     self.stringDatesArray = [self ArrayOfStringDatesFromAvarageCurrencyObjectsArray];
     self.currency = @"dolars";
+    
+    self.hintLabel.userInteractionEnabled = YES;
+    self.pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnHintLabelDetected)];
+    [self.hintLabel addGestureRecognizer:self.pan];
+    
+    self.hint = @"Add nessesary info about your currency exchanging, and app will tell You, when you can earn.";
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
+#warning how to ???
+    /*
+    UIView *glassTexture= [[UIView alloc] initWithFrame:self.view.frame];
+    glassTexture.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"clearGlass_texture"]];
+    glassTexture.alpha = 0.1;
+    [self.view insertSubview:glassTexture belowSubview:self.view];*/
+    
 }
 
 - (void)prepareAllData
@@ -35,6 +56,44 @@
     self.stringDatesArray = [self ArrayOfStringDatesFromAvarageCurrencyObjectsArray];
     self.currency = @"dolars";
     [self.dateExchangePicker reloadAllComponents];
+}
+
+- (void)tapOnHintLabelDetected
+{
+    static BOOL isOpened = NO;
+    if (!isOpened)
+    {
+        self.pan.enabled = NO;
+        self.hintLabel.textColor = [UIColor darkTextColor];
+        self.hintLabel.adjustsFontSizeToFitWidth = YES;
+        self.hintLabel.numberOfLines = 0;
+        self.hintLabel.textAlignment = NSTextAlignmentLeft;
+        self.hintLabel.text = self.hint;
+        [self animateChangingOfConstraint:self.hintHeightConstraint ToValue:150];
+        isOpened = YES;
+    }
+    else
+    {
+        self.pan.enabled = NO;
+        self.hintLabel.textColor = [UIColor lightGrayColor];
+        self.hintLabel.adjustsFontSizeToFitWidth = YES;
+        self.hintLabel.textAlignment = NSTextAlignmentCenter;
+        self.hintLabel.text = @"Show hint";
+        [self animateChangingOfConstraint:self.hintHeightConstraint ToValue:40];
+        isOpened = NO;
+    }
+}
+
+- (void)animateChangingOfConstraint:(NSLayoutConstraint *)constraint ToValue:(CGFloat)value
+{
+    constraint.constant = value;
+    [self.view setNeedsUpdateConstraints];
+    
+    [UIView animateWithDuration:0.8f animations:^
+     {
+         [self.view layoutIfNeeded];
+     }];
+    self.pan.enabled = YES;
 }
 
 - (IBAction)currencyDidChanged:(UISegmentedControl *)sender
@@ -72,23 +131,50 @@
             self.amountOfMoney = [self.moneyTextField.text floatValue];
             [self.owner addControlPointWithAmountOfMoney:self.amountOfMoney Currency:self.currency ForDate:self.date];
         }
-        else if (![self TextIsNumeric:self.moneyTextField.text])
+        else
         {
-            [self showMessageWith:@"Wrong amount of mooney"];
+            CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform.translation.x"];
+            anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            anim.duration = 0.1;
+            anim.repeatCount = 4;
+            anim.autoreverses = YES;
+            anim.removedOnCompletion = YES;
+            anim.fromValue = [NSNumber numberWithFloat:-5.f];
+            anim.toValue = [NSNumber numberWithFloat:5.f];
+    
+            if (![self TextIsNumeric:self.moneyTextField.text])
+            {
+                [self.moneyTextField.layer addAnimation:anim forKey:nil];
+            }
+            else if (!self.date)
+            {
+                [self.dateExchangePicker.layer addAnimation:anim forKey:nil];
+            }
+            else if (!self.currency)
+            {
+                [self.currencyControl.layer addAnimation:anim forKey:nil];
+            }
         }
-        else if (!self.date)
-        {
-            [self showMessageWith:@"Chose a date"];
-        }
-        else if (!self.currency)
-        {
-            [self showMessageWith:@"Chose a currency"];
-        }
+        /*
+         else if (![self TextIsNumeric:self.moneyTextField.text])
+         {
+         [self showMessageWith:@"Wrong amount of mooney"];
+         }
+         else if (!self.date)
+         {
+         [self showMessageWith:@"Chose a date"];
+         }
+         else if (!self.currency)
+         {
+         [self showMessageWith:@"Chose a currency"];
+         }*/
     }
 }
 
 - (void)showMessageWith:(NSString *)message
 {
+    
+    
     UIColor *normalColor = self.moneyTextField.backgroundColor;
     NSString *normalText = self.moneyTextField.text;
     

@@ -25,6 +25,7 @@
 		6A80BF7F1C5E22B300B57EC5 /* EarningGoalsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A80BF7E1C5E22B300B57EC5 /* EarningGoalsTableViewController.m */; };
 		6A80BF831C5E264D00B57EC5 /* CustomEGTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A80BF821C5E264D00B57EC5 /* CustomEGTableViewCell.m */; };
 		6A80BF861C5E31A700B57EC5 /* ControlPointsCDSotrer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A80BF851C5E31A700B57EC5 /* ControlPointsCDSotrer.m */; };
+		6A89D13A1C62A8E900D287C2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A89D1391C62A8E900D287C2 /* QuartzCore.framework */; };
 		6A8E906F1C5BB28A0069BABC /* CDControlPoint+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E906C1C5BB28A0069BABC /* CDControlPoint+CoreDataProperties.m */; };
 		6A8E90701C5BB28A0069BABC /* CDControlPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E906E1C5BB28A0069BABC /* CDControlPoint.m */; };
 		6A8E90741C5BB8760069BABC /* ControlPointCDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E90731C5BB8760069BABC /* ControlPointCDManager.m */; };
@@ -86,6 +87,7 @@
 		6A80BF821C5E264D00B57EC5 /* CustomEGTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomEGTableViewCell.m; sourceTree = "<group>"; };
 		6A80BF841C5E31A700B57EC5 /* ControlPointsCDSotrer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlPointsCDSotrer.h; sourceTree = "<group>"; };
 		6A80BF851C5E31A700B57EC5 /* ControlPointsCDSotrer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlPointsCDSotrer.m; sourceTree = "<group>"; };
+		6A89D1391C62A8E900D287C2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6A8E906B1C5BB28A0069BABC /* CDControlPoint+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CDControlPoint+CoreDataProperties.h"; path = "../CDControlPoint+CoreDataProperties.h"; sourceTree = "<group>"; };
 		6A8E906C1C5BB28A0069BABC /* CDControlPoint+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CDControlPoint+CoreDataProperties.m"; path = "../CDControlPoint+CoreDataProperties.m"; sourceTree = "<group>"; };
 		6A8E906D1C5BB28A0069BABC /* CDControlPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDControlPoint.h; path = ../CDControlPoint.h; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A89D13A1C62A8E900D287C2 /* QuartzCore.framework in Frameworks */,
 				401ED9791C5F53F9006CFBBB /* MessageUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,6 +262,7 @@
 		97ED58541C5796BC004724A3 = {
 			isa = PBXGroup;
 			children = (
+				6A89D1391C62A8E900D287C2 /* QuartzCore.framework */,
 				97ED585F1C5796BC004724A3 /* CurrencyExchange */,
 				97ED585E1C5796BC004724A3 /* Products */,
 			);
