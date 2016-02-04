@@ -19,6 +19,7 @@ NSString* const MetalSilverUrl = @"https://www.quandl.com/api/v1/datasets/LBMA/S
 @property (strong, nonatomic) NSString* usdPrice;
 @property (strong, nonatomic) NSString* euroPrice;
 
+
 @end
 
 @implementation MetalJSONParse
@@ -48,14 +49,14 @@ NSString* const MetalSilverUrl = @"https://www.quandl.com/api/v1/datasets/LBMA/S
     
     for(int i=0; i<3; i++)
     {
-        Prices* tmp = [[Prices alloc]init];
+        //Prices* tmp = [[Prices alloc]init];
         NSString *myDate = dataWithPrices[i][0];
         NSLog(@"%@", myDate);
-        tmp.date = [dateFormat dateFromString:myDate];
-        tmp.usdPrice = dataWithPrices[i][1];
-        tmp.eurPrice = dataWithPrices[i][5];
-        NSLog(@"USD %@", tmp.usdPrice);
-        NSLog(@"EURO %@", tmp.eurPrice);
+        self.priceMetalDate = [dateFormat dateFromString:myDate];
+        self.usdPrice = dataWithPrices[i][1];
+        self.euroPrice = dataWithPrices[i][5];
+        NSLog(@"USD %@",  self.usdPrice);
+        NSLog(@"EURO %@", self.euroPrice);
         
     }
     
