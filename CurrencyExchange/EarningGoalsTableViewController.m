@@ -29,22 +29,10 @@
                                                                                 target:self
                                                                                 action:@selector(actionEdit:)];
     self.navigationItem.rightBarButtonItem = editButton;
-    
-#warning ANIMATE ! ANIMATE, YOU, WH***
-    // border radius
-    self.view.layer.cornerRadius = 30;
-    /*
-    // border
-    [self.view.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    [self.view.layer setBorderWidth:1.5f];
-    
-    // drop shadow
-    [self.view.layer setShadowColor:[UIColor blackColor].CGColor];
-    [self.view.layer setShadowOpacity:0.8];
-    [self.view.layer setShadowRadius:8.0];
-    [self.view.layer setShadowOffset:CGSizeMake(5.0, 5.0)];*/
+   
     
     self.view.clipsToBounds = YES;
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
 }
 
 

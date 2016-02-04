@@ -30,6 +30,7 @@
 		6A8E90701C5BB28A0069BABC /* CDControlPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E906E1C5BB28A0069BABC /* CDControlPoint.m */; };
 		6A8E90741C5BB8760069BABC /* ControlPointCDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E90731C5BB8760069BABC /* ControlPointCDManager.m */; };
 		6A8E90791C5BFDA70069BABC /* ControlPointsEarnChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E90781C5BFDA70069BABC /* ControlPointsEarnChecker.m */; };
+		6A9266EB1C635AA000886099 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9266EA1C635AA000886099 /* CustomNavigationController.m */; };
 		6AA459091C5D3A7900415698 /* EarnNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA459081C5D3A7900415698 /* EarnNotificationView.m */; };
 		979339E31C58D9A000A674D1 /* CurencyCourseGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 979339E21C58D9A000A674D1 /* CurencyCourseGraph.m */; };
 		97ED58621C5796BC004724A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ED58611C5796BC004724A3 /* main.m */; };
@@ -96,6 +97,8 @@
 		6A8E90731C5BB8760069BABC /* ControlPointCDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlPointCDManager.m; sourceTree = "<group>"; };
 		6A8E90771C5BFDA70069BABC /* ControlPointsEarnChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlPointsEarnChecker.h; sourceTree = "<group>"; };
 		6A8E90781C5BFDA70069BABC /* ControlPointsEarnChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlPointsEarnChecker.m; sourceTree = "<group>"; };
+		6A9266E91C635AA000886099 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
+		6A9266EA1C635AA000886099 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		6AA459071C5D3A7900415698 /* EarnNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarnNotificationView.h; sourceTree = "<group>"; };
 		6AA459081C5D3A7900415698 /* EarnNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarnNotificationView.m; sourceTree = "<group>"; };
 		979339E11C58D9A000A674D1 /* CurencyCourseGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurencyCourseGraph.h; sourceTree = "<group>"; };
@@ -168,6 +171,8 @@
 		6A29890C1C58AEFA006328A5 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				6A9266E91C635AA000886099 /* CustomNavigationController.h */,
+				6A9266EA1C635AA000886099 /* CustomNavigationController.m */,
 				6A29419E1C58CD7E00C5D207 /* MainScreenViewController.h */,
 				6A29419F1C58CD7E00C5D207 /* MainScreenViewController.m */,
 				979339E11C58D9A000A674D1 /* CurencyCourseGraph.h */,
@@ -449,6 +454,7 @@
 				6AA459091C5D3A7900415698 /* EarnNotificationView.m in Sources */,
 				97ED58621C5796BC004724A3 /* main.m in Sources */,
 				6A2941A01C58CD7E00C5D207 /* MainScreenViewController.m in Sources */,
+				6A9266EB1C635AA000886099 /* CustomNavigationController.m in Sources */,
 				6A193CF51C57CF0500093B36 /* WebSharingViewController.m in Sources */,
 				401ED9771C5BE1F3006CFBBB /* ReportDataForTable.m in Sources */,
 				97ED586E1C5796BC004724A3 /* CurrencyExchange.xcdatamodeld in Sources */,

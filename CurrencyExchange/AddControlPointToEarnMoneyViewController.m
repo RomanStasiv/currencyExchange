@@ -9,6 +9,28 @@
 #import "AddControlPointToEarnMoneyViewController.h"
 #import "AverageCurrency.h"
 
+#pragma mark - Category
+@interface UIImage (Concatenate)
+
++(UIImage *)imageWithImage:(UIImage *)image secondImage:(UIImage *)secondImage covertToSize:(CGSize)size;
+
+@end
+
+@implementation UIImage (Concatenate)
+
++(UIImage *)imageWithImage:(UIImage *)image secondImage:(UIImage *)secondImage covertToSize:(CGSize)size
+{
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake( 0, 0, size.width, size.height)];
+    [secondImage drawInRect:CGRectMake( 0, 0, size.width, size.height)];
+    UIImage *destImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return destImage;
+}
+
+@end
+
+#pragma mark - Class
 @interface AddControlPointToEarnMoneyViewController ()
 
 @property (nonatomic, assign) CGFloat amountOfMoney;
@@ -42,15 +64,30 @@
     [self.hintLabel addGestureRecognizer:self.pan];
     
     self.hint = @"Add nessesary info about your currency exchanging, and app will tell You, when you can earn.";
+    [self configureViewDesign];
+}
+
+- (void)configureViewDesign
+{
+    self.view.backgroundColor = [UIColor colorWithPatternImage:
+                                 [UIImage imageWithImage:
+                                  [UIImage imageNamed:@"sunsat_patternColor"]
+                                          secondImage:[UIImage imageNamed:@"alpha_texture"]
+                                         covertToSize:CGSizeMake(self.view.bounds.size.width,
+                                                                 self.view.bounds.size.height)]];
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
-#warning how to ???
-    /*
-    UIView *glassTexture= [[UIView alloc] initWithFrame:self.view.frame];
-    glassTexture.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"clearGlass_texture"]];
-    glassTexture.alpha = 0.1;
-    [self.view insertSubview:glassTexture belowSubview:self.view];*/
+    // border radius
+    self.view.layer.cornerRadius = 30;
     
+     // border
+     [self.view.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+     [self.view.layer setBorderWidth:1.5f];
+     
+     // drop shadow
+     [self.view.layer setShadowColor:[UIColor blackColor].CGColor];
+     [self.view.layer setShadowOpacity:0.8];
+     [self.view.layer setShadowRadius:8.0];
+     [self.view.layer setShadowOffset:CGSizeMake(5.0, 5.0)];
 }
 
 - (void)prepareAllData
@@ -74,6 +111,7 @@
         self.pan.enabled = NO;
         self.hintLabel.textColor = [UIColor darkTextColor];
         self.hintLabel.adjustsFontSizeToFitWidth = YES;
+#warning WHATA ?
         self.hintLabel.numberOfLines = 0;
         self.hintLabel.textAlignment = NSTextAlignmentLeft;
         self.hintLabel.text = self.hint;
@@ -163,19 +201,6 @@
                 [self.currencyControl.layer addAnimation:anim forKey:nil];
             }
         }
-        /*
-         else if (![self TextIsNumeric:self.moneyTextField.text])
-         {
-         [self showMessageWith:@"Wrong amount of mooney"];
-         }
-         else if (!self.date)
-         {
-         [self showMessageWith:@"Chose a date"];
-         }
-         else if (!self.currency)
-         {
-         [self showMessageWith:@"Chose a currency"];
-         }*/
     }
 }
 
@@ -205,6 +230,20 @@
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
     return self.avarageCurrencyObjectsArray.count;
+}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
+{
+    UILabel* pickerLabel = (UILabel*)view;
+    if (!pickerLabel)
+    {
+        CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, 21);
+        pickerLabel = [[UILabel alloc] initWithFrame:frame];
+        pickerLabel.adjustsFontSizeToFitWidth = YES;
+        pickerLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    pickerLabel.text = [self.stringDatesArray objectAtIndex:row];
+    return pickerLabel;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component

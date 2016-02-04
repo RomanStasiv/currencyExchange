@@ -135,10 +135,10 @@
             </objects>
             <point key="canvasLocation" x="424" y="1246"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Custom Navigation Controller-->
         <scene sceneID="fTW-v3-DEd">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="z7x-lm-5OT" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="z7x-lm-5OT" customClass="CustomNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bGy-nW-LhG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -458,16 +458,18 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rgy-bh-HLh">
-                                <rect key="frame" x="42" y="437" width="50" height="50"/>
+                                <rect key="frame" x="42" y="456" width="50" height="50"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="7Hb-FN-pkR"/>
                                     <constraint firstAttribute="height" constant="21" id="8cS-lQ-qDW"/>
                                     <constraint firstAttribute="width" constant="50" id="Kpp-3o-Dhn"/>
                                     <constraint firstAttribute="width" constant="41" id="bm3-gd-N4o"/>
-                                    <constraint firstAttribute="height" constant="50" id="yYG-2C-S64"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="yYG-2C-S64"/>
                                 </constraints>
                                 <state key="normal" image="save_button"/>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="7Hb-FN-pkR"/>
                                         <exclude reference="8cS-lQ-qDW"/>
                                         <exclude reference="bm3-gd-N4o"/>
                                     </mask>
@@ -476,17 +478,23 @@
                                     <action selector="saveButtonBeenPressed:" destination="Djq-LH-aUk" eventType="touchUpInside" id="BsF-to-TeC"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show hint" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3M-fj-5r9">
-                                <rect key="frame" x="0.0" y="495" width="100" height="40"/>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show hint" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="W3M-fj-5r9">
+                                <rect key="frame" x="0.0" y="514" width="100" height="21"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" priority="250" constant="40" id="YcB-oS-Sz7"/>
                                     <constraint firstAttribute="height" constant="40" id="alK-xT-sBv"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="alK-xT-sBv"/>
+                                    </mask>
+                                </variation>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fwm-qE-6xL">
-                                <rect key="frame" x="0.0" y="212" width="100" height="209"/>
+                                <rect key="frame" x="0.0" y="212" width="100" height="228"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Djq-LH-aUk" id="d79-cV-hta"/>
                                     <outlet property="delegate" destination="Djq-LH-aUk" id="Y1G-jg-HP4"/>
@@ -497,7 +505,8 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="1wV-5B-aj2"/>
                                     <constraint firstAttribute="height" constant="10" id="3J9-rT-d7v"/>
-                                    <constraint firstAttribute="height" constant="45" id="GCi-oK-qkT"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" priority="750" constant="45" id="GCi-oK-qkT"/>
+                                    <constraint firstAttribute="height" constant="45" id="Wdg-4k-Uyj"/>
                                 </constraints>
                                 <segments>
                                     <segment title="" image="dollar_sign"/>
@@ -523,21 +532,27 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date exchange rete update" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PfA-K2-b5n">
+                                <rect key="frame" x="8" y="183" width="160" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="8ot-SD-Qw9"/>
+                                    <constraint firstAttribute="height" constant="21" id="qgN-pF-kmy"/>
+                                    <constraint firstAttribute="height" constant="21" id="wna-dU-ITQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="qgN-pF-kmy"/>
+                                    </mask>
+                                </variation>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="amount of money" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ayk-fJ-TUD">
                                 <rect key="frame" x="8" y="103" width="105" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="105" id="q4h-yU-f2p"/>
                                     <constraint firstAttribute="height" constant="21" id="sab-oM-2mk"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="date exchange rete update" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PfA-K2-b5n">
-                                <rect key="frame" x="8" y="199" width="158" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="160" id="8ot-SD-Qw9"/>
-                                    <constraint firstAttribute="height" constant="21" id="wna-dU-ITQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -587,6 +602,7 @@
                             <constraint firstAttribute="trailing" secondItem="WdR-c5-ucj" secondAttribute="trailing" id="ri6-VU-NrT"/>
                             <constraint firstAttribute="trailing" secondItem="W3M-fj-5r9" secondAttribute="trailing" id="s5l-VJ-qR1"/>
                             <constraint firstItem="beM-7M-CPK" firstAttribute="top" secondItem="W3M-fj-5r9" secondAttribute="bottom" constant="1" id="sfY-4B-ATP"/>
+                            <constraint firstItem="PfA-K2-b5n" firstAttribute="top" secondItem="r9k-0I-0n3" secondAttribute="bottom" constant="21" id="tFM-9l-PLE"/>
                             <constraint firstItem="WdR-c5-ucj" firstAttribute="top" secondItem="UUs-DF-OJb" secondAttribute="bottom" constant="8" id="tsF-od-5NF"/>
                         </constraints>
                         <variation key="default">
@@ -600,6 +616,7 @@
                                 <exclude reference="AQk-vh-a2c"/>
                                 <exclude reference="Xlj-F7-BI4"/>
                                 <exclude reference="mpr-a1-r0i"/>
+                                <exclude reference="tFM-9l-PLE"/>
                                 <exclude reference="BXk-3t-uYp"/>
                                 <exclude reference="WJG-Mb-gc5"/>
                                 <exclude reference="bIp-MP-8rZ"/>

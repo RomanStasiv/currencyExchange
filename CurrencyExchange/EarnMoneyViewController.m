@@ -18,6 +18,7 @@
 #import "EarningGoalsTableViewController.h"
 #import "ShareGoalsViewController.h"
 
+#import "CustomNavigationController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface EarnMoneyViewController ()
@@ -44,8 +45,6 @@
 @property (weak, nonatomic) AddControlPointToEarnMoneyViewController * addCPVC;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightConstraintAddCPContainer;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthConstraintAddCPContainer;
-
-@property (nonatomic, assign) BOOL canBeInLandscape;
 
 
 @end
@@ -89,7 +88,7 @@ static BOOL isAddCPVCOpened = NO;
     self.graphView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
     [super viewDidLoad];
     [self selfUpdate];
-    self.canBeInLandscape = YES;
+    ((CustomNavigationController *)self.navigationController).canBeInLandscape = YES;
 }
 
 - (void)selfUpdate
@@ -269,6 +268,7 @@ static BOOL isAddCPVCOpened = NO;
             [self.graphView drawAllControlpoints];
         }
     }];
+    isAddCPVCOpened = NO;
 }
 
 #pragma mark - persistance
@@ -430,7 +430,7 @@ static BOOL isAddCPVCOpened = NO;
             [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
             [self animateChangingOfConstraint:self.widthConstraintAddCPContainer
                                       ToValue:self.view.frame.size.width / 2];
-            /*self.canBeInLandscape = NO;*/
+            ((CustomNavigationController *)self.navigationController).canBeInLandscape = NO;
         }
         else if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         {
@@ -449,6 +449,7 @@ static BOOL isAddCPVCOpened = NO;
         [self hideAddControlPointViewControllerWithComletionHandler:^{
             isAddCPVCOpened = NO;
         }];
+        ((CustomNavigationController *)self.navigationController).canBeInLandscape = YES;
     }
 }
 

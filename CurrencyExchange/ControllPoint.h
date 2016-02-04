@@ -22,4 +22,5 @@
 @property (nonatomic, strong) NSNumber *earningPosibility;
 
 - (BOOL)isEqualToPoint:(ControllPoint *)point;
+
 @end
