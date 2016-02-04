@@ -46,8 +46,8 @@
     //[testObject insertFakeDataToCoreData];
     //[tmp dataForTableView];
     self.graph.backgroundColor = [UIColor blackColor];
-    NSTimer* Timer = [NSTimer scheduledTimerWithTimeInterval:30.0
-                                                    target: self.workObject
+    /*self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:10.0
+                                                    target: workObject
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
                                                    repeats: YES];
