@@ -8,29 +8,39 @@
 
 #import "JSONParseCoreDataSave.h"
 #import "AppDelegate.h"
+
 #import "BankData.h"
 #import "CurrencyData.h"
 #import "BranchData.h"
+
+#import "BankInfo.h"
+#import "BranchInfo.h"
+
 #import "Fetcher.h"
+
+NSString* const JSONParseDidUpdatesCoreDataNotification = @"JSONParseDidUpdatedCoreDataNotification";
+
 
 @interface JSONParseCoreDataSave ()
 
 @property (assign, nonatomic) NSInteger banksCount;
 @property (assign, nonatomic) BOOL haveBranch;
 
-@property (strong, nonatomic) NSString* bankName;
-@property (strong, nonatomic) NSString* bankCity;
-@property (strong, nonatomic) NSString* bankRegion;
-@property (strong, nonatomic) NSString* bankAddress;
-@property (strong, nonatomic) NSString* bankEURCurrencyAsk;
-@property (strong, nonatomic) NSString* bankEURCurrencyBid;
-@property (strong, nonatomic) NSString* bankUSDCurrencyAsk;
-@property (strong, nonatomic) NSString* bankUSDCurrencyBid;
-@property (strong, nonatomic) NSDate* bankDate;
+@property (strong, nonatomic) NSString* bankJSONName;
+@property (strong, nonatomic) NSString* bankJSONCity;
+@property (strong, nonatomic) NSString* bankJSONRegion;
+@property (strong, nonatomic) NSString* bankJSONAddress;
+@property (strong, nonatomic) NSString* bankJSONEURCurrencyAsk;
+@property (strong, nonatomic) NSString* bankJSONEURCurrencyBid;
+@property (strong, nonatomic) NSString* bankJSONUSDCurrencyAsk;
+@property (strong, nonatomic) NSString* bankJSONUSDCurrencyBid;
+@property (strong, nonatomic) NSDate* bankJSONDate;
 
 @property (strong, nonatomic) NSManagedObjectContext* context;
 
-
+@property (strong, nonatomic) NSMutableArray* branchesTempArray;
+@property (strong, nonatomic) NSArray* sortedBranchesArray;
+@property (strong, nonatomic) NSMutableArray* banks;
 
 @end
 
@@ -40,80 +50,113 @@
 
 -(void) JSONParse
 {
+        NSLog(@"called by NSTimer!!!");
+    dispatch_async (dispatch_get_main_queue(), ^{
+       
+    });
     {
         NSString* dataUrl = @"http://resources.finance.ua/ua/public/currency-cash.json";
         NSURL* url = [NSURL URLWithString:dataUrl];
-        self.jsonData = [[NSDictionary alloc] init];
-        self.context = [AppDelegate singleton].managedObjectContext;
-        Fetcher* fetcherObject = [[Fetcher alloc] init];
         
+        self.jsonData = [[NSDictionary alloc] init];
+        self.banks = [NSMutableArray array];
+        self.branchesTempArray = [NSMutableArray array];
         
         NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession] dataTaskWithURL:url
          completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
+        
 
         self.jsonData = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        NSArray* jsonArray = [self.jsonData objectForKey:@"organizations"];
-        NSArray* bankNamesArray = [fetcherObject arrayOfBankNames];
-        NSArray* branchNamesArray = [fetcherObject arrayOfBranchNames];
+        NSArray* jsonOrganizationsArray = [self.jsonData objectForKey:@"organizations"];
+        
         NSString* regionToParse = @"";
         NSString* cityToParse = @"";
         NSString* dateToConvert = @"";
         NSString* dateToCut = @"";
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
-             
-        self.banksCount = [jsonArray count];
         
-        BankData* bankToBindOrigin = nil;
+        BankInfo* bankToBind = nil;
+             
+        self.banksCount = [jsonOrganizationsArray count];
+        
+        /*BankData* bankToBindOrigin = nil;
         BankData* bankToBindNew = nil;
-        BankData* bankToUpdate = nil;
+        BankData* bankToUpdate = nil;*/
              
         for (int i = 1; i < self.banksCount; i++)
         {
-            self.bankName = [[jsonArray objectAtIndex:i] objectForKey:@"title"];
-             
-            self.bankAddress = [[jsonArray objectAtIndex:i] objectForKey:@"address"];
-             
-            self.bankEURCurrencyAsk = [[[[jsonArray objectAtIndex:i] objectForKey:@"currencies"] objectForKey:@"EUR"] objectForKey:@"ask"];
+            NSDictionary* jsonCurrenciesDictionary = [[jsonOrganizationsArray objectAtIndex:i] objectForKey:@"currencies"];
+
+            self.bankJSONName = [[jsonOrganizationsArray objectAtIndex:i] objectForKey:@"title"];
             
-            self.bankEURCurrencyBid = [[[[jsonArray objectAtIndex:i] objectForKey:@"currencies"] objectForKey:@"EUR"] objectForKey:@"bid"];
-             
-            self.bankUSDCurrencyAsk = [[[[jsonArray objectAtIndex:i] objectForKey:@"currencies"] objectForKey:@"USD"] objectForKey:@"ask"];
-             
-            self.bankUSDCurrencyBid = [[[[jsonArray objectAtIndex:i] objectForKey:@"currencies"] objectForKey:@"USD"] objectForKey:@"bid"];
-             
-            dateToCut  = [self.jsonData objectForKey:@"date"];
-            dateToConvert = [dateToCut substringWithRange:NSMakeRange(0, 19)];
-            self.bankDate = [dateFormat dateFromString:dateToConvert];
-             
-            regionToParse = [[jsonArray objectAtIndex:i] objectForKey:@"regionId"];
-             
-            self.bankRegion = [[self.jsonData objectForKey:@"regions"] objectForKey:regionToParse];
-             
-            cityToParse = [[jsonArray objectAtIndex:i] objectForKey:@"cityId"];
-            self.bankCity = [[self.jsonData objectForKey:@"cities"] objectForKey:cityToParse];
-             
-            self.haveBranch = [[[jsonArray objectAtIndex:i] objectForKey:@"branch"] boolValue];
-             
-           
-            if (![bankNamesArray containsObject:self.bankName] && ![branchNamesArray containsObject:self.bankName])
+            self.bankJSONAddress = [[jsonOrganizationsArray objectAtIndex:i] objectForKey:@"address"];
+            
+            regionToParse = [[jsonOrganizationsArray objectAtIndex:i] objectForKey:@"regionId"];
+            self.bankJSONRegion = [[self.jsonData objectForKey:@"regions"] objectForKey:regionToParse];
+            
+            cityToParse = [[jsonOrganizationsArray objectAtIndex:i] objectForKey:@"cityId"];
+            self.bankJSONCity = [[self.jsonData objectForKey:@"cities"] objectForKey:cityToParse];
+            
+            self.haveBranch = [[[jsonOrganizationsArray objectAtIndex:i] objectForKey:@"branch"] boolValue];
+            
+            if (self.haveBranch == NO) {
+                
+                
+                
+                self.bankJSONEURCurrencyAsk = [[jsonCurrenciesDictionary objectForKey:@"EUR"] objectForKey:@"ask"];
+                self.bankJSONEURCurrencyBid = [[jsonCurrenciesDictionary objectForKey:@"EUR"] objectForKey:@"bid"];
+                self.bankJSONUSDCurrencyAsk = [[jsonCurrenciesDictionary objectForKey:@"USD"] objectForKey:@"ask"];
+                self.bankJSONUSDCurrencyBid = [[jsonCurrenciesDictionary objectForKey:@"USD"] objectForKey:@"bid"];
+                
+                dateToCut  = [self.jsonData objectForKey:@"date"];
+                dateToConvert = [dateToCut substringWithRange:NSMakeRange(0, 19)];
+                self.bankJSONDate = [dateFormat dateFromString:dateToConvert];
+                
+                BankInfo* bank = [[BankInfo alloc] initWithName:self.bankJSONName
+                                                     withRegion:self.bankJSONRegion
+                                                       withCity:self.bankJSONCity
+                                                    withAddress:self.bankJSONAddress
+                                                     withEURAsk:self.bankJSONEURCurrencyAsk
+                                                     withEURBid:self.bankJSONEURCurrencyBid
+                                                    withUSDAsks:self.bankJSONUSDCurrencyAsk
+                                                     withUSDBid:self.bankJSONUSDCurrencyBid
+                                                       withDate:self.bankJSONDate];
+                [self.banks addObject:bank];
+                bankToBind = bank;
+            }
+            else
+            {
+                BranchInfo* branch = [[BranchInfo alloc] initWithName:self.bankJSONName
+                                                           withRegion:self.bankJSONRegion
+                                                             withCity:self.bankJSONCity
+                                                          withAddress:self.bankJSONAddress
+                                                             withBank:bankToBind.bankName];
+                [self.branchesTempArray addObject:branch];
+                
+            }
+            
+
+            
+            
+            /*if (![bankNamesArray containsObject:self.bankJSONName] && ![branchNamesArray containsObject:self.bankJSONName])
             {
                 
-                    if (self.haveBranch == false)
+                    if (self.haveBranch == NO)
                     {
                         BankData* bankData = [NSEntityDescription insertNewObjectForEntityForName:@"BankData" inManagedObjectContext:self.context];
                         
-                        bankData.name = self.bankName;
-                        bankData.region = self.bankRegion;
-                        bankData.city = self.bankCity;
-                        bankData.address = self.bankAddress;
+                        bankData.name = self.bankJSONName;
+                        bankData.region = self.bankJSONRegion;
+                        bankData.city = self.bankJSONCity;
+                        bankData.address = self.bankJSONAddress;
                         
                         CurrencyData* currencyData = [NSEntityDescription insertNewObjectForEntityForName:@"CurrencyData" inManagedObjectContext:self.context];
-                        currencyData.date = self.bankDate;
-                        currencyData.eurCurrencyAsk = self.bankEURCurrencyAsk;
-                        currencyData.eurCurrencyBid = self.bankEURCurrencyBid;
-                        currencyData.usdCurrencyAsk = self.bankUSDCurrencyAsk;
-                        currencyData.usdCurrencyBid = self.bankUSDCurrencyBid;
+                        currencyData.date = self.bankJSONDate;
+                        currencyData.eurCurrencyAsk = self.bankJSONEURCurrencyAsk;
+                        currencyData.eurCurrencyBid = self.bankJSONEURCurrencyBid;
+                        currencyData.usdCurrencyAsk = self.bankJSONUSDCurrencyAsk;
+                        currencyData.usdCurrencyBid = self.bankJSONUSDCurrencyBid;
                         
                         [bankData addCurrencyObject:currencyData];
                         
@@ -122,64 +165,153 @@
                         
                     }
                     
-                    if (self.haveBranch == true)
+                    if (self.haveBranch == YES)
                     {
                         
                         BranchData* branchData = [NSEntityDescription insertNewObjectForEntityForName:@"BranchData" inManagedObjectContext:self.context];
                         
-                        branchData.name = self.bankName;
-                        branchData.region = self.bankRegion;
-                        branchData.city = self.bankCity;
-                        branchData.address = self.bankAddress;
+                        branchData.name = self.bankJSONName;
+                        branchData.region = self.bankJSONRegion;
+                        branchData.city = self.bankJSONCity;
+                        branchData.address = self.bankJSONAddress;
                         
                         [bankToBindOrigin addBranchObject:branchData];
                     }
                 
             }
            
-            else if ([bankNamesArray containsObject:self.bankName] && [branchNamesArray containsObject:self.bankName])
+            else if ([bankNamesArray containsObject:self.bankJSONName] || [branchNamesArray containsObject:self.bankJSONName])
             {
-                if (self.haveBranch == false)
+                if (self.haveBranch == NO)
                 {
-                    bankToUpdate = [self getBankByName:self.bankName];
+                    bankToUpdate = [self getBankByName:self.bankJSONName];
                     CurrencyData* currencyData = [NSEntityDescription insertNewObjectForEntityForName:@"CurrencyData" inManagedObjectContext:self.context];
-                    currencyData.date = self.bankDate;
-                    currencyData.eurCurrencyAsk = self.bankEURCurrencyAsk;
-                    currencyData.eurCurrencyBid = self.bankEURCurrencyBid;
-                    currencyData.usdCurrencyAsk = self.bankUSDCurrencyAsk;
-                    currencyData.usdCurrencyBid = self.bankUSDCurrencyBid;
+                    currencyData.date = self.bankJSONDate;
+                    currencyData.eurCurrencyAsk = self.bankJSONEURCurrencyAsk;
+                    currencyData.eurCurrencyBid = self.bankJSONEURCurrencyBid;
+                    currencyData.usdCurrencyAsk = self.bankJSONUSDCurrencyAsk;
+                    currencyData.usdCurrencyBid = self.bankJSONUSDCurrencyBid;
                     
                     [bankToUpdate addCurrencyObject:currencyData];
                     
                     bankToBindNew = bankToUpdate;
                 }
                 
-                if (self.haveBranch == true)
+                if (self.haveBranch == YES)
                 {
                     
                     BranchData* branchData = [NSEntityDescription insertNewObjectForEntityForName:@"BranchData" inManagedObjectContext:self.context];
                     
-                    branchData.name = self.bankName;
-                    branchData.region = self.bankRegion;
-                    branchData.city = self.bankCity;
-                    branchData.address = self.bankAddress;
+                    branchData.name = self.bankJSONName;
+                    branchData.region = self.bankJSONRegion;
+                    branchData.city = self.bankJSONCity;
+                    branchData.address = self.bankJSONAddress;
                     
                     [bankToBindNew addBranchObject:branchData];
                 }
             }
 
+        
+             
+             
+             __block NSError *saveError;
+             __block BOOL savedOK = NO;
+             [self.context performBlockAndWait:^{
+                 // Do lots of things with the context.
+                 savedOK = [self.context save:&saveError];
+             }];*/
+    
         }
-        NSError* saveError = nil;
-        if (![self.context save:&saveError]) {
-            NSLog(@"%@", [error localizedDescription]);
-        }
+             
+        bankToBind.branches = self.branchesTempArray;
+             
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self saveToCoreData];
+            NSLog(@"called NSTimer!!!");
+        });
              
         }];
         
-        
         [downloadTask resume];
     }
-    NSLog(@"Called by NSTimer!!!");
+    [[NSNotificationCenter defaultCenter] postNotificationName:JSONParseDidUpdatesCoreDataNotification
+                                                        object:nil
+                                                      userInfo:nil];
+  }
+
+#pragma mark - Save To CoreData
+
+-(void) saveToCoreData
+{
+    Fetcher* fetcher = [[Fetcher alloc] init];
+    self.context = [AppDelegate singleton].managedObjectContext;
+    self.sortedBranchesArray = [[NSArray alloc] init];
+    
+    NSArray* bankNamesArray = [fetcher arrayOfBankNames];
+    NSArray* branchNamesArray = [fetcher arrayOfBranchNames];
+    
+    BankData* bankToUpdate = nil;
+    
+    for (BankInfo* bankObject in self.banks)
+    {
+        if (![bankNamesArray containsObject:bankObject.bankName])
+        {
+            BankData* bankData = [NSEntityDescription insertNewObjectForEntityForName:@"BankData" inManagedObjectContext:self.context];
+            
+            bankData.name = bankObject.bankName;
+            bankData.region = bankObject.bankRegion;
+            bankData.city = bankObject.bankCity;
+            bankData.address = bankObject.bankAddress;
+            
+            CurrencyData* currencyData = [NSEntityDescription insertNewObjectForEntityForName:@"CurrencyData" inManagedObjectContext:self.context];
+            currencyData.date = bankObject.bankDate;
+            currencyData.eurCurrencyAsk = bankObject.bankEURCurrencyAsk;
+            currencyData.eurCurrencyBid = bankObject.bankEURCurrencyBid;
+            currencyData.usdCurrencyAsk = bankObject.bankUSDCurrencyAsk;
+            currencyData.usdCurrencyBid = bankObject.bankUSDCurrencyBid;
+            
+            [bankData addCurrencyObject:currencyData];
+            
+            /*NSPredicate* predicate = [NSPredicate predicateWithFormat: @"bankObject.bankName == %@", bankObject.bankName];
+            self.sortedBranchesArray = [self.branchesTempArray filteredArrayUsingPredicate:predicate];
+            
+            
+                
+            for (BranchInfo* branchObject in self.sortedBranchesArray)
+            {
+                if (![branchNamesArray containsObject:branchObject.branchName])
+                {
+                    BranchData* branchData = [NSEntityDescription insertNewObjectForEntityForName:@"BranchData" inManagedObjectContext:self.context];
+                    branchData.name = branchObject.branchName;
+                    branchData.region = branchObject.branchRegion;
+                    branchData.city = branchObject.branchCity;
+                    branchData.address = branchObject.branchAddress;
+                    
+                    [bankData addBranchObject:branchData];
+                }
+            }*/
+        }
+        else
+        {
+            bankToUpdate = [self getBankByName:bankObject.bankName];
+            
+            CurrencyData* currencyData = [NSEntityDescription insertNewObjectForEntityForName:@"CurrencyData" inManagedObjectContext:self.context];
+            currencyData.date = bankObject.bankDate;
+            currencyData.eurCurrencyAsk = bankObject.bankEURCurrencyAsk;
+            currencyData.eurCurrencyBid = bankObject.bankEURCurrencyBid;
+            currencyData.usdCurrencyAsk = bankObject.bankUSDCurrencyAsk;
+            currencyData.usdCurrencyBid = bankObject.bankUSDCurrencyBid;
+            
+            [bankToUpdate addCurrencyObject:currencyData];
+        }
+       
+    }
+    NSError *saveError;
+    if(![self.context save:&saveError]){
+        NSLog(@"%@", [saveError localizedDescription]);
+    }
+    
+    
 }
 
 #pragma mark - Check the Result
@@ -193,8 +325,8 @@
     for (BankData* bankObject in objectsArray)
     {
         
-        NSArray* currenciesArray = [bankObject.currency allObjects];
-        NSArray* branchesArray = [bankObject.branch allObjects];
+        NSArray* currenciesArray = [bankObject.currency array];
+        NSArray* branchesArray = [bankObject.branch array];
 
         
         NSLog(@"BANK: name = %@, region = %@, city = %@, address = %@ ", bankObject.name, bankObject.region, bankObject.city, bankObject.address);
@@ -217,7 +349,7 @@
                   [[branchesArray objectAtIndex:j] city],
                   [[branchesArray objectAtIndex:j] address]);
         }
-            
+        
         
     }
     

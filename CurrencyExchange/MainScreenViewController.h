@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "CurencyCourseGraph.h"
+//#import "MSWeakTimer.h"
 
 @interface MainScreenViewController : UIViewController
 
-@property(nonatomic, retain) NSTimer* m_Timer;
 
 @end
 

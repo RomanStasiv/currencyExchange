@@ -10,6 +10,7 @@
 #import "Fetcher.h"
 #import "MapViewController.h"
 #import "BanksTVCell.h"
+#import "Section.h"
 
 @interface BanksTableViewController ()
 
@@ -29,9 +30,41 @@
     
     self.BanksData = [fetcher dataForTableView];
     
+    self.BanksData = [self.BanksData sortedArrayUsingComparator:^NSComparisonResult(id a, id  b)
+    {
+        NSString *first = [(ReportDataForTable *)a bankRegion];
+        NSString *second = [(ReportDataForTable *)b bankRegion];
+        return [first compare:second];
+    }];
+    self.BanksData = [self arraySortedInSections:self.BanksData];
+    
     [self.tableView registerClass:[BanksTVCell class] forCellReuseIdentifier:@"banksCell"];
 }
 
+-(NSArray *) arraySortedInSections: (NSArray *) banks
+{
+    NSMutableArray *sectionedBanks = [[NSMutableArray alloc] init];
+    
+    Section *section = [[Section alloc] init];
+    section.name = [[banks firstObject] bankRegion];
+    section.banks = [[NSMutableArray alloc] init];
+    for (ReportDataForTable *bank in banks)
+    {
+        if ( [[bank bankRegion] isEqualToString:section.name])
+        {
+            [section.banks addObject:bank];
+        }
+        else
+        {
+            [sectionedBanks addObject:section];
+            section = [[Section alloc] init];
+            section.name = [bank bankRegion];
+            section.banks = [[NSMutableArray alloc] initWithObjects:bank, nil];
+        }
+    }
+    
+    return sectionedBanks;
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -41,12 +74,12 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [[self.BanksData objectAtIndex:section] bankName];
+    return [[self.BanksData objectAtIndex:section] name];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[(ReportDataForTable *)[self.BanksData objectAtIndex:section] branchs] count] + 1;
+    return [[(Section *)[self.BanksData objectAtIndex:section] banks] count];
 }
 
 
@@ -54,22 +87,23 @@
 {
     BanksTVCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"banksCell"];
     
-    if (!cell)
-        cell = [[BanksTVCell alloc] init];
-    
-    
-    
-    if (indexPath.row == 0)
-    {
-        cell.nameLabel.text = [NSString stringWithFormat:@"%@", [[self.BanksData objectAtIndex:indexPath.section] bankName]] ;
-        cell.adressLabel.text = [NSString stringWithFormat:@"%@", @"noadresssrybro"];
-    }
-    else
-    {
-        id branches = [[self.BanksData objectAtIndex:indexPath.section] branchs];
-        cell.nameLabel.text = [NSString stringWithFormat:@"%@", [[branches objectAtIndex:(indexPath.row - 1)] valueForKey:@"name"]];
-        cell.adressLabel.text = [NSString stringWithFormat:@"%@", [[branches objectAtIndex:(indexPath.row - 1)] valueForKey:@"adress"]];
-    }
+//    if (indexPath.row == 0)
+//    {
+    Section * section = [self.BanksData objectAtIndex:indexPath.section];
+        cell.nameLabel.text = [NSString stringWithFormat:@"%@", [[section.banks objectAtIndex:indexPath.row] bankName]];
+        cell.regionLabel.text = [NSString stringWithFormat:@"%@", [[section.banks objectAtIndex:indexPath.row] bankRegion]];
+        cell.cityLabel.text = [NSString stringWithFormat:@"%@", [[section.banks objectAtIndex:indexPath.row] bankCity]];
+        cell.streetLabel.text = [NSString stringWithFormat:@"%@", [[section.banks objectAtIndex:indexPath.row] bankStreet]];
+        
+//    }
+//    else
+//    {
+//        id branches = [[self.BanksData objectAtIndex:indexPath.section] branchs];
+//        cell.nameLabel.text = [NSString stringWithFormat:@"%@", [[branches objectAtIndex:(indexPath.row - 1)] valueForKey:@"name"]];
+//        cell.regionLabel.text = [NSString stringWithFormat:@"%@", [[branches objectAtIndex:(indexPath.row - 1)] valueForKey:@"region"]];
+//        cell.cityLabel.text = [NSString stringWithFormat:@"%@", [[branches objectAtIndex:(indexPath.row - 1)] valueForKey:@"city"]];
+//        cell.streetLabel.text = [NSString stringWithFormat:@"%@", [[branches objectAtIndex:(indexPath.row - 1)] valueForKey:@"street"]];
+//    }
     return cell;
 }
 
@@ -84,9 +118,10 @@
     //[adresses addObject: [[self.BanksData objectAtIndex:indexPath.section] ]];
     
     
-    for (NSMutableDictionary *branch in [[self.BanksData objectAtIndex:indexPath.section] branchs])
+    for (ReportDataForTable *bank in [[self.BanksData objectAtIndex:indexPath.section] banks])
     {
-        [self.adresses addObject:[branch valueForKey:@"adress"]];
+        NSString *adress = [NSString stringWithFormat:@"%@, %@, %@, Украина", bank.bankStreet, bank.bankCity, bank.bankRegion];
+        [self.adresses addObject:adress];
     }
     
     [self performSegueWithIdentifier:@"showMapView" sender:self];
@@ -97,7 +132,7 @@
 {
     if ([[segue identifier] isEqualToString:@"showMapView"])
     {
-        ((MapViewController *)[segue destinationViewController]).adresses = self.adresses;
+        [[segue destinationViewController] adressesToDisplay:self.adresses centerOn:[self.adresses firstObject]];
     }
 }
 

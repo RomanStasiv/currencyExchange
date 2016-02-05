@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) NSManagedObjectContext *context;
 @property (strong, nonatomic) __block NSMutableArray *locations;
-
+@property (strong, nonatomic) NSString *centralAdress;
 @end
 
 @implementation MapViewController
@@ -27,8 +27,8 @@
     self.mapView.delegate = self;
     
     [self fetchData:self.adresses];
-    
 }
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     if ([NSJSONSerialization isValidJSONObject:self.locations])
@@ -47,15 +47,22 @@
     
 }
 
+-(void) adressesToDisplay:(NSMutableArray *) array centerOn: (NSString*) centralString
+{
+    self.adresses = array;
+    self.centralAdress = centralString;
+}
+
 -(void) fetchData:(NSMutableArray *) adresses
 {
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     path = [path stringByAppendingString:@"//locations.dat"];
     NSData * jsonData = [NSData dataWithContentsOfFile:path];
     
-    self.locations = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                     options:NSJSONReadingMutableContainers
-                                                       error:nil];
+    if (jsonData)
+        self.locations = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                         options:NSJSONReadingMutableContainers
+                                                           error:nil];
     if ([self.locations count])
     {
         for (NSDictionary *location in self.locations )
@@ -69,10 +76,20 @@
                 
                 [self.mapView addAnnotation:point];
                 
-                NSLog(@"LOCATION %@ %@", [[location valueForKey:@"location"] firstObject], [[location valueForKey:@"location"] lastObject]);
+                NSLog(@"location loaded from file %@ %@", [[location valueForKey:@"location"] firstObject], [[location valueForKey:@"location"] lastObject]);
+                
+                if ([self.centralAdress isEqualToString:[location valueForKey:@"adress"]])
+                {
+                    MKCoordinateRegion region;
+                    region.center.latitude = [[[location valueForKey:@"location"] firstObject] doubleValue];
+                    region.center.longitude = [[[location valueForKey:@"location"] lastObject] doubleValue];
+                    region.span.latitudeDelta = 0.2;
+                    region.span.longitudeDelta = 0.2;
+                    [self.mapView setRegion:region animated: YES];
+                }
+                
                 
                 [adresses removeObject:[location valueForKey:@"adress"]];
-
             }
         }
     }

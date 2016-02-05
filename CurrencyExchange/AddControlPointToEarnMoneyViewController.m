@@ -28,6 +28,7 @@
     [super viewDidLoad];
     self.stringDatesArray = [self ArrayOfStringDatesFromAvarageCurrencyObjectsArray];
     self.currency = @"dolars";
+    self.amountOfMoney = 200;
 }
 
 - (IBAction)currencyDidChanged:(UISegmentedControl *)sender
@@ -77,13 +78,13 @@
 {
     if (self.moneyTextField.text)
     {
-        if ([self TextIsNumeric:self.moneyTextField.text] && self.date && self.currency)
+        if (/*[self TextIsNumeric:self.moneyTextField.text] && self.date && self.currency*/true)
         {
             self.amountOfMoney = [self.moneyTextField.text floatValue];
             [self.owner addControlPointWithAmountOfMoney:self.amountOfMoney Currency:self.currency ForDate:self.date];
             [self.navigationController popViewControllerAnimated:YES];
         }
-        else if (![self TextIsNumeric:self.moneyTextField.text])
+        /*else if (![self TextIsNumeric:self.moneyTextField.text])
         {
             [self showMessageWith:@"Wrong amount of mooney"];
         }
@@ -94,7 +95,7 @@
         else if (!self.currency)
         {
             [self showMessageWith:@"Chose a currency"];
-        }
+        }*/
     }
 }
 

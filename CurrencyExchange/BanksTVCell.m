@@ -28,7 +28,7 @@
     
     CGSize size = self.contentView.frame.size;
     
-    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, size.width - 20, 25)];
+    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, size.width - 10, 25)];
     
     [self.nameLabel setFont:[UIFont boldSystemFontOfSize:20.0]];
     [self.nameLabel setTextAlignment:NSTextAlignmentLeft];
@@ -36,15 +36,32 @@
     
     [self.contentView addSubview:self.nameLabel];
     
-    CGSize nameSize = self.nameLabel.frame.size;
-    self.adressLabel = [[UILabel alloc] initWithFrame:CGRectMake(10 , self.nameLabel.frame.size.height + 10 + 10, size.width - 20, 15)];
+    CGRect rect = self.nameLabel.frame;
+    self.regionLabel = [[UILabel alloc] initWithFrame:CGRectMake(5 , rect.size.height + rect.origin.y + 5, size.width - 10, 15)];
     
-    [self.adressLabel setFont:[UIFont boldSystemFontOfSize:15.0]];
-    [self.adressLabel setTextAlignment:NSTextAlignmentLeft];
-    [self.adressLabel setAutoresizingMask:(UIViewAutoresizingFlexibleWidth)];
+    [self.regionLabel setFont:[UIFont boldSystemFontOfSize:15.0]];
+    [self.regionLabel setTextAlignment:NSTextAlignmentLeft];
+    [self.regionLabel setAutoresizingMask:(UIViewAutoresizingFlexibleWidth)];
     
-    [self.contentView addSubview:self.adressLabel];
+    [self.contentView addSubview:self.regionLabel];
     
+    rect = self.regionLabel.frame;
+    self.cityLabel = [[UILabel alloc] initWithFrame:CGRectMake(5 , rect.size.height + rect.origin.y + 5, size.width - 10, 15)];
+    
+    [self.cityLabel setFont:[UIFont boldSystemFontOfSize:15.0]];
+    [self.cityLabel setTextAlignment:NSTextAlignmentLeft];
+    [self.cityLabel setAutoresizingMask:(UIViewAutoresizingFlexibleWidth)];
+    
+    [self.contentView addSubview:self.cityLabel];
+    
+    rect = self.cityLabel.frame;
+    self.streetLabel = [[UILabel alloc] initWithFrame:CGRectMake(5 , rect.size.height + rect.origin.y + 5, size.width - 10, 15)];
+    
+    [self.streetLabel setFont:[UIFont boldSystemFontOfSize:15.0]];
+    [self.streetLabel setTextAlignment:NSTextAlignmentLeft];
+    [self.streetLabel setAutoresizingMask:(UIViewAutoresizingFlexibleWidth)];
+    
+    [self.contentView addSubview:self.streetLabel];
     
     return self;
 }

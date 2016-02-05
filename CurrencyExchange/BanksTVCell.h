@@ -11,6 +11,8 @@
 @interface BanksTVCell : UITableViewCell
 
 @property (strong, nonatomic) UILabel* nameLabel;
-@property (strong, nonatomic) UILabel* adressLabel;
+@property (strong, nonatomic) UILabel* cityLabel;
+@property (strong, nonatomic) UILabel* streetLabel;
+@property (strong, nonatomic) UILabel* regionLabel;
 
 @end

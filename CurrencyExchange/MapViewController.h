@@ -11,6 +11,8 @@
 
 
 @interface MapViewController : UIViewController <MKMapViewDelegate>
--(void) setAdresses:(NSMutableArray *)adresses;
+
+-(void) adressesToDisplay:(NSMutableArray *) array centerOn: (NSString*) centralString;
 @property (strong, nonatomic) NSMutableArray *adresses;
+
 @end
