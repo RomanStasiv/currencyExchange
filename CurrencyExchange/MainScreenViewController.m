@@ -36,16 +36,17 @@
 {
     [super viewDidLoad];
     
+    
+    self.workObject = [[JSONParseCoreDataSave alloc] init];
+    
+    //TestCoreData* testObject = [[TestCoreData alloc] init];
+    //MetalJSONParse* tester = [[MetalJSONParse alloc]init];
+    //Fetcher*tmp = [[Fetcher alloc]init];
+    
     [workObject deleteAllObjectsFromCoreData];
     //[workObject JSONParse];
     //[workObject loadCoreDataObjects];
-    //[tmp allBanksQuantity];
-    
-//    dispatch_queue_t queueJsonMetal = dispatch_queue_create("Metal", DISPATCH_QUEUE_CONCURRENT);
-//    dispatch_async(queueJsonMetal, ^{
-//        [tester JSONMetalParse];
-//    });
-    
+    [tmp allBanksQuantity];
     //[testObject insertFakeDataToCoreData];
     //[tmp dataForTableView];
     self.graph.backgroundColor = [UIColor blackColor];
@@ -54,6 +55,7 @@
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
                                                    repeats: YES];
+    
 }
 
 

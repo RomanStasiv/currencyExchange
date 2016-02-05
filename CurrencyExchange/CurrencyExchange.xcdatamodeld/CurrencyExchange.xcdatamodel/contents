@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="14F1021" minimumToolsVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Automatic">
     <entity name="BankData" representedClassName="BankData" parentEntity="ObjectData" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
@@ -37,23 +37,12 @@
         <attribute name="usdCurrencyBid" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="bank" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BankData" inverseName="currency" inverseEntity="BankData" syncable="YES"/>
     </entity>
-    <entity name="MetalData" representedClassName="MetalData" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="prices" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Prices" inverseName="metal" inverseEntity="Prices" syncable="YES"/>
-    </entity>
     <entity name="ObjectData" representedClassName="ObjectData" isAbstract="YES" syncable="YES"/>
-    <entity name="Prices" representedClassName="Prices" syncable="YES">
-        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="eurPrice" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="usdPrice" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="metal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MetalData" inverseName="prices" inverseEntity="MetalData" syncable="YES"/>
-    </entity>
     <elements>
         <element name="BankData" positionX="-1911" positionY="144" width="128" height="133"/>
         <element name="BranchData" positionX="-1571" positionY="121" width="128" height="118"/>
         <element name="CDControlPoint" positionX="-990" positionY="-18" width="128" height="118"/>
         <element name="CurrencyData" positionX="-1352" positionY="144" width="128" height="133"/>
-        <element name="MetalData" positionX="-1908" positionY="344" width="128" height="73"/>
         <element name="ObjectData" positionX="-1568" positionY="-9" width="128" height="43"/>
         <element name="BranchStorage" positionX="-1908" positionY="315" width="128" height="118"/>
     </elements>
