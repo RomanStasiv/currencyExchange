@@ -147,7 +147,7 @@
     
     if (dashed)
     {
-        float dashPattern[] = {width/2,width*2};
+        const CGFloat dashPattern[] = {width/2,width*2};
         [path setLineDash:dashPattern count:2 phase:3];
     }
     

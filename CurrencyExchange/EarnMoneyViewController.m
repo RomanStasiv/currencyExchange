@@ -87,11 +87,22 @@ static BOOL isAddCPVCOpened = NO;
                                              selector:@selector(saveAllContolPointsToCD)
                                                  name:UIApplicationWillTerminateNotification
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(UpdateForNotification)
+                                                 name:JSONParseDidUpdatesCoreDataNotification
+                                               object:nil];
     self.graphView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
     [super viewDidLoad];
     [self selfUpdate];
     ((CustomNavigationController *)self.navigationController).canBeInLandscape = YES;
+}
+
+- (void)UpdateForNotification
+{
+    [self updateAverageCurrencyObjectsArray];
+    [self redrawGraphView];
+    [self performAddNavButtonsLogic];
 }
 
 - (void)selfUpdate

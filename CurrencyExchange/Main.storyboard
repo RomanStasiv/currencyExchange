@@ -271,8 +271,8 @@
                                             </mask>
                                         </variation>
                                     </view>
-                                    <view tag="113" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KVo-TX-LL6">
-                                        <rect key="frame" x="233" y="8" width="59" height="120"/>
+                                    <view tag="113" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KVo-TX-LL6">
+                                        <rect key="frame" x="241" y="8" width="59" height="120"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bid" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugH-d3-o17">
                                                 <rect key="frame" x="9" y="24" width="42" height="21"/>
@@ -474,7 +474,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rgy-bh-HLh">
-                                <rect key="frame" x="92" y="456" width="50" height="50"/>
+                                <rect key="frame" x="92" y="447" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="7Hb-FN-pkR"/>
                                     <constraint firstAttribute="height" constant="21" id="8cS-lQ-qDW"/>
@@ -495,7 +495,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show hint" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="W3M-fj-5r9">
-                                <rect key="frame" x="0.0" y="514" width="150" height="21"/>
+                                <rect key="frame" x="0.0" y="505" width="150" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" priority="250" constant="40" id="YcB-oS-Sz7"/>
                                     <constraint firstAttribute="height" constant="40" id="alK-xT-sBv"/>
@@ -510,7 +510,7 @@
                                 </variation>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fwm-qE-6xL">
-                                <rect key="frame" x="0.0" y="212" width="150" height="228"/>
+                                <rect key="frame" x="0.0" y="212" width="150" height="219"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Djq-LH-aUk" id="d79-cV-hta"/>
                                     <outlet property="delegate" destination="Djq-LH-aUk" id="Y1G-jg-HP4"/>
@@ -617,7 +617,7 @@
                             <constraint firstItem="UUs-DF-OJb" firstAttribute="leading" secondItem="Tko-tL-doU" secondAttribute="leading" constant="8" id="pKZ-HE-HDx"/>
                             <constraint firstAttribute="trailing" secondItem="WdR-c5-ucj" secondAttribute="trailing" id="ri6-VU-NrT"/>
                             <constraint firstAttribute="trailing" secondItem="W3M-fj-5r9" secondAttribute="trailing" id="s5l-VJ-qR1"/>
-                            <constraint firstItem="beM-7M-CPK" firstAttribute="top" secondItem="W3M-fj-5r9" secondAttribute="bottom" constant="1" id="sfY-4B-ATP"/>
+                            <constraint firstItem="beM-7M-CPK" firstAttribute="top" secondItem="W3M-fj-5r9" secondAttribute="bottom" constant="10" id="sfY-4B-ATP"/>
                             <constraint firstItem="PfA-K2-b5n" firstAttribute="top" secondItem="r9k-0I-0n3" secondAttribute="bottom" constant="21" id="tFM-9l-PLE"/>
                             <constraint firstItem="WdR-c5-ucj" firstAttribute="top" secondItem="UUs-DF-OJb" secondAttribute="bottom" constant="8" id="tsF-od-5NF"/>
                         </constraints>
