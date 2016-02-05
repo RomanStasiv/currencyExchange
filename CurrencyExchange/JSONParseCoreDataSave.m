@@ -20,6 +20,9 @@
 
 #import "Fetcher.h"
 
+NSString* const JSONParseDidUpdatesCoreDataNotification = @"JSONParseDidUpdatedCoreDataNotification";
+
+
 @interface JSONParseCoreDataSave ()
 
 @property (assign, nonatomic) NSInteger banksCount;
@@ -49,14 +52,13 @@
 
 -(void) JSONParse
 {
-    {
+   {
         NSString* dataUrl = @"http://resources.finance.ua/ua/public/currency-cash.json";
         NSURL* url = [NSURL URLWithString:dataUrl];
         
         self.jsonData = [[NSDictionary alloc] init];
         self.banks = [NSMutableArray array];
         self.branchesTempArray = [NSMutableArray array];
-        
         
         NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession] dataTaskWithURL:url
          completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
@@ -142,8 +144,10 @@
         
         [downloadTask resume];
     }
-
-}
+    [[NSNotificationCenter defaultCenter] postNotificationName:JSONParseDidUpdatesCoreDataNotification
+                                                        object:nil
+                                                      userInfo:nil];
+  }
 
 #pragma mark - Save To CoreData
 
@@ -290,7 +294,7 @@
                   [[branchesArray objectAtIndex:j] city],
                   [[branchesArray objectAtIndex:j] address]);
         }
-            
+        
         
     }
     

@@ -9,12 +9,18 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+extern NSString* const JSONParseDidUpdatesCoreDataNotification;
+
 @interface JSONParseCoreDataSave : NSObject
 
 @property (strong, nonatomic) NSDictionary* jsonData;
 
+
 -(void) JSONParse;
 -(void) deleteAllObjectsFromCoreData;
 -(void) loadCoreDataObjects;
+
+
+
 
 @end
