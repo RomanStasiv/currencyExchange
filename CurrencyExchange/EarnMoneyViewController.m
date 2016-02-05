@@ -425,7 +425,7 @@ static BOOL isAddCPVCOpened = NO;
     
     UIBarButtonItem *addBarButton = [[UIBarButtonItem alloc] initWithCustomView:addButton];
     
-    /*UIImage *shareImage = [UIImage imageNamed:@"tabBar_share.png"];
+    UIImage *shareImage = [UIImage imageNamed:@"tabBar_share.png"];
      UIButton *shareButton = [[UIButton alloc] initWithFrame:ImageRect];
      [shareButton setBackgroundImage:shareImage forState:UIControlStateNormal];
      [shareButton addTarget:self
@@ -433,7 +433,7 @@ static BOOL isAddCPVCOpened = NO;
      forControlEvents:UIControlEventTouchUpInside];
      [shareButton setShowsTouchWhenHighlighted:YES];
      
-     UIBarButtonItem *shareBarButton = [[UIBarButtonItem alloc] initWithCustomView:shareButton];*/
+     UIBarButtonItem *shareBarButton = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
     
     if (goals)
     {
@@ -476,13 +476,12 @@ static BOOL isAddCPVCOpened = NO;
     [self.navigationController pushViewController:egTVC animated:YES];
 }
 
-//- (void)showShareGoalsViewController
-//{
-//    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    ShareGoalsViewController * shareGoalsVC = (ShareGoalsViewController *)[sb instantiateViewControllerWithIdentifier:@"shareGoalsVC"];
-//#warning Maybe not using that ?
-//    [self.navigationController pushViewController:shareGoalsVC animated:YES];
-//}
+- (void)showShareGoalsViewController
+{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ShareGoalsViewController * shareGoalsVC = (ShareGoalsViewController *)[sb instantiateViewControllerWithIdentifier:@"shareGoalsVC"];
+    [self.navigationController pushViewController:shareGoalsVC animated:YES];
+}
 
 - (void)showAddControlPointViewController
 {
