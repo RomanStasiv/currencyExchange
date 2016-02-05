@@ -49,6 +49,8 @@
 		EF0616A01C5B524C0097B505 /* BranchData.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0616981C5B524C0097B505 /* BranchData.m */; };
 		EF0616A61C5B52A90097B505 /* JSONParseCoreDataSave.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0616A51C5B52A90097B505 /* JSONParseCoreDataSave.m */; };
 		EF0616AF1C5B983A0097B505 /* TestCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0616AE1C5B983A0097B505 /* TestCoreData.m */; };
+		EF900B061C64AC490097379C /* BranchStorage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = EF900B031C64AC490097379C /* BranchStorage+CoreDataProperties.m */; };
+		EF900B071C64AC490097379C /* BranchStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = EF900B051C64AC490097379C /* BranchStorage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -133,6 +135,10 @@
 		EF0616A51C5B52A90097B505 /* JSONParseCoreDataSave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONParseCoreDataSave.m; sourceTree = "<group>"; };
 		EF0616AD1C5B983A0097B505 /* TestCoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestCoreData.h; sourceTree = "<group>"; };
 		EF0616AE1C5B983A0097B505 /* TestCoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestCoreData.m; sourceTree = "<group>"; };
+		EF900B021C64AC490097379C /* BranchStorage+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BranchStorage+CoreDataProperties.h"; sourceTree = "<group>"; };
+		EF900B031C64AC490097379C /* BranchStorage+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BranchStorage+CoreDataProperties.m"; sourceTree = "<group>"; };
+		EF900B041C64AC490097379C /* BranchStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchStorage.h; sourceTree = "<group>"; };
+		EF900B051C64AC490097379C /* BranchStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchStorage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,6 +333,10 @@
 				EF0616961C5B524C0097B505 /* BranchData+CoreDataProperties.m */,
 				EF0616971C5B524C0097B505 /* BranchData.h */,
 				EF0616981C5B524C0097B505 /* BranchData.m */,
+				EF900B021C64AC490097379C /* BranchStorage+CoreDataProperties.h */,
+				EF900B031C64AC490097379C /* BranchStorage+CoreDataProperties.m */,
+				EF900B041C64AC490097379C /* BranchStorage.h */,
+				EF900B051C64AC490097379C /* BranchStorage.m */,
 			);
 			name = "Core Data Models";
 			sourceTree = "<group>";
@@ -443,12 +453,14 @@
 				6A80BF7F1C5E22B300B57EC5 /* EarningGoalsTableViewController.m in Sources */,
 				6A8E90791C5BFDA70069BABC /* ControlPointsEarnChecker.m in Sources */,
 				6A19D05F1C58035900529993 /* EarnMoneyGraphView.m in Sources */,
+				EF900B071C64AC490097379C /* BranchStorage.m in Sources */,
 				EF0616A01C5B524C0097B505 /* BranchData.m in Sources */,
 				6A8E90741C5BB8760069BABC /* ControlPointCDManager.m in Sources */,
 				EF0616991C5B524C0097B505 /* BankData+CoreDataProperties.m in Sources */,
 				979339E31C58D9A000A674D1 /* CurencyCourseGraph.m in Sources */,
 				6A8E90701C5BB28A0069BABC /* CDControlPoint.m in Sources */,
 				6A1A15551C5AD6F9003A3044 /* Line.m in Sources */,
+				EF900B061C64AC490097379C /* BranchStorage+CoreDataProperties.m in Sources */,
 				EF0320841C635D7B0032C699 /* BankInfo.m in Sources */,
 				6A29C59C1C5A3BB60032B74D /* GraphDrawer.m in Sources */,
 				EF0616A61C5B52A90097B505 /* JSONParseCoreDataSave.m in Sources */,

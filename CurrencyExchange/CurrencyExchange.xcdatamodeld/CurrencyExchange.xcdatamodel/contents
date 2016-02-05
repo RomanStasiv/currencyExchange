@@ -15,6 +15,13 @@
         <attribute name="region" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="bank" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BankData" inverseName="branch" inverseEntity="BankData" syncable="YES"/>
     </entity>
+    <entity name="BranchStorage" representedClassName="BranchStorage" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bank" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="region" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="CDControlPoint" representedClassName="CDControlPoint" syncable="YES">
         <attribute name="currency" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
@@ -37,5 +44,6 @@
         <element name="CDControlPoint" positionX="-990" positionY="-18" width="128" height="118"/>
         <element name="CurrencyData" positionX="-1352" positionY="144" width="128" height="133"/>
         <element name="ObjectData" positionX="-1568" positionY="-9" width="128" height="43"/>
+        <element name="BranchStorage" positionX="-1908" positionY="315" width="128" height="118"/>
     </elements>
 </model>

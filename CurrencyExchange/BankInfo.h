@@ -22,7 +22,7 @@
 @property (strong, nonatomic) NSString* bankUSDCurrencyBid;
 @property (strong, nonatomic) NSDate* bankDate;
 
-@property (strong, nonatomic) NSArray* branches;
+
 
 -(instancetype) initWithName:(NSString*) name
                   withRegion:(NSString*) region
