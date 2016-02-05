@@ -50,11 +50,7 @@ NSString* const JSONParseDidUpdatesCoreDataNotification = @"JSONParseDidUpdatedC
 
 -(void) JSONParse
 {
-        NSLog(@"called by NSTimer!!!");
-    dispatch_async (dispatch_get_main_queue(), ^{
-       
-    });
-    {
+   {
         NSString* dataUrl = @"http://resources.finance.ua/ua/public/currency-cash.json";
         NSURL* url = [NSURL URLWithString:dataUrl];
         

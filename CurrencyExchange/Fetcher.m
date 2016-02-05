@@ -222,10 +222,10 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
 {
     AppDelegate * delegate = [AppDelegate singleton];
     self.context = delegate.managedObjectContext;
-    // NSLog(@"Qty of Currencies %lu", [[self sortedCurrency]count]/[self allBanksQuantity]);
-   // NSLog(@"Qty of Currencies %lu", [[self sortedCurrency]count]);
-   // NSLog(@"Qty of Banks %lu", [self allBanksQuantity]);
-    NSLog(@"Qty of Currencies %lu", [[self sortedCurrency]count]/[self allBanksQuantity]);
+   // NSLog(@"Qty of Currencies %lu", [[self sortedCurrency]count]/[self allBanksQuantity]);
+//   NSLog(@"Qty of Currencies %lu", [[self sortedCurrency]count]);
+//   NSLog(@"Qty of Banks %lu", [self allBanksQuantity]);
+//   NSLog(@"Qty of Currencies %lu", [[self sortedCurrency]count]/[self allBanksQuantity]);
     
     
     if(!self.averageRates)

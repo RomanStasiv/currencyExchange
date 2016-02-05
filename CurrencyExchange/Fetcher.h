@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 #import "BranchData.h"
 #import "ReportDataForTable.h"
+#import "MetalJSONParse.h"
 
 extern NSString* const CoreDataDidSavedNotification;
 extern NSString* const CoreDataDidSavedUserInfoKey;

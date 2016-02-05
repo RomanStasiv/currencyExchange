@@ -15,8 +15,12 @@ extern NSString* const JSONParseDidUpdatesCoreDataNotification;
 
 @property (strong, nonatomic) NSDictionary* jsonData;
 
+
 -(void) JSONParse;
 -(void) deleteAllObjectsFromCoreData;
 -(void) loadCoreDataObjects;
+
+
+
 
 @end

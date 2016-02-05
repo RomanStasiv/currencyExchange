@@ -12,6 +12,7 @@
 
 @interface MainScreenViewController : UIViewController
 
+@property (retain, nonatomic ) NSTimer* m_Timer;
 
 @end
 
