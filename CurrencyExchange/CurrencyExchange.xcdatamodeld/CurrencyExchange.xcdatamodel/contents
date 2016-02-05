@@ -32,7 +32,7 @@
     </entity>
     <entity name="MetalData" representedClassName="MetalData" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="prices" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Prices" inverseName="metal" inverseEntity="Prices" syncable="YES"/>
+        <relationship name="prices" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Prices" inverseName="metal" inverseEntity="Prices" syncable="YES"/>
     </entity>
     <entity name="ObjectData" representedClassName="ObjectData" isAbstract="YES" syncable="YES"/>
     <entity name="Prices" representedClassName="Prices" syncable="YES">
@@ -46,8 +46,8 @@
         <element name="BranchData" positionX="-1571" positionY="121" width="128" height="118"/>
         <element name="CDControlPoint" positionX="-990" positionY="-18" width="128" height="118"/>
         <element name="CurrencyData" positionX="-1352" positionY="144" width="128" height="133"/>
-        <element name="ObjectData" positionX="-1568" positionY="-9" width="128" height="43"/>
         <element name="MetalData" positionX="-1908" positionY="344" width="128" height="73"/>
+        <element name="ObjectData" positionX="-1568" positionY="-9" width="128" height="43"/>
         <element name="Prices" positionX="-1568" positionY="315" width="128" height="103"/>
     </elements>
 </model>

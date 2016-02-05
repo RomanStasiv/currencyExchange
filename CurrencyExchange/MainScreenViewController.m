@@ -40,7 +40,7 @@
     self.workObject = [[JSONParseCoreDataSave alloc] init];
     
     //TestCoreData* testObject = [[TestCoreData alloc] init];
-    MetalJSONParse* tester = [[MetalJSONParse alloc]init];
+    //MetalJSONParse* tester = [[MetalJSONParse alloc]init];
     //Fetcher*tmp = [[Fetcher alloc]init];
     
     //[self.workObject deleteAllObjectsFromCoreData];
@@ -48,10 +48,10 @@
     //[workObject loadCoreDataObjects];
     //[tmp allBanksQuantity];
     
-    dispatch_queue_t queueJsonMetal = dispatch_queue_create("Metal", DISPATCH_QUEUE_CONCURRENT);
-    dispatch_async(queueJsonMetal, ^{
-        [tester JSONMetalParse];
-    });
+//    dispatch_queue_t queueJsonMetal = dispatch_queue_create("Metal", DISPATCH_QUEUE_CONCURRENT);
+//    dispatch_async(queueJsonMetal, ^{
+//        [tester JSONMetalParse];
+//    });
     
     //[testObject insertFakeDataToCoreData];
     //[tmp dataForTableView];
