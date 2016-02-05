@@ -14,10 +14,11 @@
 
 @interface EarningGoalsTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
-@property (nonatomic, strong) id<shareGraphViewDelegate> imageGetterDelegate;
+@property (nonatomic, strong) id<GraphViewDelegate> graphViewControllerDelegate;
 
 @property (nonatomic, strong) NSArray *averageCurrencyObjectsArray;
 @property (nonatomic, strong) NSFetchedResultsController *fetchResultController;
 @property (nonatomic, strong) ControlPointCDManager *manager;
 
 @end
+

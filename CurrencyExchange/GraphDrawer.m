@@ -210,20 +210,20 @@
         }
 #warning HOW THIS SHOULD BE DONE?
         /*[path addLineToPoint:[self getMidPointBetweenPointA:firstPoint
-                                                       andB:[[points objectAtIndex:1] CGPointValue]]];
-        for (int i = 1; i < points.count; i++)
-        {
-            CGPoint midpoint = [self getMidPointBetweenPointA:[[points objectAtIndex:i] CGPointValue]
-                                                         andB:[[points objectAtIndex:i+1] CGPointValue]];
-            [path addQuadCurveToPoint:midpoint
-                         controlPoint:[[points objectAtIndex:i] CGPointValue]];
-        }
-        [path addLineToPoint:[[points lastObject] CGPointValue]];
-    }
-    else if (points.count == 2)
-    {
-        [path addLineToPoint:[self getMidPointBetweenPointA:firstPoint andB:[[points objectAtIndex:1] CGPointValue]]];
-    }*/
+         andB:[[points objectAtIndex:1] CGPointValue]]];
+         for (int i = 1; i < points.count; i++)
+         {
+         CGPoint midpoint = [self getMidPointBetweenPointA:[[points objectAtIndex:i] CGPointValue]
+         andB:[[points objectAtIndex:i+1] CGPointValue]];
+         [path addQuadCurveToPoint:midpoint
+         controlPoint:[[points objectAtIndex:i] CGPointValue]];
+         }
+         [path addLineToPoint:[[points lastObject] CGPointValue]];
+         }
+         else if (points.count == 2)
+         {
+         [path addLineToPoint:[self getMidPointBetweenPointA:firstPoint andB:[[points objectAtIndex:1] CGPointValue]]];
+         }*/
     }
     else
     {
@@ -284,7 +284,7 @@
     
     //drawing triangle at the end of axis
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-
+    
     CGContextSetLineWidth(ctx, width);
     CGContextSetLineCap(ctx, kCGLineCapRound);
     CGContextSetLineJoin(ctx, kCGLineJoinRound);
@@ -317,8 +317,8 @@
 - (void)drawDivisionsOnYAxe
 {
     CGSize size0000 = [@"00.00" sizeWithAttributes:
-                     @{NSFontAttributeName:
-                           [UIFont systemFontOfSize:11.0f]}];
+                       @{NSFontAttributeName:
+                             [UIFont systemFontOfSize:11.0f]}];
     double margin = 3;
     
     NSInteger maximumPosibleYDivisionsCount = (self.insetFrame.size.height - self.topAndRightMargin) / (size0000.height + margin);
@@ -352,7 +352,7 @@
         UILabel *valueLabel = [[UILabel alloc] initWithFrame:frame];
         valueLabel.font = [UIFont systemFontOfSize:10];
         valueLabel.text = [NSString stringWithFormat:@"%.02f",[[shrinkedValueArray objectAtIndex:i] floatValue]];
-        valueLabel.backgroundColor = [UIColor lightGrayColor];
+        valueLabel.backgroundColor = [UIColor colorWithRed:0.07 green:0.06 blue:0.07 alpha:0.15];
         [self addSubview:valueLabel];
     }
 }
@@ -380,7 +380,7 @@
     double heightMargin = margin;
     NSInteger maximumPosibleXDivisionsCount = (self.insetFrame.size.width ) / (size00.width + margin);
     
-
+    
     NSArray *shrinkedDayArray = [self getShrinkedArrayFromArray:days ToCount:maximumPosibleXDivisionsCount];
     NSArray *shrinkedMonthArray = [self getShrinkedArrayFromArray:month ToCount:maximumPosibleXDivisionsCount];
     
@@ -395,7 +395,7 @@
         
         margin = margin + differencePerMargin;
     }
-
+    
     for (int i = 0; i < shrinkedDayArray.count; i++)
     {
         
@@ -403,10 +403,9 @@
                                        self.insetFrame.size.height + 15 + size00.height + heightMargin,
                                        size00.height,
                                        size00.width);
-        NSLog(@"monthFrame:%@",NSStringFromCGRect(monthFrame));
         
         UILabel *monthLabel = [[UILabel alloc] initWithFrame:monthFrame];
-        monthLabel.backgroundColor = [UIColor lightGrayColor];
+        monthLabel.backgroundColor = [UIColor colorWithRed:0.07 green:0.06 blue:0.07 alpha:0.15];
         monthLabel.font = [UIFont systemFontOfSize:11];
         monthLabel.text = [shrinkedMonthArray objectAtIndex:i];
         
@@ -414,10 +413,9 @@
                                      self.insetFrame.size.height + 15,
                                      size00.height,
                                      size00.width);
-        NSLog(@"dayFrame:%@",NSStringFromCGRect(dayFrame));
         
         UILabel *dayLabel = [[UILabel alloc] initWithFrame:dayFrame];
-        dayLabel.backgroundColor = [UIColor lightGrayColor];
+        dayLabel.backgroundColor = [UIColor colorWithRed:0.07 green:0.06 blue:0.07 alpha:0.15];
         dayLabel.font = [UIFont systemFontOfSize:11];
         dayLabel.text = [shrinkedDayArray objectAtIndex:i];
         [self addSubview:monthLabel];
@@ -466,8 +464,8 @@
     
     //xAxisLabel
     CGSize xAxisFrameSize = [@"time" sizeWithAttributes:
-                     @{NSFontAttributeName:
-                           [UIFont systemFontOfSize:10.0f]}];
+                             @{NSFontAttributeName:
+                                   [UIFont systemFontOfSize:10.0f]}];
     
     CGRect xAxisFrame = CGRectMake(self.frame.size.width - (xAxisFrameSize.width + offset),
                                    self.insetFrame.size.height - offset,
@@ -496,13 +494,13 @@
     
     //day&monthInfoLabels
     CGSize dayInfoFrameSize = [@"day" sizeWithAttributes:
-                             @{NSFontAttributeName:
-                                   [UIFont systemFontOfSize:10.0f]}];
+                               @{NSFontAttributeName:
+                                     [UIFont systemFontOfSize:10.0f]}];
     
     CGRect dayInfoFrame = CGRectMake(self.frame.origin.x + offset,
-                                   self.insetFrame.size.height + 17,
-                                   dayInfoFrameSize.width,
-                                   dayInfoFrameSize.height);
+                                     self.insetFrame.size.height + 17,
+                                     dayInfoFrameSize.width,
+                                     dayInfoFrameSize.height);
     UILabel *dayInfoLabel = [[UILabel alloc] initWithFrame:dayInfoFrame];
     dayInfoLabel.font = [UIFont systemFontOfSize:9];
     dayInfoLabel.textColor = [UIColor darkTextColor];
@@ -510,13 +508,13 @@
     [self addSubview:dayInfoLabel];
     
     CGSize monthInfoFrameSize = [@"month" sizeWithAttributes:
-                               @{NSFontAttributeName:
-                                     [UIFont systemFontOfSize:10.0f]}];
+                                 @{NSFontAttributeName:
+                                       [UIFont systemFontOfSize:10.0f]}];
     
     CGRect monthInfoFrame = CGRectMake(self.frame.origin.x + offset,
-                                     self.insetFrame.size.height + 17 + dayInfoFrameSize.height + 5,
-                                     monthInfoFrameSize.width,
-                                     monthInfoFrameSize.height);
+                                       self.insetFrame.size.height + 17 + dayInfoFrameSize.height + 5,
+                                       monthInfoFrameSize.width,
+                                       monthInfoFrameSize.height);
     UILabel *monthInfoLabel = [[UILabel alloc] initWithFrame:monthInfoFrame];
     monthInfoLabel.font = [UIFont systemFontOfSize:9];
     monthInfoLabel.textColor = [UIColor darkTextColor];

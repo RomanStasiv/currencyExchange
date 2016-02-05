@@ -9,14 +9,17 @@
 #import "ControlPointCDManager.h"
 #import "AppDelegate.h"
 
-
-@interface ControlPointCDManager()
-
-
-
-@end
-
 @implementation ControlPointCDManager
+
++ (instancetype) sharedManager
+{
+    static ControlPointCDManager *instance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[ControlPointCDManager alloc] init];
+    });
+    return instance;
+}
 
 - (NSManagedObjectContext *)context
 {
@@ -39,25 +42,25 @@
     [self.context save:nil];
 }
 
-- (void)deleteFromCDControlPoint:(ControllPoint *)point
+- (void)deleteFromCDControlPoint:(CDControlPoint *)coreDataPoint
 {
-    NSFetchRequest *request = [[NSFetchRequest alloc]init];
-    NSEntityDescription * description =
-    [NSEntityDescription entityForName:@"CDControlPoint"
-                inManagedObjectContext:self.context];
-    [request setEntity:description];
-    NSArray *fetchResult = [self.context executeFetchRequest:request error:nil];
+    /* NSFetchRequest *request = [[NSFetchRequest alloc]init];
+     NSEntityDescription * description =
+     [NSEntityDescription entityForName:@"CDControlPoint"
+     inManagedObjectContext:self.context];
+     [request setEntity:description];
+     NSArray *fetchResult = [self.context executeFetchRequest:request error:nil];
+     
+     ControllPoint *toDel = [[ControllPoint alloc] init];
+     for (ControllPoint *fetchPoint in fetchResult)
+     {
+     if ([fetchPoint.date compare:point.date] == NSOrderedSame)
+     {
+     toDel = fetchPoint;
+     }
+     }*/
     
-    ControllPoint *toDel = [[ControllPoint alloc] init];
-    for (ControllPoint *fetchPoint in fetchResult)
-    {
-        if ([fetchPoint.date compare:point.date] == NSOrderedSame)
-        {
-            toDel = fetchPoint;
-        }
-    }
-    
-    [self.context deleteObject:(NSManagedObject *)toDel];
+    [self.context deleteObject:(NSManagedObject *)coreDataPoint];
     [self.context save:nil];
 }
 
