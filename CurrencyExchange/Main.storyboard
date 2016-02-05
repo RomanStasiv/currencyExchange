@@ -165,11 +165,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYf-hP-TMG">
+                                <rect key="frame" x="600" y="64" width="150" height="536"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="o7d-Bi-quF"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="Djq-LH-aUk" kind="embed" identifier="addCPVC_segue" id="yRA-1t-3nE"/>
+                                </connections>
+                            </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WMB-FN-6aU" customClass="EarnMoneyGraphView">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <subviews>
                                     <view tag="114" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bMT-ly-EXv">
-                                        <rect key="frame" x="300" y="8" width="59" height="120"/>
+                                        <rect key="frame" x="533" y="8" width="59" height="120"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bid" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zdf-FF-ktY">
                                                 <rect key="frame" x="9" y="24" width="42" height="21"/>
@@ -272,7 +281,7 @@
                                         </variation>
                                     </view>
                                     <view tag="113" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KVo-TX-LL6">
-                                        <rect key="frame" x="241" y="8" width="59" height="120"/>
+                                        <rect key="frame" x="466" y="8" width="59" height="120"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bid" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugH-d3-o17">
                                                 <rect key="frame" x="9" y="24" width="42" height="21"/>
@@ -371,25 +380,91 @@
                                             </mask>
                                         </variation>
                                     </view>
+                                    <view tag="115" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="80c-ST-ji2">
+                                        <rect key="frame" x="116" y="8" width="342" height="46"/>
+                                        <subviews>
+                                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.10000000000000001" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="wLz-Rc-lla">
+                                                <rect key="frame" x="77" y="8" width="213" height="31"/>
+                                                <color key="tintColor" red="0.8980392814" green="0.96078437569999997" blue="0.078431375319999996" alpha="0.79000000000000004" colorSpace="deviceRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="sI2-8S-fYj"/>
+                                                    <constraint firstAttribute="width" constant="225" id="tNx-3E-oiv"/>
+                                                </constraints>
+                                                <color key="minimumTrackTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="maximumTrackTintColor" red="0.27450980390000002" green="0.76078431369999999" blue="0.60392156860000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="thumbTintColor" red="0.27450980390000002" green="0.76078431369999999" blue="0.60392156860000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="sI2-8S-fYj"/>
+                                                        <exclude reference="tNx-3E-oiv"/>
+                                                    </mask>
+                                                </variation>
+                                                <connections>
+                                                    <action selector="timeSliderValueDidChanged:" destination="7Xz-cD-7Wr" eventType="valueChanged" id="rsR-kF-CBL"/>
+                                                </connections>
+                                            </slider>
+                                            <imageView tag="4545" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="move_icon" translatesAutoresizingMaskIntoConstraints="NO" id="E7x-aI-NrQ">
+                                                <rect key="frame" x="296" y="0.0" width="46" height="46"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="46" id="PdW-1v-9oW"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1K-06-10U">
+                                                <rect key="frame" x="8" y="12" width="42" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="Pam-iv-b0c"/>
+                                                    <constraint firstAttribute="width" constant="42" id="SkV-YQ-QZ7"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="E7x-aI-NrQ" secondAttribute="trailing" id="8aE-HQ-7JB"/>
+                                            <constraint firstAttribute="height" constant="46" id="Bxb-Hj-ghH"/>
+                                            <constraint firstItem="wLz-Rc-lla" firstAttribute="leading" secondItem="c1K-06-10U" secondAttribute="trailing" constant="8" id="HDB-6b-bX6"/>
+                                            <constraint firstItem="E7x-aI-NrQ" firstAttribute="leading" secondItem="wLz-Rc-lla" secondAttribute="trailing" constant="8" id="HVm-TD-OOd"/>
+                                            <constraint firstItem="wLz-Rc-lla" firstAttribute="top" secondItem="80c-ST-ji2" secondAttribute="top" constant="8" id="NJZ-eS-W6z"/>
+                                            <constraint firstAttribute="bottom" secondItem="wLz-Rc-lla" secondAttribute="bottom" constant="8" id="NjD-LC-btz"/>
+                                            <constraint firstItem="c1K-06-10U" firstAttribute="centerY" secondItem="80c-ST-ji2" secondAttribute="centerY" id="QHD-6s-SMM"/>
+                                            <constraint firstAttribute="bottom" secondItem="E7x-aI-NrQ" secondAttribute="bottom" id="THD-Zl-Y9L"/>
+                                            <constraint firstAttribute="width" constant="270" id="aqb-xf-pRn"/>
+                                            <constraint firstItem="c1K-06-10U" firstAttribute="leading" secondItem="80c-ST-ji2" secondAttribute="leading" constant="8" id="hoq-cr-g2N"/>
+                                            <constraint firstAttribute="width" constant="340" id="ohR-o5-f1i"/>
+                                            <constraint firstItem="wLz-Rc-lla" firstAttribute="leading" secondItem="80c-ST-ji2" secondAttribute="leading" constant="8" id="vwr-bP-8J7"/>
+                                            <constraint firstItem="E7x-aI-NrQ" firstAttribute="top" secondItem="80c-ST-ji2" secondAttribute="top" id="zHb-gk-4uZ"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="aqb-xf-pRn"/>
+                                                <exclude reference="vwr-bP-8J7"/>
+                                            </mask>
+                                        </variation>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="KVo-TX-LL6" firstAttribute="centerX" secondItem="WMB-FN-6aU" secondAttribute="centerX" constant="-30" id="7uM-fN-GEL"/>
                                     <constraint firstItem="bMT-ly-EXv" firstAttribute="centerX" secondItem="WMB-FN-6aU" secondAttribute="centerX" constant="29.5" id="HfZ-lO-ch9"/>
+                                    <constraint firstItem="bMT-ly-EXv" firstAttribute="leading" secondItem="KVo-TX-LL6" secondAttribute="trailing" constant="8" id="MyZ-Hq-tIc"/>
+                                    <constraint firstItem="KVo-TX-LL6" firstAttribute="leading" secondItem="80c-ST-ji2" secondAttribute="trailing" constant="8" id="Soq-qS-H8h"/>
+                                    <constraint firstAttribute="trailing" secondItem="bMT-ly-EXv" secondAttribute="trailing" constant="8" id="oJn-f1-T3e"/>
+                                    <constraint firstItem="KVo-TX-LL6" firstAttribute="top" secondItem="WMB-FN-6aU" secondAttribute="top" constant="8" id="qoK-q4-kqp"/>
+                                    <constraint firstItem="80c-ST-ji2" firstAttribute="top" secondItem="WMB-FN-6aU" secondAttribute="top" constant="8" id="rVe-H1-pPo"/>
                                     <constraint firstItem="bMT-ly-EXv" firstAttribute="top" secondItem="WMB-FN-6aU" secondAttribute="top" constant="8" id="tCK-fk-Dt8"/>
                                     <constraint firstItem="KVo-TX-LL6" firstAttribute="top" secondItem="WMB-FN-6aU" secondAttribute="top" constant="8" id="wPp-Hd-8bx"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="7uM-fN-GEL"/>
+                                        <exclude reference="wPp-Hd-8bx"/>
+                                        <exclude reference="HfZ-lO-ch9"/>
+                                    </mask>
+                                </variation>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYf-hP-TMG">
-                                <rect key="frame" x="600" y="64" width="150" height="536"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="o7d-Bi-quF"/>
-                                </constraints>
-                                <connections>
-                                    <segue destination="Djq-LH-aUk" kind="embed" identifier="addCPVC_segue" id="yRA-1t-3nE"/>
-                                </connections>
-                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -416,6 +491,8 @@
                         <outlet property="graphView" destination="WMB-FN-6aU" id="rzJ-TO-7S3"/>
                         <outlet property="panGesture" destination="3uR-t5-9Xc" id="e7b-Im-wvk"/>
                         <outlet property="rightConstraintAddCPContainer" destination="MFa-kO-gso" id="nX9-DC-PhW"/>
+                        <outlet property="timeSlider" destination="wLz-Rc-lla" id="2Ph-pJ-GhO"/>
+                        <outlet property="timeSliderView" destination="80c-ST-ji2" id="lPD-mL-RqL"/>
                         <outlet property="widthConstraintAddCPContainer" destination="o7d-Bi-quF" id="DwH-9A-1zF"/>
                     </connections>
                 </viewController>
@@ -1031,6 +1108,7 @@
         <image name="Vk_icon" width="60" height="60"/>
         <image name="dollar_sign" width="586" height="586"/>
         <image name="euro_sign" width="256" height="256"/>
+        <image name="move_icon" width="45" height="45"/>
         <image name="save_button" width="100" height="100"/>
         <image name="share_icon" width="50" height="50"/>
     </resources>

@@ -41,6 +41,11 @@
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
 @property (weak, nonatomic) UIView *viewToMove;
 
+
+@property (weak, nonatomic) IBOutlet UISlider *timeSlider;
+@property (weak, nonatomic) IBOutlet UIView *timeSliderView;
+
+
 //resize logic
 @property (weak, nonatomic) AddControlPointToEarnMoneyViewController * addCPVC;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightConstraintAddCPContainer;
@@ -152,6 +157,23 @@ static BOOL isAddCPVCOpened = NO;
     self.avarageCurrencyObjectsArray = [[fetch averageCurrencyRate] mutableCopy];
 }
 
+- (NSArray *)shiftAvarageCurrencyArrayToTimeSliderValue:(CGFloat)value
+{
+    [self updateAverageCurrencyObjectsArray];
+    NSUInteger newLen = self.avarageCurrencyObjectsArray.count * value;
+    NSUInteger startIndex = self.avarageCurrencyObjectsArray.count - newLen;
+    NSArray *resultArray = [self.avarageCurrencyObjectsArray subarrayWithRange:NSMakeRange(startIndex, newLen)];
+    return resultArray;
+}
+- (IBAction)timeSliderValueDidChanged:(UISlider *)sender
+{
+    if (self.avarageCurrencyObjectsArray.count > 1)
+        self.timeSlider.minimumValue = self.avarageCurrencyObjectsArray.count / (self.avarageCurrencyObjectsArray.count * 10);
+    CGFloat value = sender.value;
+    self.avarageCurrencyObjectsArray = [[self shiftAvarageCurrencyArrayToTimeSliderValue:value] mutableCopy];
+    [self redrawGraphView];
+}
+
 - (void)redrawGraphView
 {
     [self prepareGraphView];
@@ -168,7 +190,8 @@ static BOOL isAddCPVCOpened = NO;
     {
         if(view.tag == 113 || view.tag == 114)
             self.viewToMove = view;
-        
+        else if (view.tag == 4545)
+            self.viewToMove = self.timeSliderView;
         else
             return;
     }

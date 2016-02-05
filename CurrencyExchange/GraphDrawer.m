@@ -28,7 +28,7 @@
 {
     for (UIView *view in self.subviews)
     {
-        if (view.tag != 113 && view.tag != 114)
+        if (view.tag != 113 && view.tag != 114 && view.tag != 115)
             [view removeFromSuperview];
     }
 }
