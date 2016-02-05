@@ -46,7 +46,6 @@ NSString* const MetalSilverUrl = @"https://www.quandl.com/api/v1/datasets/LBMA/S
     }
     //NSLog(@"%@", self.jsonMetalData);
     
-    
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
     
