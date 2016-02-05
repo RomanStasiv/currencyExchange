@@ -39,22 +39,22 @@
     
     self.workObject = [[JSONParseCoreDataSave alloc] init];
     
-    //TestCoreData* testObject = [[TestCoreData alloc] init];
+    TestCoreData* testObject = [[TestCoreData alloc] init];
     //MetalJSONParse* tester = [[MetalJSONParse alloc]init];
     //Fetcher*tmp = [[Fetcher alloc]init];
     
-    [self.workObject deleteAllObjectsFromCoreData];
+    //[self.workObject deleteAllObjectsFromCoreData];
     //[workObject JSONParse];
     //[workObject loadCoreDataObjects];
     //[tmp allBanksQuantity];
-    //[testObject insertFakeDataToCoreData];
+    [testObject insertFakeDataToCoreData];
     //[tmp dataForTableView];
     self.graph.backgroundColor = [UIColor blackColor];
-    self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:10.0
+    /*self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:10.0
                                                     target: self.workObject
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
-                                                   repeats: YES];
+                                                   repeats: YES];*/
     
 }
 

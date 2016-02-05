@@ -254,7 +254,7 @@ static BOOL isAddCPVCOpened = NO;
             [self.arrayOfControlPoints addObject:point];
             for (ControllPoint *point in self.arrayOfControlPoints)
             {
-                if (point.earningPosibility > 0)
+                if ([point.earningPosibility floatValue] > 0)
                 {
                     [self addBarButtonItemsIncludeEarnGoals:YES];
                     break;

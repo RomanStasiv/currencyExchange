@@ -28,6 +28,7 @@
 		6A2941A01C58CD7E00C5D207 /* MainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29419F1C58CD7E00C5D207 /* MainScreenViewController.m */; };
 		6A2989121C58AFDA006328A5 /* ConvertMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2989111C58AFDA006328A5 /* ConvertMoneyViewController.m */; };
 		6A29C59C1C5A3BB60032B74D /* GraphDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29C59B1C5A3BB60032B74D /* GraphDrawer.m */; };
+		6A7E68711C64EDFF003E54BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A7E68701C64EDFF003E54BC /* Main.storyboard */; };
 		6A80BF7F1C5E22B300B57EC5 /* EarningGoalsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A80BF7E1C5E22B300B57EC5 /* EarningGoalsTableViewController.m */; };
 		6A80BF831C5E264D00B57EC5 /* CustomEGTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A80BF821C5E264D00B57EC5 /* CustomEGTableViewCell.m */; };
 		6A80BF861C5E31A700B57EC5 /* ControlPointsCDSotrer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A80BF851C5E31A700B57EC5 /* ControlPointsCDSotrer.m */; };
@@ -40,7 +41,6 @@
 		979339E31C58D9A000A674D1 /* CurencyCourseGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 979339E21C58D9A000A674D1 /* CurencyCourseGraph.m */; };
 		97ED58621C5796BC004724A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ED58611C5796BC004724A3 /* main.m */; };
 		97ED58651C5796BC004724A3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97ED58641C5796BC004724A3 /* AppDelegate.m */; };
-		97ED586B1C5796BC004724A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97ED58691C5796BC004724A3 /* Main.storyboard */; };
 		97ED586E1C5796BC004724A3 /* CurrencyExchange.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 97ED586C1C5796BC004724A3 /* CurrencyExchange.xcdatamodeld */; };
 		97ED58701C5796BC004724A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97ED586F1C5796BC004724A3 /* Assets.xcassets */; };
 		97ED58731C5796BC004724A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97ED58711C5796BC004724A3 /* LaunchScreen.storyboard */; };
@@ -103,6 +103,7 @@
 		6A29C59A1C5A3BB50032B74D /* GraphDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphDrawer.h; sourceTree = "<group>"; };
 		6A29C59B1C5A3BB60032B74D /* GraphDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphDrawer.m; sourceTree = "<group>"; };
 		6A7109781C602B0A002B49D1 /* ProtocolHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProtocolHeader.h; sourceTree = "<group>"; };
+		6A7E68701C64EDFF003E54BC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		6A80BF7D1C5E22B300B57EC5 /* EarningGoalsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarningGoalsTableViewController.h; sourceTree = "<group>"; };
 		6A80BF7E1C5E22B300B57EC5 /* EarningGoalsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarningGoalsTableViewController.m; sourceTree = "<group>"; };
 		6A80BF811C5E264D00B57EC5 /* CustomEGTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEGTableViewCell.h; sourceTree = "<group>"; };
@@ -127,7 +128,6 @@
 		97ED58611C5796BC004724A3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		97ED58631C5796BC004724A3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		97ED58641C5796BC004724A3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		97ED586A1C5796BC004724A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		97ED586D1C5796BC004724A3 /* CurrencyExchange.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CurrencyExchange.xcdatamodel; sourceTree = "<group>"; };
 		97ED586F1C5796BC004724A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97ED58721C5796BC004724A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -330,11 +330,11 @@
 				EFD86A811C5B4FF20015CC37 /* Processing Files */,
 				EFD86A801C5B4FDF0015CC37 /* Core Data Models */,
 				6A29890C1C58AEFA006328A5 /* UI */,
-				97ED58691C5796BC004724A3 /* Main.storyboard */,
 				6A8E90761C5BFCDF0069BABC /* model */,
 				97ED58631C5796BC004724A3 /* AppDelegate.h */,
 				97ED58641C5796BC004724A3 /* AppDelegate.m */,
 				97ED586F1C5796BC004724A3 /* Assets.xcassets */,
+				6A7E68701C64EDFF003E54BC /* Main.storyboard */,
 				97ED58601C5796BC004724A3 /* Supporting Files */,
 			);
 			path = CurrencyExchange;
@@ -462,9 +462,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A7E68711C64EDFF003E54BC /* Main.storyboard in Resources */,
 				97ED58731C5796BC004724A3 /* LaunchScreen.storyboard in Resources */,
 				97ED58701C5796BC004724A3 /* Assets.xcassets in Resources */,
-				97ED586B1C5796BC004724A3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,14 +528,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		97ED58691C5796BC004724A3 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				97ED586A1C5796BC004724A3 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		97ED58711C5796BC004724A3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
