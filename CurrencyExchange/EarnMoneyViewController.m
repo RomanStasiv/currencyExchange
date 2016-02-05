@@ -44,6 +44,7 @@
 
 @property (weak, nonatomic) IBOutlet UISlider *timeSlider;
 @property (weak, nonatomic) IBOutlet UIView *timeSliderView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *timeSliderWidthConstraint;
 
 
 //resize logic
@@ -101,6 +102,32 @@ static BOOL isAddCPVCOpened = NO;
     [super viewDidLoad];
     [self selfUpdate];
     ((CustomNavigationController *)self.navigationController).canBeInLandscape = YES;
+    
+    [self resizerTimeSliderLogic];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self resizerTimeSliderLogic];
+}
+
+- (void)resizerTimeSliderLogic
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
+        {
+            self.timeSliderWidthConstraint.constant = self.view.frame.size.width - 152;
+        }
+        else
+        {
+            self.timeSliderWidthConstraint.constant = 340;
+        }
+    }
+    else
+    {
+        self.timeSliderWidthConstraint.constant = 340;
+    }
 }
 
 - (void)UpdateForNotification

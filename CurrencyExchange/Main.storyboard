@@ -165,15 +165,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYf-hP-TMG">
-                                <rect key="frame" x="600" y="64" width="150" height="536"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="o7d-Bi-quF"/>
-                                </constraints>
-                                <connections>
-                                    <segue destination="Djq-LH-aUk" kind="embed" identifier="addCPVC_segue" id="yRA-1t-3nE"/>
-                                </connections>
-                            </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WMB-FN-6aU" customClass="EarnMoneyGraphView">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <subviews>
@@ -465,6 +456,15 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYf-hP-TMG">
+                                <rect key="frame" x="600" y="64" width="150" height="536"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="o7d-Bi-quF"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="Djq-LH-aUk" kind="embed" identifier="addCPVC_segue" id="yRA-1t-3nE"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -493,6 +493,7 @@
                         <outlet property="rightConstraintAddCPContainer" destination="MFa-kO-gso" id="nX9-DC-PhW"/>
                         <outlet property="timeSlider" destination="wLz-Rc-lla" id="2Ph-pJ-GhO"/>
                         <outlet property="timeSliderView" destination="80c-ST-ji2" id="lPD-mL-RqL"/>
+                        <outlet property="timeSliderWidthConstraint" destination="ohR-o5-f1i" id="mDS-a0-yMg"/>
                         <outlet property="widthConstraintAddCPContainer" destination="o7d-Bi-quF" id="DwH-9A-1zF"/>
                     </connections>
                 </viewController>
