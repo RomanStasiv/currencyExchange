@@ -39,22 +39,28 @@
     
     self.workObject = [[JSONParseCoreDataSave alloc] init];
     
-    TestCoreData* testObject = [[TestCoreData alloc] init];
+    //TestCoreData* testObject = [[TestCoreData alloc] init];
     //MetalJSONParse* tester = [[MetalJSONParse alloc]init];
     //Fetcher*tmp = [[Fetcher alloc]init];
     
     //[self.workObject deleteAllObjectsFromCoreData];
-    //[workObject JSONParse];
-    //[workObject loadCoreDataObjects];
+    [self.workObject JSONParse];
+    //[self.workObject loadCoreDataObjects];
     //[tmp allBanksQuantity];
     //[testObject insertFakeDataToCoreData];
     //[tmp dataForTableView];
-    self.graph.backgroundColor = [UIColor blackColor];
-    /*self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:10.0
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
+    //self.graph.backgroundColor = [UIColor blackColor];
+    self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:7200.0
                                                     target: self.workObject
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
-                                                   repeats: YES];*/
+                                                   repeats: YES];
+    self.USDAsklabel.text = @"25.0";
+    self.EUROAsklabel.text = @"35.0";
+    self.stateOfSwitchLabel.text = @"Ask";
+    self.switchState.on = YES;
+    self.switchState.onTintColor = [UIColor orangeColor];
     
 }
 
