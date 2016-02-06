@@ -7,7 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+@class VKUser;
 
 @interface VKServerManager : NSObject
+
++ (instancetype)sharedManager;
+
+@property (nonatomic, strong) VKUser *currentUser;
+
+- (void) authorizeUser:(void(^)(VKUser* user)) completion;
 
 @end

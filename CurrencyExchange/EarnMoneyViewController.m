@@ -18,6 +18,9 @@
 #import "EarningGoalsTableViewController.h"
 #import "ShareGoalsViewController.h"
 
+#import "VKServerManager.h"
+#import "VKUser.h"
+
 #import "CustomNavigationController.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -447,7 +450,7 @@ static BOOL isAddCPVCOpened = NO;
         
         UIBarButtonItem *goalsBarButton = [[UIBarButtonItem alloc] initWithCustomView:goalsButton];
         
-        self.navigationItem.rightBarButtonItems = @[addBarButton,/* shareBarButton,*/ goalsBarButton];
+        self.navigationItem.rightBarButtonItems = @[addBarButton, shareBarButton, goalsBarButton];
         
         CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
         anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
@@ -460,7 +463,7 @@ static BOOL isAddCPVCOpened = NO;
     }
     else
     {
-        self.navigationItem.rightBarButtonItems = @[addBarButton/*, shareBarButton*/];
+        self.navigationItem.rightBarButtonItems = @[addBarButton, shareBarButton];
     }
 }
 
@@ -478,9 +481,11 @@ static BOOL isAddCPVCOpened = NO;
 
 - (void)showShareGoalsViewController
 {
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ShareGoalsViewController * shareGoalsVC = (ShareGoalsViewController *)[sb instantiateViewControllerWithIdentifier:@"shareGoalsVC"];
-    [self.navigationController pushViewController:shareGoalsVC animated:YES];
+    VKServerManager *manager = [VKServerManager sharedManager];
+    [manager authorizeUser:^(VKUser *user)
+    {
+        NSLog(@"%@",user.firstName);
+    }];
 }
 
 - (void)showAddControlPointViewController

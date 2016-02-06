@@ -9,7 +9,7 @@
 #import "VKLoginViewController.h"
 #import "VKAccessToken.h"
 
-@interface VKLoginViewController ()
+@interface VKLoginViewController () <UIWebViewDelegate>
 
 @property (copy, nonatomic) LoginCompletionBlock completionBlock;
 @property (weak, nonatomic) UIWebView* webView;
@@ -48,12 +48,13 @@
     
     NSString* urlString =
     @"https://oauth.vk.com/authorize?"
-    "client_id=4199692&"
-    "scope=139286&" // + 2 + 4 + 16 + 131072 + 8192
-    "redirect_uri=hello.there&"
+    "client_id=5275698&"
+    "scope=8194&" // + 2 + 8192
+    "redirect_uri=noware&"
     "display=mobile&"
-    "v=5.11&"
-    "response_type=token";
+    "v=5.44&"
+    "response_type=token&"
+    "revoke=1";
     
     NSURL* url = [NSURL URLWithString:urlString];
     
@@ -92,57 +93,56 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     
-    if ([[[request URL] host] isEqualToString:@"hello.there"]) {
+    if ([[[request URL] host] isEqualToString:@"noware"]) {
         
         VKAccessToken* token = [[VKAccessToken alloc] init];
         
-        NSString* query = [[request URL] description];
+        NSString* stringToParce = [[request URL] description];
+        NSArray* array = [stringToParce componentsSeparatedByString:@"#"];
         
-        NSArray* array = [query componentsSeparatedByString:@"#"];
-        
-        if ([array count] > 1) {
-            query = [array lastObject];
+        if ([array count] > 1)
+        {
+            stringToParce = [array lastObject];
         }
+        NSArray* pairs = [stringToParce componentsSeparatedByString:@"&"];
         
-        NSArray* pairs = [query componentsSeparatedByString:@"&"];
-        
-        for (NSString* pair in pairs) {
-            
+        for (NSString* pair in pairs)
+        {
             NSArray* values = [pair componentsSeparatedByString:@"="];
             
-            if ([values count] == 2) {
-                
+            if ([values count] == 2)
+            {
                 NSString* key = [values firstObject];
                 
-                if ([key isEqualToString:@"access_token"]) {
+                if ([key isEqualToString:@"access_token"])
+                {
                     token.token = [values lastObject];
-                } else if ([key isEqualToString:@"expires_in"]) {
-                    
+                }
+                else if ([key isEqualToString:@"expires_in"])
+                {
                     NSTimeInterval interval = [[values lastObject] doubleValue];
-                    
                     token.expirationDate = [NSDate dateWithTimeIntervalSinceNow:interval];
-                    
-                } else if ([key isEqualToString:@"user_id"]) {
-                    
+                }
+                else if ([key isEqualToString:@"user_id"])
+                {
                     token.userID = [values lastObject];
                 }
             }
         }
         
         self.webView.delegate = nil;
-        
-        if (self.completionBlock) {
+        if (self.completionBlock)
+        {
             self.completionBlock(token);
         }
         
         
         
-        [self dismissViewControllerAnimated:YES
-                                 completion:nil];
-        
+        [self.navigationController popViewControllerAnimated:YES];
         return NO;
     }
     
+    NSLog(@"%@",[request URL]);
     return YES;
 }
 
