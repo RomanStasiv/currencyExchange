@@ -18,6 +18,9 @@
 #import "EarningGoalsTableViewController.h"
 #import "ShareGoalsViewController.h"
 
+#import "VKServerManager.h"
+#import "VKUser.h"
+
 #import "CustomNavigationController.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -425,7 +428,7 @@ static BOOL isAddCPVCOpened = NO;
     
     UIBarButtonItem *addBarButton = [[UIBarButtonItem alloc] initWithCustomView:addButton];
     
-    /*UIImage *shareImage = [UIImage imageNamed:@"tabBar_share.png"];
+    UIImage *shareImage = [UIImage imageNamed:@"tabBar_share.png"];
      UIButton *shareButton = [[UIButton alloc] initWithFrame:ImageRect];
      [shareButton setBackgroundImage:shareImage forState:UIControlStateNormal];
      [shareButton addTarget:self
@@ -433,7 +436,7 @@ static BOOL isAddCPVCOpened = NO;
      forControlEvents:UIControlEventTouchUpInside];
      [shareButton setShowsTouchWhenHighlighted:YES];
      
-     UIBarButtonItem *shareBarButton = [[UIBarButtonItem alloc] initWithCustomView:shareButton];*/
+     UIBarButtonItem *shareBarButton = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
     
     if (goals)
     {
@@ -447,7 +450,7 @@ static BOOL isAddCPVCOpened = NO;
         
         UIBarButtonItem *goalsBarButton = [[UIBarButtonItem alloc] initWithCustomView:goalsButton];
         
-        self.navigationItem.rightBarButtonItems = @[addBarButton,/* shareBarButton,*/ goalsBarButton];
+        self.navigationItem.rightBarButtonItems = @[addBarButton, shareBarButton, goalsBarButton];
         
         CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
         anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
@@ -460,7 +463,7 @@ static BOOL isAddCPVCOpened = NO;
     }
     else
     {
-        self.navigationItem.rightBarButtonItems = @[addBarButton/*, shareBarButton*/];
+        self.navigationItem.rightBarButtonItems = @[addBarButton, shareBarButton];
     }
 }
 
@@ -476,13 +479,14 @@ static BOOL isAddCPVCOpened = NO;
     [self.navigationController pushViewController:egTVC animated:YES];
 }
 
-//- (void)showShareGoalsViewController
-//{
-//    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    ShareGoalsViewController * shareGoalsVC = (ShareGoalsViewController *)[sb instantiateViewControllerWithIdentifier:@"shareGoalsVC"];
-//#warning Maybe not using that ?
-//    [self.navigationController pushViewController:shareGoalsVC animated:YES];
-//}
+- (void)showShareGoalsViewController
+{
+    VKServerManager *manager = [VKServerManager sharedManager];
+    [manager authorizeUser:^(VKUser *user)
+    {
+        NSLog(@"%@",user.firstName);
+    }];
+}
 
 - (void)showAddControlPointViewController
 {
