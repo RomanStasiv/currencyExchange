@@ -7,15 +7,6 @@
 //
 
 #import "MainScreenViewController.h"
-//
-//  ViewController.m
-//  CurrencyExchange
-//
-//  Created by Roman Stasiv on 1/26/16.
-//  Copyright © 2016 Roman Stasiv. All rights reserved.
-//
-
-#import "MainScreenViewController.h"
 #import "JSONParseCoreDataSave.h"
 #import "TestCoreData.h"
 #import "Fetcher.h"
@@ -25,7 +16,7 @@
 @interface MainScreenViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *graph;
-
+@property (strong, nonatomic) Fetcher* fetching;
 @property (strong, nonatomic) JSONParseCoreDataSave * workObject;
 
 @end
@@ -56,8 +47,15 @@
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
                                                    repeats: YES];
-    self.USDAsklabel.text = @"25.0";
-    self.EUROAsklabel.text = @"35.0";
+    
+    NSArray* dataArray = [self.fetching averageCurrencyRate];
+    NSInteger lastIndex = [dataArray count];
+    NSNumber *tmp = [[dataArray objectAtIndex:lastIndex-1] USDask];
+    self.USDlabel.text =[tmp stringValue];
+    NSNumber*tmpEuro = [[dataArray objectAtIndex:lastIndex-1] EURask];
+    self.EUROlabel.text = [tmpEuro stringValue];
+    //self.USDlabel.text = @"25.0";
+    //self.EUROlabel.text = @"35.0";
     self.stateOfSwitchLabel.text = @"Ask";
     self.switchState.on = YES;
     self.switchState.onTintColor = [UIColor orangeColor];
@@ -81,4 +79,29 @@
 }
 
 
+- (IBAction)statusOfSwitchChanged:(id)sender
+{
+    NSArray* dataArray = [self.fetching averageCurrencyRate];
+    NSInteger lastIndex = [dataArray count];
+    if([sender isOn])
+    {
+        self.stateOfSwitchLabel.text = @"ASK";
+        NSNumber *tmp = [[dataArray objectAtIndex:lastIndex-1] USDask];
+        self.USDlabel.text =[tmp stringValue];
+        NSNumber*tmpEuro = [[dataArray objectAtIndex:lastIndex-1] EURask];
+        self.EUROlabel.text = [tmpEuro stringValue];
+        //NSLog(@"Switch is ON");
+    }
+    else
+    {
+        NSNumber *tmp = [[dataArray objectAtIndex:lastIndex-1] USDbid];
+        self.USDlabel.text =[tmp stringValue];
+        NSNumber*tmpEuro = [[dataArray objectAtIndex:lastIndex-1] EURbid];
+        self.EUROlabel.text = [tmpEuro stringValue];
+
+        self.stateOfSwitchLabel.text = @"BID";
+        //NSLog(@"Switch is OFF");
+    }
+    
+}
 @end

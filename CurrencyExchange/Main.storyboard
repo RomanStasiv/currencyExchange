@@ -126,8 +126,11 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qgt-iA-nWc">
+                            <switch opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qgt-iA-nWc">
                                 <rect key="frame" x="431" y="94" width="51" height="31"/>
+                                <connections>
+                                    <action selector="statusOfSwitchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="2NJ-gM-9tc"/>
+                                </connections>
                             </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -201,8 +204,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="B2i-vm-Gh3"/>
                     <connections>
-                        <outlet property="EUROAsklabel" destination="mhC-vb-zLW" id="dNh-3W-EHQ"/>
-                        <outlet property="USDAsklabel" destination="U0i-NE-80q" id="cjY-Ap-asI"/>
+                        <outlet property="EUROlabel" destination="U0i-NE-80q" id="DPz-47-l0T"/>
+                        <outlet property="USDlabel" destination="mhC-vb-zLW" id="keq-YZ-vBW"/>
                         <outlet property="graph" destination="V3c-fi-Ykb" id="mCi-tZ-9TV"/>
                         <outlet property="stateOfSwitchLabel" destination="asF-HV-5Vo" id="tEB-qE-XqM"/>
                         <outlet property="switchState" destination="Qgt-iA-nWc" id="mX5-jV-eNE"/>

@@ -13,10 +13,11 @@
 @interface MainScreenViewController : UIViewController
 
 @property (retain, nonatomic ) NSTimer* m_Timer;
-@property (nonatomic, strong) IBOutlet UILabel *USDAsklabel;
-@property (nonatomic, strong) IBOutlet UILabel *EUROAsklabel;
+@property (nonatomic, strong) IBOutlet UILabel *USDlabel;
+@property (nonatomic, strong) IBOutlet UILabel *EUROlabel;
 @property (weak, nonatomic) IBOutlet UISwitch *switchState;
 @property (weak, nonatomic) IBOutlet UILabel *stateOfSwitchLabel;
+- (IBAction)statusOfSwitchChanged:(id)sender;
 
 @end
 
