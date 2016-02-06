@@ -13,6 +13,7 @@
 #import "VKLoginViewController.h"
 #import "VKAccessToken.h"
 #import "VKUser.h"
+#import "VKFriend.h"
 
 @interface VKServerManager ()
 
@@ -56,10 +57,18 @@
                                             [self getUser:self.accessToken.userID
                                                 onSuccess:^(VKUser *user)
                                              {
-                                                 if (completion)
-                                                 {
-                                                     completion(user);
-                                                 }
+                                                 self.currentUser = user;
+                                                 
+                                                 [self getFriendsOfCurrentUseronSuccess:^(VKUser *user)
+                                                  {
+                                                      if (completion)
+                                                      {
+                                                          completion(user);
+                                                      }
+                                                  } onFailure:^(NSError *error, NSInteger statusCode)
+                                                  {
+                                                      
+                                                  }];
                                              }
                                                 onFailure:^(NSError *error, NSInteger statusCode)
                                              {
@@ -68,6 +77,8 @@
                                                      completion(nil);
                                                  }
                                              }];
+                                            
+                                            
                                             
                                         }
                                         else if (completion)
@@ -80,6 +91,61 @@
     UINavigationController* nav = (CustomNavigationController *)[AppDelegate singleton].window.rootViewController;
     
     [nav pushViewController:VKlvc animated:YES];
+}
+
+- (void) getFriendsOfCurrentUseronSuccess:(void(^)(VKUser* user)) success
+                                onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure
+{
+    NSDictionary* params =
+    [NSDictionary dictionaryWithObjectsAndKeys:
+     self.accessToken.userID,        @"user_id",
+     @"nickname",   @"fields",
+     @"nom",        @"name_case", nil];
+    
+    [self.requestOperationManager
+     GET:@"friends.get"
+     parameters:params
+     success:^(AFHTTPRequestOperation *operation, NSDictionary* responseObject)
+     {
+         NSLog(@"JSON: %@", responseObject);
+         
+         NSArray* dictsArray = [responseObject objectForKey:@"response"];
+         
+         if ([dictsArray count] > 0)
+         {
+             for (NSDictionary *dict in dictsArray)
+             {
+                 VKFriend *friend = [[VKFriend alloc] initWithServerDictionary:dict];
+                 if (!self.currentUser.friendsArray)
+                     self.currentUser.friendsArray = [NSMutableArray array];
+                 [self.currentUser.friendsArray addObject:friend];
+                 
+             }
+             
+             if (success)
+             {
+                 success(self.currentUser);
+             }
+         }
+         else
+         {
+             if (failure)
+             {
+                 failure(nil, operation.response.statusCode);
+             }
+         }
+         
+     }
+     failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+         
+         if (failure)
+         {
+             failure(error, operation.response.statusCode);
+         }
+     }];
+
 }
 
 - (void) getUser:(NSString*) userID

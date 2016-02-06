@@ -14,6 +14,8 @@
 @property (strong, nonatomic) NSString* lastName;
 @property (strong, nonatomic) NSURL* imageURL;
 
+@property (nonatomic, strong) NSMutableArray *friendsArray;
+
 - (instancetype)initWithServerDictionary:(NSDictionary *)dictionary;
 
 @end

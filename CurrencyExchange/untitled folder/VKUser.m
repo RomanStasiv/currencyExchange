@@ -11,8 +11,6 @@
 
 @interface VKUser ()
 
-@property (nonatomic, strong) NSArray *friendsArray;
-
 @end
 
 @implementation VKUser
