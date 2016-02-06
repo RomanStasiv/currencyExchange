@@ -94,7 +94,7 @@
     
     if ([[[request URL] host] isEqualToString:@"hello.there"]) {
         
-        ASAccessToken* token = [[ASAccessToken alloc] init];
+        VKAccessToken* token = [[VKAccessToken alloc] init];
         
         NSString* query = [[request URL] description];
         
