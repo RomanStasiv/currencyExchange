@@ -20,6 +20,7 @@
 
 #import "VKServerManager.h"
 #import "VKUser.h"
+#import "VKFriend.h"
 
 #import "CustomNavigationController.h"
 #import <QuartzCore/QuartzCore.h>
@@ -481,11 +482,27 @@ static BOOL isAddCPVCOpened = NO;
 
 - (void)showShareGoalsViewController
 {
+    
     VKServerManager *manager = [VKServerManager sharedManager];
     [manager authorizeUser:^(VKUser *user)
-    {
-        NSLog(@"%@",user.firstName);
-    }];
+     {
+         for (int i = 0; i < user.friendsArray.count; i++)
+         {
+             VKFriend *friend = [user.friendsArray objectAtIndex:i];
+             //NSLog(@"user%d : %@ %@",i,friend.firstName,friend.lastName);
+             
+             [manager getPostedApplicationPhotoPostsForFriend:friend
+                                                    onSuccess:^(NSArray *postsArray)
+              {
+                  friend.userGoalImagesArray = postsArray;
+              }
+                                                    onFailure:^(NSError *error, NSInteger statusCode)
+              {
+                  
+              }];
+         }
+     }];
+    
 }
 
 - (void)showAddControlPointViewController

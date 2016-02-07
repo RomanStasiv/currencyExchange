@@ -49,12 +49,11 @@
     NSString* urlString =
     @"https://oauth.vk.com/authorize?"
     "client_id=5275698&"
-    "scope=8194&" // + 2 + 8192
+    "scope=10242&" // + 2 + 8192 + 2048
     "redirect_uri=noware&"
     "display=mobile&"
     "v=5.44&"
-    "response_type=token&"
-    "revoke=1";
+    "response_type=token";
     
     NSURL* url = [NSURL URLWithString:urlString];
     

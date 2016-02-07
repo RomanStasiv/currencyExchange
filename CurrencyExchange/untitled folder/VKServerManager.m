@@ -61,10 +61,11 @@
                                                  
                                                  [self getFriendsOfCurrentUseronSuccess:^(VKUser *user)
                                                   {
-                                                      if (completion)
-                                                      {
-                                                          completion(user);
-                                                      }
+                                                           if (completion)
+                                                           {
+                                                               completion(user);
+                                                           }
+                                                      
                                                   } onFailure:^(NSError *error, NSInteger statusCode)
                                                   {
                                                       
@@ -93,6 +94,53 @@
     [nav pushViewController:VKlvc animated:YES];
 }
 
+- (void) getUser:(NSString*) userID
+       onSuccess:(void(^)(VKUser* user)) success
+       onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure
+{
+    NSDictionary* params =
+    [NSDictionary dictionaryWithObjectsAndKeys:
+     userID,        @"user_ids",
+     @"photo_50",   @"fields",
+     @"nom",        @"name_case", nil];
+    
+    [self.requestOperationManager
+     GET:@"users.get"
+     parameters:params
+     success:^(AFHTTPRequestOperation *operation, NSDictionary* responseObject)
+     {
+         NSLog(@"JSON: %@", responseObject);
+         
+         NSArray* dictsArray = [responseObject objectForKey:@"response"];
+         
+         if ([dictsArray count] > 0)
+         {
+             VKUser* user = [[VKUser alloc] initWithServerDictionary:[dictsArray firstObject]];
+             if (success)
+             {
+                 success(user);
+             }
+         }
+         else
+         {
+             if (failure)
+             {
+                 failure(nil, operation.response.statusCode);
+             }
+         }
+         
+     }
+     failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+         
+         if (failure)
+         {
+             failure(error, operation.response.statusCode);
+         }
+     }];
+}
+
 - (void) getFriendsOfCurrentUseronSuccess:(void(^)(VKUser* user)) success
                                 onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure
 {
@@ -116,6 +164,7 @@
              for (NSDictionary *dict in dictsArray)
              {
                  VKFriend *friend = [[VKFriend alloc] initWithServerDictionary:dict];
+                 
                  if (!self.currentUser.friendsArray)
                      self.currentUser.friendsArray = [NSMutableArray array];
                  [self.currentUser.friendsArray addObject:friend];
@@ -148,31 +197,48 @@
 
 }
 
-- (void) getUser:(NSString*) userID
-       onSuccess:(void(^)(VKUser* user)) success
-       onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure
+- (void)getPostedApplicationPhotoPostsForFriend:(VKFriend *)friend
+                                      onSuccess:(void(^)(NSArray *postsArray))success
+                                      onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure
 {
     NSDictionary* params =
     [NSDictionary dictionaryWithObjectsAndKeys:
-     userID,        @"user_ids",
-     @"photo_50",   @"fields",
-     @"nom",        @"name_case", nil];
+     /*@"69465436"/*friend.userId, @"owner_id",
+     @"Эпичный",  @"query",
+     @"1",          @"owners_only",
+     @"50",        @"count"    ,nil];*/
+     friend.userId, @"owner_id",
+      @"owner",  @"filter",
+      @"50",        @"count"    ,nil];
     
     [self.requestOperationManager
-     GET:@"users.get"
+     GET:@"wall.get"
      parameters:params
      success:^(AFHTTPRequestOperation *operation, NSDictionary* responseObject)
-    {
+     {
          NSLog(@"JSON: %@", responseObject);
          
-         NSArray* dictsArray = [responseObject objectForKey:@"response"];
-         
-         if ([dictsArray count] > 0)
+         if (![[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"response"] firstObject]] isEqualToString:@"0"] && [responseObject objectForKey:@"response"])
          {
-             VKUser* user = [[VKUser alloc] initWithServerDictionary:[dictsArray firstObject]];
-             if (success)
+             NSArray* dictsArray = [responseObject objectForKey:@"response"];
+             
+             if ([dictsArray count] > 0)
              {
-                 success(user);
+                 for (NSDictionary *post in dictsArray)
+                 {
+                     NSString *text = [post objectForKey:@"text"];
+                     if ([text rangeOfString:@"#Earn#IOS#"].location != NSNotFound)
+                     {
+                         
+                     }
+                         
+                     
+                 }
+                 
+                 if (success)
+                 {
+                     //success(self.currentUser);
+                 }
              }
          }
          else
@@ -185,7 +251,7 @@
          
      }
      failure:^(AFHTTPRequestOperation *operation, NSError *error)
-    {
+     {
          NSLog(@"Error: %@", error);
          
          if (failure)
@@ -193,6 +259,7 @@
              failure(error, operation.response.statusCode);
          }
      }];
+
 }
 
 @end

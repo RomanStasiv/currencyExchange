@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class VKUser;
+@class VKFriend;
 
 @interface VKServerManager : NSObject
 
@@ -16,5 +17,9 @@
 @property (nonatomic, strong) VKUser *currentUser;
 
 - (void) authorizeUser:(void(^)(VKUser* user)) completion;
+
+- (void)getPostedApplicationPhotoPostsForFriend:(VKFriend *)friend
+onSuccess:(void(^)(NSArray *postsArray))success
+onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure;
 
 @end
