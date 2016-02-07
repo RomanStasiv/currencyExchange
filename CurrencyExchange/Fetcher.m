@@ -291,7 +291,7 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
             
             [self.averageRates addObject:tmp];
         }
-       // [self print];
+       [self print];
         
         NSDictionary* dictionary = [NSDictionary dictionaryWithObject:self.averageRates
                                                                forKey:CoreDataDidSavedUserInfoKey];

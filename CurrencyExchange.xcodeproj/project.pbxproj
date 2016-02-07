@@ -15,6 +15,7 @@
 		401EDA511C63B7AC006CFBBB /* MetalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 401EDA4B1C63B7AC006CFBBB /* MetalData.m */; };
 		401EDA531C63B7AC006CFBBB /* Prices.m in Sources */ = {isa = PBXBuildFile; fileRef = 401EDA4F1C63B7AC006CFBBB /* Prices.m */; };
 		401EDA571C63C7E8006CFBBB /* MetalJSONParse.m in Sources */ = {isa = PBXBuildFile; fileRef = 401EDA561C63C7E8006CFBBB /* MetalJSONParse.m */; };
+		402272611C6752DA00E0C5AD /* MainScreenDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 402272601C6752DA00E0C5AD /* MainScreenDrawer.m */; };
 		408D84101C660D56008BCD5B /* Prices+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 408D840D1C660D56008BCD5B /* Prices+CoreDataProperties.m */; };
 		408D84111C660D56008BCD5B /* MetalData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 408D840F1C660D56008BCD5B /* MetalData+CoreDataProperties.m */; };
 		6A193CEC1C57BD3800093B36 /* EarnMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CEB1C57BD3800093B36 /* EarnMoneyViewController.m */; };
@@ -76,6 +77,8 @@
 		401EDA4F1C63B7AC006CFBBB /* Prices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Prices.m; sourceTree = "<group>"; };
 		401EDA551C63C7E8006CFBBB /* MetalJSONParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetalJSONParse.h; sourceTree = "<group>"; };
 		401EDA561C63C7E8006CFBBB /* MetalJSONParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MetalJSONParse.m; sourceTree = "<group>"; };
+		4022725F1C6752DA00E0C5AD /* MainScreenDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenDrawer.h; sourceTree = "<group>"; };
+		402272601C6752DA00E0C5AD /* MainScreenDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScreenDrawer.m; sourceTree = "<group>"; };
 		408D840C1C660D56008BCD5B /* Prices+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Prices+CoreDataProperties.h"; sourceTree = "<group>"; };
 		408D840D1C660D56008BCD5B /* Prices+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Prices+CoreDataProperties.m"; sourceTree = "<group>"; };
 		408D840E1C660D56008BCD5B /* MetalData+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MetalData+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -223,6 +226,8 @@
 				979339E21C58D9A000A674D1 /* CurencyCourseGraph.m */,
 				6A29C59A1C5A3BB50032B74D /* GraphDrawer.h */,
 				6A29C59B1C5A3BB60032B74D /* GraphDrawer.m */,
+				4022725F1C6752DA00E0C5AD /* MainScreenDrawer.h */,
+				402272601C6752DA00E0C5AD /* MainScreenDrawer.m */,
 				6A29890F1C58AF44006328A5 /* show banks */,
 				6A29890E1C58AF3D006328A5 /* earn */,
 				6A29890D1C58AF32006328A5 /* convert */,
@@ -498,6 +503,7 @@
 				6A85736F1C64C6220002F634 /* CustomNavigationController.m in Sources */,
 				6A80BF831C5E264D00B57EC5 /* CustomEGTableViewCell.m in Sources */,
 				6A80BF861C5E31A700B57EC5 /* ControlPointsCDSotrer.m in Sources */,
+				402272611C6752DA00E0C5AD /* MainScreenDrawer.m in Sources */,
 				6A2989121C58AFDA006328A5 /* ConvertMoneyViewController.m in Sources */,
 				EF06169C1C5B524C0097B505 /* ObjectData.m in Sources */,
 				6A80BF7F1C5E22B300B57EC5 /* EarningGoalsTableViewController.m in Sources */,

@@ -18,10 +18,13 @@
 @property (weak, nonatomic) IBOutlet UIView *graph;
 @property (strong, nonatomic) Fetcher* fetching;
 @property (strong, nonatomic) JSONParseCoreDataSave * workObject;
+@property (strong, nonatomic) NSNumberFormatter* formatter;
 
 @end
 
 @implementation MainScreenViewController
+
+
 
 - (void)viewDidLoad
 {
@@ -42,7 +45,7 @@
     //[tmp dataForTableView];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
     //self.graph.backgroundColor = [UIColor blackColor];
-    self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:7200.0
+    self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:660.0
                                                     target: self.workObject
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
@@ -50,12 +53,21 @@
     
     NSArray* dataArray = [self.fetching averageCurrencyRate];
     NSInteger lastIndex = [dataArray count];
-    NSNumber *tmp = [[dataArray objectAtIndex:lastIndex-1] USDask];
-    self.USDlabel.text =[tmp stringValue];
-    NSNumber*tmpEuro = [[dataArray objectAtIndex:lastIndex-1] EURask];
-    self.EUROlabel.text = [tmpEuro stringValue];
     //self.USDlabel.text = @"25.0";
     //self.EUROlabel.text = @"35.0";
+    
+    self.formatter = [[NSNumberFormatter alloc] init];
+
+    [self.formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [self.formatter setMaximumFractionDigits:2];
+   // nowValueFormatted = [formatter stringFromNumber:nowNum];
+
+    NSNumber *tmp = [[dataArray objectAtIndex:lastIndex-1] USDask];
+    self.USDlabel.text = [self.formatter stringFromNumber:tmp];
+    NSNumber*tmpEuro = [[dataArray objectAtIndex:lastIndex-1] EURask];
+    self.EUROlabel.text = [self.formatter stringFromNumber:tmpEuro];
+
+    
     self.stateOfSwitchLabel.text = @"Ask";
     self.switchState.on = YES;
     self.switchState.onTintColor = [UIColor orangeColor];
@@ -71,12 +83,31 @@
 }
 #pragma mark - Notifications
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        
+        NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+        
+        [nc addObserver:self
+               selector:@selector(averageCurrencyRate)
+                   name:JSONParseDidUpdatesCoreDataNotification
+                 object:nil];
+        
+    }
+    return self;
+}
+
+
 - (void) dealloc
 {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }
+
+#pragma mark - Methods
 
 
 - (IBAction)statusOfSwitchChanged:(id)sender
@@ -87,21 +118,19 @@
     {
         self.stateOfSwitchLabel.text = @"ASK";
         NSNumber *tmp = [[dataArray objectAtIndex:lastIndex-1] USDask];
-        self.USDlabel.text =[tmp stringValue];
-        NSNumber*tmpEuro = [[dataArray objectAtIndex:lastIndex-1] EURask];
-        self.EUROlabel.text = [tmpEuro stringValue];
-        //NSLog(@"Switch is ON");
+        self.USDlabel.text = [self.formatter stringFromNumber:tmp];
+         NSNumber*tmpEuro = [[dataArray objectAtIndex:lastIndex-1] EURask];
+        self.EUROlabel.text = [self.formatter stringFromNumber:tmpEuro];
     }
     else
     {
         NSNumber *tmp = [[dataArray objectAtIndex:lastIndex-1] USDbid];
-        self.USDlabel.text =[tmp stringValue];
+        self.USDlabel.text = [self.formatter stringFromNumber:tmp];
         NSNumber*tmpEuro = [[dataArray objectAtIndex:lastIndex-1] EURbid];
-        self.EUROlabel.text = [tmpEuro stringValue];
-
+        self.EUROlabel.text = [self.formatter stringFromNumber:tmpEuro];
         self.stateOfSwitchLabel.text = @"BID";
-        //NSLog(@"Switch is OFF");
     }
     
 }
+
 @end
