@@ -32,7 +32,7 @@
     
     //TestCoreData* testObject = [[TestCoreData alloc] init];
     //MetalJSONParse* tester = [[MetalJSONParse alloc]init];
-    //Fetcher*tmp = [[Fetcher alloc]init];
+    self.fetching = [[Fetcher alloc]init];
     
     //[self.workObject deleteAllObjectsFromCoreData];
     [self.workObject JSONParse];
