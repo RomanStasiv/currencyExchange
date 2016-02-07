@@ -158,6 +158,7 @@
 {
     NSDictionary* params =
     [NSDictionary dictionaryWithObjectsAndKeys:
+     self.accessToken.userID, @"owner_id",
      @"owner",  @"filter",
      @"50",        @"count"    ,nil];
     
@@ -174,19 +175,23 @@
              
              if ([dictsArray count] > 0)
              {
-                 for (NSDictionary *post in dictsArray)
+                 for (int i = 1; i < dictsArray.count; i++)
                  {
+                     NSDictionary *post = [dictsArray objectAtIndex:i];
+                     
                      NSString *text = [post objectForKey:@"text"];
                      if ([text rangeOfString:@"#Earn#IOS#"].location != NSNotFound)
                      {
-                         NSArray *attachmentsArray = [post objectForKey:@"attachments"];
+                         NSArray *wrapper = [post objectForKey:@"attachments"];
+                         NSDictionary *attachments = [wrapper firstObject];
                          
-                         if ([[[attachmentsArray firstObject] objectForKey:@"type"] isEqualToString:@"photo"])
+                         
+                         if (attachments)
                          {
-                             NSDictionary *photoDict = [[attachmentsArray firstObject] objectForKey:@"photo"];
-                             NSDictionary *photoUserDict = [[NSDictionary alloc] init];
-                             [photoUserDict setValue:[photoDict objectForKey:@"photo_130"] forKey:@"photo_130"];
-                             [photoUserDict setValue:[photoDict objectForKey:[NSString stringWithFormat:@"photo_%@",[photoDict objectForKey:@"width"]]] forKey:@"photo"];
+                             NSDictionary *photo = [attachments objectForKey:@"photo"];
+                             NSDictionary *photoUserDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                            [photo objectForKey:@"src_small"], @"src_small",
+                                                            [photo objectForKey:@"src_xbig"],  @"src_xbig", nil];
                              self.currentUser.postedImages = photoUserDict;
                          }
                      }
