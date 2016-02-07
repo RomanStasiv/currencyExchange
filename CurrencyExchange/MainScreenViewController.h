@@ -18,7 +18,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *EUROlabel;
 @property (weak, nonatomic) IBOutlet UISwitch *switchState;
 @property (weak, nonatomic) IBOutlet UILabel *stateOfSwitchLabel;
-
+@property (strong, nonatomic) MainScreenDrawer* drawer;
 
 
 - (IBAction)statusOfSwitchChanged:(id)sender;

@@ -19,16 +19,13 @@
 @property (strong, nonatomic) Fetcher* fetching;
 @property (strong, nonatomic) JSONParseCoreDataSave * workObject;
 @property (strong, nonatomic) NSNumberFormatter* formatter;
-@property (strong, nonatomic) MainScreenDrawer* drawer;
+
 @property (nonatomic, strong) NSArray *avarageCurrencyObjectsArray;
 @property (nonatomic, strong) UIColor *USDBidColor;
 @property (nonatomic, strong) UIColor *USDAskColor;
 @property (nonatomic, strong) UIColor *EURBidColor;
 @property (nonatomic, strong) UIColor *EURAskColor;
-@property (weak, nonatomic) IBOutlet UIImageView *USDBidColorIndicator;
-@property (weak, nonatomic) IBOutlet UIImageView *USDAskColorIndicator;
-@property (weak, nonatomic) IBOutlet UIImageView *EURBidColorIndicator;
-@property (weak, nonatomic) IBOutlet UIImageView *EURAskColorIndicator;
+
 
 @end
 
@@ -56,24 +53,30 @@
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
     
     self.graph.backgroundColor = [UIColor clearColor];
-    CGRect frame = self.graph.frame;
-    [self.graph drawRect:frame];
     
     self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:660.0
                                                     target: self.workObject
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
+
                                                    repeats: YES];
-    
     [self updateAverageCurrencyObjectsArray];
-    [self selfUpdate];
-    [self.graph setNeedsDisplay];
+    self.drawer.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
+    CGRect frame = self.graph.frame;
+    [self.graph drawRect:frame];
+
+  
+    
     NSInteger lastIndex = [self.avarageCurrencyObjectsArray count];
     self.formatter = [[NSNumberFormatter alloc] init];
 
     [self.formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     [self.formatter setMaximumFractionDigits:2];
- 
+    
+    [self selfUpdate: [UIColor blackColor]  :[UIColor blackColor] :[UIColor purpleColor]  :[UIColor purpleColor]];
+    [self.graph setNeedsDisplay];
+    
+    
     NSNumber *tmp = [[self.avarageCurrencyObjectsArray objectAtIndex:lastIndex-1] USDask];
     self.USDlabel.text = [self.formatter stringFromNumber:tmp];
     NSNumber*tmpEuro = [[self.avarageCurrencyObjectsArray objectAtIndex:lastIndex-1] EURask];
@@ -86,14 +89,17 @@
     
 }
 
-- (void)selfUpdate
+
+
+
+- (void)selfUpdate:(UIColor*)usdA :(UIColor*) EuroA :(UIColor*)usdP :(UIColor*) EuroP
 {
     [self updateAverageCurrencyObjectsArray];
     [self prepareGraphView];
-    self.USDBidColor = [UIColor colorWithRed:0.9 green:0.11 blue:0.05 alpha:1];
-    self.USDAskColor = [UIColor colorWithRed:0.85 green:0.39 blue:0.06 alpha:1];
-    self.EURBidColor = [UIColor colorWithRed:0.09 green:0.41 blue:0.07 alpha:1];
-    self.EURAskColor = [UIColor colorWithRed:0.12 green:0.77 blue:0.07 alpha:1];
+    self.USDBidColor = usdP;
+    self.USDAskColor = usdA;
+    self.EURBidColor = usdP;
+    self.EURAskColor = EuroP;
     
     self.drawer.USDBidStrokeColor = self.USDBidColor;
     self.drawer.USDAskStrokeColor = self.USDAskColor;
@@ -156,6 +162,9 @@
     NSInteger lastIndex = [self.avarageCurrencyObjectsArray count];
     if([sender isOn])
     {
+        [self selfUpdate: [UIColor blackColor]  :[UIColor blackColor] :[UIColor purpleColor]  :[UIColor purpleColor]];
+        [self.graph setNeedsDisplay];
+
         self.stateOfSwitchLabel.text = @"ASK";
         NSNumber *tmp = [[self.avarageCurrencyObjectsArray objectAtIndex:lastIndex-1] USDask];
         self.USDlabel.text = [self.formatter stringFromNumber:tmp];
@@ -164,6 +173,9 @@
     }
     else
     {
+        [self selfUpdate: [UIColor purpleColor]  :[UIColor purpleColor] :[UIColor blackColor]  :[UIColor blackColor]];
+        [self.graph setNeedsDisplay];
+
         NSNumber *tmp = [[self.avarageCurrencyObjectsArray objectAtIndex:lastIndex-1] USDbid];
         self.USDlabel.text = [self.formatter stringFromNumber:tmp];
         NSNumber*tmpEuro = [[self.avarageCurrencyObjectsArray objectAtIndex:lastIndex-1] EURbid];
