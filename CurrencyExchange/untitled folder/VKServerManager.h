@@ -18,8 +18,8 @@
 
 - (void) authorizeUser:(void(^)(VKUser* user)) completion;
 
-- (void)getPostedApplicationPhotoPostsForFriend:(VKFriend *)friend
+/*- (void)getPostedApplicationPhotoPostsForFriend:(VKFriend *)friend
 onSuccess:(void(^)(NSArray *postsArray))success
-onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure;
+onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure;*/
 
 @end

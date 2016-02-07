@@ -486,21 +486,7 @@ static BOOL isAddCPVCOpened = NO;
     VKServerManager *manager = [VKServerManager sharedManager];
     [manager authorizeUser:^(VKUser *user)
      {
-         for (int i = 0; i < user.friendsArray.count; i++)
-         {
-             VKFriend *friend = [user.friendsArray objectAtIndex:i];
-             //NSLog(@"user%d : %@ %@",i,friend.firstName,friend.lastName);
-             
-             [manager getPostedApplicationPhotoPostsForFriend:friend
-                                                    onSuccess:^(NSArray *postsArray)
-              {
-                  friend.userGoalImagesArray = postsArray;
-              }
-                                                    onFailure:^(NSError *error, NSInteger statusCode)
-              {
-                  
-              }];
-         }
+         VKUser *u = user;
      }];
     
 }

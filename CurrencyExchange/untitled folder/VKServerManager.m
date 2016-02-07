@@ -59,7 +59,19 @@
                                              {
                                                  self.currentUser = user;
                                                  
-                                                 [self getFriendsOfCurrentUseronSuccess:^(VKUser *user)
+                                                 
+                                                 [self getPostedGoalsOfCurrentUserOnSuccess:^(VKUser *user)
+                                                 {
+                                                     if (completion)
+                                                     {
+                                                         completion(user);
+                                                     }
+                                                 }
+                                                                                  onFailure:^(NSError *error, NSInteger statusCode)
+                                                 {
+                                                     
+                                                 }];
+                                                /* [self getFriendsOfCurrentUseronSuccess:^(VKUser *user)
                                                   {
                                                            if (completion)
                                                            {
@@ -69,7 +81,7 @@
                                                   } onFailure:^(NSError *error, NSInteger statusCode)
                                                   {
                                                       
-                                                  }];
+                                                  }];*/
                                              }
                                                 onFailure:^(NSError *error, NSInteger statusCode)
                                              {
@@ -141,7 +153,76 @@
      }];
 }
 
-- (void) getFriendsOfCurrentUseronSuccess:(void(^)(VKUser* user)) success
+- (void)getPostedGoalsOfCurrentUserOnSuccess:(void(^)(VKUser* user)) success
+                                   onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure
+{
+    NSDictionary* params =
+    [NSDictionary dictionaryWithObjectsAndKeys:
+     @"owner",  @"filter",
+     @"50",        @"count"    ,nil];
+    
+    [self.requestOperationManager
+     GET:@"wall.get"
+     parameters:params
+     success:^(AFHTTPRequestOperation *operation, NSDictionary* responseObject)
+     {
+         NSLog(@"JSON: %@", responseObject);
+         
+         if (![[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"response"] firstObject]] isEqualToString:@"0"] && [responseObject objectForKey:@"response"])
+         {
+             NSArray* dictsArray = [responseObject objectForKey:@"response"];
+             
+             if ([dictsArray count] > 0)
+             {
+                 for (NSDictionary *post in dictsArray)
+                 {
+                     NSString *text = [post objectForKey:@"text"];
+                     if ([text rangeOfString:@"#Earn#IOS#"].location != NSNotFound)
+                     {
+                         NSArray *attachmentsArray = [post objectForKey:@"attachments"];
+                         
+                         if ([[[attachmentsArray firstObject] objectForKey:@"type"] isEqualToString:@"photo"])
+                         {
+                             NSDictionary *photoDict = [[attachmentsArray firstObject] objectForKey:@"photo"];
+                             NSDictionary *photoUserDict = [[NSDictionary alloc] init];
+                             [photoUserDict setValue:[photoDict objectForKey:@"photo_130"] forKey:@"photo_130"];
+                             [photoUserDict setValue:[photoDict objectForKey:[NSString stringWithFormat:@"photo_%@",[photoDict objectForKey:@"width"]]] forKey:@"photo"];
+                             self.currentUser.postedImages = photoUserDict;
+                         }
+                     }
+                     
+                     
+                 }
+                 
+                 if (success)
+                 {
+                     success(self.currentUser);
+                 }
+             }
+         }
+         else
+         {
+             if (failure)
+             {
+                 failure(nil, operation.response.statusCode);
+             }
+         }
+         
+     }
+     failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+         
+         if (failure)
+         {
+             failure(error, operation.response.statusCode);
+         }
+     }];
+
+}
+
+
+/*- (void) getFriendsOfCurrentUseronSuccess:(void(^)(VKUser* user)) success
                                 onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure
 {
     NSDictionary* params =
@@ -195,18 +276,18 @@
          }
      }];
 
-}
+}*/
 
-- (void)getPostedApplicationPhotoPostsForFriend:(VKFriend *)friend
+/*- (void)getPostedApplicationPhotoPostsForFriend:(VKFriend *)friend
                                       onSuccess:(void(^)(NSArray *postsArray))success
                                       onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure
 {
     NSDictionary* params =
     [NSDictionary dictionaryWithObjectsAndKeys:
-     /*@"69465436"/*friend.userId, @"owner_id",
-     @"Эпичный",  @"query",
-     @"1",          @"owners_only",
-     @"50",        @"count"    ,nil];*/
+//     friend.userId, @"owner_id",
+//     @"Эпичный",  @"query",
+//     @"1",          @"owners_only",
+//     @"50",        @"count"    ,nil];
      friend.userId, @"owner_id",
       @"owner",  @"filter",
       @"50",        @"count"    ,nil];
@@ -260,6 +341,6 @@
          }
      }];
 
-}
+}*/
 
 @end
