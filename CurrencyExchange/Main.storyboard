@@ -66,7 +66,7 @@
                                     <constraint firstAttribute="width" constant="50" id="DC5-f8-sf0"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="18"/>
-                                <state key="normal" backgroundImage="MELANIIIII">
+                                <state key="normal" backgroundImage="currencyConv">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -84,7 +84,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="Gzc-zC-Kel"/>
                                 </constraints>
-                                <state key="normal" title="Banks" backgroundImage="shouldBeTransparent"/>
+                                <state key="normal" title="Banks"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="Gzc-zC-Kel"/>
@@ -100,7 +100,7 @@
                                     <constraint firstAttribute="width" constant="50" id="hlS-JA-0Mp"/>
                                     <constraint firstAttribute="height" constant="50" id="zwe-K0-Q7v"/>
                                 </constraints>
-                                <state key="normal" title="Earn on exchange" backgroundImage="shouldBeTransparent"/>
+                                <state key="normal" title="Earn on exchange"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="hlS-JA-0Mp"/>
@@ -1241,15 +1241,14 @@
         <image name="EUROlet" width="116" height="64"/>
         <image name="Euro" width="180" height="101"/>
         <image name="Gmail_icon" width="81" height="60"/>
-        <image name="MELANIIIII" width="183" height="45"/>
         <image name="USA" width="180" height="141"/>
         <image name="USDLet" width="123" height="65"/>
         <image name="Vk_icon" width="60" height="60"/>
+        <image name="currencyConv" width="184" height="45"/>
         <image name="dollar_sign" width="586" height="586"/>
         <image name="euro_sign" width="256" height="256"/>
         <image name="move_icon" width="45" height="45"/>
         <image name="save_button" width="100" height="100"/>
         <image name="share_icon" width="50" height="50"/>
-        <image name="shouldBeTransparent" width="1920" height="1220"/>
     </resources>
 </document>
