@@ -117,24 +117,60 @@
 - (void)drawVerticalLines
 {
     CGFloat xPoint = self.inset;
-    for (int i = 0; i < self.segmentWidthCount; i++)
+    
+    double realSegmentWidth = 10;
+    double lineWidth = ((self.segmentHeight + self.segmentWidth) / 2) * 0.01;
+    NSInteger maxPosibleLinesCount = self.insetFrame.size.width / (realSegmentWidth * lineWidth);
+    
+    if (self.segmentWidthCount < maxPosibleLinesCount)
     {
-        CGPoint a = CGPointMake(xPoint, self.insetFrame.origin.y + self.topAndRightMargin);
-        CGPoint b = CGPointMake(xPoint, self.insetFrame.size.height + 20);
-        [self drawLineFromPointA:a toPointB:b WithWidth:((self.segmentHeight + self.segmentWidth) / 2) * 0.01 Color:[UIColor blackColor] Dashed:NO];
-        xPoint += self.segmentWidth;
+        for (int i = 0; i < self.segmentWidthCount; i++)
+        {
+            CGPoint a = CGPointMake(xPoint, self.insetFrame.origin.y + self.topAndRightMargin);
+            CGPoint b = CGPointMake(xPoint, self.insetFrame.size.height + 20);
+            [self drawLineFromPointA:a toPointB:b WithWidth:lineWidth Color:[UIColor blackColor] Dashed:NO];
+            xPoint += self.segmentWidth;
+        }
+    }
+    else
+    {
+        for (int i = 0; i < maxPosibleLinesCount; i++)
+        {
+            CGPoint a = CGPointMake(xPoint, self.insetFrame.origin.y + self.topAndRightMargin);
+            CGPoint b = CGPointMake(xPoint, self.insetFrame.size.height + 20);
+            [self drawLineFromPointA:a toPointB:b WithWidth:lineWidth Color:[UIColor blackColor] Dashed:NO];
+            xPoint += realSegmentWidth;
+        }
     }
 }
 
 - (void)drawHorizontalLines
 {
     CGFloat yPoint = self.segmentHeight + self.topAndRightMargin;
-    for (int i = 0; i < self.segmentHeightCount; i++)
+    
+    double realSegmentheight = 10;
+    double lineWidth = ((self.segmentHeight + self.segmentWidth) / 2) * 0.01;
+    NSInteger maxPosibleLinesCount = self.insetFrame.size.height / (realSegmentheight * lineWidth);
+    
+    if (self.segmentHeightCount < maxPosibleLinesCount)
     {
-        CGPoint a = CGPointMake(self.insetFrame.origin.x - 20, yPoint);
-        CGPoint b = CGPointMake(self.frame.size.width - self.topAndRightMargin, yPoint);
-        [self drawLineFromPointA:a toPointB:b WithWidth:((self.segmentHeight + self.segmentWidth) / 2) * 0.01 Color:[UIColor blackColor] Dashed:NO];
-        yPoint += self.segmentHeight;
+        for (int i = 0; i < self.segmentHeightCount; i++)
+        {
+            CGPoint a = CGPointMake(self.insetFrame.origin.x - 20, yPoint);
+            CGPoint b = CGPointMake(self.frame.size.width - self.topAndRightMargin, yPoint);
+            [self drawLineFromPointA:a toPointB:b WithWidth:lineWidth Color:[UIColor blackColor] Dashed:NO];
+            yPoint += self.segmentHeight;
+        }
+    }
+    else
+    {
+        for (int i = 0; i < maxPosibleLinesCount; i++)
+        {
+            CGPoint a = CGPointMake(self.insetFrame.origin.x - 20, yPoint);
+            CGPoint b = CGPointMake(self.frame.size.width - self.topAndRightMargin, yPoint);
+            [self drawLineFromPointA:a toPointB:b WithWidth:lineWidth Color:[UIColor blackColor] Dashed:NO];
+            yPoint += realSegmentheight;
+        }
     }
 }
 
@@ -345,7 +381,7 @@
     for (int i = 0; i < shrinkedValueArray.count; i++)
     {
         CGRect frame = CGRectMake(0,
-                                  self.insetFrame.size.height - size0000.height/2 - ((size0000.height + margin)* i),
+                                  self.insetFrame.size.height - size0000.height - ((size0000.height + margin)* i),
                                   size0000.width,
                                   size0000.height);
         
@@ -399,7 +435,7 @@
     for (int i = 0; i < shrinkedDayArray.count; i++)
     {
         
-        CGRect monthFrame = CGRectMake(self.inset - size00.width/2 + ((size00.width + margin) * i),
+        CGRect monthFrame = CGRectMake(self.inset /*- size00.width/2*/ + ((size00.width + margin) * i),
                                        self.insetFrame.size.height + 15 + size00.height + heightMargin,
                                        size00.height,
                                        size00.width);
@@ -409,7 +445,7 @@
         monthLabel.font = [UIFont systemFontOfSize:11];
         monthLabel.text = [shrinkedMonthArray objectAtIndex:i];
         
-        CGRect dayFrame = CGRectMake(self.inset - size00.width/2 + ((size00.width + margin) * i),
+        CGRect dayFrame = CGRectMake(self.inset /*- size00.width/2*/ + ((size00.width + margin) * i),
                                      self.insetFrame.size.height + 15,
                                      size00.height,
                                      size00.width);
