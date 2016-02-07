@@ -19,10 +19,12 @@
 @property (strong, nonatomic) Fetcher* fetching;
 @property (strong, nonatomic) JSONParseCoreDataSave * workObject;
 @property (strong, nonatomic) NSNumberFormatter* formatter;
-
+@property (strong, nonatomic) MainScreenDrawer* drawer;
+@property (nonatomic, strong) NSArray *avarageCurrencyObjectsArray;
 @end
 
 @implementation MainScreenViewController
+
 
 
 
@@ -32,7 +34,7 @@
     
     
     self.workObject = [[JSONParseCoreDataSave alloc] init];
-    
+    self.drawer = [[MainScreenDrawer alloc]init];
     //TestCoreData* testObject = [[TestCoreData alloc] init];
     //MetalJSONParse* tester = [[MetalJSONParse alloc]init];
     self.fetching = [[Fetcher alloc]init];
@@ -44,27 +46,23 @@
     //[testObject insertFakeDataToCoreData];
     //[tmp dataForTableView];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
-    //self.graph.backgroundColor = [UIColor blackColor];
+    self.graph.backgroundColor = [UIColor blackColor];
     self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:660.0
                                                     target: self.workObject
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
                                                    repeats: YES];
     
-    NSArray* dataArray = [self.fetching averageCurrencyRate];
-    NSInteger lastIndex = [dataArray count];
-    //self.USDlabel.text = @"25.0";
-    //self.EUROlabel.text = @"35.0";
-    
-    self.formatter = [[NSNumberFormatter alloc] init];
+    [self updateAverageCurrencyObjectsArray];
+    NSInteger lastIndex = [self.avarageCurrencyObjectsArray count];
+   self.formatter = [[NSNumberFormatter alloc] init];
 
     [self.formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     [self.formatter setMaximumFractionDigits:2];
-   // nowValueFormatted = [formatter stringFromNumber:nowNum];
-
-    NSNumber *tmp = [[dataArray objectAtIndex:lastIndex-1] USDask];
+ 
+    NSNumber *tmp = [[self.avarageCurrencyObjectsArray objectAtIndex:lastIndex-1] USDask];
     self.USDlabel.text = [self.formatter stringFromNumber:tmp];
-    NSNumber*tmpEuro = [[dataArray objectAtIndex:lastIndex-1] EURask];
+    NSNumber*tmpEuro = [[self.avarageCurrencyObjectsArray objectAtIndex:lastIndex-1] EURask];
     self.EUROlabel.text = [self.formatter stringFromNumber:tmpEuro];
 
     
@@ -74,6 +72,10 @@
     
 }
 
+- (void)updateAverageCurrencyObjectsArray
+{
+   self.avarageCurrencyObjectsArray = [[self.fetching averageCurrencyRate] mutableCopy];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -112,21 +114,21 @@
 
 - (IBAction)statusOfSwitchChanged:(id)sender
 {
-    NSArray* dataArray = [self.fetching averageCurrencyRate];
-    NSInteger lastIndex = [dataArray count];
+   [self updateAverageCurrencyObjectsArray];
+    NSInteger lastIndex = [self.avarageCurrencyObjectsArray count];
     if([sender isOn])
     {
         self.stateOfSwitchLabel.text = @"ASK";
-        NSNumber *tmp = [[dataArray objectAtIndex:lastIndex-1] USDask];
+        NSNumber *tmp = [[self.avarageCurrencyObjectsArray objectAtIndex:lastIndex-1] USDask];
         self.USDlabel.text = [self.formatter stringFromNumber:tmp];
-         NSNumber*tmpEuro = [[dataArray objectAtIndex:lastIndex-1] EURask];
+         NSNumber*tmpEuro = [[self.avarageCurrencyObjectsArray objectAtIndex:lastIndex-1] EURask];
         self.EUROlabel.text = [self.formatter stringFromNumber:tmpEuro];
     }
     else
     {
-        NSNumber *tmp = [[dataArray objectAtIndex:lastIndex-1] USDbid];
+        NSNumber *tmp = [[self.avarageCurrencyObjectsArray objectAtIndex:lastIndex-1] USDbid];
         self.USDlabel.text = [self.formatter stringFromNumber:tmp];
-        NSNumber*tmpEuro = [[dataArray objectAtIndex:lastIndex-1] EURbid];
+        NSNumber*tmpEuro = [[self.avarageCurrencyObjectsArray objectAtIndex:lastIndex-1] EURbid];
         self.EUROlabel.text = [self.formatter stringFromNumber:tmpEuro];
         self.stateOfSwitchLabel.text = @"BID";
     }

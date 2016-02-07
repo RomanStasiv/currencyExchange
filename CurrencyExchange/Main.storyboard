@@ -59,32 +59,12 @@
                                     <constraint firstAttribute="height" constant="20" id="nJO-2V-BKc"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MKq-EU-DJ8">
-                                <rect key="frame" x="0.0" y="554" width="184" height="46"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="BCf-wh-xFo"/>
-                                    <constraint firstAttribute="width" constant="50" id="DC5-f8-sf0"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="18"/>
-                                <state key="normal">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="BCf-wh-xFo"/>
-                                        <exclude reference="DC5-f8-sf0"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <segue destination="78R-dC-XLR" kind="show" id="hHe-F8-Wrt"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gyo-Ym-FEb">
-                                <rect key="frame" x="382" y="554" width="198" height="46"/>
+                                <rect key="frame" x="389" y="554" width="191" height="46"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="Gzc-zC-Kel"/>
                                 </constraints>
-                                <state key="normal" title="Banks"/>
+                                <state key="normal" backgroundImage="Banks"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="Gzc-zC-Kel"/>
@@ -92,23 +72,6 @@
                                 </variation>
                                 <connections>
                                     <segue destination="cRu-7F-ecQ" kind="show" id="GA5-pr-e5w"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6pg-NV-lel">
-                                <rect key="frame" x="184" y="554" width="198" height="46"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="hlS-JA-0Mp"/>
-                                    <constraint firstAttribute="height" constant="50" id="zwe-K0-Q7v"/>
-                                </constraints>
-                                <state key="normal" title="Earn on exchange"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="hlS-JA-0Mp"/>
-                                        <exclude reference="zwe-K0-Q7v"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <segue destination="7Xz-cD-7Wr" kind="show" identifier="earnVC" id="zwk-Jg-s2Q"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhC-vb-zLW">
@@ -135,6 +98,43 @@
                                     <action selector="statusOfSwitchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="2NJ-gM-9tc"/>
                                 </connections>
                             </switch>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MKq-EU-DJ8">
+                                <rect key="frame" x="20" y="554" width="177" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="BCf-wh-xFo"/>
+                                    <constraint firstAttribute="width" constant="50" id="DC5-f8-sf0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="18"/>
+                                <state key="normal" backgroundImage="Converter">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="BCf-wh-xFo"/>
+                                        <exclude reference="DC5-f8-sf0"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <segue destination="78R-dC-XLR" kind="show" id="hHe-F8-Wrt"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6pg-NV-lel">
+                                <rect key="frame" x="197" y="554" width="192" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="hlS-JA-0Mp"/>
+                                    <constraint firstAttribute="height" constant="50" id="zwe-K0-Q7v"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="exchange"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="hlS-JA-0Mp"/>
+                                        <exclude reference="zwe-K0-Q7v"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <segue destination="7Xz-cD-7Wr" kind="show" identifier="earnVC" id="zwk-Jg-s2Q"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -167,7 +167,7 @@
                             <constraint firstAttribute="trailing" secondItem="mhC-vb-zLW" secondAttribute="trailing" constant="20" id="fuw-tK-KpW"/>
                             <constraint firstItem="Qgt-iA-nWc" firstAttribute="top" secondItem="asF-HV-5Vo" secondAttribute="bottom" id="g9E-gr-jsU"/>
                             <constraint firstItem="6pg-NV-lel" firstAttribute="top" secondItem="V3c-fi-Ykb" secondAttribute="bottom" id="iJG-GC-vFB"/>
-                            <constraint firstItem="MKq-EU-DJ8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="kZ6-y8-5nF"/>
+                            <constraint firstItem="MKq-EU-DJ8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="kZ6-y8-5nF"/>
                             <constraint firstItem="V3c-fi-Ykb" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="150" id="n3I-w8-2yY"/>
                             <constraint firstItem="go6-dS-t3t" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="4" id="nSl-es-tKA"/>
                             <constraint firstItem="MKq-EU-DJ8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="o3e-71-9Rt"/>
@@ -1238,6 +1238,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Banks" width="192" height="46"/>
+        <image name="Converter" width="192" height="46"/>
         <image name="EUROlet" width="116" height="64"/>
         <image name="Euro" width="180" height="101"/>
         <image name="Gmail_icon" width="81" height="60"/>
@@ -1246,6 +1248,7 @@
         <image name="Vk_icon" width="60" height="60"/>
         <image name="dollar_sign" width="586" height="586"/>
         <image name="euro_sign" width="256" height="256"/>
+        <image name="exchange" width="192" height="46"/>
         <image name="move_icon" width="45" height="45"/>
         <image name="save_button" width="100" height="100"/>
         <image name="share_icon" width="50" height="50"/>
