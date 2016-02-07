@@ -65,7 +65,10 @@
                                     <constraint firstAttribute="height" constant="50" id="BCf-wh-xFo"/>
                                     <constraint firstAttribute="width" constant="50" id="DC5-f8-sf0"/>
                                 </constraints>
-                                <state key="normal" title="Convert" backgroundImage="shouldBeTransparent"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="18"/>
+                                <state key="normal" backgroundImage="MELANIIIII">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="BCf-wh-xFo"/>
@@ -1238,6 +1241,7 @@
         <image name="EUROlet" width="116" height="64"/>
         <image name="Euro" width="180" height="101"/>
         <image name="Gmail_icon" width="81" height="60"/>
+        <image name="MELANIIIII" width="183" height="45"/>
         <image name="USA" width="180" height="141"/>
         <image name="USDLet" width="123" height="65"/>
         <image name="Vk_icon" width="60" height="60"/>
