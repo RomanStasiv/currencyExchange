@@ -159,11 +159,11 @@
     [self.searchOperation addOperationWithBlock:^{
         for (Section *section in self.BanksData)
         {
-            section.banks = [section.banks filterUsingPredicate:[NSPredicate predicateWithFormat:@"bankName like %@", searchText]];
+        //    section.banks = [section.banks filterUsingPredicate:[NSPredicate predicateWithFormat:@"bankName like %@", searchText]];
         }
     }];
     
-    NSOperation *operation = [[NSOperation alloc] i]
+    //NSOperation *operation = [[NSOperation alloc] i]
 }
 
 
