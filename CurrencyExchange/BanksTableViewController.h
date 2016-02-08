@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BanksTableViewController : UITableViewController
+@interface BanksTableViewController : UITableViewController <UISearchBarDelegate>
 
 @end
