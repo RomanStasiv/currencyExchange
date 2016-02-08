@@ -16,4 +16,20 @@
 @dynamic name;
 @dynamic prices;
 
+
+static NSString *const kItemsKey = @"prices";
+
+- (void)addPricesObject:(Prices *)value
+{
+    NSMutableOrderedSet *tmpOrderedSet = [NSMutableOrderedSet orderedSetWithOrderedSet:[self mutableOrderedSetValueForKey:kItemsKey]];
+    NSUInteger idx = [tmpOrderedSet count];
+    NSIndexSet* indexes = [NSIndexSet indexSetWithIndex:idx];
+    [self willChange:NSKeyValueChangeInsertion valuesAtIndexes:indexes forKey:kItemsKey];
+    [tmpOrderedSet addObject:value];
+    [self setPrimitiveValue:tmpOrderedSet forKey:kItemsKey];
+    [self didChange:NSKeyValueChangeInsertion valuesAtIndexes:indexes forKey:kItemsKey];
+}
+
+
+
 @end
