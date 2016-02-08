@@ -12,9 +12,7 @@
 
 @interface MainScreenDrawer : GraphDrawer
 
-@property (nonatomic, strong) NSArray *avarageCurrencyObjectsArray;
-@property (nonatomic, strong) Fetcher* fetcher;
 
-- (void)drawXAxisFromPointA:(CGPoint)a ToPointB:(CGPoint)b WithWidth:(CGFloat)width Color:(UIColor *)color Dashed:(BOOL)dashed;
+//- (void)drawXAxisFromPointA:(CGPoint)a ToPointB:(CGPoint)b WithWidth:(CGFloat)width Color:(UIColor *)color Dashed:(BOOL)dashed;
 
 @end

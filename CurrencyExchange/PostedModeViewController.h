@@ -1,5 +1,5 @@
 //
-//  ShowImageViewController.h
+//  PostedModeViewController.h
 //  CurrencyExchange
 //
 //  Created by alex4eetah on 2/8/16.
@@ -8,9 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShowImageViewController : UIViewController
-
-
-@property (strong, nonatomic) NSURL *imageUrl;
+@interface PostedModeViewController : UIViewController
 
 @end

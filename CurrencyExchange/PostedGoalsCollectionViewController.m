@@ -46,8 +46,7 @@
     NSDictionary *imageSet = [self.imagesDictionaryArray objectAtIndex:indexPath.row];
     
     NSURL *url = [NSURL URLWithString:[imageSet objectForKey:@"src_xbig"]];
-    
-    [SIVC.customImage setImageWithURL:url];
+    SIVC.imageUrl = url;
 
     [self.navigationController pushViewController:SIVC animated:YES];
 }
