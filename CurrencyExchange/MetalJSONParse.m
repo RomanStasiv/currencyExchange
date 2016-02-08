@@ -97,7 +97,7 @@ NSString* const MetalSilverUrl = @"https://www.quandl.com/api/v1/datasets/LBMA/S
         NSInteger metalQuantity = [tmp allMetalsQuantity];
         for(int  k = 0; k < metalQuantity; k++)
         {
-            if([[self.jsonMetalData objectForKey:@"code"] isEqualToString:[[pricesArray objectAtIndex:k]metal].name])
+            if([[self.jsonMetalData objectForKey:@"code"] isEqualToString:[[pricesArray objectAtIndex:k] metal].name])
             {
                 while(isNotInCoreData)
                 {

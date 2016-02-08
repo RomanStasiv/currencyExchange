@@ -2,7 +2,7 @@
 //  MetalData+CoreDataProperties.h
 //  CurrencyExchange
 //
-//  Created by Melany on 2/6/16.
+//  Created by Melany on 2/8/16.
 //  Copyright © 2016 Roman Stasiv. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -10,9 +10,10 @@
 //
 
 #import "MetalData.h"
-#import "Prices.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+@class Prices;
 
 @interface MetalData (CoreDataProperties)
 

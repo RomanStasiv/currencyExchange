@@ -15,7 +15,8 @@
 		401EDA531C63B7AC006CFBBB /* Prices.m in Sources */ = {isa = PBXBuildFile; fileRef = 401EDA4F1C63B7AC006CFBBB /* Prices.m */; };
 		401EDA571C63C7E8006CFBBB /* MetalJSONParse.m in Sources */ = {isa = PBXBuildFile; fileRef = 401EDA561C63C7E8006CFBBB /* MetalJSONParse.m */; };
 		402272611C6752DA00E0C5AD /* MainScreenDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 402272601C6752DA00E0C5AD /* MainScreenDrawer.m */; };
-		408D84111C660D56008BCD5B /* MetalData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 408D840F1C660D56008BCD5B /* MetalData+CoreDataProperties.m */; };
+		40C24E8F1C68E58800FE0040 /* MetalData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C24E8C1C68E58800FE0040 /* MetalData+CoreDataProperties.m */; };
+		40C24E901C68E58800FE0040 /* Prices+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C24E8E1C68E58800FE0040 /* Prices+CoreDataProperties.m */; };
 		6A193CEC1C57BD3800093B36 /* EarnMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CEB1C57BD3800093B36 /* EarnMoneyViewController.m */; };
 		6A193CEF1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CEE1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.m */; };
 		6A193CF21C57C9E900093B36 /* ShareGoalsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CF11C57C9E900093B36 /* ShareGoalsViewController.m */; };
@@ -103,10 +104,10 @@
 		401EDA561C63C7E8006CFBBB /* MetalJSONParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MetalJSONParse.m; sourceTree = "<group>"; };
 		4022725F1C6752DA00E0C5AD /* MainScreenDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenDrawer.h; sourceTree = "<group>"; };
 		402272601C6752DA00E0C5AD /* MainScreenDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScreenDrawer.m; sourceTree = "<group>"; };
-		408D840C1C660D56008BCD5B /* Prices+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Prices+CoreDataProperties.h"; sourceTree = "<group>"; };
-		408D840D1C660D56008BCD5B /* Prices+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Prices+CoreDataProperties.m"; sourceTree = "<group>"; };
-		408D840E1C660D56008BCD5B /* MetalData+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MetalData+CoreDataProperties.h"; sourceTree = "<group>"; };
-		408D840F1C660D56008BCD5B /* MetalData+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MetalData+CoreDataProperties.m"; sourceTree = "<group>"; };
+		40C24E8B1C68E58800FE0040 /* MetalData+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MetalData+CoreDataProperties.h"; sourceTree = "<group>"; };
+		40C24E8C1C68E58800FE0040 /* MetalData+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MetalData+CoreDataProperties.m"; sourceTree = "<group>"; };
+		40C24E8D1C68E58800FE0040 /* Prices+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Prices+CoreDataProperties.h"; sourceTree = "<group>"; };
+		40C24E8E1C68E58800FE0040 /* Prices+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Prices+CoreDataProperties.m"; sourceTree = "<group>"; };
 		6A193CEA1C57BD3800093B36 /* EarnMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarnMoneyViewController.h; sourceTree = "<group>"; };
 		6A193CEB1C57BD3800093B36 /* EarnMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarnMoneyViewController.m; sourceTree = "<group>"; };
 		6A193CED1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddControlPointToEarnMoneyViewController.h; sourceTree = "<group>"; };
@@ -283,10 +284,10 @@
 		401EDA541C63B7BF006CFBBB /* Metal */ = {
 			isa = PBXGroup;
 			children = (
-				408D840C1C660D56008BCD5B /* Prices+CoreDataProperties.h */,
-				408D840D1C660D56008BCD5B /* Prices+CoreDataProperties.m */,
-				408D840E1C660D56008BCD5B /* MetalData+CoreDataProperties.h */,
-				408D840F1C660D56008BCD5B /* MetalData+CoreDataProperties.m */,
+				40C24E8B1C68E58800FE0040 /* MetalData+CoreDataProperties.h */,
+				40C24E8C1C68E58800FE0040 /* MetalData+CoreDataProperties.m */,
+				40C24E8D1C68E58800FE0040 /* Prices+CoreDataProperties.h */,
+				40C24E8E1C68E58800FE0040 /* Prices+CoreDataProperties.m */,
 				401EDA4E1C63B7AC006CFBBB /* Prices.h */,
 				401EDA4F1C63B7AC006CFBBB /* Prices.m */,
 				401EDA4A1C63B7AC006CFBBB /* MetalData.h */,
@@ -693,9 +694,10 @@
 				EF0320871C635D920032C699 /* BranchInfo.m in Sources */,
 				6AA421D61C666B2A00F91BDB /* AFHTTPRequestOperation.m in Sources */,
 				401EDA571C63C7E8006CFBBB /* MetalJSONParse.m in Sources */,
-				408D84111C660D56008BCD5B /* MetalData+CoreDataProperties.m in Sources */,
 				6A1DBB9E1C5957E700859520 /* ControllPoint.m in Sources */,
 				EF06169B1C5B524C0097B505 /* ObjectData+CoreDataProperties.m in Sources */,
+				40C24E901C68E58800FE0040 /* Prices+CoreDataProperties.m in Sources */,
+				40C24E8F1C68E58800FE0040 /* MetalData+CoreDataProperties.m in Sources */,
 				6A85736F1C64C6220002F634 /* CustomNavigationController.m in Sources */,
 				6A80BF831C5E264D00B57EC5 /* CustomEGTableViewCell.m in Sources */,
 				6A80BF861C5E31A700B57EC5 /* ControlPointsCDSotrer.m in Sources */,
