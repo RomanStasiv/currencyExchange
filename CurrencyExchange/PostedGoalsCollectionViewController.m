@@ -8,6 +8,7 @@
 
 #import "PostedGoalsCollectionViewController.h"
 #import "UIImageView+AFNetworking.h"
+#import "ShowImageViewController.h"
 #import "CustomCollectionViewCell.h"
 
 @implementation PostedGoalsCollectionViewController
@@ -36,5 +37,19 @@
     return cell;
 }
 
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ShowImageViewController * SIVC = (ShowImageViewController *)[sb instantiateViewControllerWithIdentifier:@"SIVC"];
+    
+    NSDictionary *imageSet = [self.imagesDictionaryArray objectAtIndex:indexPath.row];
+    
+    NSURL *url = [NSURL URLWithString:[imageSet objectForKey:@"src_xbig"]];
+    
+    [SIVC.customImage setImageWithURL:url];
+
+    [self.navigationController pushViewController:SIVC animated:YES];
+}
 
 @end

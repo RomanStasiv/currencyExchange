@@ -248,7 +248,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TnO-kD-s8P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1982" y="468"/>
+            <point key="canvasLocation" x="2754" y="1246"/>
         </scene>
         <!--Convert Money View Controller-->
         <scene sceneID="53b-ln-UuS">
@@ -658,6 +658,9 @@
                             <outlet property="delegate" destination="cRu-7F-ecQ" id="xgB-yh-dmw"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="13x-4o-EWr" kind="show" identifier="showMapView" id="gki-8A-QGH"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OkR-EE-CT1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1153,6 +1156,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mwj-1N-OWb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2628" y="2045"/>
+        </scene>
+        <!--Show Image View Controller-->
+        <scene sceneID="45g-Nn-bfe">
+            <objects>
+                <viewController storyboardIdentifier="SIVC" id="CQD-Nt-Zgc" customClass="ShowImageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kVf-bq-kd6"/>
+                        <viewControllerLayoutGuide type="bottom" id="y8a-m0-F5X"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MbR-cW-02R">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aCG-rG-LDG">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="aCG-rG-LDG" firstAttribute="top" secondItem="kVf-bq-kd6" secondAttribute="bottom" id="2iR-ng-704"/>
+                            <constraint firstItem="y8a-m0-F5X" firstAttribute="top" secondItem="aCG-rG-LDG" secondAttribute="bottom" id="K2W-1x-mnH"/>
+                            <constraint firstItem="aCG-rG-LDG" firstAttribute="leading" secondItem="MbR-cW-02R" secondAttribute="leading" id="V5D-Rs-JF6"/>
+                            <constraint firstAttribute="trailing" secondItem="aCG-rG-LDG" secondAttribute="trailing" id="wH1-ec-KXI"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="aCG-rG-LDG" id="dW4-tZ-hgO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1CY-Oj-jE6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3300" y="2045"/>
         </scene>
         <!--Web Sharing View Controller-->
         <scene sceneID="3iU-6V-OQd">
