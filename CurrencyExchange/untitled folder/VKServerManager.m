@@ -190,9 +190,11 @@
                          {
                              NSDictionary *photo = [attachments objectForKey:@"photo"];
                              NSDictionary *photoUserDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                            [photo objectForKey:@"src_small"], @"src_small",
+                                                            [photo objectForKey:@"src_big"], @"src_big",
                                                             [photo objectForKey:@"src_xbig"],  @"src_xbig", nil];
-                             self.currentUser.postedImages = photoUserDict;
+                             if (!self.currentUser.postedImages)
+                                 self.currentUser.postedImages = [[NSMutableArray alloc] init];
+                             [self.currentUser.postedImages addObject:photoUserDict];
                          }
                      }
                      

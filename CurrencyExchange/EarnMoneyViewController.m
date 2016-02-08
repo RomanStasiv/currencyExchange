@@ -18,9 +18,9 @@
 #import "EarningGoalsTableViewController.h"
 #import "ShareGoalsViewController.h"
 
+#import "PostedGoalsCollectionViewController.h"
 #import "VKServerManager.h"
 #import "VKUser.h"
-#import "VKFriend.h"
 
 #import "CustomNavigationController.h"
 #import <QuartzCore/QuartzCore.h>
@@ -482,12 +482,16 @@ static BOOL isAddCPVCOpened = NO;
 
 - (void)showShareGoalsViewController
 {
-    
     VKServerManager *manager = [VKServerManager sharedManager];
     [manager authorizeUser:^(VKUser *user)
      {
-         VKUser *u = user;
+         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+         PostedGoalsCollectionViewController * pgCVC = (PostedGoalsCollectionViewController *)[sb instantiateViewControllerWithIdentifier:@"PGCVC"];
+         pgCVC.imagesDictionaryArray = user.postedImages;
+         
+         [self.navigationController pushViewController:pgCVC animated:YES];
      }];
+    
     
 }
 

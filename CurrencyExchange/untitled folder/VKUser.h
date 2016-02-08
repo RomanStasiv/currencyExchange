@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong) NSMutableArray *friendsArray;
 
-@property (nonatomic, strong) NSDictionary *postedImages;
+@property (nonatomic, strong) NSMutableArray *postedImages;
 
 - (instancetype)initWithServerDictionary:(NSDictionary *)dictionary;
 

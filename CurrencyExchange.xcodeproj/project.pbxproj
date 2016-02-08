@@ -16,7 +16,6 @@
 		401EDA531C63B7AC006CFBBB /* Prices.m in Sources */ = {isa = PBXBuildFile; fileRef = 401EDA4F1C63B7AC006CFBBB /* Prices.m */; };
 		401EDA571C63C7E8006CFBBB /* MetalJSONParse.m in Sources */ = {isa = PBXBuildFile; fileRef = 401EDA561C63C7E8006CFBBB /* MetalJSONParse.m */; };
 		402272611C6752DA00E0C5AD /* MainScreenDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 402272601C6752DA00E0C5AD /* MainScreenDrawer.m */; };
-		408D84101C660D56008BCD5B /* Prices+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 408D840D1C660D56008BCD5B /* Prices+CoreDataProperties.m */; };
 		408D84111C660D56008BCD5B /* MetalData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 408D840F1C660D56008BCD5B /* MetalData+CoreDataProperties.m */; };
 		6A193CEC1C57BD3800093B36 /* EarnMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CEB1C57BD3800093B36 /* EarnMoneyViewController.m */; };
 		6A193CEF1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CEE1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.m */; };
@@ -40,6 +39,8 @@
 		6A8E90701C5BB28A0069BABC /* CDControlPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E906E1C5BB28A0069BABC /* CDControlPoint.m */; };
 		6A8E90741C5BB8760069BABC /* ControlPointCDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E90731C5BB8760069BABC /* ControlPointCDManager.m */; };
 		6A8E90791C5BFDA70069BABC /* ControlPointsEarnChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E90781C5BFDA70069BABC /* ControlPointsEarnChecker.m */; };
+		6A99E0051C687F1A00C62973 /* PostedGoalsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A99E0041C687F1A00C62973 /* PostedGoalsCollectionViewController.m */; };
+		6A99E0081C687F4F00C62973 /* CustomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A99E0071C687F4F00C62973 /* CustomCollectionViewCell.m */; };
 		6AA421AE1C666AA200F91BDB /* VKServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA421AD1C666AA200F91BDB /* VKServerManager.m */; };
 		6AA421D61C666B2A00F91BDB /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA421B21C666B2A00F91BDB /* AFHTTPRequestOperation.m */; };
 		6AA421D71C666B2A00F91BDB /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA421B41C666B2A00F91BDB /* AFHTTPRequestOperationManager.m */; };
@@ -149,6 +150,10 @@
 		6A8E90731C5BB8760069BABC /* ControlPointCDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlPointCDManager.m; sourceTree = "<group>"; };
 		6A8E90771C5BFDA70069BABC /* ControlPointsEarnChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlPointsEarnChecker.h; sourceTree = "<group>"; };
 		6A8E90781C5BFDA70069BABC /* ControlPointsEarnChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlPointsEarnChecker.m; sourceTree = "<group>"; };
+		6A99E0031C687F1A00C62973 /* PostedGoalsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostedGoalsCollectionViewController.h; sourceTree = "<group>"; };
+		6A99E0041C687F1A00C62973 /* PostedGoalsCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostedGoalsCollectionViewController.m; sourceTree = "<group>"; };
+		6A99E0061C687F4F00C62973 /* CustomCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCollectionViewCell.h; sourceTree = "<group>"; };
+		6A99E0071C687F4F00C62973 /* CustomCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCollectionViewCell.m; sourceTree = "<group>"; };
 		6AA421AC1C666AA200F91BDB /* VKServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKServerManager.h; path = "untitled folder/VKServerManager.h"; sourceTree = "<group>"; };
 		6AA421AD1C666AA200F91BDB /* VKServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKServerManager.m; path = "untitled folder/VKServerManager.m"; sourceTree = "<group>"; };
 		6AA421B11C666B2A00F91BDB /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -315,6 +320,7 @@
 		6A29890E1C58AF3D006328A5 /* earn */ = {
 			isa = PBXGroup;
 			children = (
+				6A99E0021C687EC300C62973 /* postedGoalsGallery */,
 				6A80BF801C5E25F600B57EC5 /* EarninigGoalsTVC */,
 				6A193CEA1C57BD3800093B36 /* EarnMoneyViewController.h */,
 				6A193CEB1C57BD3800093B36 /* EarnMoneyViewController.m */,
@@ -405,6 +411,17 @@
 				6A7E68721C652F30003E54BC /* CP */,
 			);
 			name = model;
+			sourceTree = "<group>";
+		};
+		6A99E0021C687EC300C62973 /* postedGoalsGallery */ = {
+			isa = PBXGroup;
+			children = (
+				6A99E0031C687F1A00C62973 /* PostedGoalsCollectionViewController.h */,
+				6A99E0041C687F1A00C62973 /* PostedGoalsCollectionViewController.m */,
+				6A99E0061C687F4F00C62973 /* CustomCollectionViewCell.h */,
+				6A99E0071C687F4F00C62973 /* CustomCollectionViewCell.m */,
+			);
+			name = postedGoalsGallery;
 			sourceTree = "<group>";
 		};
 		6AA421AF1C666ABA00F91BDB /* Libraries */ = {
@@ -672,6 +689,7 @@
 				6A8E90791C5BFDA70069BABC /* ControlPointsEarnChecker.m in Sources */,
 				6A19D05F1C58035900529993 /* EarnMoneyGraphView.m in Sources */,
 				EF900B071C64AC490097379C /* BranchStorage.m in Sources */,
+				6A99E0051C687F1A00C62973 /* PostedGoalsCollectionViewController.m in Sources */,
 				6A7E68761C653B6C003E54BC /* VKLoginViewController.m in Sources */,
 				EF0616A01C5B524C0097B505 /* BranchData.m in Sources */,
 				6A8E90741C5BB8760069BABC /* ControlPointCDManager.m in Sources */,
@@ -701,9 +719,9 @@
 				6AA421D71C666B2A00F91BDB /* AFHTTPRequestOperationManager.m in Sources */,
 				6AA421AE1C666AA200F91BDB /* VKServerManager.m in Sources */,
 				6A7E68791C653CB3003E54BC /* VKAccessToken.m in Sources */,
-				401EDA521C63B7AC006CFBBB /* Prices+CoreDataProperties.m in Sources */,
 				6AA421E51C666B2A00F91BDB /* UIRefreshControl+AFNetworking.m in Sources */,
 				401ED9771C5BE1F3006CFBBB /* ReportDataForTable.m in Sources */,
+				6A99E0081C687F4F00C62973 /* CustomCollectionViewCell.m in Sources */,
 				97ED586E1C5796BC004724A3 /* CurrencyExchange.xcdatamodeld in Sources */,
 				6AA421E41C666B2A00F91BDB /* UIProgressView+AFNetworking.m in Sources */,
 			);
