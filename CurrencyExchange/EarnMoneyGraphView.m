@@ -61,15 +61,13 @@
 #pragma mark - Control point methods
 - (void)drawAllControlpoints
 {
-    //[self configureVariable];
-#warning NO?
-    //self.shouldDrawControlPoints = NO;
+    self.drawingQueue = nil;
     for (ControllPoint *point in self.controlPointsArray)
     {
         if ([self isItTimeForControlPoint:point])
             [self addControlPointToDrawingQueue:point withColor:[UIColor greenColor]];
         else
-            [self addControlPointToDrawingQueue:point withColor:[UIColor orangeColor]];
+            [self addControlPointToDrawingQueue:point withColor:[UIColor blackColor]];
         
     }
     [self setNeedsDisplay];
@@ -130,46 +128,5 @@
         }
     }
 }
-
-
-
-/*
-- (void)insertControlPointArray:(ControllPoint *)point
-{
-    if (self.avarageCurrencyObjectsArray.count)
-    {
-        for (int i = 0; i < self.avarageCurrencyObjectsArray.count - 1; i++)
-        {
-#warning nonproper insertion of object
-            if ([((AverageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i]).date compare:point.date] == NSOrderedDescending &&
-                [((AverageCurrency *)[self.avarageCurrencyObjectsArray objectAtIndex:i + 1]).date compare:point.date] == NSOrderedAscending)
-            {
-                [self.avarageCurrencyObjectsArray insertObject:point atIndex:i+1];
-            }
-        }
-    }
-}
-
-
-- (CGPoint)getLastPointOfCurrency:(NSString *)currency;
-{
-    CGPoint lastPoint;
-    if ([currency isEqualToString: @"dolars"])
-    {
-        lastPoint = [[self.pointsOfUSDAskCurve lastObject] CGPointValue];
-    }
-    else if ([currency isEqualToString:@"euros"])
-    {
-        lastPoint = [[self.pointsOfEURAskCurve lastObject] CGPointValue];
-    }
-    return lastPoint;
-}
-
-- (void)drawControlPointLineOnPoint:(CGPoint)point
-{
-    CGPoint StartPoint = CGPointMake(point.x, self.insetFrame.origin.y);
-    CGPoint StopPoint = CGPointMake(point.x, self.insetFrame.size.height + 20);
-    [self drawLineFromPointA:StartPoint toPointB:StopPoint WithWidth:3 andColor:[UIColor purpleColor]];
-}*/
 
 @end

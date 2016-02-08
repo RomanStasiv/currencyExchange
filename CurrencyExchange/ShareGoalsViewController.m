@@ -81,12 +81,12 @@ static NSString *seaguewID = @"shareSeague";
     [picker addAttachmentData:imageData mimeType:@"image/png" fileName:@"Name"];
     // Attach an image to the email.
     //NSString *path = [[NSBundle mainBundle] pathForResource:@"ipodnano"
-   //                                                  ofType:@"png"];
-   // NSData *myData = [NSData dataWithContentsOfFile:path];
-   //[picker addAttachmentData:myData mimeType:@"image/png"
-   //                  fileName:@"ipodnano"];
+    //                                                  ofType:@"png"];
+    // NSData *myData = [NSData dataWithContentsOfFile:path];
+    //[picker addAttachmentData:myData mimeType:@"image/png"
+    //                  fileName:@"ipodnano"];
     
-   
+    
     
     // Fill out the email body text.
     NSString *emailBody = @"I am the Winner!";
@@ -95,18 +95,18 @@ static NSString *seaguewID = @"shareSeague";
     
     // Present the mail composition interface.
     //[self presentViewController:picker animated:YES completion:nil];
-     dispatch_async(dispatch_get_main_queue(), ^{[self.navigationController presentViewController:picker animated:YES completion:nil];});
+    dispatch_async(dispatch_get_main_queue(), ^{[self.navigationController presentViewController:picker animated:YES completion:nil];});
     
     
     //[self presentModalViewController:picker animated:YES];
-    }
+}
 
 // The mail compose view controller delegate method
 - (void)mailComposeController:(MFMailComposeViewController *)controller
           didFinishWithResult:(MFMailComposeResult)result
                         error:(NSError *)error
 {
-   [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Navigation
@@ -121,7 +121,7 @@ static NSString *seaguewID = @"shareSeague";
 }
 
 - (IBAction)showActivityViewController:(UIButton *)sender {
-    
+    NSString *str = @"Image form My app";
     NSArray *postItems = @[self.imageToShare];
     
     UIActivityViewController* activityVC = [[UIActivityViewController alloc] initWithActivityItems:postItems applicationActivities:nil];

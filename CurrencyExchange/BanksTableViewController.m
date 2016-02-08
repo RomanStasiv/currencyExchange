@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSMutableArray *adresses;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) NSOperationQueue *searchOperation;
 @property (assign, nonatomic) NSUInteger checkedIndex;
 
 @end
@@ -90,6 +91,11 @@
 }
 
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 100;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BanksTVCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"banksCell"];
@@ -148,7 +154,16 @@
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
+    [self.searchOperation cancelAllOperations];
+    self.searchOperation = [NSOperationQueue currentQueue];
+    [self.searchOperation addOperationWithBlock:^{
+        for (Section *section in self.BanksData)
+        {
+            section.banks = [section.banks filterUsingPredicate:[NSPredicate predicateWithFormat:@"bankName like %@", searchText]];
+        }
+    }];
     
+    NSOperation *operation = [[NSOperation alloc] i]
 }
 
 

@@ -144,10 +144,10 @@
             </objects>
             <point key="canvasLocation" x="424" y="1246"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Custom Navigation Controller-->
         <scene sceneID="fTW-v3-DEd">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="z7x-lm-5OT" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="z7x-lm-5OT" customClass="CustomNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bGy-nW-LhG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

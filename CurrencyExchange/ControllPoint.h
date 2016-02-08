@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class CDControlPoint;
+
 @interface ControllPoint : NSObject
 
 @property (nonatomic, strong) NSDate *date;
@@ -17,7 +19,8 @@
 
 //should be called, before using earningPosibility property of object
 - (void)calculateEarningPosibilityWithaverageCurrencyObjectsArray:(NSArray *)array;
-
 @property (nonatomic, strong) NSNumber *earningPosibility;
+
+- (BOOL)isEqualToPoint:(ControllPoint *)point;
 
 @end
