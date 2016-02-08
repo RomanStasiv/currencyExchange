@@ -19,7 +19,8 @@
 {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
+    // Configure the view for the selected state//
+    //smallfix
 }
 
 -(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
