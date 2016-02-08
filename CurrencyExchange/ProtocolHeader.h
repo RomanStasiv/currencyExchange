@@ -18,4 +18,10 @@
 - (void)restoreAllControlPointsFromCD;
 - (void)performAddNavButtonsLogic;
 @end
+
+@protocol PostedImageVCDelegate <NSObject>
+
+- (void)postImagePresentationModeDidChanged;
+
+@end
 #endif /* ProtocolHeader_h */
