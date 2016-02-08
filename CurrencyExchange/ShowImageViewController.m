@@ -7,12 +7,14 @@
 //
 
 #import "ShowImageViewController.h"
+#import "UIImageView+AFNetworking.h"
 
 @implementation ShowImageViewController
 
 - (void)viewDidLoad
 {
-    self.imageView.image = self.customImage;
+    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.imageView setImageWithURL:self.imageUrl];
 }
 
 @end

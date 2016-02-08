@@ -10,5 +10,5 @@
 
 @interface ShowImageViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (strong, nonatomic) UIImageView *customImage;
+@property (strong, nonatomic) NSURL *imageUrl;
 @end
