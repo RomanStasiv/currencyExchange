@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface ShowImageViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+
+
 @property (strong, nonatomic) NSURL *imageUrl;
+
 @end
