@@ -16,6 +16,8 @@
 #import "BankInfo.h"
 #import "BranchInfo.h"
 
+#import "BranchStorage.h"
+
 #import "Fetcher.h"
 
 NSString* const JSONParseDidUpdatesCoreDataNotification = @"JSONParseDidUpdatedCoreDataNotification";
@@ -128,6 +130,8 @@ NSString* const JSONParseDidUpdatesCoreDataNotification = @"JSONParseDidUpdatedC
                                                              withCity:self.bankJSONCity
                                                           withAddress:self.bankJSONAddress
                                                              withBank:bankToBind.bankName];
+                
+                
                 [self.branchesTempArray addObject:branch];
                 
             }
@@ -219,7 +223,7 @@ NSString* const JSONParseDidUpdatesCoreDataNotification = @"JSONParseDidUpdatedC
     
         }
              
-        bankToBind.branches = self.branchesTempArray;
+     
              
         dispatch_async(dispatch_get_main_queue(), ^{
             [self saveToCoreData];
@@ -241,6 +245,8 @@ NSString* const JSONParseDidUpdatesCoreDataNotification = @"JSONParseDidUpdatedC
 {
     Fetcher* fetcher = [[Fetcher alloc] init];
     self.context = [AppDelegate singleton].managedObjectContext;
+    [self saveBranchToCoreData];
+    
     self.sortedBranchesArray = [[NSArray alloc] init];
     
     NSArray* bankNamesArray = [fetcher arrayOfBankNames];
@@ -268,28 +274,41 @@ NSString* const JSONParseDidUpdatesCoreDataNotification = @"JSONParseDidUpdatedC
             
             [bankData addCurrencyObject:currencyData];
             
-            /*NSPredicate* predicate = [NSPredicate predicateWithFormat: @"bankObject.bankName == %@", bankObject.bankName];
-            self.sortedBranchesArray = [self.branchesTempArray filteredArrayUsingPredicate:predicate];
-            
-            
+            NSArray* tempArray = [self getBranchesByName:bankObject.bankName];  
                 
-            for (BranchInfo* branchObject in self.sortedBranchesArray)
+            for (BranchStorage* branchObject in tempArray)
             {
-                if (![branchNamesArray containsObject:branchObject.branchName])
+                if (![branchNamesArray containsObject:branchObject.name])
                 {
                     BranchData* branchData = [NSEntityDescription insertNewObjectForEntityForName:@"BranchData" inManagedObjectContext:self.context];
-                    branchData.name = branchObject.branchName;
-                    branchData.region = branchObject.branchRegion;
-                    branchData.city = branchObject.branchCity;
-                    branchData.address = branchObject.branchAddress;
+                    branchData.name = branchObject.name;
+                    branchData.region = branchObject.region;
+                    branchData.city = branchObject.city;
+                    branchData.address = branchObject.address;
                     
                     [bankData addBranchObject:branchData];
                 }
-            }*/
+            }
         }
         else
         {
             bankToUpdate = [self getBankByName:bankObject.bankName];
+            
+            NSArray* tempArray = [self getBranchesByName:bankObject.bankName];
+            
+            for (BranchStorage* branchObject in tempArray)
+            {
+                if (![branchNamesArray containsObject:branchObject.name])
+                {
+                    BranchData* branchData = [NSEntityDescription insertNewObjectForEntityForName:@"BranchData" inManagedObjectContext:self.context];
+                    branchData.name = branchObject.name;
+                    branchData.region = branchObject.region;
+                    branchData.city = branchObject.city;
+                    branchData.address = branchObject.address;
+                    
+                    [bankToUpdate addBranchObject:branchData];
+                }
+            }
             
             CurrencyData* currencyData = [NSEntityDescription insertNewObjectForEntityForName:@"CurrencyData" inManagedObjectContext:self.context];
             currencyData.date = bankObject.bankDate;
@@ -307,6 +326,26 @@ NSString* const JSONParseDidUpdatesCoreDataNotification = @"JSONParseDidUpdatedC
         NSLog(@"%@", [saveError localizedDescription]);
     }
     
+    
+}
+
+-(void) saveBranchToCoreData
+{
+    for (BranchInfo* branch in self.branchesTempArray) {
+        BranchStorage* branchData = [NSEntityDescription insertNewObjectForEntityForName:@"BranchStorage" inManagedObjectContext:self.context];
+        
+        branchData.name = branch.branchName;
+        branchData.region = branch.branchRegion;
+        branchData.city = branch.branchCity;
+        branchData.address = branch.branchAddress;
+        branchData.bank = branch.bank;
+        
+    }
+    
+    NSError *saveError;
+    if(![self.context save:&saveError]){
+        NSLog(@"%@", [saveError localizedDescription]);
+    }
     
 }
 
@@ -418,6 +457,25 @@ NSString* const JSONParseDidUpdatesCoreDataNotification = @"JSONParseDidUpdatedC
     }
     
     return [resultArray objectAtIndex:0];
+}
+
+-(NSArray*) getBranchesByName:(NSString*) name
+{
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription* description = [NSEntityDescription entityForName:@"BranchStorage"
+                                                   inManagedObjectContext:self.context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"bank == %@", name];
+    [request setPredicate:predicate];
+    [request setEntity:description];
+    
+    NSError* requestError = nil;
+    NSArray* resultArray = [self.context executeFetchRequest:request error:&requestError];
+    if (requestError) {
+        NSLog(@"%@", [requestError localizedDescription]);
+    }
+    
+    return resultArray;
 }
 
 

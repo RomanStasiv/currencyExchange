@@ -44,7 +44,7 @@
     //Fetcher*tmp = [[Fetcher alloc]init];
     
     //[self.workObject deleteAllObjectsFromCoreData];
-    //[self.workObject JSONParse];
+    [self.workObject JSONParse];
     //[workObject loadCoreDataObjects];
     //[tmp allBanksQuantity];
     
@@ -56,12 +56,11 @@
     //[testObject insertFakeDataToCoreData];
     //[tmp dataForTableView];
     self.graph.backgroundColor = [UIColor blackColor];
-    self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:30.0
+    /*self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:10.0
                                                     target: self.workObject
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
-                                                   repeats: YES];
-    */
+                                                   repeats: YES];*/
 }
 
 

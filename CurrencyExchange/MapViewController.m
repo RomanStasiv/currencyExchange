@@ -133,12 +133,23 @@
                          forKey:@"location"];
                  
                  [self.locations addObject:temp];
+                 if ([self.centralAdress isEqualToString:[adresses objectAtIndex:[index integerValue]]])
+                 {
+                     CLLocation * location = [[placemarks firstObject] location];
+                     MKCoordinateRegion region;
+                     region.center.latitude = location.coordinate.latitude;
+                     region.center.longitude = location.coordinate.longitude;
+                     region.span.latitudeDelta = 0.2;
+                     region.span.longitudeDelta = 0.2;
+                     [self.mapView setRegion:region animated: YES];
+                 }
              }
          }
          else
          {
              NSLog(@"ERROR! Trying to geocode bank at: %@", [adresses objectAtIndex:[index integerValue]]);
          }
+         
          int indexInt = [index intValue];
          index = [NSNumber numberWithInt:++indexInt];
          if ( [index intValue] < [adresses count])
