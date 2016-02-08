@@ -9,5 +9,7 @@
 #import "PostedModeViewController.h"
 
 @implementation PostedModeViewController
+- (IBAction)modeDidChanged:(UIButton *)sender {
+}
 
 @end

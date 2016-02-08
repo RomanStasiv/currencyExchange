@@ -440,6 +440,8 @@
 		6A99E0021C687EC300C62973 /* postedGoalsGallery */ = {
 			isa = PBXGroup;
 			children = (
+				6A9FAB8A1C68E060005B90E1 /* PostedGoalsContainerVC.h */,
+				6A9FAB8B1C68E060005B90E1 /* PostedGoalsContainerVC.m */,
 				6A99E0031C687F1A00C62973 /* PostedGoalsCollectionViewController.h */,
 				6A99E0041C687F1A00C62973 /* PostedGoalsCollectionViewController.m */,
 				6A99E0061C687F4F00C62973 /* CustomCollectionViewCell.h */,
@@ -448,8 +450,6 @@
 				6A9E39581C68A9080002AD7B /* ShowImageViewController.m */,
 				6A9FAB871C68DFDD005B90E1 /* PostedModeViewController.h */,
 				6A9FAB881C68DFDD005B90E1 /* PostedModeViewController.m */,
-				6A9FAB8A1C68E060005B90E1 /* PostedGoalsContainerVC.h */,
-				6A9FAB8B1C68E060005B90E1 /* PostedGoalsContainerVC.m */,
 			);
 			name = postedGoalsGallery;
 			sourceTree = "<group>";

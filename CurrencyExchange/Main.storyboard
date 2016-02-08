@@ -1177,7 +1177,35 @@
                     <view key="view" contentMode="scaleToFill" id="2d6-BB-Ol1">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="580"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XpE-Na-d4P">
+                                <rect key="frame" x="0.0" y="290" width="200" height="290"/>
+                                <color key="backgroundColor" red="0.25098040699958801" green="0.0" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Friends"/>
+                                <connections>
+                                    <action selector="modeDidChanged:" destination="QU2-ba-kWw" eventType="touchUpInside" id="zdF-Hf-AJ7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qNB-6v-VPr">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="290"/>
+                                <color key="backgroundColor" red="0.50196081399917603" green="0.0" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Me"/>
+                                <connections>
+                                    <action selector="modeDidChanged:" destination="QU2-ba-kWw" eventType="touchUpInside" id="dsH-PM-cCu"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="XpE-Na-d4P" secondAttribute="trailing" id="3pC-c8-4uH"/>
+                            <constraint firstItem="qNB-6v-VPr" firstAttribute="top" secondItem="E8S-7G-OoU" secondAttribute="bottom" id="NWp-FT-TCH"/>
+                            <constraint firstItem="qNB-6v-VPr" firstAttribute="leading" secondItem="2d6-BB-Ol1" secondAttribute="leading" id="U4O-Zp-NXu"/>
+                            <constraint firstItem="XpE-Na-d4P" firstAttribute="height" secondItem="qNB-6v-VPr" secondAttribute="height" id="aey-Bg-aUZ"/>
+                            <constraint firstItem="XpE-Na-d4P" firstAttribute="top" secondItem="qNB-6v-VPr" secondAttribute="bottom" id="omS-X7-Lgu"/>
+                            <constraint firstItem="XpE-Na-d4P" firstAttribute="leading" secondItem="2d6-BB-Ol1" secondAttribute="leading" id="v4C-jC-p8E"/>
+                            <constraint firstItem="W64-0L-Kna" firstAttribute="top" secondItem="XpE-Na-d4P" secondAttribute="bottom" id="wXQ-Gp-MUw"/>
+                            <constraint firstAttribute="trailing" secondItem="qNB-6v-VPr" secondAttribute="trailing" id="wsD-U7-lGX"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wyT-Uw-RuS" userLabel="First Responder" sceneMemberID="firstResponder"/>
