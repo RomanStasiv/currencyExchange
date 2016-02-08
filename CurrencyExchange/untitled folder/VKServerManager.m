@@ -119,9 +119,8 @@
              VKUser* user = [[VKUser alloc] initWithServerDictionary:[dictsArray firstObject]];
              
              self.currentUser = user;
-             [self getPostedGoalsOfCurrentUserOnSuccess:^(VKUser *user)
+             [self getPostedGoalsOfUserWithID:userID OnSuccess:^(VKUser *user)
               {
-                  //self.currentUser = user;
                   success(user);
               }
                                               onFailure:^(NSError *error, NSInteger statusCode)
@@ -149,12 +148,12 @@
      }];
 }
 
-- (void)getPostedGoalsOfCurrentUserOnSuccess:(void(^)(VKUser* user)) success
+- (void)getPostedGoalsOfUserWithID:(NSString *)ID OnSuccess:(void(^)(VKUser* user)) success
                                    onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure
 {
     NSDictionary* params =
     [NSDictionary dictionaryWithObjectsAndKeys:
-     self.accessToken.userID, @"owner_id",
+     ID, @"owner_id",
      @"owner",  @"filter",
      @"50",        @"count"    ,nil];
     
