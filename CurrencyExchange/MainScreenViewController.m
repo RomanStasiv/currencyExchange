@@ -66,10 +66,9 @@
                                                   userInfo: nil
                     
                                                    repeats: YES];
-    [self updateAverageCurrencyObjectsArray];
-    self.drawer.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
-    CGRect frame = self.graph.frame;
-    [self.graph drawRect:frame];
+
+
+  
     
     
     
@@ -126,7 +125,9 @@
 
 - (void)updateAverageCurrencyObjectsArray
 {
-    self.avarageCurrencyObjectsArray = [[self.fetching averageCurrencyRate] mutableCopy];
+   [self.avarageCurrencyObjectsArray removeAllObjects];
+   self.avarageCurrencyObjectsArray = [[self.fetching averageCurrencyRate]mutableCopy] ;
+   self.drawer.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
 }
 
 - (void)didReceiveMemoryWarning
