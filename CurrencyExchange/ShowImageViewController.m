@@ -10,4 +10,9 @@
 
 @implementation ShowImageViewController
 
+- (void)viewDidLoad
+{
+    self.imageView.image = self.customImage;
+}
+
 @end

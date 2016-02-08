@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ShowImageViewController : UIViewController
-//SIVC
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong, nonatomic) UIImageView *customImage;
 @end
