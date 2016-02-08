@@ -1,4 +1,4 @@
-//
+    //
 //  PostedGoalsContainerVC.m
 //  CurrencyExchange
 //
@@ -12,6 +12,7 @@
 
 #import "VKServerManager.h"
 #import "VKUser.h"
+#import "VKFriend.h"
 
 
 
@@ -68,6 +69,7 @@
 - (void)setCurrentUserToPostedGoalsCVC
 {
     //dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    self.postedGoalsCVC.postPresentationMode = userContentMode;
     
     VKServerManager *manager = [VKServerManager sharedManager];
     [manager authorizeUser:^(VKUser *user)
@@ -85,12 +87,49 @@
     //dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 }
 
+- (void)setCurrentUserFriendsToPostedGoalsCVC
+{
+    self.postedGoalsCVC.postPresentationMode = FriendsContentMode;
+    
+    VKServerManager *manager = [VKServerManager sharedManager];
+    NSArray *friends = manager.currentUser.friendsArray;
+    
+    for (int i = 0; i < friends.count; i++)
+    {
+        NSString *frienfID = ((VKFriend *)[friends objectAtIndex:i]).userId;
+
+        //dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+        [manager getUser:frienfID onSuccess:^(VKUser *user)
+         {
+             [self.postedGoalsCVC.friendsArray addObject:user];
+             //dispatch_semaphore_signal(semaphore);
+         }
+               onFailure:^(NSError *error, NSInteger statusCode)
+         {
+             
+         }];
+       // dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    }
+    [self.postedGoalsCVC.collectionView reloadData];
+}
 
 #pragma mark - PostedImageVCDelegate
 
-- (void)postImagePresentationModeDidChanged
+- (void)changePostModePresentationTo:(PostPresentationContentMode)mode
 {
-    
+    switch (mode)
+    {
+        case userContentMode:
+            [self setCurrentUserToPostedGoalsCVC];
+            break;
+            
+        case FriendsContentMode:
+            [self setCurrentUserFriendsToPostedGoalsCVC];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - navigation
@@ -103,6 +142,7 @@
     else if ([segue.identifier isEqualToString:@"PresentModeSegue"])
     {
         self.presentationModeVC = (PostedModeViewController *)segue.destinationViewController;
+        self.presentationModeVC.modeDelegate = self;
     }
 }
 @end

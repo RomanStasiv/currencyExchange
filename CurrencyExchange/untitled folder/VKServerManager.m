@@ -57,31 +57,18 @@
                                             [self getUser:self.accessToken.userID
                                                 onSuccess:^(VKUser *user)
                                              {
-                                                 self.currentUser = user;
-                                                 
-                                                 
-                                                 [self getPostedGoalsOfCurrentUserOnSuccess:^(VKUser *user)
-                                                 {
-                                                     if (completion)
-                                                     {
-                                                         completion(user);
-                                                     }
-                                                 }
-                                                                                  onFailure:^(NSError *error, NSInteger statusCode)
-                                                 {
-                                                     
-                                                 }];
-                                                /* [self getFriendsOfCurrentUseronSuccess:^(VKUser *user)
+                                                 [self getFriendsOfCurrentUserOnSuccess:^(VKUser *user)
                                                   {
-                                                           if (completion)
-                                                           {
-                                                               completion(user);
-                                                           }
+                                                      if (completion)
+                                                      {
+                                                          completion(user);
+                                                      }
                                                       
                                                   } onFailure:^(NSError *error, NSInteger statusCode)
                                                   {
                                                       
-                                                  }];*/
+                                                  }];
+                                                 
                                              }
                                                 onFailure:^(NSError *error, NSInteger statusCode)
                                              {
@@ -106,6 +93,8 @@
     [nav pushViewController:VKlvc animated:YES];
 }
 
+
+
 - (void) getUser:(NSString*) userID
        onSuccess:(void(^)(VKUser* user)) success
        onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure
@@ -128,10 +117,17 @@
          if ([dictsArray count] > 0)
          {
              VKUser* user = [[VKUser alloc] initWithServerDictionary:[dictsArray firstObject]];
-             if (success)
-             {
-                 success(user);
-             }
+             
+             self.currentUser = user;
+             [self getPostedGoalsOfCurrentUserOnSuccess:^(VKUser *user)
+              {
+                  //self.currentUser = user;
+                  success(user);
+              }
+                                              onFailure:^(NSError *error, NSInteger statusCode)
+              {
+                  
+              }];
          }
          else
          {
@@ -229,7 +225,7 @@
 }
 
 
-/*- (void) getFriendsOfCurrentUseronSuccess:(void(^)(VKUser* user)) success
+- (void) getFriendsOfCurrentUserOnSuccess:(void(^)(VKUser* user)) success
                                 onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure
 {
     NSDictionary* params =
@@ -283,7 +279,7 @@
          }
      }];
 
-}*/
+}
 
 /*- (void)getPostedApplicationPhotoPostsForFriend:(VKFriend *)friend
                                       onSuccess:(void(^)(NSArray *postsArray))success
