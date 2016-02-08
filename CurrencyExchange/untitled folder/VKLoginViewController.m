@@ -50,7 +50,7 @@
     @"https://oauth.vk.com/authorize?"
     "client_id=5275698&"
     "scope=10242&" // + 2 + 8192 + 2048
-    "redirect_uri=noware&"
+    "redirect_uri=https://oauth.vk.com/blank.html&"
     "display=mobile&"
     "v=5.44&"
     "response_type=token";
@@ -92,7 +92,7 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     
-    if ([[[request URL] host] isEqualToString:@"noware"]) {
+    if ([[[request URL] description] rangeOfString:@"#access_token="].location != NSNotFound) {
         
         VKAccessToken* token = [[VKAccessToken alloc] init];
         

@@ -10,11 +10,52 @@
 #import "UIImageView+AFNetworking.h"
 #import "ShowImageViewController.h"
 #import "CustomCollectionViewCell.h"
+#import "CustomHeaderCRV.h"
 
 #import "VKUser.h"
 
 @implementation PostedGoalsCollectionViewController
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    UICollectionViewFlowLayout *collectionViewLayout = (UICollectionViewFlowLayout*)self.collectionView.collectionViewLayout;
+    collectionViewLayout.sectionInset = UIEdgeInsetsMake(20, 0, 20, 0);
+}
+
+// The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath;
+{
+    UICollectionReusableView *reusableview = nil;
+    
+    if (kind == UICollectionElementKindSectionHeader) {
+        CustomHeaderCRV *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CollectionHeader" forIndexPath:indexPath];
+        
+        switch (self.postPresentationMode)
+        {
+            case userContentMode:
+                //headerView.photoView setImageWithURL:self.
+                headerView.firstNameLabel.text = @"aaa";
+                headerView.secondNameLabel.text = @"bbb";
+                break;
+                
+            case FriendsContentMode:
+                [headerView.photoView setImageWithURL:((VKUser *)[self.friendsArray objectAtIndex:indexPath.section]).imageURL];
+                headerView.firstNameLabel.text = ((VKUser *)[self.friendsArray objectAtIndex:indexPath.section]).firstName;
+                headerView.secondNameLabel.text = ((VKUser *)[self.friendsArray objectAtIndex:indexPath.section]).lastName;
+                break;
+                
+            default:
+                break;
+        }
+        
+        headerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sea_texture"]];
+        
+        reusableview = headerView;
+    }
+    
+    return reusableview;
+}
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
