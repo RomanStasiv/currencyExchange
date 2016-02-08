@@ -39,7 +39,7 @@
     [super viewDidLoad];
     
     self.workObject = [[JSONParseCoreDataSave alloc] init];
-    
+    self.drawer = [[MainScreenDrawer alloc]init];
     //TestCoreData* testObject = [[TestCoreData alloc] init];
     //MetalJSONParse* tester = [[MetalJSONParse alloc]init];
     self.fetching = [[Fetcher alloc]init];
@@ -50,12 +50,61 @@
     //[tmp allBanksQuantity];
     //[testObject insertFakeDataToCoreData];
     //[tmp dataForTableView];
-    self.graph.backgroundColor = [UIColor blackColor];
-    self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:30.0
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
+    
+    self.graph.backgroundColor = [UIColor clearColor];
+    
+    self.m_Timer = [NSTimer scheduledTimerWithTimeInterval:660.0
                                                     target: self.workObject
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
+                    
                                                    repeats: YES];
+    [self updateAverageCurrencyObjectsArray];
+    self.drawer.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
+    CGRect frame = self.graph.frame;
+    [self.graph drawRect:frame];
+    
+    
+    
+    NSInteger lastIndex = [self.avarageCurrencyObjectsArray count];
+    self.formatter = [[NSNumberFormatter alloc] init];
+    
+    [self.formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [self.formatter setMaximumFractionDigits:2];
+    
+    [self selfUpdate: [UIColor blackColor]  :[UIColor blackColor] :[UIColor purpleColor]  :[UIColor purpleColor]];
+    [self.graph setNeedsDisplay];
+    
+    
+    NSNumber *tmp = [[self.avarageCurrencyObjectsArray objectAtIndex:lastIndex-1] USDask];
+    self.USDlabel.text = [self.formatter stringFromNumber:tmp];
+    NSNumber*tmpEuro = [[self.avarageCurrencyObjectsArray objectAtIndex:lastIndex-1] EURask];
+    self.EUROlabel.text = [self.formatter stringFromNumber:tmpEuro];
+    
+    
+    self.stateOfSwitchLabel.text = @"Ask";
+    self.switchState.on = YES;
+    self.switchState.onTintColor = [UIColor orangeColor];
+    
+}
+
+
+
+
+- (void)selfUpdate:(UIColor*)usdA :(UIColor*) EuroA :(UIColor*)usdP :(UIColor*) EuroP
+{
+    [self updateAverageCurrencyObjectsArray];
+    [self prepareGraphView];
+    self.USDBidColor = usdP;
+    self.USDAskColor = usdA;
+    self.EURBidColor = usdP;
+    self.EURAskColor = EuroP;
+    
+    self.drawer.USDBidStrokeColor = self.USDBidColor;
+    self.drawer.USDAskStrokeColor = self.USDAskColor;
+    self.drawer.EURBidStrokeColor = self.EURBidColor;
+    self.drawer.EURAskStrokeColor = self.EURAskColor;
     
 }
 
@@ -68,7 +117,7 @@
 
 - (void)updateAverageCurrencyObjectsArray
 {
-   self.avarageCurrencyObjectsArray = [[self.fetching averageCurrencyRate] mutableCopy];
+    self.avarageCurrencyObjectsArray = [[self.fetching averageCurrencyRate] mutableCopy];
 }
 
 - (void)didReceiveMemoryWarning
