@@ -2,7 +2,7 @@
 //  Prices+CoreDataProperties.h
 //  CurrencyExchange
 //
-//  Created by Melany on 2/8/16.
+//  Created by Melany on 2/9/16.
 //  Copyright © 2016 Roman Stasiv. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -17,9 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Prices (CoreDataProperties)
 
 @property (nullable, nonatomic, retain) NSDate *date;
-@property (nullable, nonatomic, retain) NSString *eurPrice;
 @property (nullable, nonatomic, retain) NSString *usdPrice;
-@property (nullable, nonatomic, retain) MetalData *relationship;
+@property (nullable, nonatomic, retain) NSString *eurPrice;
+@property (nullable, nonatomic, retain) MetalData *metal;
 
 @end
 

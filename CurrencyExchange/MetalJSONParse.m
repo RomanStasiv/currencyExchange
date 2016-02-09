@@ -78,7 +78,7 @@ NSString* const MetalSilverUrl = @"https://www.quandl.com/api/v1/datasets/LBMA/S
 
 - (void) movementThroughUrls
 {
-    // [self JSONMetalParse:MetalGoldUrl];
+    [self JSONMetalParse:MetalGoldUrl];
     [self JSONMetalParse:MetalSilverUrl];
 }
 
@@ -91,7 +91,7 @@ NSString* const MetalSilverUrl = @"https://www.quandl.com/api/v1/datasets/LBMA/S
     Fetcher* tmp = [[Fetcher alloc]init];
     NSArray* pricesArray = [tmp sortedPrices:NO];
     NSArray* dataWithPrices = [self.jsonMetalData objectForKey:@"data"];
-    
+    BOOL metalWithThisNameExist = NO;
     if([pricesArray count]>0)
     {
         NSInteger metalQuantity = [tmp allMetalsQuantity];
@@ -99,6 +99,7 @@ NSString* const MetalSilverUrl = @"https://www.quandl.com/api/v1/datasets/LBMA/S
         {
             if([[self.jsonMetalData objectForKey:@"code"] isEqualToString:[[pricesArray objectAtIndex:k] metal].name])
             {
+                metalWithThisNameExist = YES;
                 while(isNotInCoreData)
                 {
                     NSString *dateDisplay = [dateFormat stringFromDate:[[pricesArray objectAtIndex:0]date]];
@@ -136,6 +137,30 @@ NSString* const MetalSilverUrl = @"https://www.quandl.com/api/v1/datasets/LBMA/S
                 }
             }
         }
+        if(!metalWithThisNameExist)
+        {
+            NSArray* dataWithPrices = [self.jsonMetalData objectForKey:@"data"];
+           // NSInteger lastIndex = [dataWithPrices[0] count];
+            MetalData* metal = [NSEntityDescription insertNewObjectForEntityForName:@"MetalData" inManagedObjectContext:self.context];
+            metal.name = [self.jsonMetalData objectForKey:@"code"];
+            for(int i=0; i<10; i++)
+            {
+                Prices* tmp = [NSEntityDescription insertNewObjectForEntityForName:@"Prices" inManagedObjectContext:self.context];
+                NSString *myDate = dataWithPrices[i][0];
+                NSLog(@"%@", myDate);
+                self.priceMetalDate = [dateFormat dateFromString:dataWithPrices[i][0]];
+                tmp.date = self.priceMetalDate;
+                self.usdPrice = dataWithPrices[i][1];
+                tmp.usdPrice = [dataWithPrices[i][1] stringValue];
+                self.euroPrice = dataWithPrices[i][[dataWithPrices[i] count] -1];
+                tmp.eurPrice = [dataWithPrices[i][[dataWithPrices[i] count] -1] stringValue];
+                NSLog(@"USD %@",  self.usdPrice);
+                NSLog(@"EURO %@", self.euroPrice);
+                [metal addPricesObject:tmp];
+            }
+
+        }
+        
     }
     else
     {

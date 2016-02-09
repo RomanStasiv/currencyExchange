@@ -2,7 +2,7 @@
 //  MetalData+CoreDataProperties.m
 //  CurrencyExchange
 //
-//  Created by Melany on 2/8/16.
+//  Created by Melany on 2/9/16.
 //  Copyright © 2016 Roman Stasiv. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -28,5 +28,4 @@ static NSString *const kItemsKey = @"prices";
     [self setPrimitiveValue:tmpOrderedSet forKey:kItemsKey];
     [self didChange:NSKeyValueChangeInsertion valuesAtIndexes:indexes forKey:kItemsKey];
 }
-
 @end

@@ -48,7 +48,8 @@
 
     self.workObject = [[JSONParseCoreDataSave alloc] init];
     //TestCoreData* testObject = [[TestCoreData alloc] init];
-    //MetalJSONParse* tester = [[MetalJSONParse alloc]init];
+    MetalJSONParse* tester = [[MetalJSONParse alloc]init];
+    //[tester movementThroughUrls];
     self.EUROlabel.textColor = [UIColor darkGrayColor];
     //[self.workObject deleteAllObjectsFromCoreData];
     [self.workObject JSONParse];
