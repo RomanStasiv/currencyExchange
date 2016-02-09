@@ -9,6 +9,11 @@
 #import "ConvertMoneyViewController.h"
 
 @interface ConvertMoneyViewController ()
+@property (nonatomic, strong) NSString *currency;
+@property (weak, nonatomic) IBOutlet UIButton *currencyControlD;
+@property (weak, nonatomic) IBOutlet UIButton *currencyControlE;
+@property (weak, nonatomic) IBOutlet UITextField *moneyTextFieldFirst;
+@property (weak, nonatomic) IBOutlet UITextField *moneyTextFieldSecond;
 
 @end
 
@@ -22,6 +27,23 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)currencyDidChanged:(UIButton *)sender
+{
+    switch (sender.tag)
+    {
+        case 1000:
+            self.currency = @"dolars";
+            break;
+            
+        case 1001:
+            self.currency = @"euro";
+            break;
+            
+        default:
+            break;
+    }
 }
 
 /*
