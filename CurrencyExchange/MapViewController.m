@@ -40,7 +40,7 @@
         [ostream open];
         [NSJSONSerialization writeJSONObject:self.locations
                                     toStream:ostream
-                                     options:nil
+                                     options:NSJSONWritingPrettyPrinted
                                        error:nil];
         [ostream close];
     }
