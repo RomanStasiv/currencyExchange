@@ -18,6 +18,7 @@
 		40C24E9B1C69D6E600FE0040 /* Prices+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C24E961C69D6E600FE0040 /* Prices+CoreDataProperties.m */; };
 		40C24E9C1C69D6E600FE0040 /* Prices.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C24E981C69D6E600FE0040 /* Prices.m */; };
 		40C24E9F1C69E3B100FE0040 /* StructuredMetalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C24E9E1C69E3B100FE0040 /* StructuredMetalData.m */; };
+		40C24EA71C6A2C3100FE0040 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40C24EA61C6A2C3100FE0040 /* Main.storyboard */; };
 		6A193CEC1C57BD3800093B36 /* EarnMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CEB1C57BD3800093B36 /* EarnMoneyViewController.m */; };
 		6A193CEF1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CEE1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.m */; };
 		6A193CF21C57C9E900093B36 /* ShareGoalsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CF11C57C9E900093B36 /* ShareGoalsViewController.m */; };
@@ -29,7 +30,6 @@
 		6A2941A01C58CD7E00C5D207 /* MainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29419F1C58CD7E00C5D207 /* MainScreenViewController.m */; };
 		6A2989121C58AFDA006328A5 /* ConvertMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2989111C58AFDA006328A5 /* ConvertMoneyViewController.m */; };
 		6A29C59C1C5A3BB60032B74D /* GraphDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29C59B1C5A3BB60032B74D /* GraphDrawer.m */; };
-		6A7E68711C64EDFF003E54BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A7E68701C64EDFF003E54BC /* Main.storyboard */; };
 		6A7E68761C653B6C003E54BC /* VKLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7E68751C653B6C003E54BC /* VKLoginViewController.m */; };
 		6A7E68791C653CB3003E54BC /* VKAccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7E68781C653CB3003E54BC /* VKAccessToken.m */; };
 		6A80BF7F1C5E22B300B57EC5 /* EarningGoalsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A80BF7E1C5E22B300B57EC5 /* EarningGoalsTableViewController.m */; };
@@ -114,6 +114,7 @@
 		40C24E981C69D6E600FE0040 /* Prices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Prices.m; sourceTree = "<group>"; };
 		40C24E9D1C69E3B100FE0040 /* StructuredMetalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StructuredMetalData.h; sourceTree = "<group>"; };
 		40C24E9E1C69E3B100FE0040 /* StructuredMetalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StructuredMetalData.m; sourceTree = "<group>"; };
+		40C24EA61C6A2C3100FE0040 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		6A193CEA1C57BD3800093B36 /* EarnMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarnMoneyViewController.h; sourceTree = "<group>"; };
 		6A193CEB1C57BD3800093B36 /* EarnMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarnMoneyViewController.m; sourceTree = "<group>"; };
 		6A193CED1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddControlPointToEarnMoneyViewController.h; sourceTree = "<group>"; };
@@ -137,7 +138,6 @@
 		6A29C59A1C5A3BB50032B74D /* GraphDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphDrawer.h; sourceTree = "<group>"; };
 		6A29C59B1C5A3BB60032B74D /* GraphDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphDrawer.m; sourceTree = "<group>"; };
 		6A7109781C602B0A002B49D1 /* ProtocolHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProtocolHeader.h; sourceTree = "<group>"; };
-		6A7E68701C64EDFF003E54BC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		6A7E68741C653B6C003E54BC /* VKLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKLoginViewController.h; path = "untitled folder/VKLoginViewController.h"; sourceTree = "<group>"; };
 		6A7E68751C653B6C003E54BC /* VKLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKLoginViewController.m; path = "untitled folder/VKLoginViewController.m"; sourceTree = "<group>"; };
 		6A7E68771C653CB3003E54BC /* VKAccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKAccessToken.h; path = "untitled folder/VKAccessToken.h"; sourceTree = "<group>"; };
@@ -548,7 +548,7 @@
 				97ED58631C5796BC004724A3 /* AppDelegate.h */,
 				97ED58641C5796BC004724A3 /* AppDelegate.m */,
 				97ED586F1C5796BC004724A3 /* Assets.xcassets */,
-				6A7E68701C64EDFF003E54BC /* Main.storyboard */,
+				40C24EA61C6A2C3100FE0040 /* Main.storyboard */,
 				97ED58601C5796BC004724A3 /* Supporting Files */,
 			);
 			path = CurrencyExchange;
@@ -676,9 +676,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A7E68711C64EDFF003E54BC /* Main.storyboard in Resources */,
 				97ED58731C5796BC004724A3 /* LaunchScreen.storyboard in Resources */,
 				97ED58701C5796BC004724A3 /* Assets.xcassets in Resources */,
+				40C24EA71C6A2C3100FE0040 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
