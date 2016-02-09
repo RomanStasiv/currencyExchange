@@ -9,7 +9,21 @@
 #import "PostedModeViewController.h"
 
 @implementation PostedModeViewController
-- (IBAction)modeDidChanged:(UIButton *)sender {
+- (IBAction)modeDidChanged:(UIButton *)sender
+{
+    switch (sender.tag)
+    {
+        case 1:
+            [self.modeDelegate changePostModePresentationTo:userContentMode];
+            break;
+            
+        case 2:
+            [self.modeDelegate changePostModePresentationTo:FriendsContentMode];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end

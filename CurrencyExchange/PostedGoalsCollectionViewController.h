@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProtocolHeader.h"
 
 @interface PostedGoalsCollectionViewController : UICollectionViewController <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) NSArray *imagesDictionaryArray;
+
+@property (nonatomic, strong) NSMutableArray *friendsArray;
+
+@property (nonatomic, assign) PostPresentationContentMode postPresentationMode;
 
 @end

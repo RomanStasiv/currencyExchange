@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProtocolHeader.h"
 
 @interface PostedModeViewController : UIViewController
+
+@property (nonatomic, weak) id<PostedImageVCDelegate> modeDelegate;
 
 @end
