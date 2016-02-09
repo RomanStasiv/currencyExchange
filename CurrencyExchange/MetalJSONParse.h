@@ -12,6 +12,9 @@
 
 @property (strong, nonatomic) NSDictionary* jsonMetalData;
 
--(void) JSONMetalParse;
+- (void) JSONMetalParse:(NSString*)nameOfUrl;
+- (void) movementThroughUrls;
+
+
 
 @end

@@ -49,10 +49,12 @@
         self.avarageCurrencyObjectsArray = [NSMutableArray array];
        [self prepareGraphView];
     [self selfUpdate: [UIColor blackColor]  :[UIColor darkGrayColor] :[UIColor clearColor]  :[UIColor clearColor]];
+    ((CustomNavigationController *)self.navigationController).canBeInLandscape = YES;
 
     self.workObject = [[JSONParseCoreDataSave alloc] init];
     //TestCoreData* testObject = [[TestCoreData alloc] init];
-    //MetalJSONParse* tester = [[MetalJSONParse alloc]init];
+    MetalJSONParse* tester = [[MetalJSONParse alloc]init];
+    [self.fetching arrayOfMetalForDrawing];
     self.EUROlabel.textColor = [UIColor darkGrayColor];
     //[self.workObject deleteAllObjectsFromCoreData];
     [self.workObject JSONParse];
