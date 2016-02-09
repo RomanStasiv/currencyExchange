@@ -45,28 +45,6 @@ NSString* const MetalSilverUrl = @"https://www.quandl.com/api/v1/datasets/LBMA/S
     {
         NSLog(@"Data has loaded successfully.");
         [self saveMetalCoreData];
-        //        //NSLog(@"%@", self.jsonMetalData);
-        //        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        //        [dateFormat setDateFormat:@"yyyy-MM-dd"];
-        //
-        //        NSArray* dataWithPrices = [self.jsonMetalData objectForKey:@"data"];
-        //        MetalData* metal = [NSEntityDescription insertNewObjectForEntityForName:@"MetalData" inManagedObjectContext:self.context];
-        //        metal.name = [self.jsonMetalData objectForKey:@"code"];
-        //        for(int i=0; i<10; i++)
-        //        {
-        //            Prices* tmp = [NSEntityDescription insertNewObjectForEntityForName:@"Prices" inManagedObjectContext:self.context];
-        //            NSString *myDate = dataWithPrices[i][0];
-        //            NSLog(@"%@", myDate);
-        //            self.priceMetalDate = [dateFormat dateFromString:dataWithPrices[i][0]];
-        //            tmp.date = self.priceMetalDate;
-        //            self.usdPrice = dataWithPrices[i][1];
-        //            tmp.usdPrice = [dataWithPrices[i][1] stringValue];
-        //            self.euroPrice = dataWithPrices[i][5];
-        //            tmp.eurPrice = [dataWithPrices[i][5] stringValue];
-        //            NSLog(@"USD %@",  self.usdPrice);
-        //            NSLog(@"EURO %@", self.euroPrice);
-        //            [metal addPricesObject:tmp];
-        //       }
         
     }
     NSError *saveError;
@@ -140,7 +118,7 @@ NSString* const MetalSilverUrl = @"https://www.quandl.com/api/v1/datasets/LBMA/S
         if(!metalWithThisNameExist)
         {
             NSArray* dataWithPrices = [self.jsonMetalData objectForKey:@"data"];
-           // NSInteger lastIndex = [dataWithPrices[0] count];
+          
             MetalData* metal = [NSEntityDescription insertNewObjectForEntityForName:@"MetalData" inManagedObjectContext:self.context];
             metal.name = [self.jsonMetalData objectForKey:@"code"];
             for(int i=0; i<10; i++)
@@ -184,61 +162,41 @@ NSString* const MetalSilverUrl = @"https://www.quandl.com/api/v1/datasets/LBMA/S
         }
         
     }
-    //    else
-    //    {
-    //        NSArray* dataWithPrices = [self.jsonMetalData objectForKey:@"data"];
-    //        MetalData* metal = [NSEntityDescription insertNewObjectForEntityForName:@"MetalData" inManagedObjectContext:self.context];
-    //        metal.name = [self.jsonMetalData objectForKey:@"code"];
-    //        for(int i=0; i<10; i++)
-    //        {
-    //            Prices* tmp = [NSEntityDescription insertNewObjectForEntityForName:@"Prices" inManagedObjectContext:self.context];
-    //            NSString *myDate = dataWithPrices[i][0];
-    //            NSLog(@"%@", myDate);
-    //            self.priceMetalDate = [dateFormat dateFromString:dataWithPrices[i][0]];
-    //            tmp.date = self.priceMetalDate;
-    //            self.usdPrice = dataWithPrices[i][1];
-    //            tmp.usdPrice = [dataWithPrices[i][1] stringValue];
-    //            self.euroPrice = dataWithPrices[i][5];
-    //            tmp.eurPrice = [dataWithPrices[i][5] stringValue];
-    //            NSLog(@"USD %@",  self.usdPrice);
-    //            NSLog(@"EURO %@", self.euroPrice);
-    //            [metal addPricesObject:tmp];
-    //        }
-    //    }
+
 }
 
-//- (NSArray*) allObjects
-//{
-//
-//    NSFetchRequest* request = [[NSFetchRequest alloc] init];
-//
-//    NSEntityDescription* description = [NSEntityDescription entityForName:@"MetalData"
-//                                                   inManagedObjectContext:self.context];
-//
-//    [request setEntity:description];
-//
-//    NSError* requestError = nil;
-//    NSArray* resultArray = [self.context executeFetchRequest:request error:&requestError];
-//    if (requestError) {
-//        NSLog(@"%@", [requestError localizedDescription]);
-//    }
-//
-//    return resultArray;
-//}
-//
-//
-//- (void) deleteAllObjectsFromCoreData
-//{
-//    self.context = [AppDelegate singleton].managedObjectContext;
-//    NSArray* allObjects = [self allObjects];
-//    
-//    for (id object in allObjects)
-//    {
-//        [self.context deleteObject:object];
-//    }
-//    
-//    [self.context save:nil];
-//    
-//}
+- (NSArray*) allObjects
+{
+
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+
+    NSEntityDescription* description = [NSEntityDescription entityForName:@"MetalData"
+                                                   inManagedObjectContext:self.context];
+
+    [request setEntity:description];
+
+    NSError* requestError = nil;
+    NSArray* resultArray = [self.context executeFetchRequest:request error:&requestError];
+    if (requestError) {
+        NSLog(@"%@", [requestError localizedDescription]);
+    }
+
+    return resultArray;
+}
+
+
+- (void) deleteAllObjectsFromCoreData
+{
+    self.context = [AppDelegate singleton].managedObjectContext;
+    NSArray* allObjects = [self allObjects];
+    
+    for (id object in allObjects)
+    {
+        [self.context deleteObject:object];
+    }
+    
+    [self.context save:nil];
+    
+}
 
 @end

@@ -17,6 +17,7 @@
 		40C24E9A1C69D6E600FE0040 /* MetalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C24E941C69D6E600FE0040 /* MetalData.m */; };
 		40C24E9B1C69D6E600FE0040 /* Prices+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C24E961C69D6E600FE0040 /* Prices+CoreDataProperties.m */; };
 		40C24E9C1C69D6E600FE0040 /* Prices.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C24E981C69D6E600FE0040 /* Prices.m */; };
+		40C24E9F1C69E3B100FE0040 /* StructuredMetalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C24E9E1C69E3B100FE0040 /* StructuredMetalData.m */; };
 		6A193CEC1C57BD3800093B36 /* EarnMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CEB1C57BD3800093B36 /* EarnMoneyViewController.m */; };
 		6A193CEF1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CEE1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.m */; };
 		6A193CF21C57C9E900093B36 /* ShareGoalsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CF11C57C9E900093B36 /* ShareGoalsViewController.m */; };
@@ -111,6 +112,8 @@
 		40C24E961C69D6E600FE0040 /* Prices+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Prices+CoreDataProperties.m"; sourceTree = "<group>"; };
 		40C24E971C69D6E600FE0040 /* Prices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prices.h; sourceTree = "<group>"; };
 		40C24E981C69D6E600FE0040 /* Prices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Prices.m; sourceTree = "<group>"; };
+		40C24E9D1C69E3B100FE0040 /* StructuredMetalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StructuredMetalData.h; sourceTree = "<group>"; };
+		40C24E9E1C69E3B100FE0040 /* StructuredMetalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StructuredMetalData.m; sourceTree = "<group>"; };
 		6A193CEA1C57BD3800093B36 /* EarnMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarnMoneyViewController.h; sourceTree = "<group>"; };
 		6A193CEB1C57BD3800093B36 /* EarnMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarnMoneyViewController.m; sourceTree = "<group>"; };
 		6A193CED1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddControlPointToEarnMoneyViewController.h; sourceTree = "<group>"; };
@@ -274,6 +277,8 @@
 			children = (
 				401ED9711C5BE1F3006CFBBB /* Fetcher.h */,
 				401ED9721C5BE1F3006CFBBB /* Fetcher.m */,
+				40C24E9D1C69E3B100FE0040 /* StructuredMetalData.h */,
+				40C24E9E1C69E3B100FE0040 /* StructuredMetalData.m */,
 				401ED9731C5BE1F3006CFBBB /* ReportDataForTable.h */,
 				401ED9741C5BE1F3006CFBBB /* ReportDataForTable.m */,
 				401ED96F1C5BE1F3006CFBBB /* AverageCurrency.h */,
@@ -757,6 +762,7 @@
 				40C24E991C69D6E600FE0040 /* MetalData+CoreDataProperties.m in Sources */,
 				6AA421E51C666B2A00F91BDB /* UIRefreshControl+AFNetworking.m in Sources */,
 				401ED9771C5BE1F3006CFBBB /* ReportDataForTable.m in Sources */,
+				40C24E9F1C69E3B100FE0040 /* StructuredMetalData.m in Sources */,
 				6A99E0081C687F4F00C62973 /* CustomCollectionViewCell.m in Sources */,
 				97ED586E1C5796BC004724A3 /* CurrencyExchange.xcdatamodeld in Sources */,
 				40C24E9C1C69D6E600FE0040 /* Prices.m in Sources */,
