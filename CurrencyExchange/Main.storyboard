@@ -421,6 +421,9 @@
                                     <constraint firstAttribute="width" constant="69" id="g6l-PE-BSK"/>
                                 </constraints>
                                 <state key="normal" title="&lt;-&gt;"/>
+                                <connections>
+                                    <action selector="switchButtonPressed" destination="78R-dC-XLR" eventType="touchUpInside" id="CSG-Co-M0w"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8lv-ol-JyZ">
                                 <rect key="frame" x="28" y="120" width="68" height="45"/>

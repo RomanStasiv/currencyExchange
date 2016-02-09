@@ -55,6 +55,10 @@
             break;
     }
 }
+- (IBAction)switchButtonPressed
+{
+    
+}
 - (IBAction)okButtonPressed
 {
     NSArray* tempArray = [[NSArray alloc] initWithArray:[self.fetcherObject averageCurrencyRate]];
