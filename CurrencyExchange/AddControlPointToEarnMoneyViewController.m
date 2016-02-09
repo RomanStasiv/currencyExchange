@@ -8,27 +8,7 @@
 
 #import "AddControlPointToEarnMoneyViewController.h"
 #import "AverageCurrency.h"
-
-#pragma mark - Category
-@interface UIImage (Concatenate)
-
-+(UIImage *)imageWithImage:(UIImage *)image secondImage:(UIImage *)secondImage covertToSize:(CGSize)size;
-
-@end
-
-@implementation UIImage (Concatenate)
-
-+(UIImage *)imageWithImage:(UIImage *)image secondImage:(UIImage *)secondImage covertToSize:(CGSize)size
-{
-    UIGraphicsBeginImageContext(size);
-    [image drawInRect:CGRectMake( 0, 0, size.width, size.height)];
-    [secondImage drawInRect:CGRectMake( 0, 0, size.width, size.height)];
-    UIImage *destImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return destImage;
-}
-
-@end
+#import "UIImage+UIImageConcatenateCategory.h"
 
 #pragma mark - Class
 @interface AddControlPointToEarnMoneyViewController ()
