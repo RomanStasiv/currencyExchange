@@ -9,6 +9,12 @@
 #ifndef ProtocolHeader_h
 #define ProtocolHeader_h
 
+typedef enum postPresentationTypes
+{
+    userContentMode,
+    FriendsContentMode
+}PostPresentationContentMode;
+
 @class CDControlPoint;
 
 @protocol GraphViewDelegate <NSObject>
@@ -17,5 +23,11 @@
 - (void)redrawGraphView;
 - (void)restoreAllControlPointsFromCD;
 - (void)performAddNavButtonsLogic;
+@end
+
+@protocol PostedImageVCDelegate <NSObject>
+
+- (void)changePostModePresentationTo:(PostPresentationContentMode)mode;
+
 @end
 #endif /* ProtocolHeader_h */

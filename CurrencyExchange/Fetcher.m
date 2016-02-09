@@ -162,7 +162,7 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
         tmp.bankStreet = ((BankData *)resultArray[k]).address;
         tmp.bankCity = ((BankData *)resultArray[k]).city;
         tmp.bankRegion = ((BankData *)resultArray[k]).region ;
-        // tmp.bankAddress = [NSString stringWithFormat:@"%@, %@, %@", ((BankData )resultArray[k]).address, ((BankData )resultArray[k]).city, ((BankData *)resultArray[k]).region ];
+        // tmp.bankAddress = [NSString stringWithFormat:@"%@, %@, %@", ((BankData *)resultArray[k]).address, ((BankData *)resultArray[k]).city, ((BankData *)resultArray[k]).region ];
         //NSLog(@"%@", tmp.brankAddress);
         
         //NSLog(@"%@", tmp.bankName);
@@ -237,7 +237,7 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
     
     if(!self.averageRates)
         self.averageRates = [[NSMutableArray alloc] init];
-    
+    [self.averageRates removeAllObjects];
     self.averageCurrency = [[AverageCurrency alloc]init];
     
     self.qtyOfBanks = [self allBanksQuantity];

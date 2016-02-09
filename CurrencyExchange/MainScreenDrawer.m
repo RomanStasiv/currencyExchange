@@ -22,7 +22,7 @@
 //vertical axis
 CGPoint startPoint = CGPointMake(40, self.bounds.size.height);
 CGPoint stopPoint = CGPointMake(40, self.bounds.origin.y + lightAxisInset);
-    [self drawLineFromPointA:startPoint toPointB:stopPoint WithWidth:3 Color:[UIColor blackColor] Dashed:YES];
+    [self drawYAxisFromPointA:startPoint ToPointB:stopPoint WithWidth:3 Color:[UIColor blackColor] Dashed:YES];
     
     //horizontal axis
     startPoint = CGPointMake(self.bounds.origin.x, self.bounds.size.height - 40);
@@ -46,6 +46,32 @@ CGPoint stopPoint = CGPointMake(40, self.bounds.origin.y + lightAxisInset);
     CGFloat sideLength = width;
     CGPoint FirstPoint = CGPointMake(b.x - sideLength, b.y - sideLength);
     CGPoint SecondPoint = CGPointMake(b.x - sideLength, b.y + sideLength);
+    CGPoint ThirdPoint = CGPointMake(b.x, b.y);
+    
+    CGContextMoveToPoint(ctx, FirstPoint.x, FirstPoint.y);
+    CGContextAddLineToPoint(ctx, SecondPoint.x, SecondPoint.y);
+    CGContextAddLineToPoint(ctx, ThirdPoint.x, ThirdPoint.y);
+    CGContextClosePath(ctx);
+    
+    CGContextStrokePath(ctx);
+    UIGraphicsEndImageContext();
+}
+
+- (void)drawYAxisFromPointA:(CGPoint)a ToPointB:(CGPoint)b WithWidth:(CGFloat)width Color:(UIColor *)color Dashed:(BOOL)dashed
+{
+    [self drawLineFromPointA:a toPointB:b WithWidth:width Color:color Dashed:YES];
+    
+    //drawing triangle at the end of axis
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    
+    CGContextSetLineWidth(ctx, width);
+    CGContextSetLineCap(ctx, kCGLineCapRound);
+    CGContextSetLineJoin(ctx, kCGLineJoinRound);
+    CGContextSetStrokeColorWithColor(ctx, [color CGColor]);
+    
+    CGFloat sideLength = width;
+    CGPoint FirstPoint = CGPointMake(b.x - sideLength, b.y + sideLength);
+    CGPoint SecondPoint = CGPointMake(b.x + sideLength, b.y + sideLength);
     CGPoint ThirdPoint = CGPointMake(b.x, b.y);
     
     CGContextMoveToPoint(ctx, FirstPoint.x, FirstPoint.y);
@@ -96,7 +122,7 @@ CGPoint stopPoint = CGPointMake(40, self.bounds.origin.y + lightAxisInset);
                                @{NSFontAttributeName:
                                      [UIFont systemFontOfSize:10.0f]}];
     
-    CGRect dayInfoFrame = CGRectMake(self.frame.origin.x + offset,
+    CGRect dayInfoFrame = CGRectMake(self.frame.origin.x + offset-20,////
                                      self.insetFrame.size.height + 17,
                                      dayInfoFrameSize.width,
                                      dayInfoFrameSize.height);
@@ -110,7 +136,7 @@ CGPoint stopPoint = CGPointMake(40, self.bounds.origin.y + lightAxisInset);
                                  @{NSFontAttributeName:
                                        [UIFont systemFontOfSize:10.0f]}];
     
-    CGRect monthInfoFrame = CGRectMake(self.frame.origin.x + offset,
+    CGRect monthInfoFrame = CGRectMake(self.frame.origin.x + offset-20,////
                                        self.insetFrame.size.height + 17 + dayInfoFrameSize.height + 5,
                                        monthInfoFrameSize.width,
                                        monthInfoFrameSize.height);
@@ -122,7 +148,7 @@ CGPoint stopPoint = CGPointMake(40, self.bounds.origin.y + lightAxisInset);
 }
 
 
-
+/*
 - (void)removeSubviews
 {
     for (UIView *view in self.subviews)
@@ -283,5 +309,5 @@ CGPoint stopPoint = CGPointMake(40, self.bounds.origin.y + lightAxisInset);
     [self drawAxis];
     //[self drawDivisionsOnAxis];
     [self drawInformationLabels];
-}
+}*/
 @end

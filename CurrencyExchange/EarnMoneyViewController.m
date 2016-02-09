@@ -18,9 +18,8 @@
 #import "EarningGoalsTableViewController.h"
 #import "ShareGoalsViewController.h"
 
-#import "PostedGoalsCollectionViewController.h"
-#import "VKServerManager.h"
-#import "VKUser.h"
+#import "PostedGoalsContainerVC.h"
+
 
 #import "CustomNavigationController.h"
 #import <QuartzCore/QuartzCore.h>
@@ -482,17 +481,10 @@ static BOOL isAddCPVCOpened = NO;
 
 - (void)showShareGoalsViewController
 {
-    VKServerManager *manager = [VKServerManager sharedManager];
-    [manager authorizeUser:^(VKUser *user)
-     {
-         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-         PostedGoalsCollectionViewController * pgCVC = (PostedGoalsCollectionViewController *)[sb instantiateViewControllerWithIdentifier:@"PGCVC"];
-         pgCVC.imagesDictionaryArray = user.postedImages;
-         
-         [self.navigationController pushViewController:pgCVC animated:YES];
-     }];
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    PostedGoalsContainerVC * pgCVC = (PostedGoalsContainerVC *)[sb instantiateViewControllerWithIdentifier:@"PGCVC"];
     
-    
+    [self.navigationController pushViewController:pgCVC animated:YES];
 }
 
 - (void)showAddControlPointViewController
@@ -650,5 +642,7 @@ static BOOL isAddCPVCOpened = NO;
         self.addCPVC = (AddControlPointToEarnMoneyViewController *)[segue destinationViewController];
     }
 }
+
+
 
 @end
