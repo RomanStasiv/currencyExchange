@@ -84,7 +84,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <segue destination="cRu-7F-ecQ" kind="show" id="GA5-pr-e5w"/>
+                                    <segue destination="hH0-lG-tej" kind="show" id="xck-5H-aob"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="asF-HV-5Vo">
@@ -241,6 +241,58 @@
             </objects>
             <point key="canvasLocation" x="1335" y="468"/>
         </scene>
+        <!--Banks Table View Controller-->
+        <scene sceneID="PWk-n0-JDQ">
+            <objects>
+                <viewController id="hH0-lG-tej" customClass="BanksTableViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8Hn-Gs-Nle"/>
+                        <viewControllerLayoutGuide type="bottom" id="cH3-OI-MDY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Yq7-RY-ADW">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="XOQ-HF-i0V">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="I7n-SR-lRv"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fxT-xa-yk2">
+                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="hH0-lG-tej" id="3v3-Vi-R4V"/>
+                                    <outlet property="delegate" destination="hH0-lG-tej" id="COG-pQ-FG2"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="XOQ-HF-i0V" secondAttribute="trailing" id="3Tw-sf-8WP"/>
+                            <constraint firstItem="fxT-xa-yk2" firstAttribute="leading" secondItem="Yq7-RY-ADW" secondAttribute="leading" id="Q28-dc-Gd7"/>
+                            <constraint firstItem="fxT-xa-yk2" firstAttribute="top" secondItem="XOQ-HF-i0V" secondAttribute="bottom" id="dMe-Uc-sfQ"/>
+                            <constraint firstItem="cH3-OI-MDY" firstAttribute="top" secondItem="fxT-xa-yk2" secondAttribute="bottom" id="gbg-pK-4cG"/>
+                            <constraint firstItem="XOQ-HF-i0V" firstAttribute="top" secondItem="8Hn-Gs-Nle" secondAttribute="bottom" id="knF-XQ-Cg6"/>
+                            <constraint firstItem="XOQ-HF-i0V" firstAttribute="leading" secondItem="Yq7-RY-ADW" secondAttribute="leading" id="sTQ-KZ-z1O"/>
+                            <constraint firstAttribute="trailing" secondItem="fxT-xa-yk2" secondAttribute="trailing" id="ylH-WH-r52"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="searchBar" destination="XOQ-HF-i0V" id="cjw-bs-usl"/>
+                        <outlet property="tableView" destination="fxT-xa-yk2" id="YaJ-yl-VNA"/>
+                        <segue destination="13x-4o-EWr" kind="show" identifier="showMapView" id="ONj-8t-2L7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YOd-A8-B4W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2050" y="1246"/>
+        </scene>
         <!--Map View Controller-->
         <scene sceneID="tr8-65-Mkk">
             <objects>
@@ -261,10 +313,10 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="3Fx-Iz-S2Y" firstAttribute="leading" secondItem="4IE-XU-iSv" secondAttribute="leadingMargin" id="5R1-1F-uge"/>
-                            <constraint firstItem="3Fx-Iz-S2Y" firstAttribute="trailing" secondItem="4IE-XU-iSv" secondAttribute="trailingMargin" id="9hu-dh-yCH"/>
-                            <constraint firstItem="3Fx-Iz-S2Y" firstAttribute="top" secondItem="M8W-3j-Qtm" secondAttribute="bottom" id="dwi-ma-wu1"/>
-                            <constraint firstItem="F5v-KP-ffw" firstAttribute="top" secondItem="3Fx-Iz-S2Y" secondAttribute="bottom" id="s7X-Gi-919"/>
+                            <constraint firstItem="3Fx-Iz-S2Y" firstAttribute="top" secondItem="M8W-3j-Qtm" secondAttribute="bottom" id="Y53-bj-8ey"/>
+                            <constraint firstAttribute="trailing" secondItem="3Fx-Iz-S2Y" secondAttribute="trailing" id="bYa-O3-dx7"/>
+                            <constraint firstItem="F5v-KP-ffw" firstAttribute="top" secondItem="3Fx-Iz-S2Y" secondAttribute="bottom" id="mPF-7k-aeJ"/>
+                            <constraint firstItem="3Fx-Iz-S2Y" firstAttribute="leading" secondItem="4IE-XU-iSv" secondAttribute="leading" id="mta-Fs-b7c"/>
                         </constraints>
                     </view>
                     <connections>
