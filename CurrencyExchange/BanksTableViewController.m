@@ -14,7 +14,9 @@
 
 @interface BanksTableViewController ()
 
-@property (strong, nonatomic) NSArray *BanksData;
+@property (strong, nonatomic) NSMutableArray *BanksData;
+@property (strong, nonatomic) NSMutableArray *BanksDataUnfiltered;
+
 @property (strong, nonatomic) NSMutableArray *adresses;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -36,23 +38,26 @@
     
     self.BanksData = [fetcher dataForTableView];
     
-    self.BanksData = [self.BanksData sortedArrayUsingComparator:^NSComparisonResult(id a, id  b)
+    [self.BanksData sortUsingComparator:^NSComparisonResult(id a, id  b)
     {
         NSString *first = [(ReportDataForTable *)a bankRegion];
         NSString *second = [(ReportDataForTable *)b bankRegion];
         return [first compare:second];
     }];
     self.BanksData = [self arraySortedInSections:self.BanksData];
+    self.BanksDataUnfiltered = self.BanksData;
     
     [self.tableView registerClass:[BanksTVCell class] forCellReuseIdentifier:@"banksCell"];
 }
 
--(NSArray *) arraySortedInSections: (NSArray *) banks
+-(NSMutableArray *) arraySortedInSections: (NSMutableArray *) banks
 {
     NSMutableArray *sectionedBanks = [[NSMutableArray alloc] init];
     
+    NSMutableArray * sectionNames = [[NSMutableArray alloc] init];
     Section *section = [[Section alloc] init];
     section.name = [[banks firstObject] bankRegion];
+    [sectionNames addObject:section.name];
     section.banks = [[NSMutableArray alloc] init];
     for (ReportDataForTable *bank in banks)
     {
@@ -65,7 +70,28 @@
             [sectionedBanks addObject:section];
             section = [[Section alloc] init];
             section.name = [bank bankRegion];
+            [sectionNames addObject:section.name];
             section.banks = [[NSMutableArray alloc] initWithObjects:bank, nil];
+        }
+    }
+    [sectionedBanks addObject:section];
+    for (ReportDataForTable *bank in banks)
+    {
+        for (ReportDataForTable *branch in [bank branchs])
+        {
+            if ([sectionNames indexOfObject:[branch bankRegion]] != NSNotFound)
+            {
+                [[[sectionedBanks objectAtIndex:[sectionNames indexOfObject:[branch bankRegion]]] banks] addObject:branch];
+            }
+            else
+            {
+                Section *section = [[Section alloc] init];
+                section.name = [branch bankRegion];
+                [sectionNames addObject:section.name];
+                section.banks = [[NSMutableArray alloc] init];
+                [section.banks addObject:branch];
+                [sectionedBanks addObject:section];
+            }
         }
     }
     return sectionedBanks;
@@ -155,15 +181,28 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     [self.searchOperation cancelAllOperations];
-    self.searchOperation = [NSOperationQueue currentQueue];
-    [self.searchOperation addOperationWithBlock:^{
-        for (Section *section in self.BanksData)
-        {
-        //    section.banks = [section.banks filterUsingPredicate:[NSPredicate predicateWithFormat:@"bankName like %@", searchText]];
-        }
-    }];
-    
-    //NSOperation *operation = [[NSOperation alloc] i]
+    if (!self.searchOperation)
+        self.searchOperation = [NSOperationQueue currentQueue];
+    __weak __block BanksTableViewController *weakSelf = self;
+    NSBlockOperation * blockOperation = [NSBlockOperation blockOperationWithBlock:
+                                         ^{
+                                             NSArray * arrayToFilter = [weakSelf.BanksDataUnfiltered copy];
+                                             NSMutableArray *filteredArray = [[NSMutableArray alloc] init];
+                                             for (Section * section in arrayToFilter)
+                                             {
+                                                 Section * filteredSect = [[Section alloc] init];
+                                                 filteredSect.name = section.name;
+                                                 filteredSect.banks = [section.banks copy];
+                                                 filteredSect.banks = [[filteredSect.banks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"bankName contains[cd] %@", searchText]] mutableCopy];
+                                                 if ([filteredSect.banks count] != 0)
+                                                 {
+                                                     [filteredArray addObject:filteredSect];
+                                                 }
+                                             }
+                                             weakSelf.BanksData = filteredArray;
+                                             [weakSelf.tableView reloadData];
+                                         }];
+    [self.searchOperation addOperation:blockOperation];
 }
 
 
