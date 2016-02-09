@@ -200,7 +200,7 @@
                                                  }
                                              }
                                              weakSelf.BanksData = filteredArray;
-                                             [(UITableView*)weakSelf.view reloadData];
+                                             [weakSelf.tableView reloadData];
                                          }];
     [self.searchOperation addOperation:blockOperation];
 }
