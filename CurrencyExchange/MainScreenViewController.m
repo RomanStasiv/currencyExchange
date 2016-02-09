@@ -76,7 +76,7 @@
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
                     
-                                                   repeats: YES];
+                                                   repeats: YES];*/
 
 
   
