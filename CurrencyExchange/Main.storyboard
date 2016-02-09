@@ -422,7 +422,7 @@
                                 </constraints>
                                 <state key="normal" title="&lt;-&gt;"/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8lv-ol-JyZ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8lv-ol-JyZ">
                                 <rect key="frame" x="28" y="120" width="68" height="45"/>
                                 <color key="backgroundColor" red="0.81305461820000002" green="1" blue="0.34252782790000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -444,7 +444,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jMr-a5-aM2">
+                            <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jMr-a5-aM2">
                                 <rect key="frame" x="42" y="242" width="50" height="74"/>
                                 <color key="backgroundColor" red="0.47284177529999999" green="1" blue="0.33730810760000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -485,8 +485,11 @@
                                     <constraint firstAttribute="height" constant="30" id="dwX-W5-Jj7"/>
                                 </constraints>
                                 <state key="normal" title="OK"/>
+                                <connections>
+                                    <action selector="okButtonPressed" destination="78R-dC-XLR" eventType="touchUpInside" id="WnB-MM-ALZ"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nbj-nz-FyJ">
+                            <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nbj-nz-FyJ">
                                 <rect key="frame" x="241" y="242" width="50" height="74"/>
                                 <color key="backgroundColor" red="0.47284177529999999" green="1" blue="0.33730810760000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -525,8 +528,10 @@
                     <connections>
                         <outlet property="currencyControlD" destination="jMr-a5-aM2" id="qGM-nr-Nyq"/>
                         <outlet property="currencyControlE" destination="nbj-nz-FyJ" id="9p2-8t-jxz"/>
+                        <outlet property="firstCurrencyLabel" destination="8lv-ol-JyZ" id="cU4-cE-0yg"/>
                         <outlet property="moneyTextFieldFirst" destination="UWe-Xx-Kw1" id="BNx-ag-FXu"/>
                         <outlet property="moneyTextFieldSecond" destination="evD-36-m1A" id="55K-YQ-QIf"/>
+                        <outlet property="secondCurrencyLabel" destination="3aO-L5-Dnu" id="o3m-Rh-F06"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yx6-3K-vWa" userLabel="First Responder" sceneMemberID="firstResponder"/>
