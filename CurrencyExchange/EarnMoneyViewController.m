@@ -14,7 +14,6 @@
 #import "ControlPointCDManager.h"
 #import "ControlPointsEarnChecker.h"
 #import "Fetcher.h"
-#import "EarnNotificationView.h"
 #import "EarningGoalsTableViewController.h"
 #import "ShareGoalsViewController.h"
 
@@ -396,29 +395,6 @@ static BOOL isAddCPVCOpened = NO;
     return resultArray;
 }
 
-/*- (void)showNotificationForControlPoint:(ControllPoint *)point
- {
- CGRect frame = CGRectMake(self.graphView.insetFrame.origin.x,
- self.graphView.insetFrame.origin.y,
- self.graphView.inset,
- self.graphView.inset);
- NSString *notification = [NSString stringWithFormat:@"Earn %f!",[point.earningPosibility floatValue]];
- EarnNotificationView *notificationView = [[EarnNotificationView alloc] initWithFrame:frame Notification:notification];
- [self.graphView addSubview:notificationView];
- 
- 
- }*/
-/*
- - (void)showEarnGoalsBarButtonItem
- {
- UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
- [button addTarget:self
- action:@selector(showEarnGoalsViewController)
- forControlEvents:UIControlEventTouchUpInside];
- self.navigationItem.title = @"You've got oportunity";
- self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
- }
- */
 - (void)addBarButtonItemsIncludeEarnGoals:(BOOL)goals
 {
     

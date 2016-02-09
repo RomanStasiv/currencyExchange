@@ -98,7 +98,7 @@
         cell.backgroundColor = [UIColor colorWithRed:0.07 green:0.9 blue:0.31 alpha:0.06];
         cell.shareButton.tag = indexPath.row;
         [cell.shareButton addTarget:self
-                             action:@selector(showAnotherViewController:)
+                             action:@selector(showShareGoalsViewController:)
                    forControlEvents:UIControlEventTouchUpInside];
     }
     else
@@ -233,7 +233,7 @@
 
 
 #pragma mark - CellButtonIvents
-- (void)showAnotherViewController:(UIButton *)sender
+- (void)showShareGoalsViewController:(UIButton *)sender
 {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
     CDControlPoint *CDobject = [self.fetchResultController objectAtIndexPath:indexPath];
