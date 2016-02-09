@@ -150,6 +150,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.adresses = [[NSMutableArray alloc] init];
+    self.bankNames = [[NSMutableArray alloc] init];
 
     //[adresses addObject: [[self.BanksData objectAtIndex:indexPath.section] ]];
     if (self.checkedIndex == 0)
