@@ -74,6 +74,7 @@
                                                               [[[location valueForKey:@"location"] lastObject] doubleValue]);
                 point.title = [location valueForKey:@"adress"];
                 
+                //point.
                 [self.mapView addAnnotation:point];
                 
                 NSLog(@"location loaded from file %@ %@", [[location valueForKey:@"location"] firstObject], [[location valueForKey:@"location"] lastObject]);
@@ -86,6 +87,7 @@
                     region.span.latitudeDelta = 0.2;
                     region.span.longitudeDelta = 0.2;
                     [self.mapView setRegion:region animated: YES];
+                    
                 }
                 
                 
@@ -143,6 +145,7 @@
                      region.span.latitudeDelta = 0.2;
                      region.span.longitudeDelta = 0.2;
                      [weakSelf.mapView setRegion:region animated: YES];
+                     //point.pinColor = MKPinAnnotationColorGreen;
                  }
              }
          }

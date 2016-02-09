@@ -47,6 +47,14 @@
     self.BanksData = [self arraySortedInSections:self.BanksData];
     self.BanksDataUnfiltered = self.BanksData;
     
+    self.tableView.backgroundView = nil;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.opaque = NO;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
+    
+    self.searchBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
+    
     [self.tableView registerClass:[BanksTVCell class] forCellReuseIdentifier:@"banksCell"];
 }
 
@@ -119,30 +127,19 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    return 75;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BanksTVCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"banksCell"];
     
-    //    if (indexPath.row == 0)
-    //    {
+
     Section * section = [self.BanksData objectAtIndex:indexPath.section];
     cell.nameLabel.text = [NSString stringWithFormat:@"%@", [[section.banks objectAtIndex:indexPath.row] bankName]];
-    cell.regionLabel.text = [NSString stringWithFormat:@"%@", [[section.banks objectAtIndex:indexPath.row] bankRegion]];
     cell.cityLabel.text = [NSString stringWithFormat:@"%@", [[section.banks objectAtIndex:indexPath.row] bankCity]];
     cell.streetLabel.text = [NSString stringWithFormat:@"%@", [[section.banks objectAtIndex:indexPath.row] bankStreet]];
     
-    //    }
-    //    else
-    //    {
-    //        id branches = [[self.BanksData objectAtIndex:indexPath.section] branchs];
-    //        cell.nameLabel.text = [NSString stringWithFormat:@"%@", [[branches objectAtIndex:(indexPath.row - 1)] valueForKey:@"name"]];
-    //        cell.regionLabel.text = [NSString stringWithFormat:@"%@", [[branches objectAtIndex:(indexPath.row - 1)] valueForKey:@"region"]];
-    //        cell.cityLabel.text = [NSString stringWithFormat:@"%@", [[branches objectAtIndex:(indexPath.row - 1)] valueForKey:@"city"]];
-    //        cell.streetLabel.text = [NSString stringWithFormat:@"%@", [[branches objectAtIndex:(indexPath.row - 1)] valueForKey:@"street"]];
-    //    }
     return cell;
 }
 
@@ -184,70 +181,33 @@
     if (!self.searchOperation)
         self.searchOperation = [NSOperationQueue currentQueue];
     __weak __block BanksTableViewController *weakSelf = self;
-    NSBlockOperation * blockOperation = [NSBlockOperation blockOperationWithBlock:
-                                         ^{
-                                             NSArray * arrayToFilter = [weakSelf.BanksDataUnfiltered copy];
-                                             NSMutableArray *filteredArray = [[NSMutableArray alloc] init];
-                                             for (Section * section in arrayToFilter)
-                                             {
-                                                 Section * filteredSect = [[Section alloc] init];
-                                                 filteredSect.name = section.name;
-                                                 filteredSect.banks = [section.banks copy];
-                                                 filteredSect.banks = [[filteredSect.banks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"bankName contains[cd] %@", searchText]] mutableCopy];
-                                                 if ([filteredSect.banks count] != 0)
+    if ([searchText isEqualToString:@""])
+    {
+        self.BanksData = self.BanksDataUnfiltered;
+    }
+    else
+    {
+        NSBlockOperation * blockOperation = [NSBlockOperation blockOperationWithBlock:
+                                             ^{
+                                                 NSArray * arrayToFilter = [weakSelf.BanksDataUnfiltered copy];
+                                                 NSMutableArray *filteredArray = [[NSMutableArray alloc] init];
+                                                 for (Section * section in arrayToFilter)
                                                  {
-                                                     [filteredArray addObject:filteredSect];
+                                                     Section * filteredSect = [[Section alloc] init];
+                                                     filteredSect.name = section.name;
+                                                     filteredSect.banks = [section.banks copy];
+                                                     filteredSect.banks = [[filteredSect.banks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"bankName contains[cd] %@", searchText]] mutableCopy];
+                                                     if ([filteredSect.banks count] != 0)
+                                                     {
+                                                         [filteredArray addObject:filteredSect];
+                                                     }
                                                  }
-                                             }
-                                             weakSelf.BanksData = filteredArray;
-                                             [weakSelf.tableView reloadData];
-                                         }];
-    [self.searchOperation addOperation:blockOperation];
+                                                 weakSelf.BanksData = filteredArray;
+                                                 [weakSelf.tableView reloadData];
+                                             }];
+        [self.searchOperation addOperation:blockOperation];
+    }
+    
 }
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

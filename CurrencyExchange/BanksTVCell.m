@@ -38,15 +38,7 @@
     [self.contentView addSubview:self.nameLabel];
     
     CGRect rect = self.nameLabel.frame;
-    self.regionLabel = [[UILabel alloc] initWithFrame:CGRectMake(5 , rect.size.height + rect.origin.y + 5, size.width - 10, 15)];
-    
-    [self.regionLabel setFont:[UIFont boldSystemFontOfSize:15.0]];
-    [self.regionLabel setTextAlignment:NSTextAlignmentLeft];
-    [self.regionLabel setAutoresizingMask:(UIViewAutoresizingFlexibleWidth)];
-    
-    [self.contentView addSubview:self.regionLabel];
-    
-    rect = self.regionLabel.frame;
+
     self.cityLabel = [[UILabel alloc] initWithFrame:CGRectMake(5 , rect.size.height + rect.origin.y + 5, size.width - 10, 15)];
     
     [self.cityLabel setFont:[UIFont boldSystemFontOfSize:15.0]];
@@ -63,6 +55,7 @@
     [self.streetLabel setAutoresizingMask:(UIViewAutoresizingFlexibleWidth)];
     
     [self.contentView addSubview:self.streetLabel];
+    self.contentView.backgroundColor = [UIColor clearColor];
     
     return self;
 }
