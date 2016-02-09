@@ -31,6 +31,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
     [self setCurrentUserToPostedGoalsCVC];
     [self addNavigationButtonItem];
 }
@@ -74,7 +75,7 @@
     VKServerManager *manager = [VKServerManager sharedManager];
     [manager authorizeUser:^(VKUser *user)
      {
-         self.postedGoalsCVC.imagesDictionaryArray = user.postedImages;
+         self.postedGoalsCVC.currentUser = user;
          [self.postedGoalsCVC.collectionView reloadData];
          //[self.navigationController popViewControllerAnimated:YES];
          /*[self.postedGoalsCVC.collectionView performBatchUpdates:^
@@ -94,18 +95,16 @@
     VKServerManager *manager = [VKServerManager sharedManager];
     NSArray *friends = manager.currentUser.friendsArray;
     
-   /* for (int i = 0; i < friends.count; i++)
-    {*/
+    self.postedGoalsCVC.friendsArray = [NSMutableArray array];
+    
     for (int i = 0; i < friends.count; i++)
     {
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-            
-            NSString *frienfID = ((VKFriend *)[friends objectAtIndex:i]).userId;
-            
+
+        NSString *frienfID = ((VKFriend *)[friends objectAtIndex:i]).userId;
+        
             [manager getUser:frienfID onSuccess:^(VKUser *user)
              {
-                 if (!self.postedGoalsCVC.friendsArray)
-                     self.postedGoalsCVC.friendsArray = [NSMutableArray array];
                  [self.postedGoalsCVC.friendsArray addObject:user];
                  [self.postedGoalsCVC.collectionView reloadData];
                  
@@ -117,7 +116,7 @@
              }];
         while (dispatch_semaphore_wait(semaphore, DISPATCH_TIME_NOW))
         {
-            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
+            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
         }
     }
     

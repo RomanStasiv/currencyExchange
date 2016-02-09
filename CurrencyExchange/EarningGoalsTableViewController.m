@@ -89,15 +89,26 @@
     NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
     [dateFormater setDateFormat:@"dd-MM-yyyy HH:mm"];
     
-    cell.investingDate.text = [dateFormater stringFromDate:CDobject.date];
-    cell.investingCurrency.text = CDobject.currency;
-    cell.investingAmount.text = [NSString stringWithFormat:@"%.02f", [CDobject.value floatValue]];
-    cell.earningAmount.text = [NSString stringWithFormat:@"%.03f", [CDobject.earningPosibility floatValue]];
-    
-    cell.shareButton.tag = indexPath.row;
-    [cell.shareButton addTarget:self
-                         action:@selector(showAnotherViewController:)
-               forControlEvents:UIControlEventTouchUpInside];
+    if ([CDobject.earningPosibility floatValue] > 0)
+    {
+        cell.investingDate.text = [dateFormater stringFromDate:CDobject.date];
+        cell.investingCurrency.text = CDobject.currency;
+        cell.investingAmount.text = [NSString stringWithFormat:@"%.02f", [CDobject.value floatValue]];
+        cell.earningAmount.text = [NSString stringWithFormat:@"%.02fUAN", [CDobject.earningPosibility floatValue]];
+        cell.backgroundColor = [UIColor colorWithRed:0.07 green:0.9 blue:0.31 alpha:0.08];
+        cell.shareButton.tag = indexPath.row;
+        [cell.shareButton addTarget:self
+                             action:@selector(showShareGoalsViewController:)
+                   forControlEvents:UIControlEventTouchUpInside];
+    }
+    else
+    {
+        cell.investingDate.text = [dateFormater stringFromDate:CDobject.date];
+        cell.investingCurrency.text = CDobject.currency;
+        cell.investingAmount.text = [NSString stringWithFormat:@"%.02f", [CDobject.value floatValue]];
+        cell.earningAmount.text = [NSString stringWithFormat:@"nothing"];
+        cell.shareButton.enabled = NO;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -129,8 +140,8 @@
     [fetchRequest setEntity:entity];
     [fetchRequest setFetchBatchSize:20];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"earningPosibility > 0"];
-    [fetchRequest setPredicate:predicate];
+   /* NSPredicate *predicate = [NSPredicate predicateWithFormat:@"earningPosibility > 0"];
+    [fetchRequest setPredicate:predicate];*/
     
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
     [fetchRequest setSortDescriptors:@[descriptor]];
@@ -210,6 +221,11 @@
 }
 
 #pragma mark - UITableViewDelegate
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewCellEditingStyleDelete;
@@ -217,7 +233,7 @@
 
 
 #pragma mark - CellButtonIvents
-- (void)showAnotherViewController:(UIButton *)sender
+- (void)showShareGoalsViewController:(UIButton *)sender
 {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
     CDControlPoint *CDobject = [self.fetchResultController objectAtIndexPath:indexPath];

@@ -14,7 +14,6 @@
 #import "ControlPointCDManager.h"
 #import "ControlPointsEarnChecker.h"
 #import "Fetcher.h"
-#import "EarnNotificationView.h"
 #import "EarningGoalsTableViewController.h"
 #import "ShareGoalsViewController.h"
 
@@ -109,6 +108,12 @@ static BOOL isAddCPVCOpened = NO;
     [self resizerTimeSliderLogic];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self resizerTimeSliderLogic];
+}
+
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     [self resizerTimeSliderLogic];
@@ -190,7 +195,7 @@ static BOOL isAddCPVCOpened = NO;
 - (NSArray *)shiftAvarageCurrencyArrayToTimeSliderValue:(CGFloat)value
 {
     [self updateAverageCurrencyObjectsArray];
-    NSUInteger newLen = self.avarageCurrencyObjectsArray.count * value;
+    NSUInteger newLen = ceil(self.avarageCurrencyObjectsArray.count * value);
     NSUInteger startIndex = self.avarageCurrencyObjectsArray.count - newLen;
     NSArray *resultArray = [self.avarageCurrencyObjectsArray subarrayWithRange:NSMakeRange(startIndex, newLen)];
     return resultArray;
@@ -390,29 +395,6 @@ static BOOL isAddCPVCOpened = NO;
     return resultArray;
 }
 
-/*- (void)showNotificationForControlPoint:(ControllPoint *)point
- {
- CGRect frame = CGRectMake(self.graphView.insetFrame.origin.x,
- self.graphView.insetFrame.origin.y,
- self.graphView.inset,
- self.graphView.inset);
- NSString *notification = [NSString stringWithFormat:@"Earn %f!",[point.earningPosibility floatValue]];
- EarnNotificationView *notificationView = [[EarnNotificationView alloc] initWithFrame:frame Notification:notification];
- [self.graphView addSubview:notificationView];
- 
- 
- }*/
-/*
- - (void)showEarnGoalsBarButtonItem
- {
- UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
- [button addTarget:self
- action:@selector(showEarnGoalsViewController)
- forControlEvents:UIControlEventTouchUpInside];
- self.navigationItem.title = @"You've got oportunity";
- self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
- }
- */
 - (void)addBarButtonItemsIncludeEarnGoals:(BOOL)goals
 {
     
@@ -428,30 +410,30 @@ static BOOL isAddCPVCOpened = NO;
     
     UIBarButtonItem *addBarButton = [[UIBarButtonItem alloc] initWithCustomView:addButton];
     
-    UIImage *shareImage = [UIImage imageNamed:@"tabBar_share.png"];
+    UIImage *shareImage = [UIImage imageNamed:@"friends_share_icon"];
      UIButton *shareButton = [[UIButton alloc] initWithFrame:ImageRect];
      [shareButton setBackgroundImage:shareImage forState:UIControlStateNormal];
      [shareButton addTarget:self
      action:@selector(showShareGoalsViewController)
      forControlEvents:UIControlEventTouchUpInside];
      [shareButton setShowsTouchWhenHighlighted:YES];
-     
+    
      UIBarButtonItem *shareBarButton = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
+    
+    UIImage *goalsImage = [UIImage imageNamed:@"tabBar_money.png"];
+    UIButton *goalsButton = [[UIButton alloc] initWithFrame:ImageRect];
+    [goalsButton setBackgroundImage:goalsImage forState:UIControlStateNormal];
+    [goalsButton addTarget:self
+                    action:@selector(showEarnGoalsViewController)
+          forControlEvents:UIControlEventTouchUpInside];
+    [goalsButton setShowsTouchWhenHighlighted:YES];
+    
+    UIBarButtonItem *goalsBarButton = [[UIBarButtonItem alloc] initWithCustomView:goalsButton];
+    
+    self.navigationItem.rightBarButtonItems = @[addBarButton, shareBarButton, goalsBarButton];
     
     if (goals)
     {
-        UIImage *goalsImage = [UIImage imageNamed:@"tabBar_money.png"];
-        UIButton *goalsButton = [[UIButton alloc] initWithFrame:ImageRect];
-        [goalsButton setBackgroundImage:goalsImage forState:UIControlStateNormal];
-        [goalsButton addTarget:self
-                        action:@selector(showEarnGoalsViewController)
-              forControlEvents:UIControlEventTouchUpInside];
-        [goalsButton setShowsTouchWhenHighlighted:YES];
-        
-        UIBarButtonItem *goalsBarButton = [[UIBarButtonItem alloc] initWithCustomView:goalsButton];
-        
-        self.navigationItem.rightBarButtonItems = @[addBarButton, shareBarButton, goalsBarButton];
-        
         CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
         anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         anim.duration = 0.5;
@@ -460,10 +442,6 @@ static BOOL isAddCPVCOpened = NO;
         anim.removedOnCompletion = YES;
         anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.5, 1.5, 1.0)];
         [goalsButton.layer addAnimation:anim forKey:nil];
-    }
-    else
-    {
-        self.navigationItem.rightBarButtonItems = @[addBarButton, shareBarButton];
     }
 }
 
