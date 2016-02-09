@@ -47,9 +47,10 @@
     
 }
 
--(void) adressesToDisplay:(NSMutableArray *) array centerOn: (NSString*) centralString
+-(void) adressesToDisplay:(NSMutableArray *) arrayOfAdress withNames:(NSMutableArray *) arrayOfNames  centerOn: (NSString*) centralString
 {
-    self.adresses = array;
+    self.adresses = arrayOfAdress;
+    self.bankNames = arrayOfNames;
     self.centralAdress = centralString;
 }
 
@@ -72,7 +73,9 @@
                 MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
                 point.coordinate = CLLocationCoordinate2DMake([[[location valueForKey:@"location"] firstObject] doubleValue],
                                                               [[[location valueForKey:@"location"] lastObject] doubleValue]);
-                point.title = [location valueForKey:@"adress"];
+                NSString *str = [self.bankNames objectAtIndex:[adresses indexOfObject:[location valueForKey:@"adress"]]];
+                point.title = [self.bankNames objectAtIndex:[adresses indexOfObject:[location valueForKey:@"adress"]]];
+                point.subtitle = [location valueForKey:@"adress"];
                 
                 [self.mapView addAnnotation:point];
                 
@@ -86,6 +89,7 @@
                     region.span.latitudeDelta = 0.2;
                     region.span.longitudeDelta = 0.2;
                     [self.mapView setRegion:region animated: YES];
+                    
                 }
                 
                 
@@ -110,6 +114,7 @@
 {
     __block NSNumber *index = indexTemp;
     __weak __block MapViewController * weakSelf = self;
+    NSLog(@"still alive, are we ?");
     [geocoder geocodeAddressString:[adresses objectAtIndex:[index integerValue]]
                  completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error)
      {
@@ -119,7 +124,8 @@
              {
                  MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
                  point.coordinate = placemark.location.coordinate;
-                 point.title = [adresses objectAtIndex:[index integerValue]];
+                 point.subtitle = [adresses objectAtIndex:[index integerValue]];
+                 point.title = [self.bankNames objectAtIndex:[index integerValue]];
                  
                  [weakSelf.mapView addAnnotation:point];
                  
