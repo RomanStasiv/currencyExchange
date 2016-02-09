@@ -430,7 +430,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jMr-a5-aM2">
+                            <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jMr-a5-aM2">
                                 <rect key="frame" x="491" y="175" width="64" height="84"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.47284177529999999" green="1" blue="0.33730810760000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -442,8 +442,11 @@
                                 <state key="normal" title="$">
                                     <color key="titleColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="currencyDidChanged:" destination="78R-dC-XLR" eventType="touchUpInside" id="K2Y-QR-Ruo"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nbj-nz-FyJ">
+                            <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nbj-nz-FyJ">
                                 <rect key="frame" x="491" y="289" width="64" height="72"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.47284177529999999" green="1" blue="0.33730810760000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -455,29 +458,47 @@
                                 <state key="normal" title="EU">
                                     <color key="titleColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="currencyDidChanged:" destination="78R-dC-XLR" eventType="touchUpInside" id="6bJ-2i-Ewu"/>
+                                </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jvs-ER-crs">
+                                <rect key="frame" x="280" y="322" width="110" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZSl-OR-DkG">
+                                <rect key="frame" x="65" y="315" width="110" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="dx7-21-kkq" firstAttribute="leading" secondItem="Zcv-gI-ovT" secondAttribute="leading" constant="182" id="0eU-o7-bN9"/>
+                            <constraint firstItem="nbj-nz-FyJ" firstAttribute="leading" secondItem="jMr-a5-aM2" secondAttribute="leading" id="13k-M3-9d4"/>
                             <constraint firstItem="fhx-3u-gZk" firstAttribute="top" secondItem="fpC-vm-WXb" secondAttribute="bottom" constant="219" id="3Rr-Jz-JsV"/>
-                            <constraint firstItem="fhx-3u-gZk" firstAttribute="leading" secondItem="brP-n4-SY5" secondAttribute="trailing" constant="19" id="3rw-ZD-Igd"/>
                             <constraint firstItem="3aO-L5-Dnu" firstAttribute="leading" secondItem="8lv-ol-JyZ" secondAttribute="trailing" constant="105" id="5ZL-uk-R8Y"/>
-                            <constraint firstItem="brP-n4-SY5" firstAttribute="top" secondItem="8lv-ol-JyZ" secondAttribute="bottom" constant="10" id="9im-uj-cr2"/>
-                            <constraint firstItem="nbj-nz-FyJ" firstAttribute="leading" secondItem="zB4-ni-Wkf" secondAttribute="trailing" constant="101" id="Dlr-Uy-T3H"/>
-                            <constraint firstItem="zB4-ni-Wkf" firstAttribute="leading" secondItem="fhx-3u-gZk" secondAttribute="trailing" constant="17" id="IH1-Tv-NbO"/>
+                            <constraint firstItem="nbj-nz-FyJ" firstAttribute="baseline" secondItem="ZSl-OR-DkG" secondAttribute="baseline" id="AeA-gi-2Ge"/>
+                            <constraint firstItem="fhx-3u-gZk" firstAttribute="centerX" secondItem="dx7-21-kkq" secondAttribute="centerX" id="CRU-Bc-98S"/>
                             <constraint firstItem="8lv-ol-JyZ" firstAttribute="top" secondItem="fpC-vm-WXb" secondAttribute="bottom" constant="170" id="Ncp-KY-Ddy"/>
                             <constraint firstItem="dx7-21-kkq" firstAttribute="top" secondItem="fhx-3u-gZk" secondAttribute="bottom" constant="83" id="QYi-ZA-J4h"/>
-                            <constraint firstItem="zB4-ni-Wkf" firstAttribute="top" secondItem="3aO-L5-Dnu" secondAttribute="bottom" constant="10" id="QZr-aY-N76"/>
                             <constraint firstItem="8lv-ol-JyZ" firstAttribute="leading" secondItem="Zcv-gI-ovT" secondAttribute="leading" constant="65" id="TQ0-hS-ZcF"/>
                             <constraint firstItem="jMr-a5-aM2" firstAttribute="top" secondItem="fpC-vm-WXb" secondAttribute="bottom" constant="111" id="YVc-SF-wnb"/>
-                            <constraint firstItem="brP-n4-SY5" firstAttribute="leading" secondItem="Zcv-gI-ovT" secondAttribute="leading" constant="65" id="iax-IM-Jh7"/>
+                            <constraint firstItem="ZSl-OR-DkG" firstAttribute="leading" secondItem="8lv-ol-JyZ" secondAttribute="leading" id="qnV-4g-6m5"/>
                             <constraint firstItem="nbj-nz-FyJ" firstAttribute="top" secondItem="jMr-a5-aM2" secondAttribute="bottom" constant="30" id="t7h-NT-5pU"/>
+                            <constraint firstItem="ZSl-OR-DkG" firstAttribute="trailing" secondItem="8lv-ol-JyZ" secondAttribute="trailing" id="tsn-gh-ftQ"/>
                             <constraint firstItem="3aO-L5-Dnu" firstAttribute="top" secondItem="fpC-vm-WXb" secondAttribute="bottom" constant="170" id="xxX-QH-BJx"/>
                             <constraint firstItem="jMr-a5-aM2" firstAttribute="leading" secondItem="3aO-L5-Dnu" secondAttribute="trailing" constant="101" id="yga-Eq-HZv"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="currencyControlD" destination="jMr-a5-aM2" id="On3-HR-bnW"/>
+                        <outlet property="currencyControlE" destination="nbj-nz-FyJ" id="sJg-hs-nBm"/>
+                        <outlet property="moneyTextFieldFirst" destination="ZSl-OR-DkG" id="7Iq-Ar-0PQ"/>
+                        <outlet property="moneyTextFieldSecond" destination="Jvs-ER-crs" id="1Gs-SG-ILJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yx6-3K-vWa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1000,6 +1021,28 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WdR-c5-ucj">
+                                <rect key="frame" x="52" y="37" width="90" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="1wV-5B-aj2"/>
+                                    <constraint firstAttribute="height" constant="10" id="3J9-rT-d7v"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" priority="750" constant="45" id="GCi-oK-qkT"/>
+                                    <constraint firstAttribute="height" constant="45" id="Wdg-4k-Uyj"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="" image="dollar_sign"/>
+                                    <segment title="" image="euro_sign"/>
+                                </segments>
+                                <color key="tintColor" red="0.27450980392156865" green="0.76078431372549016" blue="0.60392156862745094" alpha="1" colorSpace="calibratedRGB"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="3J9-rT-d7v"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="currencyDidChanged:" destination="Djq-LH-aUk" eventType="valueChanged" id="2wI-Zf-NAr"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <animations/>
                         <constraints>
