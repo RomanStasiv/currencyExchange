@@ -235,9 +235,7 @@ NSString* const JSONParseDidUpdatesCoreDataNotification = @"JSONParseDidUpdatedC
     if(![self.context save:&saveError]){
         NSLog(@"%@", [saveError localizedDescription]);
     }
-    self.jsonData = nil;
-    self.banks = nil;
-    self.branchesTempArray = nil;
+    
     
 }
 

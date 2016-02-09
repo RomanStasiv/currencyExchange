@@ -49,7 +49,7 @@
     self.segmentWidthCount = [self.avarageCurrencyObjectsArray count];
     self.segmentWidth = self.insetFrame.size.width / self.segmentWidthCount;
     
-    NSMutableArray * USDbidValues = [[NSMutableArray alloc] init];
+    NSMutableArray * USDbidValues = [[NSMutableArray alloc] init];	
     NSMutableArray * USDaskValues = [[NSMutableArray alloc] init];
     NSMutableArray * EURbidValues = [[NSMutableArray alloc] init];
     NSMutableArray * EURaskValues = [[NSMutableArray alloc] init];

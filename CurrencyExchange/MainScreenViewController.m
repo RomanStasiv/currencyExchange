@@ -6,6 +6,7 @@
 //  Copyright © 2016 Roman Stasiv. All rights reserved.
 //
 
+#import "CustomNavigationController.h"
 #import "MainScreenViewController.h"
 #import "JSONParseCoreDataSave.h"
 #import "TestCoreData.h"
@@ -38,6 +39,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    ((CustomNavigationController *)self.navigationController).canBeInLandscape = YES;
+
     
     self.fetching = [[Fetcher alloc] init];
     
