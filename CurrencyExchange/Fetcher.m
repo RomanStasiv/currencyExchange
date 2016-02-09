@@ -7,6 +7,7 @@
 //
 
 #import "Fetcher.h"
+#import "MetalJSONParse.h"
 
 NSString* const CoreDataDidSavedNotification = @"CoreDataDidSavedNotification";
 NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
@@ -366,6 +367,8 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
 
 - (NSArray* ) arrayOfMetalForDrawing
 {
+    MetalJSONParse * tmp = [[MetalJSONParse alloc]init];
+    [tmp movementThroughUrls];
     NSArray* sortedArray = [self sortedPrices:YES];
     NSMutableArray * arrayofMetal = [[NSMutableArray alloc]init];
     NSInteger count = 0;

@@ -50,7 +50,7 @@
     self.workObject = [[JSONParseCoreDataSave alloc] init];
     //TestCoreData* testObject = [[TestCoreData alloc] init];
     MetalJSONParse* tester = [[MetalJSONParse alloc]init];
-    [self.fetching arrayOfMetalForDrawing];
+    //[self.fetching arrayOfMetalForDrawing];
     self.EUROlabel.textColor = [UIColor darkGrayColor];
     //[self.workObject deleteAllObjectsFromCoreData];
     [self.workObject JSONParse];
@@ -67,9 +67,6 @@
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
                                                    repeats: YES];
-
-
-  
     
     NSInteger lastIndex = [self.avarageCurrencyObjectsArray count];
     self.formatter = [[NSNumberFormatter alloc] init];
