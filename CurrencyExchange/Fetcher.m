@@ -311,8 +311,118 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
     return nil;
 }
 
+- (NSInteger) allMetalsQuantity
+{
+    AppDelegate * delegate = [AppDelegate singleton];
+    self.context = delegate.managedObjectContext;
+    
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription* description =
+    [NSEntityDescription entityForName:@"MetalData"
+                inManagedObjectContext:self.context];
+    
+    [request setEntity:description];
+    
+    NSError* requestError = nil;
+    NSArray* resultArray = [self.context executeFetchRequest:request error:&requestError];
+    
+    //    NSInteger qty = [resultArray count];
+    //
+    //    for(int i = 0; i < qty; i++)
+    //    {
+    //        NSString* tmp = [NSString stringWithString:((BankData *)resultArray[i]).name];
+    //        NSLog(@"%@", tmp);
+    //    }
+    
+    return [resultArray count];
+}
 
+- (NSArray*) sortedPrices:(BOOL)wayOfSorting
+{
+    AppDelegate * delegate = [AppDelegate singleton];
+    self.context = delegate.managedObjectContext;
+    
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription* description =
+    [NSEntityDescription entityForName:@"Prices"
+                inManagedObjectContext:self.context];
+    
+    [request setEntity:description];
+    
+    NSError* requestError = nil;
+    NSArray* resultArray = [self.context executeFetchRequest:request error:&requestError];
+    
+    if (requestError)
+    {
+        NSLog(@"%@", [requestError localizedDescription]);
+    }
+    NSArray* sortedArray = [resultArray sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:wayOfSorting]]];
+    [self printMetal:sortedArray];
+    NSLog(@"%ld", [sortedArray count]);
+    return sortedArray;
+}
 
+- (NSArray* ) arrayOfMetalForDrawing
+{
+    NSArray* sortedArray = [self sortedPrices:YES];
+    NSMutableArray * arrayofMetal = [[NSMutableArray alloc]init];
+    NSInteger count = 0;
+
+    NSString* gold = @"GOLD";
+    NSString* silver = @"SILVER";
+    
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    
+    NSDateFormatter *monhtFormater = [[NSDateFormatter alloc] init];
+    [monhtFormater setDateFormat:@"yyyy-MM-dd"];
+
+    
+    NSInteger length = [sortedArray count];
+    for(int j = 0; j<length; )
+    {
+        StructuredMetalData* tmp = [[StructuredMetalData alloc]init];
+
+        for(int i = 0; i<2; i++)
+        {
+          if([[[[sortedArray objectAtIndex:j] metal]name]isEqualToString:gold])
+            {
+                tmp.date = [[sortedArray objectAtIndex:j] date];
+                 NSLog(@"Metal:%@, Date:%@, ",gold, [monhtFormater stringFromDate:[[sortedArray objectAtIndex:j] date]]);
+                tmp.goldUsdPrice = [f numberFromString:[[sortedArray objectAtIndex:j]usdPrice]];
+                tmp.goldEuroPrice = [f numberFromString:[[sortedArray objectAtIndex:j]eurPrice]];
+                count++;
+                j++;
+            }
+            else if([[[[sortedArray objectAtIndex:j] metal]name]isEqualToString:silver])
+            {
+                NSLog(@"Metal:%@, Date:%@, ",silver, [monhtFormater stringFromDate:[[sortedArray objectAtIndex:j] date]]);
+                tmp.silverUsdPrice = [f numberFromString:[[sortedArray objectAtIndex:j]usdPrice]];
+                tmp.silverEuroPrice = [f numberFromString:[[sortedArray objectAtIndex:j]eurPrice]];
+                count++;
+                j++;
+            }
+            if(count == 2)
+            {
+                [arrayofMetal addObject:tmp];
+                count = 0;
+            }
+        }
+    }
+    return arrayofMetal;
+}
+
+- (void) printMetal:(NSArray*) sortedPrices
+{
+    NSDateFormatter *monhtFormater = [[NSDateFormatter alloc] init];
+    [monhtFormater setDateFormat:@"yyyy-MM-dd"];
+    for (Prices *c in sortedPrices)
+    {
+        NSLog(@"Metal:%@, Date:%@, USD:%@, EUR:%@ ",c.metal.name, [monhtFormater stringFromDate:c.date],c.usdPrice,c.eurPrice);
+    }
+}
 - (void)print
 {
     NSDateFormatter *monhtFormater = [[NSDateFormatter alloc] init];

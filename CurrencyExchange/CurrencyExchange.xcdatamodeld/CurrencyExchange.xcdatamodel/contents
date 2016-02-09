@@ -39,14 +39,14 @@
     </entity>
     <entity name="MetalData" representedClassName="MetalData" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="prices" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Prices" inverseName="relationship" inverseEntity="Prices" syncable="YES"/>
+        <relationship name="prices" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Prices" inverseName="metal" inverseEntity="Prices" syncable="YES"/>
     </entity>
     <entity name="ObjectData" representedClassName="ObjectData" isAbstract="YES" syncable="YES"/>
     <entity name="Prices" representedClassName="Prices" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="eurPrice" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="usdPrice" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MetalData" inverseName="prices" inverseEntity="MetalData" syncable="YES"/>
+        <relationship name="metal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MetalData" inverseName="prices" inverseEntity="MetalData" syncable="YES"/>
     </entity>
     <elements>
         <element name="BankData" positionX="-1911" positionY="144" width="128" height="133"/>
@@ -55,7 +55,7 @@
         <element name="CDControlPoint" positionX="-1910" positionY="-28" width="128" height="118"/>
         <element name="CurrencyData" positionX="-1352" positionY="144" width="128" height="133"/>
         <element name="ObjectData" positionX="-1568" positionY="-9" width="128" height="43"/>
-        <element name="MetalData" positionX="-1629" positionY="315" width="128" height="73"/>
-        <element name="Prices" positionX="-1352" positionY="324" width="128" height="103"/>
+        <element name="MetalData" positionX="-1629" positionY="317" width="128" height="73"/>
+        <element name="Prices" positionX="-1388" positionY="315" width="128" height="103"/>
     </elements>
 </model>
