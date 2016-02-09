@@ -95,7 +95,7 @@
         cell.investingCurrency.text = CDobject.currency;
         cell.investingAmount.text = [NSString stringWithFormat:@"%.02f", [CDobject.value floatValue]];
         cell.earningAmount.text = [NSString stringWithFormat:@"%.02fUAN", [CDobject.earningPosibility floatValue]];
-        cell.backgroundColor = [UIColor colorWithRed:0.07 green:0.9 blue:0.31 alpha:0.06];
+        cell.backgroundColor = [UIColor colorWithRed:0.07 green:0.9 blue:0.31 alpha:0.08];
         cell.shareButton.tag = indexPath.row;
         [cell.shareButton addTarget:self
                              action:@selector(showShareGoalsViewController:)

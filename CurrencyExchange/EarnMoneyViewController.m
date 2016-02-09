@@ -410,30 +410,30 @@ static BOOL isAddCPVCOpened = NO;
     
     UIBarButtonItem *addBarButton = [[UIBarButtonItem alloc] initWithCustomView:addButton];
     
-    UIImage *shareImage = [UIImage imageNamed:@"tabBar_share.png"];
+    UIImage *shareImage = [UIImage imageNamed:@"friends_share_icon"];
      UIButton *shareButton = [[UIButton alloc] initWithFrame:ImageRect];
      [shareButton setBackgroundImage:shareImage forState:UIControlStateNormal];
      [shareButton addTarget:self
      action:@selector(showShareGoalsViewController)
      forControlEvents:UIControlEventTouchUpInside];
      [shareButton setShowsTouchWhenHighlighted:YES];
-     
+    
      UIBarButtonItem *shareBarButton = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
+    
+    UIImage *goalsImage = [UIImage imageNamed:@"tabBar_money.png"];
+    UIButton *goalsButton = [[UIButton alloc] initWithFrame:ImageRect];
+    [goalsButton setBackgroundImage:goalsImage forState:UIControlStateNormal];
+    [goalsButton addTarget:self
+                    action:@selector(showEarnGoalsViewController)
+          forControlEvents:UIControlEventTouchUpInside];
+    [goalsButton setShowsTouchWhenHighlighted:YES];
+    
+    UIBarButtonItem *goalsBarButton = [[UIBarButtonItem alloc] initWithCustomView:goalsButton];
+    
+    self.navigationItem.rightBarButtonItems = @[addBarButton, shareBarButton, goalsBarButton];
     
     if (goals)
     {
-        UIImage *goalsImage = [UIImage imageNamed:@"tabBar_money.png"];
-        UIButton *goalsButton = [[UIButton alloc] initWithFrame:ImageRect];
-        [goalsButton setBackgroundImage:goalsImage forState:UIControlStateNormal];
-        [goalsButton addTarget:self
-                        action:@selector(showEarnGoalsViewController)
-              forControlEvents:UIControlEventTouchUpInside];
-        [goalsButton setShowsTouchWhenHighlighted:YES];
-        
-        UIBarButtonItem *goalsBarButton = [[UIBarButtonItem alloc] initWithCustomView:goalsButton];
-        
-        self.navigationItem.rightBarButtonItems = @[addBarButton, shareBarButton, goalsBarButton];
-        
         CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
         anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         anim.duration = 0.5;
@@ -442,10 +442,6 @@ static BOOL isAddCPVCOpened = NO;
         anim.removedOnCompletion = YES;
         anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.5, 1.5, 1.0)];
         [goalsButton.layer addAnimation:anim forKey:nil];
-    }
-    else
-    {
-        self.navigationItem.rightBarButtonItems = @[addBarButton, shareBarButton];
     }
 }
 
