@@ -33,6 +33,7 @@
     
     [self.nameLabel setFont:[UIFont boldSystemFontOfSize:20.0]];
     [self.nameLabel setTextAlignment:NSTextAlignmentLeft];
+    self.nameLabel.backgroundColor = [UIColor clearColor];
     [self.nameLabel setAutoresizingMask:(UIViewAutoresizingFlexibleWidth)];
     
     [self.contentView addSubview:self.nameLabel];
@@ -44,6 +45,7 @@
     [self.cityLabel setFont:[UIFont boldSystemFontOfSize:15.0]];
     [self.cityLabel setTextAlignment:NSTextAlignmentLeft];
     [self.cityLabel setAutoresizingMask:(UIViewAutoresizingFlexibleWidth)];
+    self.cityLabel.backgroundColor = [UIColor clearColor];
     
     [self.contentView addSubview:self.cityLabel];
     
@@ -53,9 +55,11 @@
     [self.streetLabel setFont:[UIFont boldSystemFontOfSize:15.0]];
     [self.streetLabel setTextAlignment:NSTextAlignmentLeft];
     [self.streetLabel setAutoresizingMask:(UIViewAutoresizingFlexibleWidth)];
+    self.streetLabel.backgroundColor = [UIColor clearColor];
     
     [self.contentView addSubview:self.streetLabel];
     self.contentView.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = [UIColor clearColor];
     
     return self;
 }

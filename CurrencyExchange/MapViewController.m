@@ -47,9 +47,10 @@
     
 }
 
--(void) adressesToDisplay:(NSMutableArray *) array centerOn: (NSString*) centralString
+-(void) adressesToDisplay:(NSMutableArray *) arrayOfAdress withNames:(NSMutableArray *) arrayOfNames  centerOn: (NSString*) centralString
 {
-    self.adresses = array;
+    self.adresses = arrayOfAdress;
+    self.bankNames = arrayOfNames;
     self.centralAdress = centralString;
 }
 
@@ -72,9 +73,9 @@
                 MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
                 point.coordinate = CLLocationCoordinate2DMake([[[location valueForKey:@"location"] firstObject] doubleValue],
                                                               [[[location valueForKey:@"location"] lastObject] doubleValue]);
-                point.title = [location valueForKey:@"adress"];
+                point.title = [self.bankNames objectAtIndex:[adresses indexOfObject:[location valueForKey:@"adress"]]];
+                point.subtitle = [location valueForKey:@"adress"];
                 
-                //point.
                 [self.mapView addAnnotation:point];
                 
                 NSLog(@"location loaded from file %@ %@", [[location valueForKey:@"location"] firstObject], [[location valueForKey:@"location"] lastObject]);
@@ -145,7 +146,6 @@
                      region.span.latitudeDelta = 0.2;
                      region.span.longitudeDelta = 0.2;
                      [weakSelf.mapView setRegion:region animated: YES];
-                     //point.pinColor = MKPinAnnotationColorGreen;
                  }
              }
          }

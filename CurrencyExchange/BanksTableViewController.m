@@ -18,6 +18,8 @@
 @property (strong, nonatomic) NSMutableArray *BanksDataUnfiltered;
 
 @property (strong, nonatomic) NSMutableArray *adresses;
+@property (strong, nonatomic) NSMutableArray *bankNames;
+
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSOperationQueue *searchOperation;
@@ -149,7 +151,6 @@
 {
     self.adresses = [[NSMutableArray alloc] init];
 
-    
     //[adresses addObject: [[self.BanksData objectAtIndex:indexPath.section] ]];
     if (self.checkedIndex == 0)
     {
@@ -157,6 +158,8 @@
         {
             NSString *adress = [NSString stringWithFormat:@"%@, %@, %@, Украина", bank.bankStreet, bank.bankCity, bank.bankRegion];
             [self.adresses addObject:adress];
+            [self.bankNames addObject:bank.bankName];
+            
         }
         self.checkedIndex = indexPath.row;
         [self performSegueWithIdentifier:@"showMapView" sender:self];
@@ -168,9 +171,14 @@
 {
     if ([[segue identifier] isEqualToString:@"showMapView"])
     {
-        [[segue destinationViewController] adressesToDisplay:self.adresses centerOn:[self.adresses objectAtIndex:self.checkedIndex]];
+        [[segue destinationViewController] adressesToDisplay:self.adresses withNames:self.bankNames centerOn:[self.adresses objectAtIndex:self.checkedIndex]];
         self.checkedIndex = 0;
     }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    view.tintColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
 }
 
 #pragma mark - search bar delegate
@@ -207,7 +215,6 @@
                                              }];
         [self.searchOperation addOperation:blockOperation];
     }
-    
 }
 
 @end
