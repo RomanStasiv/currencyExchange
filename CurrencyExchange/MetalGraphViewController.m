@@ -41,7 +41,15 @@
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
     self.drawer.avarageCurrencyObjectsArray = self.metalPricesArray;
     [self.drawer setNeedsDisplay];
+    NSInteger lastIndex = [self.metalPricesArray count];
+    [self selfUpdate: [UIColor yellowColor]  :[UIColor grayColor] :[UIColor clearColor]  :[UIColor clearColor]];
+    [self.drawer setNeedsDisplay];
     
+    NSNumber *tmp = [[self.metalPricesArray objectAtIndex:lastIndex-1]USDask];
+    self.goldPrices.text = [self.formatter stringFromNumber:tmp];
+    NSNumber*tmpEuro = [[self.metalPricesArray objectAtIndex:lastIndex-1]EURask];
+    self.silverPrices.text = [self.formatter stringFromNumber:tmpEuro];
+
     
     self.formatter = [[NSNumberFormatter alloc] init];
     
