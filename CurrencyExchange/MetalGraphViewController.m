@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UIColor *EURsilverColor;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *stateOfsegmentedController;
 @property (strong, nonatomic) Fetcher* fetcher;
+@property (strong, nonatomic) NSNumberFormatter* formatter;
 
 @end
 
@@ -41,6 +42,12 @@
     self.drawer.avarageCurrencyObjectsArray = self.metalPricesArray;
     [self.drawer setNeedsDisplay];
     
+    
+    self.formatter = [[NSNumberFormatter alloc] init];
+    
+    [self.formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [self.formatter setMaximumFractionDigits:2];
+
     self.drawer.backgroundColor = [UIColor clearColor];
 }
 
@@ -53,7 +60,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [self prepareGraphView];
-    [self selfUpdate: [UIColor blackColor]  :[UIColor darkGrayColor] :[UIColor clearColor]  :[UIColor clearColor]];
+    [self selfUpdate: [UIColor yellowColor]  :[UIColor grayColor] :[UIColor clearColor]  :[UIColor clearColor]];
     [self.drawer setNeedsDisplay];
     
 }
@@ -93,4 +100,28 @@
 }
 */
 
+- (IBAction)segmentedControllerSelected:(UISegmentedControl *)sender
+{
+    NSInteger lastIndex = [self.metalPricesArray count];
+    if(sender.selectedSegmentIndex == 0)
+    {
+        [self selfUpdate: [UIColor yellowColor]  :[UIColor grayColor] :[UIColor clearColor]  :[UIColor clearColor]];
+        [self.drawer setNeedsDisplay];
+
+        NSNumber *tmp = [[self.metalPricesArray objectAtIndex:lastIndex-1]USDask];
+        self.goldPrices.text = [self.formatter stringFromNumber:tmp];
+        NSNumber*tmpEuro = [[self.metalPricesArray objectAtIndex:lastIndex-1]EURask];
+        self.silverPrices.text = [self.formatter stringFromNumber:tmpEuro];
+    }
+    else if(sender.selectedSegmentIndex == 1)
+    {
+        [self selfUpdate: [UIColor clearColor]  :[UIColor clearColor] :[UIColor yellowColor]  :[UIColor grayColor]];
+        [self.drawer setNeedsDisplay];
+
+        NSNumber *tmp = [[self.metalPricesArray objectAtIndex:lastIndex-1]USDbid];
+        self.goldPrices.text = [self.formatter stringFromNumber:tmp];
+        NSNumber*tmpEuro = [[self.metalPricesArray objectAtIndex:lastIndex-1]EURbid];
+        self.silverPrices.text = [self.formatter stringFromNumber:tmpEuro];
+    }
+}
 @end

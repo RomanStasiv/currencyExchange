@@ -67,6 +67,10 @@
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
                                                    repeats: YES];
+//        dispatch_queue_t queueJsonMetal = dispatch_queue_create("Metal", DISPATCH_QUEUE_CONCURRENT);
+//        dispatch_async(queueJsonMetal, ^{
+//            [tester movementThroughUrls];
+//        });
     
     NSInteger lastIndex = [self.avarageCurrencyObjectsArray count];
     self.formatter = [[NSNumberFormatter alloc] init];

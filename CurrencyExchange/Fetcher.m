@@ -367,8 +367,6 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
 
 - (NSArray* ) arrayOfMetalForDrawing
 {
-    MetalJSONParse * tmp = [[MetalJSONParse alloc]init];
-    [tmp movementThroughUrls];
     NSArray* sortedArray = [self sortedPrices:YES];
     NSMutableArray * arrayofMetal = [[NSMutableArray alloc]init];
     NSInteger count = 0;
@@ -386,7 +384,7 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
     NSInteger length = [sortedArray count];
     for(int j = 0; j<length; )
     {
-        StructuredMetalData* tmp = [[StructuredMetalData alloc]init];
+        AverageCurrency* tmp = [[AverageCurrency alloc]init];
 
         for(int i = 0; i<2; i++)
         {
@@ -394,16 +392,16 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
             {
                 tmp.date = [[sortedArray objectAtIndex:j] date];
                  NSLog(@"Metal:%@, Date:%@, ",gold, [monhtFormater stringFromDate:[[sortedArray objectAtIndex:j] date]]);
-                tmp.goldUsdPrice = [f numberFromString:[[sortedArray objectAtIndex:j]usdPrice]];
-                tmp.goldEuroPrice = [f numberFromString:[[sortedArray objectAtIndex:j]eurPrice]];
+                tmp.USDbid = [f numberFromString:[[sortedArray objectAtIndex:j]usdPrice]];
+                tmp.USDask = [f numberFromString:[[sortedArray objectAtIndex:j]eurPrice]];
                 count++;
                 j++;
             }
             else if([[[[sortedArray objectAtIndex:j] metal]name]isEqualToString:silver])
             {
                 NSLog(@"Metal:%@, Date:%@, ",silver, [monhtFormater stringFromDate:[[sortedArray objectAtIndex:j] date]]);
-                tmp.silverUsdPrice = [f numberFromString:[[sortedArray objectAtIndex:j]usdPrice]];
-                tmp.silverEuroPrice = [f numberFromString:[[sortedArray objectAtIndex:j]eurPrice]];
+                tmp.EURbid = [f numberFromString:[[sortedArray objectAtIndex:j]usdPrice]];
+                tmp.EURask = [f numberFromString:[[sortedArray objectAtIndex:j]eurPrice]];
                 count++;
                 j++;
             }

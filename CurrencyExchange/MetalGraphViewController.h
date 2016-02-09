@@ -10,7 +10,6 @@
 
 @interface MetalGraphViewController : UIViewController
 
-
-
+- (IBAction)segmentedControllerSelected:(UISegmentedControl *)sender;
 
 @end

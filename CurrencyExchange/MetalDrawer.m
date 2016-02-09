@@ -9,6 +9,7 @@
 #import "MetalDrawer.h"
 
 @implementation MetalDrawer
+
 - (void)drawAxis
 {
     double lightAxisInset = 5;
@@ -50,7 +51,7 @@
     UIGraphicsEndImageContext();
 }
 
-- (void)drawYAxisFromPointA:(CGPoint)a ToPointB:(CGPoint)b WithWidth:(CGFloat)width Color:(UIColor *)color Dashed:(BOOL)dashed
+- (void)drawYAxisFromPointA:(CGPoint)a ToPointB:(CGPoint)b WithWidth:(CGFloat)width Color:(UIColor *)color Dashed:(BOOL)dashed Name:(NSString*)name
 {
     [self drawLineFromPointA:a toPointB:b WithWidth:width Color:color Dashed:YES];
     
@@ -96,7 +97,7 @@
     [self addSubview:xAxisLabel];
     
     //yAxisLabel
-    CGSize yAxisFrameSize = [@"UAN" sizeWithAttributes:
+    CGSize yAxisFrameSize = [@"USD" sizeWithAttributes:
                              @{NSFontAttributeName:
                                    [UIFont systemFontOfSize:10.0f]}];
     
@@ -107,7 +108,7 @@
     UILabel *yAxisLabel = [[UILabel alloc] initWithFrame:yAxisFrame];
     yAxisLabel.font = [UIFont systemFontOfSize:9];
     yAxisLabel.textColor = [UIColor blackColor];
-    yAxisLabel.text = @"UAN";
+    yAxisLabel.text = @"USD";
     [self addSubview:yAxisLabel];
     
     //day&monthInfoLabels
@@ -139,5 +140,86 @@
     monthInfoLabel.text = @"month";
     [self addSubview:monthInfoLabel];
 }
+
+- (void)drawDivisionsOnYAxe
+{
+    CGSize size0000 = [@"00.00" sizeWithAttributes:
+                       @{NSFontAttributeName:
+                             [UIFont systemFontOfSize:11.0f]}];
+    double margin = 3;
+    
+    NSInteger maximumPosibleYDivisionsCount = (self.insetFrame.size.height - self.topAndRightMargin) / (size0000.height + margin);
+    
+    NSMutableArray *valueArray = [NSMutableArray array];
+    
+    CGFloat value = self.minYvalue;
+    CGFloat distance = (self.maxYvalue - self.minYvalue) / (self.segmentHeightCount - 1);
+    for (int i = 0; i < self.segmentHeightCount; i++)
+    {
+        [valueArray addObject:[NSNumber numberWithFloat:value]];
+        value += distance;
+    }
+    
+    NSArray *shrinkedValueArray = [self getShrinkedArrayFromArray:valueArray ToCount:maximumPosibleYDivisionsCount];
+    
+    double heightDifference = (self.insetFrame.size.height - self.topAndRightMargin) - ((size0000.height + margin) * (shrinkedValueArray.count));
+    if (heightDifference > 0)
+    {
+        double differencePerMargin = heightDifference / (shrinkedValueArray.count);
+        margin = margin + differencePerMargin;
+    }
+    
+    for (int i = 0; i < shrinkedValueArray.count; i++)
+    {
+        CGRect frame = CGRectMake(0,
+                                  self.insetFrame.size.height - size0000.height - ((size0000.height + margin)* i),
+                                  size0000.width,
+                                  size0000.height);
+        
+        UILabel *valueLabel = [[UILabel alloc] initWithFrame:frame];
+        valueLabel.font = [UIFont systemFontOfSize:7];
+        valueLabel.text = [NSString stringWithFormat:@"%.02f",[[shrinkedValueArray objectAtIndex:i] floatValue]];
+        valueLabel.backgroundColor = [UIColor colorWithRed:0.07 green:0.06 blue:0.07 alpha:0.15];
+        [self addSubview:valueLabel];
+    }
+}
+- (NSArray *)getShrinkedArrayFromArray:(NSArray *)array ToCount:(NSInteger)desiredCount
+{
+    NSMutableArray *resultArray = [[NSMutableArray alloc] initWithArray:array];
+    
+    if (resultArray.count < desiredCount)
+    {
+        return resultArray;
+    }
+    else
+    {
+        NSInteger differance = resultArray.count - desiredCount;
+        if (differance > resultArray.count/2)
+        {
+            for (int i = 1; i < resultArray.count - 1; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    [resultArray removeObjectAtIndex:i];
+                }
+            }
+        }
+        else
+        {
+            for (int i = 1; i < resultArray.count - 1; i++)
+            {
+                if (i % 3 != 0)
+                {
+                    [resultArray removeObjectAtIndex:i];
+                }
+            }
+        }
+    }
+    return [self getShrinkedArrayFromArray:resultArray ToCount:desiredCount];;
+}
+
+
+
+
 
 @end
