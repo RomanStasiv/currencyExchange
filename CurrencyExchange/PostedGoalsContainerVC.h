@@ -1,5 +1,5 @@
 //
-//  ShowImageViewController.h
+//  PostedGoalsContainerVC.h
 //  CurrencyExchange
 //
 //  Created by alex4eetah on 2/8/16.
@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProtocolHeader.h"
 
-@interface ShowImageViewController : UIViewController
+@interface PostedGoalsContainerVC : UIViewController <PostedImageVCDelegate>
 
 
-@property (strong, nonatomic) NSURL *imageUrl;
 
 @end
