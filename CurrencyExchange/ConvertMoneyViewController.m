@@ -36,6 +36,14 @@
     self.currencyTag = 1000;
 }
 
+- (BOOL) TextIsNumeric:(NSString *)text
+{
+    BOOL result = false;
+    NSString *pattern = @"^\\d+$";
+    NSPredicate *test = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+    result = [test evaluateWithObject:text];
+    return result;
+}
 
 - (IBAction)currencyDidChanged:(UIButton *)sender
 {
