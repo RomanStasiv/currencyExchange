@@ -109,6 +109,7 @@
                     withGeocoder:(CLGeocoder *) geocoder
 {
     __block NSNumber *index = indexTemp;
+    __weak __block MapViewController * weakSelf = self;
     [geocoder geocodeAddressString:[adresses objectAtIndex:[index integerValue]]
                  completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error)
      {
@@ -120,7 +121,7 @@
                  point.coordinate = placemark.location.coordinate;
                  point.title = [adresses objectAtIndex:[index integerValue]];
                  
-                 [self.mapView addAnnotation:point];
+                 [weakSelf.mapView addAnnotation:point];
                  
                  NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
                  [temp setValue:[adresses objectAtIndex:[index integerValue]]
@@ -132,7 +133,7 @@
                  [temp setValue:coordinates
                          forKey:@"location"];
                  
-                 [self.locations addObject:temp];
+                 [weakSelf.locations addObject:temp];
                  if ([self.centralAdress isEqualToString:[adresses objectAtIndex:[index integerValue]]])
                  {
                      CLLocation * location = [[placemarks firstObject] location];
@@ -141,7 +142,7 @@
                      region.center.longitude = location.coordinate.longitude;
                      region.span.latitudeDelta = 0.2;
                      region.span.longitudeDelta = 0.2;
-                     [self.mapView setRegion:region animated: YES];
+                     [weakSelf.mapView setRegion:region animated: YES];
                  }
              }
          }
@@ -156,7 +157,7 @@
          {
              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.2 * NSEC_PER_SEC),
                             dispatch_get_main_queue(), ^{
-                 [self placePinForAdressAtIndex:index fromAdresses:adresses withGeocoder:geocoder];
+                 [weakSelf placePinForAdressAtIndex:index fromAdresses:adresses withGeocoder:geocoder];
              });
          }
          

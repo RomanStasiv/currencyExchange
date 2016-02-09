@@ -162,32 +162,39 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
         tmp.bankStreet = ((BankData *)resultArray[k]).address;
         tmp.bankCity = ((BankData *)resultArray[k]).city;
         tmp.bankRegion = ((BankData *)resultArray[k]).region ;
-       // tmp.bankAddress = [NSString stringWithFormat:@"%@, %@, %@", ((BankData *)resultArray[k]).address, ((BankData *)resultArray[k]).city, ((BankData *)resultArray[k]).region ];
+        // tmp.bankAddress = [NSString stringWithFormat:@"%@, %@, %@", ((BankData )resultArray[k]).address, ((BankData )resultArray[k]).city, ((BankData *)resultArray[k]).region ];
         //NSLog(@"%@", tmp.brankAddress);
         
         //NSLog(@"%@", tmp.bankName);
         
-        NSMutableArray *finalArray = [[NSMutableArray alloc]init];
+        NSMutableArray *arrayOfBranch = [[NSMutableArray alloc]init];
         
-        NSMutableDictionary* branchs = [[NSMutableDictionary alloc]init];
         for (BranchData *branch in resultBranchArray)
         {
+            
             if(tmp.bankName == branch.bank.name)
             {
-                NSString* name = [NSString stringWithString:branch.name];
-                //NSString* address = [NSString stringWithFormat:@"%@, %@, %@", branch.address, branch.city, branch.region ];
+                ReportDataForTable* branchs = [[ReportDataForTable alloc]init];
                 
+                //NSString* name = [NSString stringWithString:branch.name];
+                //NSString* address = [NSString stringWithFormat:@"%@, %@, %@", branch.address, branch.city, branch.region ];
                 // NSLog(@"%@", name);
-                [branchs setObject:name forKey:@"name"];
-                [branchs setObject:branch.address forKey:@"address"];
-                [branchs setObject:branch.city forKey:@"city"];
-                [branchs setObject:branch.region forKey:@"region"];
+                branchs.bankName = branch.name;
+                branchs.bankStreet = branch.address;
+                branchs.bankRegion = branch.region;
+                branchs.bankCity = branch.city;
+                branchs.branchs = nil;
+                //                [branchs setObject:name forKey:@"name"];
+                //                [branchs setObject:branch.address forKey:@"address"];
+                //                [branchs setObject:branch.city forKey:@"city"];
+                //                [branchs setObject:branch.region forKey:@"region"];
+                [arrayOfBranch addObject:branchs];
             }
-           
+            
         }
         //NSLog(@"%lu", (unsigned long)[branchs count]);
-        [finalArray addObject:branchs];
-        tmp.branchs = finalArray;
+        
+        tmp.branchs = arrayOfBranch;
         
         NSArray* currency = [[self sortedCurrency]sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]]];;
         for(int  i = 0; i < [resultArray count]; i++)
