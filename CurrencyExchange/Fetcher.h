@@ -15,6 +15,9 @@
 #import "BranchData.h"
 #import "ReportDataForTable.h"
 #import "MetalJSONParse.h"
+#import "Prices.h"
+#import "StructuredMetalData.h"
+#import "MetalData.h"
 
 extern NSString* const CoreDataDidSavedNotification;
 extern NSString* const CoreDataDidSavedUserInfoKey;
@@ -31,5 +34,9 @@ extern NSString* const CoreDataDidSavedUserInfoKey;
 - (NSArray*) averageCurrencyRate;
 - (NSMutableArray*) dataForTableView;
 - (NSArray*) arrayOfBankNames;
+- (NSArray*) sortedPrices:(BOOL)wayOfSorting;
+- (NSInteger) allMetalsQuantity;
+- (NSArray*) arrayOfMetalForDrawing;
+
 
 @end
