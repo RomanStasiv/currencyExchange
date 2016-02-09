@@ -57,30 +57,67 @@
 }
 - (IBAction)switchButtonPressed
 {
+    /*NSString* previousState = @"";
+    if ([self.firstCurrencyLabel.text isEqualToString:@"USD"] || [self.firstCurrencyLabel.text isEqualToString:@"EUR"])
+    {
+        if ([self.firstCurrencyLabel.text isEqualToString:@"USD"])
+        {
+            previousState = @"USD";
+        }
+        else
+        {
+            previousState = @"EUR";
+        }
+        self.firstCurrencyLabel.text = @"UAH";
+        self.secondCurrencyLabel.text = previousState;
+    }
+    else
+    {
+        self.firstCurrencyLabel.text = previousState;
+        self.secondCurrencyLabel.text = @"UAH";
+    }*/
+    NSArray* tempArray = [[NSArray alloc] initWithArray:[self.fetcherObject averageCurrencyRate]];
+    self.averageCurrencyObject = [tempArray objectAtIndex:[tempArray count] - 1];
+    self.usdCurrentAskCurrency = [self.averageCurrencyObject.USDask floatValue];
+    self.eurCurrentAskCurrency = [self.averageCurrencyObject.EURask floatValue];
+    
+   
+    
+    CGFloat result = 0;
+    if (self.currencyTag == 1000)
+    {
+        result = [self.moneyTextFieldSecond.text floatValue] / self.usdCurrentAskCurrency;
+    }
+    else
+    {
+        result = [self.moneyTextFieldSecond.text floatValue] / self.eurCurrentAskCurrency;
+        
+    }
+    
+    self.moneyTextFieldFirst.text = @"";
+    self.moneyTextFieldFirst.text = [NSString stringWithFormat:@"%f",result];
     
 }
 - (IBAction)okButtonPressed
 {
     NSArray* tempArray = [[NSArray alloc] initWithArray:[self.fetcherObject averageCurrencyRate]];
     self.averageCurrencyObject = [tempArray objectAtIndex:[tempArray count] - 1];
-    self.usdCurrentAskCurrency = [self.averageCurrencyObject.USDask integerValue];
-    self.eurCurrentAskCurrency = [self.averageCurrencyObject.EURask integerValue];
+    self.usdCurrentAskCurrency = [self.averageCurrencyObject.USDask floatValue];
+    self.eurCurrentAskCurrency = [self.averageCurrencyObject.EURask floatValue];
     
-    self.usdCurrentAskCurrency = (long)self.usdCurrentAskCurrency;
-    self.eurCurrentAskCurrency = (long)self.eurCurrentAskCurrency;
     
-    NSInteger result = 0;
+    CGFloat result = 0;
     if (self.currencyTag == 1000)
     {
-        result = self.usdCurrentAskCurrency * [self.moneyTextFieldFirst.text integerValue];
+        result = self.usdCurrentAskCurrency * [self.moneyTextFieldFirst.text floatValue];
     }
     else
     {
-        result = self.eurCurrentAskCurrency * [self.moneyTextFieldFirst.text integerValue];
+        result = self.eurCurrentAskCurrency * [self.moneyTextFieldFirst.text floatValue];
 
     }
-    result = (long)result;
-    self.moneyTextFieldSecond.text = [NSString stringWithFormat:@"%ld",result];
+
+    self.moneyTextFieldSecond.text = [NSString stringWithFormat:@"%f",result];
     //NSLog(@"USD = %ld; EUR = %ld", self.usdCurrentAskCurrency, self.eurCurrentAskCurrency);
 }
 
