@@ -1,4 +1,4 @@
-//
+    //
 //  PostedGoalsContainerVC.m
 //  CurrencyExchange
 //
@@ -12,6 +12,7 @@
 
 #import "VKServerManager.h"
 #import "VKUser.h"
+#import "VKFriend.h"
 
 
 
@@ -68,6 +69,7 @@
 - (void)setCurrentUserToPostedGoalsCVC
 {
     //dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    self.postedGoalsCVC.postPresentationMode = userContentMode;
     
     VKServerManager *manager = [VKServerManager sharedManager];
     [manager authorizeUser:^(VKUser *user)
@@ -85,12 +87,64 @@
     //dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 }
 
+- (void)setCurrentUserFriendsToPostedGoalsCVC
+{
+    self.postedGoalsCVC.postPresentationMode = FriendsContentMode;
+    
+    VKServerManager *manager = [VKServerManager sharedManager];
+    NSArray *friends = manager.currentUser.friendsArray;
+    
+   /* for (int i = 0; i < friends.count; i++)
+    {*/
+    for (int i = 0; i < friends.count; i++)
+    {
+        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+            
+            NSString *frienfID = ((VKFriend *)[friends objectAtIndex:i]).userId;
+            
+            [manager getUser:frienfID onSuccess:^(VKUser *user)
+             {
+                 if (!self.postedGoalsCVC.friendsArray)
+                     self.postedGoalsCVC.friendsArray = [NSMutableArray array];
+                 [self.postedGoalsCVC.friendsArray addObject:user];
+                 [self.postedGoalsCVC.collectionView reloadData];
+                 
+                 dispatch_semaphore_signal(semaphore);
+             }
+                   onFailure:^(NSError *error, NSInteger statusCode)
+             {
+                 
+             }];
+            
+        while (dispatch_semaphore_wait(semaphore, DISPATCH_TIME_NOW))
+        {
+            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
+        }
+        //;
+        
+        
+       //
+    }
+    
+}
 
 #pragma mark - PostedImageVCDelegate
 
-- (void)postImagePresentationModeDidChanged
+- (void)changePostModePresentationTo:(PostPresentationContentMode)mode
 {
-    
+    switch (mode)
+    {
+        case userContentMode:
+            [self setCurrentUserToPostedGoalsCVC];
+            break;
+            
+        case FriendsContentMode:
+            [self setCurrentUserFriendsToPostedGoalsCVC];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - navigation
@@ -103,6 +157,20 @@
     else if ([segue.identifier isEqualToString:@"PresentModeSegue"])
     {
         self.presentationModeVC = (PostedModeViewController *)segue.destinationViewController;
+        self.presentationModeVC.modeDelegate = self;
+    }
+}
+
+
+void runOnMainQueueWithoutDeadlocking(void (^block)(void))
+{
+    if ([NSThread isMainThread])
+    {
+        block();
+    }
+    else
+    {
+        dispatch_sync(dispatch_get_main_queue(), block);
     }
 }
 @end

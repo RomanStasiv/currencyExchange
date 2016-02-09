@@ -9,12 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "ProtocolHeader.h"
 
-typedef enum postPresentationTypes
-{
-    userContentMode,
-    FriendsContentMode
-}PostPresentationContentMode;
-
 @interface PostedGoalsContainerVC : UIViewController <PostedImageVCDelegate>
 
 
