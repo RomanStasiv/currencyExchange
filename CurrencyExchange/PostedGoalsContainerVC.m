@@ -5,6 +5,7 @@
 //  Created by alex4eetah on 2/8/16.
 //  Copyright © 2016 Roman Stasiv. All rights reserved.
 //
+#import "CustomNavigationController.h"
 
 #import "PostedGoalsContainerVC.h"
 #import "PostedGoalsCollectionViewController.h"
@@ -62,9 +63,31 @@
     }
     else
     {
-        self.PGModeVCWidthConstraint.constant = 100;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        {
+            NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
+            [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+            [self animateChangingOfConstraint:self.PGModeVCWidthConstraint
+                                      ToValue:self.view.frame.size.width / 3];
+        }
+        else
+        {
+            [self animateChangingOfConstraint:self.PGModeVCWidthConstraint
+                                      ToValue:self.view.frame.size.width / 4];
+        }
         isOpened = YES;
     }
+}
+
+- (void)animateChangingOfConstraint:(NSLayoutConstraint *)constraint ToValue:(CGFloat)value
+{
+    constraint.constant = value;
+    [self.view setNeedsUpdateConstraints];
+    
+    [UIView animateWithDuration:0.8f animations:^
+     {
+         [self.view layoutIfNeeded];
+     }];
 }
 
 - (void)setCurrentUserToPostedGoalsCVC
@@ -76,6 +99,7 @@
     [manager authorizeUser:^(VKUser *user)
      {
          self.postedGoalsCVC.currentUser = user;
+         self.navigationItem.title = [NSString stringWithFormat:@"%@s goals",user.firstName];
          [self.postedGoalsCVC.collectionView reloadData];
          //[self.navigationController popViewControllerAnimated:YES];
          /*[self.postedGoalsCVC.collectionView performBatchUpdates:^
@@ -106,6 +130,7 @@
             [manager getUser:frienfID onSuccess:^(VKUser *user)
              {
                  [self.postedGoalsCVC.friendsArray addObject:user];
+                 self.navigationItem.title = [NSString stringWithFormat:@"friends goals"];
                  [self.postedGoalsCVC.collectionView reloadData];
                  
                  dispatch_semaphore_signal(semaphore);
@@ -130,10 +155,12 @@
     {
         case userContentMode:
             [self setCurrentUserToPostedGoalsCVC];
+            [self moveModesPanel];
             break;
             
         case FriendsContentMode:
             [self setCurrentUserFriendsToPostedGoalsCVC];
+            [self moveModesPanel];
             break;
             
         default:
@@ -155,16 +182,4 @@
     }
 }
 
-
-void runOnMainQueueWithoutDeadlocking(void (^block)(void))
-{
-    if ([NSThread isMainThread])
-    {
-        block();
-    }
-    else
-    {
-        dispatch_sync(dispatch_get_main_queue(), block);
-    }
-}
 @end

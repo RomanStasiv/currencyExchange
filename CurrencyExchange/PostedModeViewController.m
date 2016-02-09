@@ -9,6 +9,18 @@
 #import "PostedModeViewController.h"
 
 @implementation PostedModeViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
+    self.view.layer.cornerRadius = 10;
+    
+    // border
+    [self.view.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+    [self.view.layer setBorderWidth:0.5f];
+}
+
 - (IBAction)modeDidChanged:(UIButton *)sender
 {
     switch (sender.tag)
