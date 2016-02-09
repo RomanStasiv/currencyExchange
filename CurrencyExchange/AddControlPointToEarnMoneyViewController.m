@@ -111,7 +111,6 @@
         self.pan.enabled = NO;
         self.hintLabel.textColor = [UIColor darkTextColor];
         self.hintLabel.adjustsFontSizeToFitWidth = YES;
-#warning WHATA ?
         self.hintLabel.numberOfLines = 0;
         self.hintLabel.textAlignment = NSTextAlignmentLeft;
         self.hintLabel.text = self.hint;
@@ -172,10 +171,11 @@
 {
     if (self.moneyTextField.text)
     {
-        if ([self TextIsNumeric:self.moneyTextField.text] && self.date && self.currency)
+        if ([self TextIsNumeric:self.moneyTextField.text] && self.date && ![self.currency isEqualToString:@""])
         {
             self.amountOfMoney = [self.moneyTextField.text floatValue];
             [self.owner addControlPointWithAmountOfMoney:self.amountOfMoney Currency:self.currency ForDate:self.date];
+            [self clearDataAfterSave];
         }
         else
         {
@@ -196,12 +196,22 @@
             {
                 [self.dateExchangePicker.layer addAnimation:anim forKey:nil];
             }
-            else if (!self.currency)
+            else if ([self.currency isEqualToString:@""])
             {
                 [self.currencyControl.layer addAnimation:anim forKey:nil];
             }
         }
     }
+}
+
+- (void)clearDataAfterSave
+{
+    self.currency = @"dolars";
+    self.amountOfMoney = 0;
+    self.moneyTextField.text = nil;
+    self.currencyControl.selectedSegmentIndex = 0;
+    self.date = nil;
+    [self.dateExchangePicker selectRow:0 inComponent:0 animated:YES];
 }
 
 - (void)showMessageWith:(NSString *)message

@@ -109,6 +109,12 @@ static BOOL isAddCPVCOpened = NO;
     [self resizerTimeSliderLogic];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self resizerTimeSliderLogic];
+}
+
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     [self resizerTimeSliderLogic];
@@ -190,7 +196,7 @@ static BOOL isAddCPVCOpened = NO;
 - (NSArray *)shiftAvarageCurrencyArrayToTimeSliderValue:(CGFloat)value
 {
     [self updateAverageCurrencyObjectsArray];
-    NSUInteger newLen = self.avarageCurrencyObjectsArray.count * value;
+    NSUInteger newLen = ceil(self.avarageCurrencyObjectsArray.count * value);
     NSUInteger startIndex = self.avarageCurrencyObjectsArray.count - newLen;
     NSArray *resultArray = [self.avarageCurrencyObjectsArray subarrayWithRange:NSMakeRange(startIndex, newLen)];
     return resultArray;
