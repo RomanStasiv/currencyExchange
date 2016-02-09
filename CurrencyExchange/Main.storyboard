@@ -222,7 +222,11 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="B2i-vm-Gh3">
-                        <barButtonItem key="rightBarButtonItem" title="Metal" id="9oB-ew-Lhn"/>
+                        <barButtonItem key="rightBarButtonItem" title="Metal" id="9oB-ew-Lhn">
+                            <connections>
+                                <segue destination="FNA-HI-UPW" kind="show" id="kwk-qJ-wQj"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="EUROlabel" destination="U0i-NE-80q" id="DPz-47-l0T"/>
@@ -234,7 +238,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1295" y="463"/>
+            <point key="canvasLocation" x="1307" y="468"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="BVW-eU-vD5">
