@@ -5,7 +5,7 @@
 //  Created by Roman Stasiv on 1/26/16.
 //  Copyright © 2016 Roman Stasiv. All rights reserved.
 //
-
+#import "CustomNavigationController.h"
 #import "MainScreenViewController.h"
 #import "JSONParseCoreDataSave.h"
 #import "TestCoreData.h"
@@ -45,6 +45,7 @@
         self.avarageCurrencyObjectsArray = [NSMutableArray array];
        [self prepareGraphView];
     [self selfUpdate: [UIColor blackColor]  :[UIColor darkGrayColor] :[UIColor clearColor]  :[UIColor clearColor]];
+    ((CustomNavigationController *)self.navigationController).canBeInLandscape = YES;
 
     self.workObject = [[JSONParseCoreDataSave alloc] init];
     //TestCoreData* testObject = [[TestCoreData alloc] init];
