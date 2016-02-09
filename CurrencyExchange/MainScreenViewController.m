@@ -13,28 +13,21 @@
 #import "Fetcher.h"
 #import "MetalJSONParse.h"
 
-
 @interface MainScreenViewController ()
 
 @property (weak, nonatomic) IBOutlet MainScreenDrawer *drawer;
-
 @property (strong, nonatomic) Fetcher* fetching;
 @property (strong, nonatomic) JSONParseCoreDataSave * workObject;
 @property (strong, nonatomic) NSNumberFormatter* formatter;
-
 @property (nonatomic, strong) NSMutableArray *avarageCurrencyObjectsArray;
 @property (nonatomic, strong) UIColor *USDBidColor;
 @property (nonatomic, strong) UIColor *USDAskColor;
 @property (nonatomic, strong) UIColor *EURBidColor;
 @property (nonatomic, strong) UIColor *EURAskColor;
 
-
 @end
 
 @implementation MainScreenViewController
-
-
-
 
 - (void)viewDidLoad
 {
@@ -44,17 +37,16 @@
 
     
     self.fetching = [[Fetcher alloc] init];
-    
     if (!self.avarageCurrencyObjectsArray)
         self.avarageCurrencyObjectsArray = [NSMutableArray array];
-       [self prepareGraphView];
+    [self prepareGraphView];
     [self selfUpdate: [UIColor blackColor]  :[UIColor darkGrayColor] :[UIColor clearColor]  :[UIColor clearColor]];
     ((CustomNavigationController *)self.navigationController).canBeInLandscape = YES;
 
     self.workObject = [[JSONParseCoreDataSave alloc] init];
     //TestCoreData* testObject = [[TestCoreData alloc] init];
     MetalJSONParse* tester = [[MetalJSONParse alloc]init];
-    [self.fetching arrayOfMetalForDrawing];
+    //[self.fetching arrayOfMetalForDrawing];
     self.EUROlabel.textColor = [UIColor darkGrayColor];
     //[self.workObject deleteAllObjectsFromCoreData];
     [self.workObject JSONParse];
@@ -72,9 +64,17 @@
                                                   userInfo: nil
                     
                                                    repeats: YES];
-
-
-  
+//        dispatch_queue_t queueJsonMetal = dispatch_queue_create("Metal", DISPATCH_QUEUE_CONCURRENT);
+//        dispatch_async(queueJsonMetal, ^{
+//            [tester movementThroughUrls];
+//        });
+    
+    NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+    
+    [nc addObserver:self
+           selector:@selector(updatedCoreDataShouldBeRedrawn:)
+               name:CoreDataDidSavedNotification
+             object:nil];
     
     
     
@@ -94,9 +94,12 @@
     self.switchState.onTintColor = [UIColor orangeColor];
 }
 
+
+
 - (void)redrawGraphView
 {
     [self prepareGraphView];
+    [self.drawer setNeedsDisplay];
     [self.drawer setNeedsDisplay];
 }
 
@@ -131,36 +134,29 @@
 
 - (void)updateAverageCurrencyObjectsArray
 {
-   [self.avarageCurrencyObjectsArray removeAllObjects];
-   self.avarageCurrencyObjectsArray = [[self.fetching averageCurrencyRate]mutableCopy] ;
-   self.drawer.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
-}
-
+    [self.avarageCurrencyObjectsArray removeAllObjects];
+    self.avarageCurrencyObjectsArray = [[self.fetching averageCurrencyRate]mutableCopy];
+    NSMutableArray* array = [[NSMutableArray alloc]init];
+       if(self.avarageCurrencyObjectsArray.count > 35)
+    {
+                NSInteger difference = self.avarageCurrencyObjectsArray.count - 15;
+        for(NSInteger i = difference; i < self.avarageCurrencyObjectsArray.count; i++)
+            {
+                [array addObject:[self.avarageCurrencyObjectsArray objectAtIndex:i]];
+            }
+        
+        }
+            
+            self.drawer.avarageCurrencyObjectsArray = array;
+    [self.drawer setNeedsDisplay];
+ }
+            
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated
     
 }
-#pragma mark - Notifications
-
-- (id)init
-{
-    self = [super init];
-    if (self)
-    {
-        
-        NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
-        
-        [nc addObserver:self
-               selector:@selector(averageCurrencyRate)
-                   name:JSONParseDidUpdatesCoreDataNotification
-                 object:nil];
-        
-    }
-    return self;
-}
-
 
 - (void) dealloc
 {
@@ -196,6 +192,17 @@
         self.EUROlabel.text = [self.formatter stringFromNumber:tmpEuro];
         self.stateOfSwitchLabel.text = @"BID";
     }
+    
+}
+
+
+#pragma mark - Notifications
+
+-(void) updatedCoreDataShouldBeRedrawn:(NSNotification*) notification
+{
+    self.avarageCurrencyObjectsArray = [notification.userInfo objectForKey:CoreDataDidSavedUserInfoKey];
+    self.drawer.contentMode = UIViewContentModeRedraw;
+    [self.drawer setNeedsDisplay];
     
 }
 
