@@ -250,7 +250,7 @@
         <!--London Metal Exchange Current Data -->
         <scene sceneID="Pkm-Ay-Ef2">
             <objects>
-                <viewController id="APk-MW-IH7" sceneMemberID="viewController">
+                <viewController id="APk-MW-IH7" customClass="MetalGraphViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pyt-25-q6f"/>
                         <viewControllerLayoutGuide type="bottom" id="7MK-RX-F0f"/>
@@ -260,75 +260,77 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gold-ingots" translatesAutoresizingMaskIntoConstraints="NO" id="rYv-I7-GAQ">
-                                <rect key="frame" x="20" y="117" width="127" height="85"/>
+                                <rect key="frame" x="20" y="106" width="127" height="85"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="127" id="bDm-if-zII"/>
                                     <constraint firstAttribute="height" constant="85" id="qZm-yS-VYg"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="silver" translatesAutoresizingMaskIntoConstraints="NO" id="Bnh-5C-xNx">
-                                <rect key="frame" x="453" y="116" width="127" height="85"/>
+                                <rect key="frame" x="453" y="106" width="127" height="85"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="127" id="NXP-F3-U4n"/>
                                     <constraint firstAttribute="height" constant="85" id="Sbl-8o-BR6"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9sd-JX-buq">
-                                <rect key="frame" x="20" y="77" width="127" height="32"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJU-b2-8Nr">
+                                <rect key="frame" x="453" y="77" width="127" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="130" id="UcV-6U-uUk"/>
+                                    <constraint firstAttribute="width" constant="127" id="Dpn-78-0Dq"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJU-b2-8Nr">
-                                <rect key="frame" x="453" y="77" width="127" height="31"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="130" id="Dpn-78-0Dq"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sv5-UK-Ru0">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sv5-UK-Ru0" customClass="MetalDrawer">
                                 <rect key="frame" x="20" y="204" width="569" height="389"/>
                                 <color key="backgroundColor" red="0.9916992188" green="0.77115028779999995" blue="0.99313836349999995" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <segmentedControl contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="EZV-g7-InJ">
-                                <rect key="frame" x="240" y="132" width="87" height="29"/>
+                            <segmentedControl contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="EZV-g7-InJ">
+                                <rect key="frame" x="240" y="120" width="87" height="41"/>
                                 <segments>
                                     <segment title="" image="euro_sign"/>
                                     <segment title="" image="dollar_sign"/>
                                 </segments>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9sd-JX-buq">
+                                <rect key="frame" x="20" y="77" width="127" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="127" id="UcV-6U-uUk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Bnh-5C-xNx" secondAttribute="trailing" constant="20" id="2bW-mE-eXP"/>
+                            <constraint firstItem="EZV-g7-InJ" firstAttribute="leading" secondItem="rYv-I7-GAQ" secondAttribute="trailing" constant="93" id="4ls-P7-P1M"/>
                             <constraint firstAttribute="trailing" secondItem="sv5-UK-Ru0" secondAttribute="trailing" constant="11" id="6S2-Tq-QC4"/>
-                            <constraint firstItem="9sd-JX-buq" firstAttribute="top" secondItem="pyt-25-q6f" secondAttribute="bottom" constant="24" id="73W-Xe-uEs"/>
+                            <constraint firstItem="9sd-JX-buq" firstAttribute="top" secondItem="pyt-25-q6f" secondAttribute="bottom" constant="13" id="73W-Xe-uEs"/>
                             <constraint firstAttribute="trailing" secondItem="DJU-b2-8Nr" secondAttribute="trailing" constant="20" id="7ne-aw-hqE"/>
                             <constraint firstItem="sv5-UK-Ru0" firstAttribute="top" secondItem="pyt-25-q6f" secondAttribute="bottom" constant="140" id="JMm-BH-h2M"/>
                             <constraint firstItem="7MK-RX-F0f" firstAttribute="top" secondItem="sv5-UK-Ru0" secondAttribute="bottom" constant="7" id="LUh-0Y-UT3"/>
                             <constraint firstItem="sv5-UK-Ru0" firstAttribute="leading" secondItem="cjw-fK-rSy" secondAttribute="leadingMargin" id="OcE-br-i1B"/>
-                            <constraint firstItem="DJU-b2-8Nr" firstAttribute="top" secondItem="pyt-25-q6f" secondAttribute="bottom" constant="23" id="Q78-zL-sBb"/>
+                            <constraint firstItem="DJU-b2-8Nr" firstAttribute="top" secondItem="pyt-25-q6f" secondAttribute="bottom" constant="13" id="Q78-zL-sBb"/>
                             <constraint firstItem="Bnh-5C-xNx" firstAttribute="top" secondItem="DJU-b2-8Nr" secondAttribute="bottom" constant="8" id="dCb-fJ-3tp"/>
+                            <constraint firstItem="sv5-UK-Ru0" firstAttribute="top" secondItem="EZV-g7-InJ" secondAttribute="bottom" constant="44" id="gLa-z0-h9P"/>
                             <constraint firstItem="rYv-I7-GAQ" firstAttribute="leading" secondItem="cjw-fK-rSy" secondAttribute="leadingMargin" id="k5R-W8-xgj"/>
-                            <constraint firstItem="sv5-UK-Ru0" firstAttribute="top" secondItem="rYv-I7-GAQ" secondAttribute="bottom" constant="30" id="qx2-VK-5rb"/>
+                            <constraint firstItem="Bnh-5C-xNx" firstAttribute="leading" secondItem="EZV-g7-InJ" secondAttribute="trailing" constant="126" id="t5b-7i-wY9"/>
                             <constraint firstItem="9sd-JX-buq" firstAttribute="leading" secondItem="cjw-fK-rSy" secondAttribute="leadingMargin" id="uUk-HS-fcL"/>
                             <constraint firstItem="rYv-I7-GAQ" firstAttribute="top" secondItem="9sd-JX-buq" secondAttribute="bottom" constant="8" id="xRo-LP-ecN"/>
-                            <constraint firstItem="sv5-UK-Ru0" firstAttribute="top" secondItem="Bnh-5C-xNx" secondAttribute="bottom" constant="9" id="yac-7I-Eid"/>
+                            <constraint firstItem="EZV-g7-InJ" firstAttribute="top" secondItem="cjw-fK-rSy" secondAttribute="topMargin" constant="120" id="yM6-uR-fTg"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="qx2-VK-5rb"/>
-                                <exclude reference="yac-7I-Eid"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="London Metal Exchange Current Data " id="Omi-nU-de1"/>
+                    <connections>
+                        <outlet property="drawer" destination="sv5-UK-Ru0" id="EKM-9j-2hd"/>
+                        <outlet property="goldPrices" destination="9sd-JX-buq" id="eab-YM-3gS"/>
+                        <outlet property="silverPrices" destination="DJU-b2-8Nr" id="BbY-5X-qhX"/>
+                        <outlet property="stateOfsegmentedController" destination="EZV-g7-InJ" id="JHC-vC-N9e"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3md-Kf-f2q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
