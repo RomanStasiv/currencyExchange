@@ -226,7 +226,10 @@
                     <connections>
                         <outlet property="EUROlabel" destination="U0i-NE-80q" id="DPz-47-l0T"/>
                         <outlet property="USDlabel" destination="mhC-vb-zLW" id="keq-YZ-vBW"/>
+                        <outlet property="banksButton" destination="gyo-Ym-FEb" id="MuZ-8p-TM2"/>
+                        <outlet property="converterButton" destination="MKq-EU-DJ8" id="f2T-u7-x3Y"/>
                         <outlet property="drawer" destination="V3c-fi-Ykb" id="SD1-31-YeQ"/>
+                        <outlet property="earnOnExchangeButton" destination="6pg-NV-lel" id="qle-wC-vgz"/>
                         <outlet property="stateOfSwitchLabel" destination="asF-HV-5Vo" id="tEB-qE-XqM"/>
                         <outlet property="switchState" destination="Qgt-iA-nWc" id="mX5-jV-eNE"/>
                     </connections>
@@ -1753,7 +1756,7 @@
         <image name="euro_sign" width="256" height="256"/>
         <image name="exchange" width="192" height="46"/>
         <image name="friends_share_icon" width="512" height="512"/>
-        <image name="gold-ingots" width="1024" height="768"/>
+        <image name="gold-ingots" width="296" height="221"/>
         <image name="me_icon" width="256" height="256"/>
         <image name="move_icon" width="45" height="45"/>
         <image name="save_button" width="100" height="100"/>

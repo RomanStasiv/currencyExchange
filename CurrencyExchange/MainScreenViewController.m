@@ -24,6 +24,10 @@
 @property (nonatomic, strong) UIColor *USDAskColor;
 @property (nonatomic, strong) UIColor *EURBidColor;
 @property (nonatomic, strong) UIColor *EURAskColor;
+@property (weak, nonatomic) IBOutlet UIButton *converterButton;
+@property (weak, nonatomic) IBOutlet UIButton *earnOnExchangeButton;
+@property (weak, nonatomic) IBOutlet UIButton *banksButton;
+
 
 @end
 
@@ -34,8 +38,18 @@
     [super viewDidLoad];
     
     ((CustomNavigationController *)self.navigationController).canBeInLandscape = YES;
-
+//    self.converterButton.multipleTouchEnabled = YES;
+//    self.earnOnExchangeButton.multipleTouchEnabled = YES;
+//    self.banksButton.multipleTouchEnabled = YES;
     
+    for(UIView* v in self.view.subviews)
+    {
+        if([v isKindOfClass:[UIButton class]])
+        {
+            UIButton* btn = (UIButton*)v;
+            [btn setExclusiveTouch:YES];
+        }
+    }
     self.fetching = [[Fetcher alloc] init];
     if (!self.avarageCurrencyObjectsArray)
         self.avarageCurrencyObjectsArray = [NSMutableArray array];
