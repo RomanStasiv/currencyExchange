@@ -116,7 +116,7 @@
                                @{NSFontAttributeName:
                                      [UIFont systemFontOfSize:10.0f]}];
     
-    CGRect dayInfoFrame = CGRectMake(self.frame.origin.x + offset-20,////
+    CGRect dayInfoFrame = CGRectMake(self.frame.origin.x + offset-30,
                                      self.insetFrame.size.height + 17,
                                      dayInfoFrameSize.width,
                                      dayInfoFrameSize.height);

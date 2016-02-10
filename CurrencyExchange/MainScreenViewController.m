@@ -58,7 +58,7 @@
     
     self.drawer.backgroundColor = [UIColor clearColor];
     
-    /*self.m_Timer = [NSTimer scheduledTimerWithTimeInterval: 660.0
+    self.m_Timer = [NSTimer scheduledTimerWithTimeInterval: 660.0
                                                     target: self.workObject
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
