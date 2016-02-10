@@ -11,6 +11,7 @@
 #import "ShowImageViewController.h"
 #import "CustomCollectionViewCell.h"
 #import "CustomHeaderCRV.h"
+#import "UIImage+UIImageConcatenateCategory.h"
 
 #import "VKUser.h"
 
@@ -20,7 +21,8 @@
 {
     [super viewDidLoad];
     UICollectionViewFlowLayout *collectionViewLayout = (UICollectionViewFlowLayout*)self.collectionView.collectionViewLayout;
-    collectionViewLayout.sectionInset = UIEdgeInsetsMake(20, 0, 20, 0);
+    collectionViewLayout.sectionInset = UIEdgeInsetsMake(20, 20, 20, 20);
+    self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
 }
 
 // The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:
@@ -28,15 +30,16 @@
 {
     UICollectionReusableView *reusableview = nil;
     
-    if (kind == UICollectionElementKindSectionHeader) {
+    if (kind == UICollectionElementKindSectionHeader)
+    {
         CustomHeaderCRV *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CollectionHeader" forIndexPath:indexPath];
         
         switch (self.postPresentationMode)
         {
             case userContentMode:
-                //headerView.photoView setImageWithURL:self.
-                headerView.firstNameLabel.text = @"aaa";
-                headerView.secondNameLabel.text = @"bbb";
+                [headerView.photoView setImageWithURL:self.currentUser.imageURL];
+                headerView.firstNameLabel.text = self.currentUser.firstName;
+                headerView.secondNameLabel.text = self.currentUser.lastName;
                 break;
                 
             case FriendsContentMode:
@@ -49,7 +52,10 @@
                 break;
         }
         
-        headerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sea_texture"]];
+        headerView.backgroundColor = [UIColor colorWithPatternImage:
+                                      [UIImage imageWithImage:[UIImage imageNamed:@"sunsat_patternColor"]
+                                                  secondImage:[UIImage imageNamed:@"alpha_texture"]
+                                                 covertToSize:CGSizeMake(self.view.bounds.size.width * 1.5, self.view.bounds.size.height)]];
         
         reusableview = headerView;
     }
@@ -79,7 +85,7 @@
     switch (self.postPresentationMode)
     {
         case userContentMode:
-            return self.imagesDictionaryArray.count;
+            return self.currentUser.postedImages.count;
             break;
             
         case FriendsContentMode:
@@ -106,7 +112,7 @@
     {
         case userContentMode:
         {
-            NSDictionary *imageSet = [self.imagesDictionaryArray objectAtIndex:indexPath.row];
+            NSDictionary *imageSet = [self.currentUser.postedImages objectAtIndex:indexPath.row];
             
             NSURL *url = [NSURL URLWithString:[imageSet objectForKey:@"src_big"]];
             
@@ -135,17 +141,49 @@
 }
 
 
-/*- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ShowImageViewController * SIVC = (ShowImageViewController *)[sb instantiateViewControllerWithIdentifier:@"SIVC"];
     
-    NSDictionary *imageSet = [self.imagesDictionaryArray objectAtIndex:indexPath.row];
-    
-    NSURL *url = [NSURL URLWithString:[imageSet objectForKey:@"src_xbig"]];
-    SIVC.imageUrl = url;
+    switch (self.postPresentationMode)
+    {
+        case userContentMode:
+        {
+            NSDictionary *imageSet = [self.currentUser.postedImages objectAtIndex:indexPath.row];
+            NSURL *url;
+            
+            if ([imageSet objectForKey:@"src_xbig"])
+                url = [NSURL URLWithString:[imageSet objectForKey:@"src_xbig"]];
+            else
+                url = [NSURL URLWithString:[imageSet objectForKey:@"src_big"]];
+            
+            SIVC.imageUrl = url;
+        }
+            break;
+            
+        case FriendsContentMode:
+        {
+            NSArray *postedImagesArray = [NSArray array];
+            postedImagesArray = ((VKUser *)[self.friendsArray objectAtIndex:indexPath.section]).postedImages;
+            
+            NSDictionary *imageSet = [postedImagesArray objectAtIndex:indexPath.row];
+            NSURL *url;
+            
+            if ([imageSet objectForKey:@"src_xbig"])
+                url = [NSURL URLWithString:[imageSet objectForKey:@"src_xbig"]];
+            else
+                url = [NSURL URLWithString:[imageSet objectForKey:@"src_big"]];
+            
+            SIVC.imageUrl = url;
+        }
+            break;
+            
+        default:
+            break;
+    }
 
     [self.navigationController pushViewController:SIVC animated:YES];
-}*/
+}
 
 @end

@@ -32,6 +32,7 @@
 		6A2941A01C58CD7E00C5D207 /* MainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29419F1C58CD7E00C5D207 /* MainScreenViewController.m */; };
 		6A2989121C58AFDA006328A5 /* ConvertMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2989111C58AFDA006328A5 /* ConvertMoneyViewController.m */; };
 		6A29C59C1C5A3BB60032B74D /* GraphDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29C59B1C5A3BB60032B74D /* GraphDrawer.m */; };
+		6A6781741C6A7667002C3B4F /* UIImage+UIImageConcatenateCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6781731C6A7667002C3B4F /* UIImage+UIImageConcatenateCategory.m */; };
 		6A7E68761C653B6C003E54BC /* VKLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7E68751C653B6C003E54BC /* VKLoginViewController.m */; };
 		6A7E68791C653CB3003E54BC /* VKAccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7E68781C653CB3003E54BC /* VKAccessToken.m */; };
 		6A80BF7F1C5E22B300B57EC5 /* EarningGoalsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A80BF7E1C5E22B300B57EC5 /* EarningGoalsTableViewController.m */; };
@@ -143,6 +144,8 @@
 		6A2989111C58AFDA006328A5 /* ConvertMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvertMoneyViewController.m; sourceTree = "<group>"; };
 		6A29C59A1C5A3BB50032B74D /* GraphDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphDrawer.h; sourceTree = "<group>"; };
 		6A29C59B1C5A3BB60032B74D /* GraphDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphDrawer.m; sourceTree = "<group>"; };
+		6A6781721C6A7667002C3B4F /* UIImage+UIImageConcatenateCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+UIImageConcatenateCategory.h"; sourceTree = "<group>"; };
+		6A6781731C6A7667002C3B4F /* UIImage+UIImageConcatenateCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+UIImageConcatenateCategory.m"; sourceTree = "<group>"; };
 		6A7109781C602B0A002B49D1 /* ProtocolHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProtocolHeader.h; sourceTree = "<group>"; };
 		6A7E68741C653B6C003E54BC /* VKLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKLoginViewController.h; path = "untitled folder/VKLoginViewController.h"; sourceTree = "<group>"; };
 		6A7E68751C653B6C003E54BC /* VKLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKLoginViewController.m; path = "untitled folder/VKLoginViewController.m"; sourceTree = "<group>"; };
@@ -455,6 +458,8 @@
 			children = (
 				6A7E68731C652F3D003E54BC /* vkOAuth */,
 				6A7E68721C652F30003E54BC /* CP */,
+				6A6781721C6A7667002C3B4F /* UIImage+UIImageConcatenateCategory.h */,
+				6A6781731C6A7667002C3B4F /* UIImage+UIImageConcatenateCategory.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -754,6 +759,7 @@
 				979339E31C58D9A000A674D1 /* CurencyCourseGraph.m in Sources */,
 				6A8E90701C5BB28A0069BABC /* CDControlPoint.m in Sources */,
 				6A1A15551C5AD6F9003A3044 /* Line.m in Sources */,
+				6A6781741C6A7667002C3B4F /* UIImage+UIImageConcatenateCategory.m in Sources */,
 				6AA421E91C666E5B00F91BDB /* VKFriend.m in Sources */,
 				40C24EAA1C6A499A00FE0040 /* MetalDrawer.m in Sources */,
 				6AA421E31C666B2A00F91BDB /* UIImageView+AFNetworking.m in Sources */,

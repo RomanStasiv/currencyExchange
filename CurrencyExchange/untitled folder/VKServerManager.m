@@ -103,7 +103,8 @@
     [NSDictionary dictionaryWithObjectsAndKeys:
      userID,        @"user_ids",
      @"photo_50",   @"fields",
-     @"nom",        @"name_case", nil];
+     @"nom",        @"name_case",
+     @"en",         @"lang", nil];
     
     [self.requestOperationManager
      GET:@"users.get"
@@ -125,7 +126,7 @@
               }
                                               onFailure:^(NSError *error, NSInteger statusCode)
               {
-                  
+                  failure(nil, operation.response.statusCode);
               }];
          }
          else

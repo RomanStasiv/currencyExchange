@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "ProtocolHeader.h"
+@class VKUser;
 
 @interface PostedGoalsCollectionViewController : UICollectionViewController <UICollectionViewDelegate, UICollectionViewDataSource>
 
-@property (nonatomic, strong) NSArray *imagesDictionaryArray;
+@property (nonatomic, strong) VKUser *currentUser;
 
 @property (nonatomic, strong) NSMutableArray *friendsArray;
 

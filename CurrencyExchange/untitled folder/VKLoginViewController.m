@@ -90,10 +90,10 @@
 
 #pragma mark - UIWebViewDelegete
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    
-    if ([[[request URL] description] rangeOfString:@"#access_token="].location != NSNotFound) {
-        
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    if ([[[request URL] description] rangeOfString:@"#access_token="].location != NSNotFound)
+    {
         VKAccessToken* token = [[VKAccessToken alloc] init];
         
         NSString* stringToParce = [[request URL] description];
@@ -140,9 +140,13 @@
         [self.navigationController popViewControllerAnimated:YES];
         return NO;
     }
+    else
+    {
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        //NSLog(@"%@",[request URL]);
+        return YES;
+    }
     
-    NSLog(@"%@",[request URL]);
-    return YES;
 }
 
 
