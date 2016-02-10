@@ -136,20 +136,20 @@
     [self.avarageCurrencyObjectsArray removeAllObjects];
     self.avarageCurrencyObjectsArray = [[self.fetching averageCurrencyRate]mutableCopy];
     NSMutableArray* array = [[NSMutableArray alloc]init];
-       if(self.avarageCurrencyObjectsArray.count > 35)
+    if(self.avarageCurrencyObjectsArray.count > 35)
     {
-                NSInteger difference = self.avarageCurrencyObjectsArray.count - 15;
+        NSInteger difference = self.avarageCurrencyObjectsArray.count - 15;
         for(NSInteger i = difference; i < self.avarageCurrencyObjectsArray.count; i++)
-            {
-                [array addObject:[self.avarageCurrencyObjectsArray objectAtIndex:i]];
-            }
-        
+        {
+            [array addObject:[self.avarageCurrencyObjectsArray objectAtIndex:i]];
         }
-            
-            self.drawer.avarageCurrencyObjectsArray = array;
-    [self.drawer setNeedsDisplay];
- }
-            
+         self.drawer.avarageCurrencyObjectsArray = array;
+    }
+    else
+         self.drawer.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
+  [self.drawer setNeedsDisplay];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
