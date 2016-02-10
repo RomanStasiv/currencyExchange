@@ -204,21 +204,8 @@ NSString* const JSONParseDidUpdatesCoreDataNotification = @"JSONParseDidUpdatedC
         {
             bankToUpdate = [self getBankByName:bankObject.bankName];
             
-            NSArray* tempArray = [self getBranchesByName:bankObject.bankName];
+            //NSArray* tempArray = [self getBranchesByName:bankObject.bankName];
             
-            for (BranchStorage* branchObject in tempArray)
-            {
-                if (![branchNamesArray containsObject:branchObject.name])
-                {
-                    BranchData* branchData = [NSEntityDescription insertNewObjectForEntityForName:@"BranchData" inManagedObjectContext:self.context];
-                    branchData.name = branchObject.name;
-                    branchData.region = branchObject.region;
-                    branchData.city = branchObject.city;
-                    branchData.address = branchObject.address;
-                    
-                    [bankToUpdate addBranchObject:branchData];
-                }
-            }
             
             CurrencyData* currencyData = [NSEntityDescription insertNewObjectForEntityForName:@"CurrencyData" inManagedObjectContext:self.context];
             currencyData.date = bankObject.bankDate;

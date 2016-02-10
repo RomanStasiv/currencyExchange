@@ -45,11 +45,11 @@
 
     self.workObject = [[JSONParseCoreDataSave alloc] init];
     //TestCoreData* testObject = [[TestCoreData alloc] init];
-    MetalJSONParse* tester = [[MetalJSONParse alloc]init];
+    //MetalJSONParse* tester = [[MetalJSONParse alloc]init];
     //[self.fetching arrayOfMetalForDrawing];
     self.EUROlabel.textColor = [UIColor darkGrayColor];
     //[self.workObject deleteAllObjectsFromCoreData];
-    //[self.workObject JSONParse];
+    [self.workObject JSONParse];
     //[self.workObject loadCoreDataObjects];
     //[tmp allBanksQuantity];
     //[testObject insertFakeDataToCoreData];
@@ -58,7 +58,7 @@
     
     self.drawer.backgroundColor = [UIColor clearColor];
     
-    self.m_Timer = [NSTimer scheduledTimerWithTimeInterval: 660.0
+    self.m_Timer = [NSTimer scheduledTimerWithTimeInterval: 300.0
                                                     target: self.workObject
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
