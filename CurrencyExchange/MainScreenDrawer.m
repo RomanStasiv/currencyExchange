@@ -122,7 +122,7 @@ CGPoint stopPoint = CGPointMake(40, self.bounds.origin.y + lightAxisInset);
                                @{NSFontAttributeName:
                                      [UIFont systemFontOfSize:10.0f]}];
     
-    CGRect dayInfoFrame = CGRectMake(self.frame.origin.x + offset,
+    CGRect dayInfoFrame = CGRectMake(self.frame.origin.x + offset-20,
                                      self.insetFrame.size.height + 17,
                                      dayInfoFrameSize.width,
                                      dayInfoFrameSize.height);
@@ -136,7 +136,7 @@ CGPoint stopPoint = CGPointMake(40, self.bounds.origin.y + lightAxisInset);
                                  @{NSFontAttributeName:
                                        [UIFont systemFontOfSize:10.0f]}];
     
-    CGRect monthInfoFrame = CGRectMake(self.frame.origin.x + offset,
+    CGRect monthInfoFrame = CGRectMake(self.frame.origin.x + offset-20,
                                        self.insetFrame.size.height + 17 + dayInfoFrameSize.height + 5,
                                        monthInfoFrameSize.width,
                                        monthInfoFrameSize.height);

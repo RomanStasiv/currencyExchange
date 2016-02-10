@@ -41,14 +41,14 @@
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
     self.drawer.avarageCurrencyObjectsArray = self.metalPricesArray;
     [self.drawer setNeedsDisplay];
-    NSInteger lastIndex = [self.metalPricesArray count];
+    //NSInteger lastIndex = [self.metalPricesArray count];
     [self selfUpdate: [UIColor yellowColor]  :[UIColor grayColor] :[UIColor clearColor]  :[UIColor clearColor]];
     [self.drawer setNeedsDisplay];
     
-    NSNumber *tmp = [[self.metalPricesArray objectAtIndex:lastIndex-1]USDask];
-    self.goldPrices.text = [self.formatter stringFromNumber:tmp];
-    NSNumber*tmpEuro = [[self.metalPricesArray objectAtIndex:lastIndex-1]EURask];
-    self.silverPrices.text = [self.formatter stringFromNumber:tmpEuro];
+    //NSNumber *tmp = [[self.metalPricesArray objectAtIndex:lastIndex-1]USDask];
+    self.goldPrices.text = @"1061.9";
+    //NSNumber*tmpEuro = [[self.metalPricesArray objectAtIndex:lastIndex-1]EURask];
+    self.silverPrices.text = @"13.68";
 
     self.formatter = [[NSNumberFormatter alloc] init];
     
@@ -91,21 +91,12 @@
 {
      self.drawer.contentMode = UIViewContentModeRedraw;
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (IBAction)segmentedControllerSelected:(UISegmentedControl *)sender
 {
