@@ -63,7 +63,8 @@
     static BOOL isOpened = NO;
     if (isOpened)
     {
-        self.PGModeVCWidthConstraint.constant = 0;
+        [self animateChangingOfConstraint:self.PGModeVCWidthConstraint
+                                  ToValue:0];
         isOpened = NO;
     }
     else
@@ -98,7 +99,6 @@
 - (void)setCurrentUserToPostedGoalsCVC
 {
     [self.spinner startAnimating];
-    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
     self.postedGoalsCVC.postPresentationMode = userContentMode;
     
@@ -109,7 +109,6 @@
          self.navigationItem.title = [NSString stringWithFormat:@"%@s goals",user.firstName];
          
          [self.spinner stopAnimating];
-         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
          
          [self.postedGoalsCVC.collectionView reloadData];
      }];
@@ -118,43 +117,53 @@
 - (void)setCurrentUserFriendsToPostedGoalsCVC
 {
     [self.spinner startAnimating];
-    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    
-    self.postedGoalsCVC.postPresentationMode = FriendsContentMode;
-    
-    VKServerManager *manager = [VKServerManager sharedManager];
-    NSArray *friends = manager.currentUser.friendsArray;
-    
+    self.navigationItem.title = [NSString stringWithFormat:@"friends goals"];
     self.postedGoalsCVC.friendsArray = [NSMutableArray array];
     
-    for (int i = 0; i < friends.count; i++)
-    {
-        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-
-        NSString *frienfID = ((VKFriend *)[friends objectAtIndex:i]).userId;
-        
-            [manager getUser:frienfID onSuccess:^(VKUser *user)
-             {
-                 [self.postedGoalsCVC.friendsArray addObject:user];
-                 self.navigationItem.title = [NSString stringWithFormat:@"friends goals"];
-                 
-                 [self.spinner stopAnimating];
-                 [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-                 
-                 [self.postedGoalsCVC.collectionView reloadData];
-                 
-                 dispatch_semaphore_signal(semaphore);
-             }
-                   onFailure:^(NSError *error, NSInteger statusCode)
-             {
-                 dispatch_semaphore_signal(semaphore);
-             }];
-        while (dispatch_semaphore_wait(semaphore, DISPATCH_TIME_NOW))
-        {
-            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-        }
-    }
+    self.postedGoalsCVC.postPresentationMode = FriendsContentMode;
+    [self.postedGoalsCVC.collectionView reloadData];
+    VKServerManager *manager = [VKServerManager sharedManager];
+    __block NSArray *friends = manager.currentUser.friendsArray;
+    __block PostedGoalsCollectionViewController *pGCVC = self.postedGoalsCVC;
+    dispatch_queue_t friendsQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);//dispatch_queue_create("FriendsGoalsQueue",NULL);
     
+    for (VKFriend *friend in friends)
+    {
+        dispatch_async(friendsQueue, ^
+        {
+            NSUInteger index = [friends indexOfObject:friend];
+            VKFriend *asynchFriend = [friends objectAtIndex:index];
+            
+            NSString *friendID = asynchFriend.userId;
+            [manager getPostedGoalsOfUserWithID:friendID OnSuccess:^(NSDictionary *responce)
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    for (VKFriend *f in friends)
+                    {
+                        if ([f.userId isEqual:[responce objectForKey:@"UID"]])
+                        {
+                            f.postedGoals = [responce objectForKey:@"imagesArray"];
+                            if (!pGCVC.friendsArray)
+                                pGCVC.friendsArray = [NSMutableArray array];
+                            if (f.postedGoals.count)
+                            {
+                                [pGCVC.friendsArray addObject:f];
+                                [pGCVC.collectionView reloadData];
+                                [self.spinner stopAnimating];
+                            }
+                        }
+                    }
+                });
+                
+            }
+                                      onFailure:^(NSError *error, NSInteger statusCode)
+            {
+                
+            }];
+            
+            
+        });
+    }
 }
 
 #pragma mark - PostedImageVCDelegate

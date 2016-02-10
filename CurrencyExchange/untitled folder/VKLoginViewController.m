@@ -142,7 +142,7 @@
     }
     else
     {
-        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        //[[UIApplication sharedApplication] endIgnoringInteractionEvents];
         //NSLog(@"%@",[request URL]);
         return YES;
     }
