@@ -44,7 +44,7 @@
     ((CustomNavigationController *)self.navigationController).canBeInLandscape = YES;
 
     self.workObject = [[JSONParseCoreDataSave alloc] init];
-    //TestCoreData* testObject = [[TestCoreData alloc] init];
+    TestCoreData* testObject = [[TestCoreData alloc] init];
     MetalJSONParse* tester = [[MetalJSONParse alloc]init];
     //[self.fetching arrayOfMetalForDrawing];
     self.EUROlabel.textColor = [UIColor darkGrayColor];
@@ -52,17 +52,18 @@
     //[self.workObject JSONParse];
     //[self.workObject loadCoreDataObjects];
     //[tmp allBanksQuantity];
-    //[testObject insertFakeDataToCoreData];
+    [testObject insertFakeDataToCoreData];
     //[tmp dataForTableView];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
     
     self.drawer.backgroundColor = [UIColor clearColor];
     
-    self.m_Timer = [NSTimer scheduledTimerWithTimeInterval: 660.0
+    /*self.m_Timer = [NSTimer scheduledTimerWithTimeInterval: 660.0
                                                     target: self.workObject
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
                                                    repeats: YES];
+     */
 //        dispatch_queue_t queueJsonMetal = dispatch_queue_create("Metal", DISPATCH_QUEUE_CONCURRENT);
 //        dispatch_async(queueJsonMetal, ^{
 //            [tester movementThroughUrls];
