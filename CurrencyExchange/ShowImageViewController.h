@@ -10,7 +10,6 @@
 
 @interface ShowImageViewController : UIViewController
 
-
 @property (strong, nonatomic) NSURL *imageUrl;
 
 @end

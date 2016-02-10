@@ -19,8 +19,10 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.imageView setImageWithURL:self.imageUrl];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
 }
 
 @end
