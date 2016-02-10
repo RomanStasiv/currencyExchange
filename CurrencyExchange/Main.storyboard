@@ -27,12 +27,12 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="PY8-U3-wiX"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="27"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="USDLet" translatesAutoresizingMaskIntoConstraints="NO" id="udG-o0-1g1">
-                                <rect key="frame" x="162" y="159" width="50" height="20"/>
+                                <rect key="frame" x="153" y="159" width="50" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="Pmk-1f-fhM"/>
                                     <constraint firstAttribute="width" constant="50" id="g0n-Bm-rQ5"/>
@@ -45,21 +45,21 @@
                                 </variation>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Euro" translatesAutoresizingMaskIntoConstraints="NO" id="go6-dS-t3t">
-                                <rect key="frame" x="20" y="68" width="134" height="67"/>
+                                <rect key="frame" x="20" y="68" width="125" height="67"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="134" id="5SF-eY-oKm"/>
+                                    <constraint firstAttribute="width" constant="125" id="5SF-eY-oKm"/>
                                     <constraint firstAttribute="height" constant="67" id="d7k-82-O4Z"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="USA" translatesAutoresizingMaskIntoConstraints="NO" id="uFg-KX-bdD">
-                                <rect key="frame" x="20" y="139" width="134" height="67"/>
+                                <rect key="frame" x="20" y="139" width="125" height="67"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="134" id="WsH-sg-GmM"/>
+                                    <constraint firstAttribute="width" constant="125" id="WsH-sg-GmM"/>
                                     <constraint firstAttribute="height" constant="67" id="zTf-cG-sAI"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" image="EUROlet" translatesAutoresizingMaskIntoConstraints="NO" id="Fwq-s0-6Aa">
-                                <rect key="frame" x="162" y="99" width="50" height="20"/>
+                                <rect key="frame" x="153" y="99" width="50" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="1fa-uw-wCk"/>
                                     <constraint firstAttribute="height" constant="20" id="nJO-2V-BKc"/>
@@ -137,7 +137,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="2At-KO-ehg"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="27"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
