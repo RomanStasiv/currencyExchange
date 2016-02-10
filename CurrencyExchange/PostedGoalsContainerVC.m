@@ -101,17 +101,26 @@
     [self.spinner startAnimating];
     
     self.postedGoalsCVC.postPresentationMode = userContentMode;
+    [self.postedGoalsCVC.collectionView reloadData];
     
     VKServerManager *manager = [VKServerManager sharedManager];
-    [manager authorizeUser:^(VKUser *user)
-     {
-         self.postedGoalsCVC.currentUser = user;
-         self.navigationItem.title = [NSString stringWithFormat:@"%@s goals",user.firstName];
-         
-         [self.spinner stopAnimating];
-         
-         [self.postedGoalsCVC.collectionView reloadData];
-     }];
+    dispatch_queue_t userQueue = dispatch_queue_create("FriendsGoalsQueue",NULL);
+    
+    dispatch_async(userQueue, ^
+    {
+        [manager authorizeUser:^(VKUser *user)
+         {
+             dispatch_sync(dispatch_get_main_queue(), ^
+            {
+             self.postedGoalsCVC.currentUser = user;
+             self.navigationItem.title = [NSString stringWithFormat:@"%@s goals",user.firstName];
+             
+             [self.spinner stopAnimating];
+             
+             [self.postedGoalsCVC.collectionView reloadData];
+            });
+         }];
+    });
 }
 
 - (void)setCurrentUserFriendsToPostedGoalsCVC
@@ -123,9 +132,9 @@
     self.postedGoalsCVC.postPresentationMode = FriendsContentMode;
     [self.postedGoalsCVC.collectionView reloadData];
     VKServerManager *manager = [VKServerManager sharedManager];
-    __block NSArray *friends = manager.currentUser.friendsArray;
+    NSArray *friends = manager.currentUser.friendsArray;
     __block PostedGoalsCollectionViewController *pGCVC = self.postedGoalsCVC;
-    dispatch_queue_t friendsQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);//dispatch_queue_create("FriendsGoalsQueue",NULL);
+    dispatch_queue_t friendsQueue = dispatch_queue_create("FriendsGoalsQueue",NULL);
     
     for (VKFriend *friend in friends)
     {
@@ -137,7 +146,8 @@
             NSString *friendID = asynchFriend.userId;
             [manager getPostedGoalsOfUserWithID:friendID OnSuccess:^(NSDictionary *responce)
             {
-                dispatch_async(dispatch_get_main_queue(), ^{
+                dispatch_sync(dispatch_get_main_queue(), ^
+                {
                     for (VKFriend *f in friends)
                     {
                         if ([f.userId isEqual:[responce objectForKey:@"UID"]])
