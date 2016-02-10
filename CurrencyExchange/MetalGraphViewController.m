@@ -50,7 +50,6 @@
     NSNumber*tmpEuro = [[self.metalPricesArray objectAtIndex:lastIndex-1]EURask];
     self.silverPrices.text = [self.formatter stringFromNumber:tmpEuro];
 
-    
     self.formatter = [[NSNumberFormatter alloc] init];
     
     [self.formatter setNumberStyle:NSNumberFormatterDecimalStyle];

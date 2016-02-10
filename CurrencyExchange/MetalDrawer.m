@@ -130,7 +130,7 @@
                                  @{NSFontAttributeName:
                                        [UIFont systemFontOfSize:10.0f]}];
     
-    CGRect monthInfoFrame = CGRectMake(self.frame.origin.x + offset-20,////
+    CGRect monthInfoFrame = CGRectMake(self.frame.origin.x + offset-30,////
                                        self.insetFrame.size.height + 17 + dayInfoFrameSize.height + 5,
                                        monthInfoFrameSize.width,
                                        monthInfoFrameSize.height);

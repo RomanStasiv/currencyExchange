@@ -62,7 +62,6 @@
                                                     target: self.workObject
                                                   selector: @selector(JSONParse)
                                                   userInfo: nil
-                    
                                                    repeats: YES];
 //        dispatch_queue_t queueJsonMetal = dispatch_queue_create("Metal", DISPATCH_QUEUE_CONCURRENT);
 //        dispatch_async(queueJsonMetal, ^{
