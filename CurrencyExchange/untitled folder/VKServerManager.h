@@ -18,10 +18,13 @@
 
 - (void) authorizeUser:(void(^)(VKUser* user)) completion;
 
-- (void) getUser:(NSString*) userID
+- (void)getPostedGoalsOfUserWithID:(NSString *)ID OnSuccess:(void(^)(NSDictionary *responce)) success
+                         onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure;
+
+/*- (void) getUser:(NSString*) userID
        onSuccess:(void(^)(VKUser* user)) success
        onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure;
-/*//call only in such order : getUser, getPostedGoals
+/*//*call only in such order : getUser, getPostedGoals
 - (void)getPostedGoalsOfCurrentUserOnSuccess:(void(^)(VKUser* user)) success
                                    onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure;*/
 

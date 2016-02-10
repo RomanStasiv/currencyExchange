@@ -14,6 +14,7 @@
 #import "UIImage+UIImageConcatenateCategory.h"
 
 #import "VKUser.h"
+#import "VKFriend.h"
 
 @implementation PostedGoalsCollectionViewController
 
@@ -43,9 +44,9 @@
                 break;
                 
             case FriendsContentMode:
-                [headerView.photoView setImageWithURL:((VKUser *)[self.friendsArray objectAtIndex:indexPath.section]).imageURL];
-                headerView.firstNameLabel.text = ((VKUser *)[self.friendsArray objectAtIndex:indexPath.section]).firstName;
-                headerView.secondNameLabel.text = ((VKUser *)[self.friendsArray objectAtIndex:indexPath.section]).lastName;
+                [headerView.photoView setImageWithURL:((VKFriend *)[self.friendsArray objectAtIndex:indexPath.section]).imageURL];
+                headerView.firstNameLabel.text = ((VKFriend *)[self.friendsArray objectAtIndex:indexPath.section]).firstName;
+                headerView.secondNameLabel.text = ((VKFriend *)[self.friendsArray objectAtIndex:indexPath.section]).lastName;
                 break;
                 
             default:
@@ -89,7 +90,7 @@
             break;
             
         case FriendsContentMode:
-            return ((VKUser *)[self.friendsArray objectAtIndex:section]).postedImages.count;
+            return ((VKFriend *)[self.friendsArray objectAtIndex:section]).postedGoals.count;
             break;
             
         default:
@@ -124,7 +125,7 @@
             
         case FriendsContentMode:
         {
-            NSDictionary *imageSet = [((VKUser *)[self.friendsArray objectAtIndex:indexPath.section]).postedImages objectAtIndex:indexPath.row];
+            NSDictionary *imageSet = [((VKFriend *)[self.friendsArray objectAtIndex:indexPath.section]).postedGoals objectAtIndex:indexPath.row];
             
             NSURL *url = [NSURL URLWithString:[imageSet objectForKey:@"src_big"]];
             
@@ -165,7 +166,7 @@
         case FriendsContentMode:
         {
             NSArray *postedImagesArray = [NSArray array];
-            postedImagesArray = ((VKUser *)[self.friendsArray objectAtIndex:indexPath.section]).postedImages;
+            postedImagesArray = ((VKFriend *)[self.friendsArray objectAtIndex:indexPath.section]).postedGoals;
             
             NSDictionary *imageSet = [postedImagesArray objectAtIndex:indexPath.row];
             NSURL *url;

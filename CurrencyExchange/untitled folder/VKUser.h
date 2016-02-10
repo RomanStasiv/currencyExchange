@@ -19,6 +19,6 @@
 
 @property (nonatomic, strong) NSMutableArray *friendsArray;
 
-@property (nonatomic, strong) NSMutableArray *postedImages;
+@property (nonatomic, strong) NSArray *postedImages;
 
 @end

@@ -397,14 +397,14 @@
 			children = (
 				6AA421EA1C66736C00F91BDB /* VKUser.h */,
 				6AA421EB1C66736C00F91BDB /* VKUser.m */,
+				6AA421E71C666E5B00F91BDB /* VKFriend.h */,
+				6AA421E81C666E5B00F91BDB /* VKFriend.m */,
 				6AA421AC1C666AA200F91BDB /* VKServerManager.h */,
 				6AA421AD1C666AA200F91BDB /* VKServerManager.m */,
 				6A7E68741C653B6C003E54BC /* VKLoginViewController.h */,
 				6A7E68751C653B6C003E54BC /* VKLoginViewController.m */,
 				6A7E68771C653CB3003E54BC /* VKAccessToken.h */,
 				6A7E68781C653CB3003E54BC /* VKAccessToken.m */,
-				6AA421E71C666E5B00F91BDB /* VKFriend.h */,
-				6AA421E81C666E5B00F91BDB /* VKFriend.m */,
 			);
 			name = vkOAuth;
 			sourceTree = "<group>";

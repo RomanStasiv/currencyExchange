@@ -120,9 +120,10 @@
              VKUser* user = [[VKUser alloc] initWithServerDictionary:[dictsArray firstObject]];
              
              self.currentUser = user;
-             [self getPostedGoalsOfUserWithID:userID OnSuccess:^(VKUser *user)
+             [self getPostedGoalsOfUserWithID:userID OnSuccess:^(NSDictionary *responce)
               {
-                  success(user);
+                  self.currentUser.postedImages = [responce objectForKey:@"imagesArray"];
+                  success (self.currentUser);
               }
                                               onFailure:^(NSError *error, NSInteger statusCode)
               {
@@ -149,7 +150,7 @@
      }];
 }
 
-- (void)getPostedGoalsOfUserWithID:(NSString *)ID OnSuccess:(void(^)(VKUser* user)) success
+- (void)getPostedGoalsOfUserWithID:(NSString *)ID OnSuccess:(void(^)(NSDictionary *responce)) success
                                    onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure
 {
     NSDictionary* params =
@@ -163,65 +164,75 @@
      parameters:params
      success:^(AFHTTPRequestOperation *operation, NSDictionary* responseObject)
      {
-         NSLog(@"JSON: %@", responseObject);
-         
-         if (![[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"response"] firstObject]] isEqualToString:@"0"] && [responseObject objectForKey:@"response"])
+         //NSLog(@"JSON: %@", responseObject);
+         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
          {
-             NSArray* dictsArray = [responseObject objectForKey:@"response"];
-             
-             if ([dictsArray count] > 0)
+             if (![[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"response"] firstObject]] isEqualToString:@"0"] && [responseObject objectForKey:@"response"])
              {
-                 for (int i = 1; i < dictsArray.count; i++)
+                 NSArray* dictsArray = [responseObject objectForKey:@"response"];
+                 
+                 NSMutableDictionary *responce = [[NSMutableDictionary alloc] init];
+                 
+                 NSMutableArray *imagesArray = [NSMutableArray array];
+                 
+                 NSString *UID;
+                 
+                 if ([dictsArray count] > 0)
                  {
-                     NSDictionary *post = [dictsArray objectAtIndex:i];
-                     
-                     NSString *text = [post objectForKey:@"text"];
-                     if ([text rangeOfString:@"#Earn#IOS#"].location != NSNotFound)
+                     for (int i = 1; i < dictsArray.count; i++)
                      {
-                         NSArray *wrapper = [post objectForKey:@"attachments"];
-                         NSDictionary *attachments = [wrapper firstObject];
+                         NSDictionary *post = [dictsArray objectAtIndex:i];
                          
-                         
-                         if (attachments)
+                         UID = [post objectForKey:@"from_id"];
+                         NSString *text = [post objectForKey:@"text"];
+                         if ([text rangeOfString:@"#Earn#IOS#"].location != NSNotFound)
                          {
-                             NSDictionary *photo = [attachments objectForKey:@"photo"];
-                             NSDictionary *photoUserDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                            [photo objectForKey:@"src_big"], @"src_big",
-                                                            [photo objectForKey:@"src_xbig"],  @"src_xbig", nil];
-                             if (!self.currentUser.postedImages)
-                                 self.currentUser.postedImages = [[NSMutableArray alloc] init];
-                             [self.currentUser.postedImages addObject:photoUserDict];
+                             NSArray *wrapper = [post objectForKey:@"attachments"];
+                             NSDictionary *attachments = [wrapper firstObject];
+                             
+                             
+                             if (attachments)
+                             {
+                                 NSDictionary *photo = [attachments objectForKey:@"photo"];
+                                 NSDictionary *responceDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                               [photo objectForKey:@"src_big"], @"src_big",
+                                                               [photo objectForKey:@"src_xbig"],  @"src_xbig", nil];
+                                 
+                                 [imagesArray addObject:responceDict];
+                                 
+                             }
                          }
+                         
+                         
                      }
                      
-                     
-                 }
-                 
-                 if (success)
-                 {
-                     success(self.currentUser);
+                     if (success)
+                     {
+                         [responce setValue:imagesArray forKey:@"imagesArray"];
+                         [responce setValue:UID forKey:@"UID"];
+                         success(responce);
+                     }
                  }
              }
-         }
-         else
-         {
-             if (failure)
+             else
              {
-                 failure(nil, operation.response.statusCode);
+                 if (failure)
+                 {
+                     failure(nil, operation.response.statusCode);
+                 }
              }
-         }
-         
+             
+         });
      }
      failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
-         NSLog(@"Error: %@", error);
-         
-         if (failure)
          {
-             failure(error, operation.response.statusCode);
-         }
-     }];
-
+             NSLog(@"Error: %@", error);
+             
+             if (failure)
+             {
+                 failure(error, operation.response.statusCode);
+             }
+         }];
 }
 
 
@@ -231,7 +242,7 @@
     NSDictionary* params =
     [NSDictionary dictionaryWithObjectsAndKeys:
      self.accessToken.userID,        @"user_id",
-     @"nickname",   @"fields",
+     @"photo_50",   @"fields",
      @"nom",        @"name_case", nil];
     
     [self.requestOperationManager

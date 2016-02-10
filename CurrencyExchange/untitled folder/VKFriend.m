@@ -19,6 +19,12 @@
         self.firstName = [dictionary objectForKey:@"first_name"];
         self.lastName = [dictionary objectForKey:@"last_name"];
         self.userId = [dictionary objectForKey:@"user_id"];
+        NSString* urlString = [dictionary objectForKey:@"photo_50"];
+        
+        if (urlString)
+        {
+            self.imageURL = [NSURL URLWithString:urlString];
+        }
     }
     
     return self;
@@ -29,7 +35,7 @@
     [aCoder encodeObject: self.userId forKey:@"userId"];
     [aCoder encodeObject: self.firstName forKey:@"firstName"];
     [aCoder encodeObject: self.lastName forKey:@"lastName"];
-    [aCoder encodeObject: self.userGoalImagesArray forKey:@"userGoalImagesArray"];
+    //[aCoder encodeObject: self.userGoalImagesArray forKey:@"userGoalImagesArray"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -39,7 +45,7 @@
         self.userId = [aDecoder decodeObjectForKey:@"userId"];
         self.firstName = [aDecoder decodeObjectForKey:@"firstName"];
         self.lastName = [aDecoder decodeObjectForKey:@"lastName"];
-        self.userGoalImagesArray = [aDecoder decodeObjectForKey:@"userGoalImagesArray"];
+        //self.userGoalImagesArray = [aDecoder decodeObjectForKey:@"userGoalImagesArray"];
     }
     return self;
 }
