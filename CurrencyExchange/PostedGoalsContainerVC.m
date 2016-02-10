@@ -15,9 +15,9 @@
 #import "VKUser.h"
 #import "VKFriend.h"
 
-
-
 @interface PostedGoalsContainerVC ()
+
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *PGModeVCWidthConstraint;
 @property (assign, nonatomic) PostPresentationContentMode mode;
@@ -33,6 +33,11 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
+    
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    
+    [self.postedGoalsCVC.view addSubview:self.spinner];
+    
     [self setCurrentUserToPostedGoalsCVC];
     [self addNavigationButtonItem];
 }
@@ -92,7 +97,9 @@
 
 - (void)setCurrentUserToPostedGoalsCVC
 {
-    //dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    [self.spinner startAnimating];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    
     self.postedGoalsCVC.postPresentationMode = userContentMode;
     
     VKServerManager *manager = [VKServerManager sharedManager];
@@ -100,20 +107,19 @@
      {
          self.postedGoalsCVC.currentUser = user;
          self.navigationItem.title = [NSString stringWithFormat:@"%@s goals",user.firstName];
+         
+         [self.spinner stopAnimating];
+         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+         
          [self.postedGoalsCVC.collectionView reloadData];
-         //[self.navigationController popViewControllerAnimated:YES];
-         /*[self.postedGoalsCVC.collectionView performBatchUpdates:^
-         {
-             [self.postedGoalsCVC.collectionView reloadData];
-         } completion:nil];*/
-         //dispatch_semaphore_signal(semaphore);
      }];
-    
-    //dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 }
 
 - (void)setCurrentUserFriendsToPostedGoalsCVC
 {
+    [self.spinner startAnimating];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    
     self.postedGoalsCVC.postPresentationMode = FriendsContentMode;
     
     VKServerManager *manager = [VKServerManager sharedManager];
@@ -131,13 +137,17 @@
              {
                  [self.postedGoalsCVC.friendsArray addObject:user];
                  self.navigationItem.title = [NSString stringWithFormat:@"friends goals"];
+                 
+                 [self.spinner stopAnimating];
+                 [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                 
                  [self.postedGoalsCVC.collectionView reloadData];
                  
                  dispatch_semaphore_signal(semaphore);
              }
                    onFailure:^(NSError *error, NSInteger statusCode)
              {
-                 
+                 dispatch_semaphore_signal(semaphore);
              }];
         while (dispatch_semaphore_wait(semaphore, DISPATCH_TIME_NOW))
         {
