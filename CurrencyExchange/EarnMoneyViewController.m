@@ -27,6 +27,9 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet EarnMoneyGraphView *graphView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *graphViewWidthConstraint;
+@property (strong, nonatomic) UIPinchGestureRecognizer *pinch;
+
 @property (weak, nonatomic) IBOutlet UIImageView *USDBidColorIndicator;
 @property (weak, nonatomic) IBOutlet UIImageView *USDAskColorIndicator;
 @property (weak, nonatomic) IBOutlet UIImageView *EURBidColorIndicator;
@@ -59,28 +62,6 @@
 
 
 @end
-/*
- static NSString* USDbid[] = {
- @"25", @"25.5", @"26", @"24", @"25",
- @"22", @"20", @"19", @"18", @"17",
- @"20", @"22", @"25", @"27", @"30"
- };
- static NSString* USDask[] = {
- @"26", @"27", @"28", @"25", @"26",
- @"23", @"21", @"20", @"19", @"18",
- @"22", @"23", @"26", @"28", @"31"
- };
- static NSString* EURbid[] = {
- @"26", @"28.5", @"29", @"28", @"27",
- @"25", @"27", @"30", @"33", @"33",
- @"33", @"31", @"31", @"32", @"30"
- 
- };
- static NSString* EURask[] = {
- @"27", @"29", @"30", @"30", @"29",
- @"27", @"27", @"33", @"35", @"35",
- @"35", @"33", @"33", @"34", @"32"
- };*/
 
 @implementation EarnMoneyViewController
 
@@ -89,7 +70,7 @@ static BOOL isAddCPVCOpened = NO;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width * 2, self.view.frame.size.height);
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(saveAllContolPointsToCD)
                                                  name:UIApplicationDidEnterBackgroundNotification
@@ -102,8 +83,8 @@ static BOOL isAddCPVCOpened = NO;
                                              selector:@selector(UpdateForNotification)
                                                  name:JSONParseDidUpdatesCoreDataNotification
                                                object:nil];
-    self.graphView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
+    
+    
     [super viewDidLoad];
     [self selfUpdate];
     ((CustomNavigationController *)self.navigationController).canBeInLandscape = YES;
@@ -150,8 +131,11 @@ static BOOL isAddCPVCOpened = NO;
 
 - (void)selfUpdate
 {
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
+    
     [self updateAverageCurrencyObjectsArray];
     [self prepareGraphView];
+    
     self.USDBidColor = [UIColor colorWithRed:0.9 green:0.11 blue:0.05 alpha:1];
     self.USDAskColor = [UIColor colorWithRed:0.85 green:0.39 blue:0.06 alpha:1];
     self.EURBidColor = [UIColor colorWithRed:0.09 green:0.41 blue:0.07 alpha:1];
@@ -171,6 +155,10 @@ static BOOL isAddCPVCOpened = NO;
     self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                               action:@selector(handlePan:)];
     [self.view addGestureRecognizer:self.panGesture];
+    
+    self.pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self
+                                                           action:@selector(handlePinch:)];
+    [self.view addGestureRecognizer:self.pinch];
 }
 
 - (void)performAddNavButtonsLogic
@@ -184,8 +172,11 @@ static BOOL isAddCPVCOpened = NO;
 
 - (void)prepareGraphView
 {
-    self.graphView.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
+    self.graphViewWidthConstraint.constant = self.view.frame.size.width;
+    self.graphView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
     self.graphView.contentMode = UIViewContentModeRedraw;
+    
+    self.graphView.avarageCurrencyObjectsArray = self.avarageCurrencyObjectsArray;
     [self restoreAllControlPointsFromCD];
 }
 
@@ -246,30 +237,10 @@ static BOOL isAddCPVCOpened = NO;
     }
 }
 
-
-
-/*- (NSArray *)avarageCurrencyObjectsArray
- {
- if (!_avarageCurrencyObjectsArray)
- {
- _avarageCurrencyObjectsArray = [[NSMutableArray alloc] init];
- for (int i = 0; i < 15; i++)
- {
- NSTimeInterval secondsPerDay = 24 * 60 * 60; // Интервал в 1 день равный 86 400 секунд
- NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:secondsPerDay * i];
- 
- AverageCurrency *object = [[AverageCurrency alloc] init];
- object.USDbid = [NSNumber numberWithFloat:[USDbid[i] floatValue]];
- object.USDask = [NSNumber numberWithFloat:[USDask[i] floatValue]];
- object.EURbid = [NSNumber numberWithFloat:[EURbid[i] floatValue]];
- object.EURask = [NSNumber numberWithFloat:[EURask[i] floatValue]];
- object.date = date;
- 
- [_avarageCurrencyObjectsArray addObject:object];
- }
- }
- return _avarageCurrencyObjectsArray;
- }*/
+- (void)handlePinch:(UIPinchGestureRecognizer *)pinch
+{
+    
+}
 
 - (void)setNeedsOfIndicator:(UIImageView *)colorIndicator WithColor:(UIColor *)color
 {
@@ -433,7 +404,11 @@ static BOOL isAddCPVCOpened = NO;
     
     UIBarButtonItem *goalsBarButton = [[UIBarButtonItem alloc] initWithCustomView:goalsButton];
     
-    self.navigationItem.rightBarButtonItems = @[addBarButton, shareBarButton, goalsBarButton];
+    
+    UIBarButtonItem *check = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(resize)];
+    
+    
+    self.navigationItem.rightBarButtonItems = @[addBarButton, shareBarButton, goalsBarButton, check];
     
     if (goals)
     {
@@ -446,6 +421,14 @@ static BOOL isAddCPVCOpened = NO;
         anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.5, 1.5, 1.0)];
         [goalsButton.layer addAnimation:anim forKey:nil];
     }
+}
+
+- (void)resize
+{
+    self.graphViewWidthConstraint.constant = self.graphViewWidthConstraint.constant *2;
+    [self.graphView setNeedsDisplay];
+    
+    self.scrollView.contentSize = CGSizeMake(self.graphViewWidthConstraint.constant, self.scrollView.frame.size.height);
 }
 
 #pragma mark - navigation
