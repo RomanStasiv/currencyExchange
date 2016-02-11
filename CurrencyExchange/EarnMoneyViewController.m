@@ -101,6 +101,7 @@ static BOOL isAddCPVCOpened = NO;
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     [self resizerTimeSliderLogic];
+    self.graphViewWidthConstraint.constant = self.view.frame.size.width;
 }
 
 - (void)resizerTimeSliderLogic
