@@ -47,12 +47,6 @@
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
 @property (weak, nonatomic) UIView *viewToMove;
 
-
-@property (weak, nonatomic) IBOutlet UISlider *timeSlider;
-@property (weak, nonatomic) IBOutlet UIView *timeSliderView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *timeSliderWidthConstraint;
-
-
 //resize logic
 @property (weak, nonatomic) AddControlPointToEarnMoneyViewController * addCPVC;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightConstraintAddCPContainer;
@@ -89,38 +83,11 @@ static BOOL isAddCPVCOpened = NO;
     [self selfUpdate];
     ((CustomNavigationController *)self.navigationController).canBeInLandscape = YES;
     
-    [self resizerTimeSliderLogic];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self resizerTimeSliderLogic];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    [self resizerTimeSliderLogic];
     self.graphViewWidthConstraint.constant = self.view.frame.size.width;
-}
-
-- (void)resizerTimeSliderLogic
-{
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    {
-        if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
-        {
-            self.timeSliderWidthConstraint.constant = self.view.frame.size.width - 152;
-        }
-        else
-        {
-            self.timeSliderWidthConstraint.constant = 340;
-        }
-    }
-    else
-    {
-        self.timeSliderWidthConstraint.constant = 340;
-    }
 }
 
 - (void)UpdateForNotification
@@ -195,14 +162,6 @@ static BOOL isAddCPVCOpened = NO;
     NSArray *resultArray = [self.avarageCurrencyObjectsArray subarrayWithRange:NSMakeRange(startIndex, newLen)];
     return resultArray;
 }
-- (IBAction)timeSliderValueDidChanged:(UISlider *)sender
-{
-    if (self.avarageCurrencyObjectsArray.count > 1)
-        self.timeSlider.minimumValue = self.avarageCurrencyObjectsArray.count / (self.avarageCurrencyObjectsArray.count * 10);
-    CGFloat value = sender.value;
-    self.avarageCurrencyObjectsArray = [[self shiftAvarageCurrencyArrayToTimeSliderValue:value] mutableCopy];
-    [self redrawGraphView];
-}
 
 - (void)redrawGraphView
 {
@@ -220,8 +179,6 @@ static BOOL isAddCPVCOpened = NO;
     {
         if(view.tag == 113 || view.tag == 114)
             self.viewToMove = view;
-        else if (view.tag == 4545)
-            self.viewToMove = self.timeSliderView;
         else
             return;
     }
@@ -240,7 +197,28 @@ static BOOL isAddCPVCOpened = NO;
 
 - (void)handlePinch:(UIPinchGestureRecognizer *)pinch
 {
-    
+    CGFloat scale;
+    if (pinch.state == UIGestureRecognizerStateBegan)
+    {
+        scale = 0;
+    }
+    else if (pinch.state == UIGestureRecognizerStateChanged)
+    {
+        if (self.graphView.segmentWidth <= self.view.frame.size.width / 10 || pinch.scale < 1)
+        {
+            scale = pinch.scale;
+            CGFloat xDiferance = self.graphView.frame.size.width * scale - self.graphView.frame.size.width;
+            if (scale < 1 && self.graphViewWidthConstraint.constant <= self.view.frame.size.width)
+            {
+                self.graphViewWidthConstraint.constant = self.view.frame.size.width;
+            }
+            else
+            {
+                self.graphViewWidthConstraint.constant += xDiferance;
+            }
+        }
+        pinch.scale = 1.0;
+    }
 }
 
 - (void)setNeedsOfIndicator:(UIImageView *)colorIndicator WithColor:(UIColor *)color
@@ -405,11 +383,7 @@ static BOOL isAddCPVCOpened = NO;
     
     UIBarButtonItem *goalsBarButton = [[UIBarButtonItem alloc] initWithCustomView:goalsButton];
     
-    
-    UIBarButtonItem *check = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(resize)];
-    
-    
-    self.navigationItem.rightBarButtonItems = @[addBarButton, shareBarButton, goalsBarButton, check];
+    self.navigationItem.rightBarButtonItems = @[addBarButton, shareBarButton, goalsBarButton];
     
     if (goals)
     {
@@ -422,14 +396,6 @@ static BOOL isAddCPVCOpened = NO;
         anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.5, 1.5, 1.0)];
         [goalsButton.layer addAnimation:anim forKey:nil];
     }
-}
-
-- (void)resize
-{
-    self.graphViewWidthConstraint.constant = self.graphViewWidthConstraint.constant *2;
-    [self.graphView setNeedsDisplay];
-    
-    self.scrollView.contentSize = CGSizeMake(self.graphViewWidthConstraint.constant, self.scrollView.frame.size.height);
 }
 
 #pragma mark - navigation
@@ -484,22 +450,6 @@ static BOOL isAddCPVCOpened = NO;
         ((CustomNavigationController *)self.navigationController).canBeInLandscape = YES;
     }
 }
-
-/*- (BOOL)shouldAutorotate
- {
- if (!self.canBeInLandscape)
- return NO;
- else
- return YES;
- }
- 
- - (UIInterfaceOrientationMask)supportedInterfaceOrientations
- {
- if (!self.canBeInLandscape)
- return UIInterfaceOrientationMaskPortrait;
- else
- return UIInterfaceOrientationMaskAll;
- }*/
 
 - (void)hideAddControlPointViewControllerWithComletionHandler:(void(^)())completion
 {
@@ -561,35 +511,29 @@ static BOOL isAddCPVCOpened = NO;
     return image;
 }
 
-- (void) sizeLabel: (UILabel *) label toRect: (CGRect) labelRect{
-    
-    // Set the frame of the label to the targeted rectangle
+- (void) sizeLabel: (UILabel *) label toRect: (CGRect) labelRect
+{
     label.frame = labelRect;
     
-    // Try all font sizes from largest to smallest font size
     int fontSize = 300;
     int minFontSize = 5;
     
-    // Fit label width wize
     CGSize constraintSize = CGSizeMake(label.frame.size.width, MAXFLOAT);
     
-    do {
-        // Set current font size
+    do
+    {
         label.font = [UIFont fontWithName:label.font.fontName size:fontSize];
         
-        // Find label size for current font size
         CGRect textRect = [[label text] boundingRectWithSize:constraintSize
                                                      options:NSStringDrawingUsesLineFragmentOrigin
                                                   attributes:@{NSFontAttributeName:label.font}
                                                      context:nil];
         
         CGSize labelSize = textRect.size;
-        
-        // Done, if created label is within target size
+
         if( labelSize.height <= label.frame.size.height )
             break;
-        
-        // Decrease the font size and try again
+
         fontSize -= 2;
         
     } while (fontSize > minFontSize);
@@ -607,7 +551,4 @@ static BOOL isAddCPVCOpened = NO;
         self.addCPVC = (AddControlPointToEarnMoneyViewController *)[segue destinationViewController];
     }
 }
-
-
-
 @end
