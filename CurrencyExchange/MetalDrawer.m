@@ -107,7 +107,7 @@
                                    yAxisFrameSize.height);
     UILabel *yAxisLabel = [[UILabel alloc] initWithFrame:yAxisFrame];
     yAxisLabel.font = [UIFont systemFontOfSize:9];
-    yAxisLabel.textColor = [UIColor blackColor];
+    yAxisLabel.textColor = [UIColor clearColor];
     yAxisLabel.text = @"USD";
     [self addSubview:yAxisLabel];
     
