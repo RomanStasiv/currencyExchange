@@ -64,7 +64,7 @@ static BOOL isAddCPVCOpened = NO;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(UpdateForNotification)
                                                  name:JSONParseDidUpdatesCoreDataNotification
@@ -77,7 +77,7 @@ static BOOL isAddCPVCOpened = NO;
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     self.graphViewWidthConstraint.constant = self.view.frame.size.width;
-    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.graphView.frame.size.height);
+    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.scrollView.frame.size.height);
 }
 
 - (void)UpdateForNotification
@@ -117,8 +117,6 @@ static BOOL isAddCPVCOpened = NO;
     self.pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self
                                                            action:@selector(handlePinch:)];
     [self.view addGestureRecognizer:self.pinch];
-    
-    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.graphView.frame.size.height);
 }
 
 - (void)performAddNavButtonsLogic
@@ -133,6 +131,8 @@ static BOOL isAddCPVCOpened = NO;
 - (void)prepareGraphView
 {
     self.graphViewWidthConstraint.constant = self.view.frame.size.width;
+    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.scrollView.frame.size.height);
+    
     self.graphView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
     self.graphView.contentMode = UIViewContentModeRedraw;
     
