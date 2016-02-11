@@ -69,9 +69,6 @@ static BOOL isAddCPVCOpened = NO;
                                              selector:@selector(UpdateForNotification)
                                                  name:JSONParseDidUpdatesCoreDataNotification
                                                object:nil];
-    
-    
-    [super viewDidLoad];
     [self selfUpdate];
     ((CustomNavigationController *)self.navigationController).canBeInLandscape = YES;
     
@@ -80,7 +77,7 @@ static BOOL isAddCPVCOpened = NO;
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     self.graphViewWidthConstraint.constant = self.view.frame.size.width;
-    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.scrollView.frame.size.height);
+    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.graphView.frame.size.height);
 }
 
 - (void)UpdateForNotification
@@ -121,7 +118,7 @@ static BOOL isAddCPVCOpened = NO;
                                                            action:@selector(handlePinch:)];
     [self.view addGestureRecognizer:self.pinch];
     
-    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.scrollView.frame.size.height);
+    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.graphView.frame.size.height);
 }
 
 - (void)performAddNavButtonsLogic

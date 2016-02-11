@@ -620,15 +620,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYf-hP-TMG">
-                                <rect key="frame" x="600" y="64" width="150" height="536"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="o7d-Bi-quF"/>
-                                </constraints>
-                                <connections>
-                                    <segue destination="Djq-LH-aUk" kind="embed" identifier="addCPVC_segue" id="yRA-1t-3nE"/>
-                                </connections>
-                            </containerView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FdU-28-SKw">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <subviews>
@@ -868,11 +859,13 @@
                                     <constraint firstItem="WMB-FN-6aU" firstAttribute="height" secondItem="FdU-28-SKw" secondAttribute="height" id="bph-1S-C8B"/>
                                     <constraint firstItem="WMB-FN-6aU" firstAttribute="height" secondItem="FdU-28-SKw" secondAttribute="height" id="cCM-Ak-PEq"/>
                                     <constraint firstItem="WMB-FN-6aU" firstAttribute="top" secondItem="FdU-28-SKw" secondAttribute="top" id="rdl-IG-iQP"/>
+                                    <constraint firstItem="WMB-FN-6aU" firstAttribute="height" secondItem="FdU-28-SKw" secondAttribute="height" id="uAk-3h-xYD"/>
                                     <constraint firstItem="WMB-FN-6aU" firstAttribute="top" secondItem="FdU-28-SKw" secondAttribute="top" id="uJY-k2-j5Z"/>
                                     <constraint firstItem="WMB-FN-6aU" firstAttribute="width" secondItem="FdU-28-SKw" secondAttribute="width" id="zKi-3e-BBT"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="55W-AU-Lo8"/>
                                         <exclude reference="bph-1S-C8B"/>
                                         <exclude reference="cCM-Ak-PEq"/>
                                         <exclude reference="rdl-IG-iQP"/>
@@ -880,14 +873,27 @@
                                     </mask>
                                 </variation>
                             </scrollView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYf-hP-TMG">
+                                <rect key="frame" x="600" y="64" width="150" height="536"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="o7d-Bi-quF"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="Djq-LH-aUk" kind="embed" identifier="addCPVC_segue" id="yRA-1t-3nE"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="WMB-FN-6aU" firstAttribute="height" secondItem="AzN-Cy-n4F" secondAttribute="height" id="4Ht-xo-j0i"/>
+                            <constraint firstItem="FdU-28-SKw" firstAttribute="top" secondItem="XHj-O7-QAg" secondAttribute="bottom" id="FRC-bs-jkr"/>
+                            <constraint firstItem="FdU-28-SKw" firstAttribute="leading" secondItem="AzN-Cy-n4F" secondAttribute="leading" id="Jyw-gC-AVe"/>
                             <constraint firstAttribute="trailing" secondItem="HYf-hP-TMG" secondAttribute="trailing" constant="-150" id="MFa-kO-gso"/>
                             <constraint firstItem="FdU-28-SKw" firstAttribute="top" secondItem="XHj-O7-QAg" secondAttribute="bottom" id="St7-Gd-LWS"/>
+                            <constraint firstAttribute="bottom" secondItem="FdU-28-SKw" secondAttribute="bottom" id="b8p-vK-8j2"/>
                             <constraint firstItem="FdU-28-SKw" firstAttribute="top" secondItem="XHj-O7-QAg" secondAttribute="bottom" id="eYx-09-1uA"/>
                             <constraint firstItem="nxr-9f-xkf" firstAttribute="top" secondItem="HYf-hP-TMG" secondAttribute="bottom" id="euB-5Y-7mB"/>
+                            <constraint firstAttribute="trailing" secondItem="FdU-28-SKw" secondAttribute="trailing" id="gmo-p7-Jsf"/>
                             <constraint firstAttribute="bottom" secondItem="FdU-28-SKw" secondAttribute="bottom" id="jkj-In-c7z"/>
                             <constraint firstAttribute="trailing" secondItem="FdU-28-SKw" secondAttribute="trailing" id="nAp-p5-Rys"/>
                             <constraint firstItem="FdU-28-SKw" firstAttribute="leading" secondItem="AzN-Cy-n4F" secondAttribute="leading" id="njp-jD-vxz"/>
@@ -897,6 +903,10 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="St7-Gd-LWS"/>
+                                <exclude reference="eYx-09-1uA"/>
+                                <exclude reference="jkj-In-c7z"/>
+                                <exclude reference="nAp-p5-Rys"/>
+                                <exclude reference="njp-jD-vxz"/>
                                 <exclude reference="4Ht-xo-j0i"/>
                                 <exclude reference="y9s-uP-Nek"/>
                             </mask>
