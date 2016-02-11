@@ -23,6 +23,12 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *stateOfsegmentedController;
 @property (strong, nonatomic) Fetcher* fetcher;
 @property (strong, nonatomic) NSNumberFormatter* formatter;
+@property (nonatomic, strong) UILabel *myLabel;
+
+
+@property (nonatomic, assign) double topAndRightMargin;
+@property (nonatomic, assign) CGRect insetFrame;
+@property (nonatomic, assign) CGFloat inset;
 
 @end
 
@@ -31,6 +37,40 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+//    self.topAndRightMargin = 20;
+//    self.inset = 50;
+//    double offset = 8;
+//    self.insetFrame = CGRectMake(self.drawer.bounds.origin.x + self.inset,
+//                                 self.drawer.bounds.origin.y,
+//                                 self.drawer.bounds.size.width - self.inset - self.topAndRightMargin,
+//                                 self.drawer.bounds.size.height - self.inset);
+//    
+//    CGRect labelFrame = CGRectMake(self.insetFrame.origin.x,
+//                                   offset,
+//                                   [@"EURO" sizeWithAttributes:
+//                                    @{NSFontAttributeName:
+//                                          [UIFont systemFontOfSize:10.0f]}].width,
+//                                   [@"EURO" sizeWithAttributes:
+//                                    @{NSFontAttributeName:
+//                                          [UIFont systemFontOfSize:10.0f]}].height);
+//
+//    //create the label
+//    self.myLabel = [[UILabel alloc] initWithFrame:labelFrame];
+//    //set the label text
+//    self.myLabel.text = @"EURO";
+//    //set the lable font
+//    self.myLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+//    //se the text alignment
+//    self.myLabel.textAlignment =  NSTextAlignmentCenter;
+//    //se the border color and width
+//    self.myLabel.layer.borderColor = [UIColor blackColor].CGColor;
+//    self.myLabel.layer.borderWidth = 1.0;
+//    //add the label to the view
+//    [self.view addSubview:self.myLabel];
+    
+    
+    
     // Do any additional setup after loading the view.
     self.fetcher = [[Fetcher alloc]init];
     if (!self.metalPricesArray)
