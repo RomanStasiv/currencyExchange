@@ -41,19 +41,21 @@
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
     self.drawer.avarageCurrencyObjectsArray = self.metalPricesArray;
     [self.drawer setNeedsDisplay];
-    //NSInteger lastIndex = [self.metalPricesArray count];
+    NSInteger lastIndex = [self.metalPricesArray count];
     [self selfUpdate: [UIColor yellowColor]  :[UIColor grayColor] :[UIColor clearColor]  :[UIColor clearColor]];
     [self.drawer setNeedsDisplay];
+    self.formatter = [[NSNumberFormatter alloc] init];
+    [self.formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [self.formatter setMaximumFractionDigits:2];
     
-    //NSNumber *tmp = [[self.metalPricesArray objectAtIndex:lastIndex-1]USDask];
-    self.goldPrices.text = @"1061.9";
-    //NSNumber*tmpEuro = [[self.metalPricesArray objectAtIndex:lastIndex-1]EURask];
-    self.silverPrices.text = @"13.68";
+    NSNumber *tmp = [[self.metalPricesArray objectAtIndex:lastIndex-1]USDask];
+    self.goldPrices.text = [self.formatter stringFromNumber:tmp];
+    NSNumber*tmpEuro = [[self.metalPricesArray objectAtIndex:lastIndex-1]EURask];
+    self.silverPrices.text = [self.formatter stringFromNumber:tmpEuro];
 
     self.formatter = [[NSNumberFormatter alloc] init];
     
-    [self.formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    [self.formatter setMaximumFractionDigits:2];
+   
 
     self.drawer.backgroundColor = [UIColor clearColor];
 }
@@ -95,11 +97,13 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
 - (IBAction)segmentedControllerSelected:(UISegmentedControl *)sender
 {
+    [self.formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [self.formatter setMaximumFractionDigits:2];
     NSInteger lastIndex = [self.metalPricesArray count];
     if(sender.selectedSegmentIndex == 0)
     {
