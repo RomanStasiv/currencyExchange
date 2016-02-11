@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface VKFriend : NSObject <NSCoding>
+@interface VKFriend : NSObject
 
 - (instancetype)initWithServerDictionary:(NSDictionary *)dictionary;
 

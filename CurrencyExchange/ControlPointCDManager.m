@@ -91,7 +91,7 @@
 - (NSArray *)getSortedArrayOfControlPointsFromCDAscending:(BOOL) ascending
 {
     ControlPointsCDSotrer *sorter = [[ControlPointsCDSotrer alloc] init];
-    NSArray *resultArray = [NSArray array];
+    NSArray *resultArray ;//= [NSArray array];
     resultArray = [sorter sort:[self getArrayOfControlPointsFromCD]
                      Ascending:ascending];
     return resultArray;

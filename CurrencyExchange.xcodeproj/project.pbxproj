@@ -69,7 +69,6 @@
 		6AA421E61C666B2A00F91BDB /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA421D51C666B2A00F91BDB /* UIWebView+AFNetworking.m */; };
 		6AA421E91C666E5B00F91BDB /* VKFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA421E81C666E5B00F91BDB /* VKFriend.m */; };
 		6AA421EC1C66736C00F91BDB /* VKUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA421EB1C66736C00F91BDB /* VKUser.m */; };
-		6AA459091C5D3A7900415698 /* EarnNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA459081C5D3A7900415698 /* EarnNotificationView.m */; };
 		9730E7961C5CD44A00C06195 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9730E7951C5CD44A00C06195 /* MapViewController.m */; };
 		973F19C71C6377E500E3EC1F /* BanksTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 973F19C61C6377E500E3EC1F /* BanksTVCell.m */; };
 		973F19F31C63982300E3EC1F /* Section.m in Sources */ = {isa = PBXBuildFile; fileRef = 973F19F21C63982300E3EC1F /* Section.m */; };
@@ -221,8 +220,6 @@
 		6AA421E81C666E5B00F91BDB /* VKFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKFriend.m; path = "untitled folder/VKFriend.m"; sourceTree = "<group>"; };
 		6AA421EA1C66736C00F91BDB /* VKUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKUser.h; path = "untitled folder/VKUser.h"; sourceTree = "<group>"; };
 		6AA421EB1C66736C00F91BDB /* VKUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKUser.m; path = "untitled folder/VKUser.m"; sourceTree = "<group>"; };
-		6AA459071C5D3A7900415698 /* EarnNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarnNotificationView.h; sourceTree = "<group>"; };
-		6AA459081C5D3A7900415698 /* EarnNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarnNotificationView.m; sourceTree = "<group>"; };
 		9730E7941C5CD44A00C06195 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		9730E7951C5CD44A00C06195 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		973F19C51C6377E500E3EC1F /* BanksTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BanksTVCell.h; sourceTree = "<group>"; };
@@ -380,8 +377,6 @@
 				6A193CF11C57C9E900093B36 /* ShareGoalsViewController.m */,
 				6A193CF31C57CF0500093B36 /* WebSharingViewController.h */,
 				6A193CF41C57CF0500093B36 /* WebSharingViewController.m */,
-				6AA459071C5D3A7900415698 /* EarnNotificationView.h */,
-				6AA459081C5D3A7900415698 /* EarnNotificationView.m */,
 			);
 			name = earn;
 			sourceTree = "<group>";
@@ -773,7 +768,6 @@
 				6AA421D81C666B2A00F91BDB /* AFHTTPSessionManager.m in Sources */,
 				EF06169A1C5B524C0097B505 /* BankData.m in Sources */,
 				401ED9751C5BE1F3006CFBBB /* AverageCurrency.m in Sources */,
-				6AA459091C5D3A7900415698 /* EarnNotificationView.m in Sources */,
 				97ED58621C5796BC004724A3 /* main.m in Sources */,
 				6AA421EC1C66736C00F91BDB /* VKUser.m in Sources */,
 				6AA421DD1C666B2A00F91BDB /* AFURLResponseSerialization.m in Sources */,

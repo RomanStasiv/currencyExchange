@@ -244,33 +244,12 @@
         {
             [path addLineToPoint:[[points objectAtIndex:i] CGPointValue]];
         }
-#warning HOW THIS SHOULD BE DONE?
-        /*[path addLineToPoint:[self getMidPointBetweenPointA:firstPoint
-         andB:[[points objectAtIndex:1] CGPointValue]]];
-         for (int i = 1; i < points.count; i++)
-         {
-         CGPoint midpoint = [self getMidPointBetweenPointA:[[points objectAtIndex:i] CGPointValue]
-         andB:[[points objectAtIndex:i+1] CGPointValue]];
-         [path addQuadCurveToPoint:midpoint
-         controlPoint:[[points objectAtIndex:i] CGPointValue]];
-         }
-         [path addLineToPoint:[[points lastObject] CGPointValue]];
-         }
-         else if (points.count == 2)
-         {
-         [path addLineToPoint:[self getMidPointBetweenPointA:firstPoint andB:[[points objectAtIndex:1] CGPointValue]]];
-         }*/
     }
     else
     {
         [path addLineToPoint:firstPoint];
     }
     [path stroke];
-}
-
-- (CGPoint) getMidPointBetweenPointA:(CGPoint)a andB:(CGPoint)b
-{
-    return CGPointMake((a.x + b.x)/2, (a.y + b.y)/2);
 }
 
 #pragma mark - Axis
@@ -435,7 +414,7 @@
     for (int i = 0; i < shrinkedDayArray.count; i++)
     {
         
-        CGRect monthFrame = CGRectMake(self.inset /*- size00.width/2*/ + ((size00.width + margin) * i),
+        CGRect monthFrame = CGRectMake(self.inset + ((size00.width + margin) * i),
                                        self.insetFrame.size.height + 15 + size00.height + heightMargin,
                                        size00.height,
                                        size00.width);
@@ -445,7 +424,7 @@
         monthLabel.font = [UIFont systemFontOfSize:11];
         monthLabel.text = [shrinkedMonthArray objectAtIndex:i];
         
-        CGRect dayFrame = CGRectMake(self.inset /*- size00.width/2*/ + ((size00.width + margin) * i),
+        CGRect dayFrame = CGRectMake(self.inset + ((size00.width + margin) * i),
                                      self.insetFrame.size.height + 15,
                                      size00.height,
                                      size00.width);

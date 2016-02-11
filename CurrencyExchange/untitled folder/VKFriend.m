@@ -30,24 +30,4 @@
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder
-{
-    [aCoder encodeObject: self.userId forKey:@"userId"];
-    [aCoder encodeObject: self.firstName forKey:@"firstName"];
-    [aCoder encodeObject: self.lastName forKey:@"lastName"];
-    //[aCoder encodeObject: self.userGoalImagesArray forKey:@"userGoalImagesArray"];
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    if (self = [super init])
-    {
-        self.userId = [aDecoder decodeObjectForKey:@"userId"];
-        self.firstName = [aDecoder decodeObjectForKey:@"firstName"];
-        self.lastName = [aDecoder decodeObjectForKey:@"lastName"];
-        //self.userGoalImagesArray = [aDecoder decodeObjectForKey:@"userGoalImagesArray"];
-    }
-    return self;
-}
-
 @end

@@ -26,7 +26,6 @@
     self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
 }
 
-// The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath;
 {
     UICollectionReusableView *reusableview = nil;
@@ -165,7 +164,7 @@
             
         case FriendsContentMode:
         {
-            NSArray *postedImagesArray = [NSArray array];
+            NSArray *postedImagesArray ;//= [NSArray array];
             postedImagesArray = ((VKFriend *)[self.friendsArray objectAtIndex:indexPath.section]).postedGoals;
             
             NSDictionary *imageSet = [postedImagesArray objectAtIndex:indexPath.row];

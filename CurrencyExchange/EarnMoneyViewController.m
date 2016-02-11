@@ -66,14 +66,6 @@ static BOOL isAddCPVCOpened = NO;
     [super viewDidLoad];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(saveAllContolPointsToCD)
-                                                 name:UIApplicationDidEnterBackgroundNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(saveAllContolPointsToCD)
-                                                 name:UIApplicationWillTerminateNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(UpdateForNotification)
                                                  name:JSONParseDidUpdatesCoreDataNotification
                                                object:nil];
@@ -127,6 +119,8 @@ static BOOL isAddCPVCOpened = NO;
     self.pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self
                                                            action:@selector(handlePinch:)];
     [self.view addGestureRecognizer:self.pinch];
+    
+    //self.scrollView.contentSize
 }
 
 - (void)performAddNavButtonsLogic
@@ -197,18 +191,12 @@ static BOOL isAddCPVCOpened = NO;
 
 - (void)handlePinch:(UIPinchGestureRecognizer *)pinch
 {
-    CGFloat scale;
-    if (pinch.state == UIGestureRecognizerStateBegan)
-    {
-        scale = 0;
-    }
-    else if (pinch.state == UIGestureRecognizerStateChanged)
+    if (pinch.state == UIGestureRecognizerStateChanged)
     {
         if (self.graphView.segmentWidth <= self.view.frame.size.width / 10 || pinch.scale < 1)
         {
-            scale = pinch.scale;
-            CGFloat xDiferance = self.graphView.frame.size.width * scale - self.graphView.frame.size.width;
-            if (scale < 1 && self.graphViewWidthConstraint.constant <= self.view.frame.size.width)
+            CGFloat xDiferance = self.graphView.frame.size.width * pinch.scale - self.graphView.frame.size.width;
+            if (pinch.scale < 1 && self.graphViewWidthConstraint.constant <= self.view.frame.size.width)
             {
                 self.graphViewWidthConstraint.constant = self.view.frame.size.width;
             }
@@ -301,21 +289,6 @@ static BOOL isAddCPVCOpened = NO;
 {
     ControlPointCDManager *pointManager = [[ControlPointCDManager alloc] init];
     [pointManager saveToCDControlPoint:point];
-}
-
-- (void)saveAllContolPointsToCD
-{
-    ControlPointCDManager *pointManager = [[ControlPointCDManager alloc] init];
-    NSArray *existingPoints = [NSArray array];
-    existingPoints = [pointManager getArrayOfControlPointsFromCD];
-    for (ControllPoint *existingPoint in existingPoints)
-    {
-        for (ControllPoint *point in self.arrayOfControlPoints)
-        {
-            if ([existingPoint.date compare: point.date] != NSOrderedSame)
-                [pointManager saveToCDControlPoint:point];
-        }
-    }
 }
 
 - (void)restoreAllControlPointsFromCD
@@ -497,11 +470,11 @@ static BOOL isAddCPVCOpened = NO;
     
     showOffLabel.transform = CGAffineTransformMakeRotation(RADIANS(330));
     
-    UIImage *image = [[UIImage alloc] init];
+    //UIImage *image = [[UIImage alloc] init];
     
     UIGraphicsBeginImageContextWithOptions(self.view.frame.size, NO, 1); //making image from view
     [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     
     UIGraphicsEndImageContext();
     

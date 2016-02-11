@@ -39,11 +39,6 @@
     [self.view addSubview:webView];
     self.webView = webView;
     
-    UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                                          target:self
-                                                                          action:@selector(actionCancel:)];
-    [self.navigationItem setRightBarButtonItem:item animated:NO];
-    
     self.navigationItem.title = @"Login";
     
     NSString* urlString =
@@ -65,27 +60,9 @@
     
 }
 
-- (void)didReceiveMemoryWarning
+- (void) dealloc
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void) dealloc {
     self.webView.delegate = nil;
-}
-
-#pragma mark - Actions
-
-- (void) actionCancel:(UIBarButtonItem*) item {
-    
-    if (self.completionBlock) {
-        self.completionBlock(nil);
-    }
-    
-    [self dismissViewControllerAnimated:YES
-                             completion:nil];
-    
 }
 
 #pragma mark - UIWebViewDelegete
@@ -142,8 +119,6 @@
     }
     else
     {
-        //[[UIApplication sharedApplication] endIgnoringInteractionEvents];
-        //NSLog(@"%@",[request URL]);
         return YES;
     }
     

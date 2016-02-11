@@ -140,16 +140,13 @@
     [fetchRequest setEntity:entity];
     [fetchRequest setFetchBatchSize:20];
     
-   /* NSPredicate *predicate = [NSPredicate predicateWithFormat:@"earningPosibility > 0"];
-    [fetchRequest setPredicate:predicate];*/
-    
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
     [fetchRequest setSortDescriptors:@[descriptor]];
     
     NSFetchedResultsController *aFetchedResultsController =
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:moc
-                                          sectionNameKeyPath:nil/*@"Control Points"*/
+                                          sectionNameKeyPath:nil
                                                    cacheName:nil];
     aFetchedResultsController.delegate = self;
     self.fetchResultController = aFetchedResultsController;
