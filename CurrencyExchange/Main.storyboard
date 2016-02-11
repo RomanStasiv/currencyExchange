@@ -303,12 +303,6 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sv5-UK-Ru0" customClass="MetalDrawer">
                                 <rect key="frame" x="20" y="204" width="569" height="389"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Udy-9L-qWY">
-                                        <rect key="frame" x="87" y="8" width="83" height="62"/>
-                                        <color key="backgroundColor" red="1" green="0.90168795619999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    </view>
-                                </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gold-ingots" translatesAutoresizingMaskIntoConstraints="NO" id="rYv-I7-GAQ">
@@ -366,7 +360,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="London Metal Exchange Current Data " id="Omi-nU-de1"/>
                     <connections>
-                        <outlet property="drawer" destination="sv5-UK-Ru0" id="dr8-ly-En9"/>
+                        <outlet property="drawer" destination="sv5-UK-Ru0" id="aX4-gL-onc"/>
                         <outlet property="goldPrices" destination="9sd-JX-buq" id="Dg2-w6-I9p"/>
                         <outlet property="silverPrices" destination="DJU-b2-8Nr" id="878-Ng-wuL"/>
                         <outlet property="stateOfsegmentedController" destination="EZV-g7-InJ" id="r0Q-PU-Wwv"/>
