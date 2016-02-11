@@ -50,41 +50,50 @@
 {
     VKLoginViewController* VKlvc = [[VKLoginViewController alloc] initWithCompletionBlock:^(VKAccessToken *token)
                                     {
-                                        self.accessToken = token;
-                                        
-                                        if (token)
-                                        {
-                                            [self getUser:self.accessToken.userID
-                                                onSuccess:^(VKUser *user)
-                                             {
-                                                 [self getFriendsOfCurrentUserOnSuccess:^(VKUser *user)
-                                                  {
-                                                      if (completion)
-                                                      {
-                                                          completion(user);
-                                                      }
-                                                      
-                                                  } onFailure:^(NSError *error, NSInteger statusCode)
-                                                  {
-                                                      
-                                                  }];
-                                                 
-                                             }
-                                                onFailure:^(NSError *error, NSInteger statusCode)
-                                             {
-                                                 if (completion)
-                                                 {
-                                                     completion(nil);
-                                                 }
-                                             }];
-                                            
-                                            
-                                            
-                                        }
-                                        else if (completion)
-                                        {
-                                            completion(nil);
-                                        }
+                                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+                                                       {
+                                                           self.accessToken = token;
+                                                           
+                                                           if (token)
+                                                           {
+                                                               [self getUser:self.accessToken.userID
+                                                                   onSuccess:^(VKUser *user)
+                                                                {
+                                                                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+                                                                    {
+                                                                    [self getFriendsOfCurrentUserOnSuccess:^(VKUser *user)
+                                                                     {
+                                                                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+                                                                         {
+                                                                         if (completion)
+                                                                         {
+                                                                             completion(user);
+                                                                         }
+                                                                         });
+                                                                         
+                                                                     } onFailure:^(NSError *error, NSInteger statusCode)
+                                                                     {
+                                                                         
+                                                                     }];
+                                                                     });
+                                                                    
+                                                                }
+                                                                   onFailure:^(NSError *error, NSInteger statusCode)
+                                                                {
+                                                                    if (completion)
+                                                                    {
+                                                                        completion(nil);
+                                                                    }
+                                                                }];
+                                                               
+                                                               
+                                                               
+                                                           }
+                                                           else if (completion)
+                                                           {
+                                                               completion(nil);
+                                                           }
+                                                       });
         
     }];
     
@@ -111,6 +120,8 @@
      parameters:params
      success:^(AFHTTPRequestOperation *operation, NSDictionary* responseObject)
      {
+         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+         {
          NSLog(@"JSON: %@", responseObject);
          
          NSArray* dictsArray = [responseObject objectForKey:@"response"];
@@ -120,9 +131,13 @@
              VKUser* user = [[VKUser alloc] initWithServerDictionary:[dictsArray firstObject]];
              
              self.currentUser = user;
-             [self getPostedGoalsOfUserWithID:userID OnSuccess:^(VKUser *user)
+             [self getPostedGoalsOfUserWithID:userID OnSuccess:^(NSDictionary *responce)
               {
-                  success(user);
+                  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+                  {
+                  self.currentUser.postedImages = [responce objectForKey:@"imagesArray"];
+                  success (self.currentUser);
+                  });
               }
                                               onFailure:^(NSError *error, NSInteger statusCode)
               {
@@ -136,7 +151,7 @@
                  failure(nil, operation.response.statusCode);
              }
          }
-         
+     });
      }
      failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
@@ -149,7 +164,7 @@
      }];
 }
 
-- (void)getPostedGoalsOfUserWithID:(NSString *)ID OnSuccess:(void(^)(VKUser* user)) success
+- (void)getPostedGoalsOfUserWithID:(NSString *)ID OnSuccess:(void(^)(NSDictionary *responce)) success
                                    onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure
 {
     NSDictionary* params =
@@ -163,65 +178,75 @@
      parameters:params
      success:^(AFHTTPRequestOperation *operation, NSDictionary* responseObject)
      {
-         NSLog(@"JSON: %@", responseObject);
-         
-         if (![[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"response"] firstObject]] isEqualToString:@"0"] && [responseObject objectForKey:@"response"])
+         //NSLog(@"JSON: %@", responseObject);
+         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
          {
-             NSArray* dictsArray = [responseObject objectForKey:@"response"];
-             
-             if ([dictsArray count] > 0)
+             if (![[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"response"] firstObject]] isEqualToString:@"0"] && [responseObject objectForKey:@"response"])
              {
-                 for (int i = 1; i < dictsArray.count; i++)
+                 NSArray* dictsArray = [responseObject objectForKey:@"response"];
+                 
+                 NSMutableDictionary *responce = [[NSMutableDictionary alloc] init];
+                 
+                 NSMutableArray *imagesArray = [NSMutableArray array];
+                 
+                 NSString *UID;
+                 
+                 if ([dictsArray count] > 0)
                  {
-                     NSDictionary *post = [dictsArray objectAtIndex:i];
-                     
-                     NSString *text = [post objectForKey:@"text"];
-                     if ([text rangeOfString:@"#Earn#IOS#"].location != NSNotFound)
+                     for (int i = 1; i < dictsArray.count; i++)
                      {
-                         NSArray *wrapper = [post objectForKey:@"attachments"];
-                         NSDictionary *attachments = [wrapper firstObject];
+                         NSDictionary *post = [dictsArray objectAtIndex:i];
                          
-                         
-                         if (attachments)
+                         UID = [post objectForKey:@"from_id"];
+                         NSString *text = [post objectForKey:@"text"];
+                         if ([text rangeOfString:@"#Earn#IOS#"].location != NSNotFound)
                          {
-                             NSDictionary *photo = [attachments objectForKey:@"photo"];
-                             NSDictionary *photoUserDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                            [photo objectForKey:@"src_big"], @"src_big",
-                                                            [photo objectForKey:@"src_xbig"],  @"src_xbig", nil];
-                             if (!self.currentUser.postedImages)
-                                 self.currentUser.postedImages = [[NSMutableArray alloc] init];
-                             [self.currentUser.postedImages addObject:photoUserDict];
+                             NSArray *wrapper = [post objectForKey:@"attachments"];
+                             NSDictionary *attachments = [wrapper firstObject];
+                             
+                             
+                             if (attachments)
+                             {
+                                 NSDictionary *photo = [attachments objectForKey:@"photo"];
+                                 NSDictionary *responceDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                               [photo objectForKey:@"src_big"], @"src_big",
+                                                               [photo objectForKey:@"src_xbig"],  @"src_xbig", nil];
+                                 
+                                 [imagesArray addObject:responceDict];
+                                 
+                             }
                          }
+                         
+                         
                      }
                      
-                     
-                 }
-                 
-                 if (success)
-                 {
-                     success(self.currentUser);
+                     if (success)
+                     {
+                         [responce setValue:imagesArray forKey:@"imagesArray"];
+                         [responce setValue:UID forKey:@"UID"];
+                         success(responce);
+                     }
                  }
              }
-         }
-         else
-         {
-             if (failure)
+             else
              {
-                 failure(nil, operation.response.statusCode);
+                 if (failure)
+                 {
+                     failure(nil, operation.response.statusCode);
+                 }
              }
-         }
-         
+             
+         });
      }
      failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
-         NSLog(@"Error: %@", error);
-         
-         if (failure)
          {
-             failure(error, operation.response.statusCode);
-         }
-     }];
-
+             NSLog(@"Error: %@", error);
+             
+             if (failure)
+             {
+                 failure(error, operation.response.statusCode);
+             }
+         }];
 }
 
 
@@ -231,14 +256,17 @@
     NSDictionary* params =
     [NSDictionary dictionaryWithObjectsAndKeys:
      self.accessToken.userID,        @"user_id",
-     @"nickname",   @"fields",
-     @"nom",        @"name_case", nil];
+     @"photo_50",   @"fields",
+     @"nom",        @"name_case",
+     @"en",         @"lang",      nil];
     
     [self.requestOperationManager
      GET:@"friends.get"
      parameters:params
      success:^(AFHTTPRequestOperation *operation, NSDictionary* responseObject)
      {
+         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+         {
          NSLog(@"JSON: %@", responseObject);
          
          NSArray* dictsArray = [responseObject objectForKey:@"response"];
@@ -267,7 +295,7 @@
                  failure(nil, operation.response.statusCode);
              }
          }
-         
+     });
      }
      failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
@@ -280,70 +308,5 @@
      }];
 
 }
-
-/*- (void)getPostedApplicationPhotoPostsForFriend:(VKFriend *)friend
-                                      onSuccess:(void(^)(NSArray *postsArray))success
-                                      onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure
-{
-    NSDictionary* params =
-    [NSDictionary dictionaryWithObjectsAndKeys:
-//     friend.userId, @"owner_id",
-//     @"Эпичный",  @"query",
-//     @"1",          @"owners_only",
-//     @"50",        @"count"    ,nil];
-     friend.userId, @"owner_id",
-      @"owner",  @"filter",
-      @"50",        @"count"    ,nil];
-    
-    [self.requestOperationManager
-     GET:@"wall.get"
-     parameters:params
-     success:^(AFHTTPRequestOperation *operation, NSDictionary* responseObject)
-     {
-         NSLog(@"JSON: %@", responseObject);
-         
-         if (![[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"response"] firstObject]] isEqualToString:@"0"] && [responseObject objectForKey:@"response"])
-         {
-             NSArray* dictsArray = [responseObject objectForKey:@"response"];
-             
-             if ([dictsArray count] > 0)
-             {
-                 for (NSDictionary *post in dictsArray)
-                 {
-                     NSString *text = [post objectForKey:@"text"];
-                     if ([text rangeOfString:@"#Earn#IOS#"].location != NSNotFound)
-                     {
-                         
-                     }
-                         
-                     
-                 }
-                 
-                 if (success)
-                 {
-                     //success(self.currentUser);
-                 }
-             }
-         }
-         else
-         {
-             if (failure)
-             {
-                 failure(nil, operation.response.statusCode);
-             }
-         }
-         
-     }
-     failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
-         NSLog(@"Error: %@", error);
-         
-         if (failure)
-         {
-             failure(error, operation.response.statusCode);
-         }
-     }];
-
-}*/
 
 @end
