@@ -104,10 +104,6 @@
     [self.postedGoalsCVC.collectionView reloadData];
     
     VKServerManager *manager = [VKServerManager sharedManager];
-    dispatch_queue_t userQueue = dispatch_queue_create("FriendsGoalsQueue",NULL);
-    
-    dispatch_async(userQueue, ^
-    {
         [manager authorizeUser:^(VKUser *user)
          {
              dispatch_sync(dispatch_get_main_queue(), ^
@@ -120,7 +116,6 @@
              [self.postedGoalsCVC.collectionView reloadData];
             });
          }];
-    });
 }
 
 - (void)setCurrentUserFriendsToPostedGoalsCVC
