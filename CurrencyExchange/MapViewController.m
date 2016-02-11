@@ -11,11 +11,15 @@
 #import "JSONParseCoreDataSave.h"
 #import "BranchData.h"
 
+#import "PieChartView.h"
+
 @interface MapViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) NSManagedObjectContext *context;
 @property (strong, nonatomic) __block NSMutableArray *locations;
 @property (strong, nonatomic) NSString *centralAdress;
+@property (strong, nonatomic) NSMutableArray *chartData;
+@property (strong, nonatomic) IBOutlet PieChartView *chartView;
 @end
 
 @implementation MapViewController
@@ -27,6 +31,7 @@
     self.mapView.delegate = self;
     
     [self fetchData:self.adresses];
+    self.chartView.backgroundColor = [UIColor clearColor];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -64,8 +69,10 @@
         self.locations = [NSJSONSerialization JSONObjectWithData:jsonData
                                                          options:NSJSONReadingMutableContainers
                                                            error:nil];
+    self.chartData = [[NSMutableArray alloc] init];
     if ([self.locations count])
     {
+        long banksLoaded = 0;
         for (NSDictionary *location in self.locations )
         {
             if ([adresses indexOfObject:[location valueForKey:@"adress"]] != NSNotFound)
@@ -73,7 +80,6 @@
                 MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
                 point.coordinate = CLLocationCoordinate2DMake([[[location valueForKey:@"location"] firstObject] doubleValue],
                                                               [[[location valueForKey:@"location"] lastObject] doubleValue]);
-                NSString *str = [self.bankNames objectAtIndex:[adresses indexOfObject:[location valueForKey:@"adress"]]];
                 point.title = [self.bankNames objectAtIndex:[adresses indexOfObject:[location valueForKey:@"adress"]]];
                 point.subtitle = [location valueForKey:@"adress"];
                 
@@ -91,16 +97,22 @@
                     [self.mapView setRegion:region animated: YES];
                     
                 }
-                
-                
+                [self.bankNames removeObjectAtIndex:[adresses indexOfObject:[location valueForKey:@"adress"]]];
                 [adresses removeObject:[location valueForKey:@"adress"]];
+                banksLoaded++;
             }
         }
+        [self.chartData addObject:[NSNumber numberWithLong:banksLoaded]];
     }
     else
     {
+        [self.chartData addObject:@0];
         self.locations = [[NSMutableArray alloc] init];
     }
+    [self.chartData addObject:@0];
+    [self.chartData addObject:[NSNumber numberWithLong:[adresses count]]];
+    [self.chartView updateWithArray:self.chartData
+                      segmentColors:[NSArray arrayWithObjects:[UIColor redColor], [UIColor blueColor], [UIColor clearColor], nil ]];
     if ( [adresses count] )
     {
         CLGeocoder *geocoder = [[CLGeocoder alloc] init];
@@ -114,7 +126,6 @@
 {
     __block NSNumber *index = indexTemp;
     __weak __block MapViewController * weakSelf = self;
-    NSLog(@"still alive, are we ?");
     [geocoder geocodeAddressString:[adresses objectAtIndex:[index integerValue]]
                  completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error)
      {
@@ -150,6 +161,15 @@
                      region.span.longitudeDelta = 0.2;
                      [weakSelf.mapView setRegion:region animated: YES];
                  }
+                 long loadedBanksCount = [[self.chartData objectAtIndex:1] longValue] + 1;
+                 long leftBanksCount = [[self.chartData objectAtIndex:2] longValue] - 1;
+                 [self.chartData removeObjectAtIndex:1];
+                 [self.chartData insertObject:[NSNumber numberWithLong:loadedBanksCount] atIndex:1];
+                 [self.chartData removeObjectAtIndex:2];
+                 [self.chartData insertObject:[NSNumber numberWithLong:leftBanksCount] atIndex:2];
+                 NSLog(@"chart data: %@", self.chartData);
+                 [self.chartView updateWithArray:self.chartData
+                                   segmentColors:[NSArray arrayWithObjects:[UIColor redColor], [UIColor blueColor], [UIColor clearColor], nil ]];
              }
          }
          else
@@ -168,6 +188,32 @@
          }
          
     }];
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    static NSString *SFAnnotationIdentifier = @"bankAnnotationView";
+    MKPinAnnotationView *pinView = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:SFAnnotationIdentifier];
+    if (!pinView)
+    {
+        MKAnnotationView *annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation
+                                                                         reuseIdentifier:SFAnnotationIdentifier];
+        annotationView.canShowCallout = YES;
+        UIImage *image = [UIImage imageNamed:@"bankPin.jpeg"];
+        
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(27, 40), NO, 0.0);
+        [image drawInRect:CGRectMake(0, 0, 27, 40)];
+        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        annotationView.image = newImage;
+        return annotationView;
+    }
+    else
+    {
+        pinView.annotation = annotation;
+    }
+    return pinView;
 }
 
 - (void)didReceiveMemoryWarning
