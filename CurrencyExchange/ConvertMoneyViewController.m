@@ -34,6 +34,7 @@
     self.fetcherObject = [[Fetcher alloc] init];
     self.averageCurrencyObject = [[AverageCurrency alloc] init];
     self.currencyTag = 1000;
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
 }
 
 - (BOOL) TextIsNumeric:(NSString *)text
