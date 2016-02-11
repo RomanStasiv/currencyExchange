@@ -48,20 +48,21 @@
 
 - (void) authorizeUser:(void(^)(VKUser* user)) completion
 {
+    __typeof(self) __weak weakSelf = self;
     VKLoginViewController* VKlvc = [[VKLoginViewController alloc] initWithCompletionBlock:^(VKAccessToken *token)
                                     {
                                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
                                                        {
-                                                           self.accessToken = token;
+                                                           weakSelf.accessToken = token;
                                                            
                                                            if (token)
                                                            {
-                                                               [self getUser:self.accessToken.userID
+                                                               [weakSelf getUser:weakSelf.accessToken.userID
                                                                    onSuccess:^(VKUser *user)
                                                                 {
                                                                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
                                                                     {
-                                                                    [self getFriendsOfCurrentUserOnSuccess:^(VKUser *user)
+                                                                    [weakSelf getFriendsOfCurrentUserOnSuccess:^(VKUser *user)
                                                                      {
                                                                          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
                                                                          {
@@ -115,6 +116,7 @@
      @"nom",        @"name_case",
      @"en",         @"lang", nil];
     
+    __typeof(self) __weak weakSelf = self;
     [self.requestOperationManager
      GET:@"users.get"
      parameters:params
@@ -129,13 +131,13 @@
          {
              VKUser* user = [[VKUser alloc] initWithServerDictionary:[dictsArray firstObject]];
              
-             self.currentUser = user;
-             [self getPostedGoalsOfUserWithID:userID OnSuccess:^(NSDictionary *responce)
+             weakSelf.currentUser = user;
+             [weakSelf getPostedGoalsOfUserWithID:userID OnSuccess:^(NSDictionary *responce)
               {
                   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
                   {
-                  self.currentUser.postedImages = [responce objectForKey:@"imagesArray"];
-                  success (self.currentUser);
+                  weakSelf.currentUser.postedImages = [responce objectForKey:@"imagesArray"];
+                  success (weakSelf.currentUser);
                   });
               }
                                               onFailure:^(NSError *error, NSInteger statusCode)
@@ -258,6 +260,7 @@
      @"nom",        @"name_case",
      @"en",         @"lang",      nil];
     
+    __typeof(self) __weak weakSelf = self;
     [self.requestOperationManager
      GET:@"friends.get"
      parameters:params
@@ -274,15 +277,15 @@
              {
                  VKFriend *friend = [[VKFriend alloc] initWithServerDictionary:dict];
                  
-                 if (!self.currentUser.friendsArray)
-                     self.currentUser.friendsArray = [NSMutableArray array];
-                 [self.currentUser.friendsArray addObject:friend];
+                 if (!weakSelf.currentUser.friendsArray)
+                     weakSelf.currentUser.friendsArray = [NSMutableArray array];
+                 [weakSelf.currentUser.friendsArray addObject:friend];
                  
              }
              
              if (success)
              {
-                 success(self.currentUser);
+                 success(weakSelf.currentUser);
              }
          }
          else

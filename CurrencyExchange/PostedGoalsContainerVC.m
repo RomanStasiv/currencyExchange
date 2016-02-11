@@ -90,9 +90,10 @@
     constraint.constant = value;
     [self.view setNeedsUpdateConstraints];
     
+    __typeof(self) __weak weakSelf = self;
     [UIView animateWithDuration:0.8f animations:^
      {
-         [self.view layoutIfNeeded];
+         [weakSelf.view layoutIfNeeded];
      }];
 }
 
@@ -103,17 +104,18 @@
     self.postedGoalsCVC.postPresentationMode = userContentMode;
     [self.postedGoalsCVC.collectionView reloadData];
     
+    __typeof(self) __weak weakSelf = self;
     VKServerManager *manager = [VKServerManager sharedManager];
         [manager authorizeUser:^(VKUser *user)
          {
              dispatch_sync(dispatch_get_main_queue(), ^
             {
-             self.postedGoalsCVC.currentUser = user;
-             self.navigationItem.title = [NSString stringWithFormat:@"%@s goals",user.firstName];
+             weakSelf.postedGoalsCVC.currentUser = user;
+             weakSelf.navigationItem.title = [NSString stringWithFormat:@"%@s goals",user.firstName];
              
-             [self.spinner stopAnimating];
+             [weakSelf.spinner stopAnimating];
              
-             [self.postedGoalsCVC.collectionView reloadData];
+             [weakSelf.postedGoalsCVC.collectionView reloadData];
             });
          }];
 }
@@ -131,6 +133,7 @@
     __block PostedGoalsCollectionViewController *pGCVC = self.postedGoalsCVC;
     dispatch_queue_t friendsQueue = dispatch_queue_create("FriendsGoalsQueue",NULL);
     
+    __typeof(self) __weak weakSelf = self;
     for (VKFriend *friend in friends)
     {
         dispatch_async(friendsQueue, ^
@@ -154,7 +157,7 @@
                             {
                                 [pGCVC.friendsArray addObject:f];
                                 [pGCVC.collectionView reloadData];
-                                [self.spinner stopAnimating];
+                                [weakSelf.spinner stopAnimating];
                             }
                         }
                     }
