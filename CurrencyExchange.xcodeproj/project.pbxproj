@@ -19,8 +19,8 @@
 		40C24E9C1C69D6E600FE0040 /* Prices.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C24E981C69D6E600FE0040 /* Prices.m */; };
 		40C24E9F1C69E3B100FE0040 /* StructuredMetalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C24E9E1C69E3B100FE0040 /* StructuredMetalData.m */; };
 		40C24EA71C6A2C3100FE0040 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40C24EA61C6A2C3100FE0040 /* Main.storyboard */; };
-		40C24EAA1C6A499A00FE0040 /* MetalDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C24EA91C6A499A00FE0040 /* MetalDrawer.m */; };
 		40C24EAD1C6A49D000FE0040 /* MetalGraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C24EAC1C6A49D000FE0040 /* MetalGraphViewController.m */; };
+		40C4FA091C6CD7F5003CDB34 /* MetalDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C4FA081C6CD7F5003CDB34 /* MetalDrawer.m */; };
 		6A193CEC1C57BD3800093B36 /* EarnMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CEB1C57BD3800093B36 /* EarnMoneyViewController.m */; };
 		6A193CEF1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CEE1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.m */; };
 		6A193CF21C57C9E900093B36 /* ShareGoalsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A193CF11C57C9E900093B36 /* ShareGoalsViewController.m */; };
@@ -117,10 +117,10 @@
 		40C24E9D1C69E3B100FE0040 /* StructuredMetalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StructuredMetalData.h; sourceTree = "<group>"; };
 		40C24E9E1C69E3B100FE0040 /* StructuredMetalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StructuredMetalData.m; sourceTree = "<group>"; };
 		40C24EA61C6A2C3100FE0040 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		40C24EA81C6A499A00FE0040 /* MetalDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetalDrawer.h; sourceTree = "<group>"; };
-		40C24EA91C6A499A00FE0040 /* MetalDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MetalDrawer.m; sourceTree = "<group>"; };
 		40C24EAB1C6A49D000FE0040 /* MetalGraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetalGraphViewController.h; sourceTree = "<group>"; };
 		40C24EAC1C6A49D000FE0040 /* MetalGraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MetalGraphViewController.m; sourceTree = "<group>"; };
+		40C4FA071C6CD7F5003CDB34 /* MetalDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MetalDrawer.h; path = ../MetalDrawer.h; sourceTree = "<group>"; };
+		40C4FA081C6CD7F5003CDB34 /* MetalDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MetalDrawer.m; path = ../MetalDrawer.m; sourceTree = "<group>"; };
 		6A193CEA1C57BD3800093B36 /* EarnMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarnMoneyViewController.h; sourceTree = "<group>"; };
 		6A193CEB1C57BD3800093B36 /* EarnMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarnMoneyViewController.m; sourceTree = "<group>"; };
 		6A193CED1C57C13E00093B36 /* AddControlPointToEarnMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddControlPointToEarnMoneyViewController.h; sourceTree = "<group>"; };
@@ -319,10 +319,10 @@
 		40C24EAE1C6A49EC00FE0040 /* LME */ = {
 			isa = PBXGroup;
 			children = (
+				40C4FA071C6CD7F5003CDB34 /* MetalDrawer.h */,
+				40C4FA081C6CD7F5003CDB34 /* MetalDrawer.m */,
 				40C24EAB1C6A49D000FE0040 /* MetalGraphViewController.h */,
 				40C24EAC1C6A49D000FE0040 /* MetalGraphViewController.m */,
-				40C24EA81C6A499A00FE0040 /* MetalDrawer.h */,
-				40C24EA91C6A499A00FE0040 /* MetalDrawer.m */,
 			);
 			name = LME;
 			sourceTree = "<group>";
@@ -749,6 +749,7 @@
 				6A7E68761C653B6C003E54BC /* VKLoginViewController.m in Sources */,
 				EF0616A01C5B524C0097B505 /* BranchData.m in Sources */,
 				6A8E90741C5BB8760069BABC /* ControlPointCDManager.m in Sources */,
+				40C4FA091C6CD7F5003CDB34 /* MetalDrawer.m in Sources */,
 				6AA421DA1C666B2A00F91BDB /* AFSecurityPolicy.m in Sources */,
 				EF0616991C5B524C0097B505 /* BankData+CoreDataProperties.m in Sources */,
 				979339E31C58D9A000A674D1 /* CurencyCourseGraph.m in Sources */,
@@ -756,7 +757,6 @@
 				6A1A15551C5AD6F9003A3044 /* Line.m in Sources */,
 				6A6781741C6A7667002C3B4F /* UIImage+UIImageConcatenateCategory.m in Sources */,
 				6AA421E91C666E5B00F91BDB /* VKFriend.m in Sources */,
-				40C24EAA1C6A499A00FE0040 /* MetalDrawer.m in Sources */,
 				6AA421E31C666B2A00F91BDB /* UIImageView+AFNetworking.m in Sources */,
 				EF900B061C64AC490097379C /* BranchStorage+CoreDataProperties.m in Sources */,
 				EF0320841C635D7B0032C699 /* BankInfo.m in Sources */,

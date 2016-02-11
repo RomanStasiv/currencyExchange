@@ -38,38 +38,6 @@
 {
     [super viewDidLoad];
     
-//    self.topAndRightMargin = 20;
-//    self.inset = 50;
-//    double offset = 8;
-//    self.insetFrame = CGRectMake(self.drawer.bounds.origin.x + self.inset,
-//                                 self.drawer.bounds.origin.y,
-//                                 self.drawer.bounds.size.width - self.inset - self.topAndRightMargin,
-//                                 self.drawer.bounds.size.height - self.inset);
-//    
-//    CGRect labelFrame = CGRectMake(self.insetFrame.origin.x,
-//                                   offset,
-//                                   [@"EURO" sizeWithAttributes:
-//                                    @{NSFontAttributeName:
-//                                          [UIFont systemFontOfSize:10.0f]}].width,
-//                                   [@"EURO" sizeWithAttributes:
-//                                    @{NSFontAttributeName:
-//                                          [UIFont systemFontOfSize:10.0f]}].height);
-//
-//    //create the label
-//    self.myLabel = [[UILabel alloc] initWithFrame:labelFrame];
-//    //set the label text
-//    self.myLabel.text = @"EURO";
-//    //set the lable font
-//    self.myLabel.font = [UIFont boldSystemFontOfSize:16.0f];
-//    //se the text alignment
-//    self.myLabel.textAlignment =  NSTextAlignmentCenter;
-//    //se the border color and width
-//    self.myLabel.layer.borderColor = [UIColor blackColor].CGColor;
-//    self.myLabel.layer.borderWidth = 1.0;
-//    //add the label to the view
-//    [self.view addSubview:self.myLabel];
-    
-    
     
     // Do any additional setup after loading the view.
     self.fetcher = [[Fetcher alloc]init];
@@ -80,9 +48,10 @@
     self.metalPricesArray = [[self.fetcher arrayOfMetalForDrawing]mutableCopy];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
     self.drawer.avarageCurrencyObjectsArray = self.metalPricesArray;
-    [self.drawer setNeedsDisplay];
+
     NSInteger lastIndex = [self.metalPricesArray count];
     [self selfUpdate: [UIColor yellowColor]  :[UIColor grayColor] :[UIColor clearColor]  :[UIColor clearColor]];
+    self.drawer.text = NO;
     [self.drawer setNeedsDisplay];
     self.formatter = [[NSNumberFormatter alloc] init];
     [self.formatter setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -147,6 +116,7 @@
     NSInteger lastIndex = [self.metalPricesArray count];
     if(sender.selectedSegmentIndex == 0)
     {
+        self.drawer.text = NO;
         [self selfUpdate: [UIColor yellowColor]  :[UIColor grayColor] :[UIColor clearColor]  :[UIColor clearColor]];
         [self.drawer setNeedsDisplay];
 
@@ -157,6 +127,8 @@
     }
     else if(sender.selectedSegmentIndex == 1)
     {
+        self.drawer.text = YES;
+
         [self selfUpdate: [UIColor clearColor]  :[UIColor clearColor] :[UIColor yellowColor]  :[UIColor grayColor]];
         [self.drawer setNeedsDisplay];
 
