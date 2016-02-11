@@ -25,6 +25,7 @@
 
 @interface EarnMoneyViewController ()
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet EarnMoneyGraphView *graphView;
 @property (weak, nonatomic) IBOutlet UIImageView *USDBidColorIndicator;
 @property (weak, nonatomic) IBOutlet UIImageView *USDAskColorIndicator;
@@ -87,6 +88,8 @@ static BOOL isAddCPVCOpened = NO;
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width * 2, self.view.frame.size.height);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(saveAllContolPointsToCD)
                                                  name:UIApplicationDidEnterBackgroundNotification
