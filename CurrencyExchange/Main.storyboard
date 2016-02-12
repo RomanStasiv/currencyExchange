@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="z7x-lm-5OT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="z7x-lm-5OT">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -250,7 +250,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="silver" translatesAutoresizingMaskIntoConstraints="NO" id="Bnh-5C-xNx">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="silber_barren_klein" translatesAutoresizingMaskIntoConstraints="NO" id="Bnh-5C-xNx">
                                 <rect key="frame" x="460" y="129" width="120" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="127" id="NXP-F3-U4n"/>
@@ -305,7 +305,7 @@
                                 <rect key="frame" x="20" y="204" width="569" height="389"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gold-ingots" translatesAutoresizingMaskIntoConstraints="NO" id="rYv-I7-GAQ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="goldbar" translatesAutoresizingMaskIntoConstraints="NO" id="rYv-I7-GAQ">
                                 <rect key="frame" x="20" y="129" width="120" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="5QK-FT-bfN"/>
@@ -1729,10 +1729,10 @@
         <image name="euro_sign" width="256" height="256"/>
         <image name="exchange" width="192" height="46"/>
         <image name="friends_share_icon" width="512" height="512"/>
-        <image name="gold-ingots" width="296" height="221"/>
+        <image name="goldbar" width="400" height="300"/>
         <image name="me_icon" width="256" height="256"/>
         <image name="save_button" width="100" height="100"/>
         <image name="share_icon" width="50" height="50"/>
-        <image name="silver" width="304" height="228"/>
+        <image name="silber_barren_klein" width="270" height="192"/>
     </resources>
 </document>

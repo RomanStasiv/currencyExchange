@@ -138,4 +138,6 @@
         self.silverPrices.text = [self.formatter stringFromNumber:tmpEuro];
     }
 }
+
+
 @end
