@@ -12,6 +12,8 @@
 #import "BanksTVCell.h"
 #import "Section.h"
 
+
+
 @interface BanksTableViewController ()
 
 @property (strong, nonatomic) NSMutableArray *BanksData;
@@ -58,6 +60,9 @@
     self.searchBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sunsat_patternColor"]];
     
     [self.tableView registerClass:[BanksTVCell class] forCellReuseIdentifier:@"banksCell"];
+    
+    
+    
 }
 
 -(NSMutableArray *) arraySortedInSections: (NSMutableArray *) banks
@@ -106,8 +111,6 @@
     }
     return sectionedBanks;
 }
-
-//-(NSArray)
 
 #pragma mark - Table view data source
 
@@ -193,6 +196,7 @@
     if ([searchText isEqualToString:@""])
     {
         self.BanksData = self.BanksDataUnfiltered;
+        [self.tableView reloadData];
     }
     else
     {
