@@ -41,7 +41,7 @@ CGPoint stopPoint = CGPointMake(40, self.bounds.origin.y + lightAxisInset);
     CGContextSetLineCap(ctx, kCGLineCapRound);
     CGContextSetLineJoin(ctx, kCGLineJoinRound);
     CGContextSetStrokeColorWithColor(ctx, [color CGColor]);
-    //CGContextSetFillColorWithColor(ctx, [color CGColor]);
+
     
     CGFloat sideLength = width;
     CGPoint FirstPoint = CGPointMake(b.x - sideLength, b.y - sideLength);

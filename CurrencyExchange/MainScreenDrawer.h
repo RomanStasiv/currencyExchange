@@ -13,6 +13,6 @@
 @interface MainScreenDrawer : GraphDrawer
 
 
-//- (void)drawXAxisFromPointA:(CGPoint)a ToPointB:(CGPoint)b WithWidth:(CGFloat)width Color:(UIColor *)color Dashed:(BOOL)dashed;
+
 
 @end

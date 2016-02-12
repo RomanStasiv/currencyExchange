@@ -88,15 +88,7 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
     NSError* requestError = nil;
     NSArray* resultArray = [self.context executeFetchRequest:request error:&requestError];
     
-    //    NSInteger qty = [resultArray count];
-    //
-    //    for(int i = 0; i < qty; i++)
-    //    {
-    //        NSString* tmp = [NSString stringWithString:((BankData *)resultArray[i]).name];
-    //        NSLog(@"%@", tmp);
-    //    }
-    
-    return resultArray;
+       return resultArray;
 }
 
 - (NSArray*) allBranchs
@@ -163,10 +155,6 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
         tmp.bankStreet = ((BankData *)resultArray[k]).address;
         tmp.bankCity = ((BankData *)resultArray[k]).city;
         tmp.bankRegion = ((BankData *)resultArray[k]).region ;
-        // tmp.bankAddress = [NSString stringWithFormat:@"%@, %@, %@", ((BankData *)resultArray[k]).address, ((BankData *)resultArray[k]).city, ((BankData *)resultArray[k]).region ];
-        //NSLog(@"%@", tmp.brankAddress);
-        
-        //NSLog(@"%@", tmp.bankName);
         
         NSMutableArray *arrayOfBranch = [[NSMutableArray alloc]init];
         
@@ -177,23 +165,15 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
             {
                 ReportDataForTable* branchs = [[ReportDataForTable alloc]init];
                 
-                //NSString* name = [NSString stringWithString:branch.name];
-                //NSString* address = [NSString stringWithFormat:@"%@, %@, %@", branch.address, branch.city, branch.region ];
-                // NSLog(@"%@", name);
                 branchs.bankName = branch.name;
                 branchs.bankStreet = branch.address;
                 branchs.bankRegion = branch.region;
                 branchs.bankCity = branch.city;
                 branchs.branchs = nil;
-                //                [branchs setObject:name forKey:@"name"];
-                //                [branchs setObject:branch.address forKey:@"address"];
-                //                [branchs setObject:branch.city forKey:@"city"];
-                //                [branchs setObject:branch.region forKey:@"region"];
                 [arrayOfBranch addObject:branchs];
             }
             
         }
-        //NSLog(@"%lu", (unsigned long)[branchs count]);
         
         tmp.branchs = arrayOfBranch;
         
@@ -209,7 +189,6 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
                 break;
             }
         }
-        // NSLog(@"%@, %lu, USD:%@, USD:%@, EURO:%@, EURO:%@", tmp.bankName, (unsigned long)[tmp.branchs count], tmp.usdCurrencyAsk, tmp.usdCurrencyBid, tmp.eurCurrencyAsk, tmp.eurCurrencyBid);
         [arrayForTableView addObject:tmp];
     }
     return arrayForTableView;
@@ -230,10 +209,7 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
 {
     AppDelegate * delegate = [AppDelegate singleton];
     self.context = delegate.managedObjectContext;
-   // NSLog(@"Qty of Currencies %lu", [[self sortedCurrency]count]/[self allBanksQuantity]);
-//   NSLog(@"Qty of Currencies %lu", [[self sortedCurrency]count]);
-//   NSLog(@"Qty of Banks %lu", [self allBanksQuantity]);
-//   NSLog(@"Qty of Currencies %lu", [[self sortedCurrency]count]/[self allBanksQuantity]);
+
     
     
     if(!self.averageRates)
@@ -271,20 +247,10 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
             resultEuroAsk = sumEuroAsk/self.qtyOfBanks;
             resultEuroBid = sumEuroBid/self.qtyOfBanks;
             
-            //            NSLog(@"%f", resultUSDAsk );
-            //            NSLog(@"%f", resultUSDBid );
-            //            NSLog(@"%f", resultEuroAsk );
-            //            NSLog(@"%f", resultEuroBid );
-            
             
             AverageCurrency * tmp = [[AverageCurrency alloc]init];
             
             tmp.date = [[arrayFromCoreData objectAtIndex:k] date];
-            //
-            //            NSDateFormatter *monhtFormater = [[NSDateFormatter alloc] init];
-            //            [monhtFormater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-            //            NSLog(@"Date:%@",[monhtFormater stringFromDate:tmp.date]);
-            //            NSLog(@"Date Origin:%@",[monhtFormater stringFromDate:[[arrayFromCoreData objectAtIndex:k] date]]);
             
             tmp.USDask  = [NSNumber numberWithFloat: resultUSDAsk];
             tmp.USDbid  = [NSNumber numberWithFloat: resultUSDBid];
@@ -299,7 +265,6 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
             
             [self.averageRates addObject:tmp];
         }
-       //[self print];
         
         NSDictionary* dictionary = [NSDictionary dictionaryWithObject:self.averageRates
                                                                forKey:CoreDataDidSavedUserInfoKey];
@@ -328,13 +293,6 @@ NSString* const CoreDataDidSavedUserInfoKey = @"CoreDataDidSavedUserInfoKey";
     NSError* requestError = nil;
     NSArray* resultArray = [self.context executeFetchRequest:request error:&requestError];
     
-    //    NSInteger qty = [resultArray count];
-    //
-    //    for(int i = 0; i < qty; i++)
-    //    {
-    //        NSString* tmp = [NSString stringWithString:((BankData *)resultArray[i]).name];
-    //        NSLog(@"%@", tmp);
-    //    }
     
     return [resultArray count];
 }

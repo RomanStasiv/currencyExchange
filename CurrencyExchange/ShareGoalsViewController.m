@@ -63,7 +63,7 @@ static NSString *seaguewID = @"shareSeague";
     [picker setSubject:@"I am the winner!"];
     
     // Set up the recipients.
-    NSString *adress = @"gmr@inbox.ru";
+    NSString *adress = @"akorkuna@gmail.com";
     NSArray *toRecipients = [[NSArray alloc]initWithObjects:adress, nil];
     
     NSArray *ccRecipients = [NSArray arrayWithObjects:@"second@example.com",
@@ -79,14 +79,6 @@ static NSString *seaguewID = @"shareSeague";
     UIImage *myImage = [UIImage imageNamed:@"filename.png"];
     NSData *imageData = UIImagePNGRepresentation(myImage);
     [picker addAttachmentData:imageData mimeType:@"image/png" fileName:@"Name"];
-    // Attach an image to the email.
-    //NSString *path = [[NSBundle mainBundle] pathForResource:@"ipodnano"
-    //                                                  ofType:@"png"];
-    // NSData *myData = [NSData dataWithContentsOfFile:path];
-    //[picker addAttachmentData:myData mimeType:@"image/png"
-    //                  fileName:@"ipodnano"];
-    
-    
     
     // Fill out the email body text.
     NSString *emailBody = @"I am the Winner!";
@@ -94,11 +86,10 @@ static NSString *seaguewID = @"shareSeague";
     [picker setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
     
     // Present the mail composition interface.
-    //[self presentViewController:picker animated:YES completion:nil];
     dispatch_async(dispatch_get_main_queue(), ^{[self.navigationController presentViewController:picker animated:YES completion:nil];});
     
     
-    //[self presentModalViewController:picker animated:YES];
+
 }
 
 // The mail compose view controller delegate method
