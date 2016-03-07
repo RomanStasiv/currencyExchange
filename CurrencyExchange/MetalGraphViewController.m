@@ -57,11 +57,13 @@
     [self.formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     [self.formatter setMaximumFractionDigits:2];
     
+    if(lastIndex>0)
+    {
     NSNumber *tmp = [[self.metalPricesArray objectAtIndex:lastIndex-1]USDask];
     self.goldPrices.text = [self.formatter stringFromNumber:tmp];
     NSNumber*tmpEuro = [[self.metalPricesArray objectAtIndex:lastIndex-1]EURask];
     self.silverPrices.text = [self.formatter stringFromNumber:tmpEuro];
-
+    }
     self.formatter = [[NSNumberFormatter alloc] init];
     
    
