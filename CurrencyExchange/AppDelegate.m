@@ -14,6 +14,8 @@
 
 @implementation AppDelegate
 
+
+
 + (instancetype)singleton
 {
     return (AppDelegate *)[[UIApplication sharedApplication] delegate];
